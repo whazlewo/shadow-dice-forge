@@ -1,11 +1,24 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Minus, Plus } from "lucide-react";
+import { AlertTriangle, Info, Minus, Plus } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { PRIORITY_TABLE, METATYPE_DATA, BASE_ATTRIBUTES, type PriorityLevel } from "@/data/sr6-reference";
 import type { WizardState } from "@/pages/CharacterWizard";
 import type { SR6Attributes } from "@/types/character";
+
+const ATTRIBUTE_DESCRIPTIONS: Record<string, string> = {
+  body: "Physical toughness, health, and resistance to damage.",
+  agility: "Fine motor skills, coordination, and physical precision.",
+  reaction: "Response time, reflexes, and ability to react quickly.",
+  strength: "Raw physical power and carrying capacity.",
+  willpower: "Mental resilience, discipline, and resistance to magic.",
+  logic: "Reasoning, memory, and analytical thinking.",
+  intuition: "Gut feelings, perception, and awareness.",
+  charisma: "Force of personality, social influence, and leadership.",
+  edge: "Luck, narrative favor, and the X-factor.",
+};
 
 
 interface Props {
@@ -126,6 +139,7 @@ export default function Step3Attributes({ state, onChange }: Props) {
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-0">
+          <TooltipProvider delayDuration={200}>
           <Table>
             <TableHeader>
               <TableRow className="border-border/30 hover:bg-transparent">
@@ -140,7 +154,16 @@ export default function Step3Attributes({ state, onChange }: Props) {
             <TableBody>
               {summaryRows.map((row) => (
                 <TableRow key={row.name} className="border-border/20 hover:bg-muted/30">
-                  <TableCell className="py-1.5 px-2 font-display text-sm capitalize tracking-wide">{row.name}</TableCell>
+                  <TableCell className="py-1.5 px-2 font-display text-sm capitalize tracking-wide">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex items-center gap-1 cursor-help">
+                          {row.name} <Info className="h-3 w-3 text-muted-foreground" />
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">{ATTRIBUTE_DESCRIPTIONS[row.name]}</TooltipContent>
+                    </Tooltip>
+                  </TableCell>
                   <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-muted-foreground">{row.base}</TableCell>
                   <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-cyan-400">
                     {row.adj > 0 ? `+${row.adj}` : "—"}
@@ -154,7 +177,16 @@ export default function Step3Attributes({ state, onChange }: Props) {
               ))}
               {/* Edge row */}
               <TableRow className="border-border/20 border-t border-border/40 hover:bg-muted/30">
-                <TableCell className="py-1.5 px-2 font-display text-sm tracking-wide">Edge</TableCell>
+                <TableCell className="py-1.5 px-2 font-display text-sm tracking-wide">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="inline-flex items-center gap-1 cursor-help">
+                        Edge <Info className="h-3 w-3 text-muted-foreground" />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">{ATTRIBUTE_DESCRIPTIONS.edge}</TooltipContent>
+                  </Tooltip>
+                </TableCell>
                 <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-muted-foreground">1</TableCell>
                 <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-cyan-400">
                   {edgeAdj > 0 ? `+${edgeAdj}` : "—"}
@@ -165,6 +197,7 @@ export default function Step3Attributes({ state, onChange }: Props) {
               </TableRow>
             </TableBody>
           </Table>
+          </TooltipProvider>
         </CardContent>
       </Card>
     </div>

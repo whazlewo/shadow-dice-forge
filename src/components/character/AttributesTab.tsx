@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 import type { SR6Attributes } from "@/types/character";
 import { useMemo } from "react";
 
@@ -79,9 +81,19 @@ function EditableRow({ field, value, onChange }: { field: AttrField; value: any;
 
 function DerivedRow({ stat }: { stat: DerivedStat }) {
   return (
-    <div className="flex items-center gap-2 border-b border-border/30 py-1" title={stat.tooltip}>
-      <Label className="font-display text-xs tracking-wide text-muted-foreground text-right min-w-[110px] shrink-0">
+    <div className="flex items-center gap-2 border-b border-border/30 py-1">
+      <Label className="font-display text-xs tracking-wide text-muted-foreground text-right min-w-[110px] shrink-0 flex items-center justify-end gap-1">
         {stat.label}
+        {stat.tooltip && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Info className="h-3 w-3 text-muted-foreground/60 cursor-help shrink-0" />
+            </TooltipTrigger>
+            <TooltipContent side="left" className="font-mono text-xs">
+              {stat.tooltip}
+            </TooltipContent>
+          </Tooltip>
+        )}
       </Label>
       <span className="font-mono text-sm h-8 flex items-center px-1 text-foreground">
         {stat.value}

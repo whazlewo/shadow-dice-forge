@@ -170,7 +170,7 @@ export const SKILL_SPECIALIZATIONS: Record<string, string[]> = {
   Enchanting: ["Alchemy", "Artificing", "Disenchanting"],
   Engineering: ["Aeronautics Mechanic", "Automotive Mechanic", "Demolitions", "Gunnery", "Industrial Mechanic", "Lockpicking", "Nautical Mechanic"],
   "Exotic Weapons": ["Lasers", "Flamethrowers", "Monofilament Whip", "Gyrojet Pistol", "Net Gun", "Bola", "Garrote"],
-  Firearms: ["Automatics", "Longarms", "Pistols", "Rifles", "Shotguns"],
+  Firearms: ["Tasers", "Hold-Outs", "Light Pistols", "Machine Pistols", "Heavy Pistols", "Submachine Guns", "Shotguns", "Rifles", "Machine Guns", "Assault Cannons"],
   Influence: ["Etiquette", "Instruction", "Intimidation", "Leadership", "Negotiation"],
   Outdoors: ["Navigation", "Survival", "Tracking"],
   Perception: ["Visual", "Aural", "Tactile"],

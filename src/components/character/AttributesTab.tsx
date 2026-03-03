@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
-import type { SR6Attributes } from "@/types/character";
+import type { SR6Attributes, AttributeSources, SR6Augmentation, SR6Gear, DiceModifier } from "@/types/character";
 import { useMemo } from "react";
 
 type AttrField = { key: keyof SR6Attributes; label: string; type?: string };
@@ -55,17 +55,91 @@ function computeDerived(a: SR6Attributes): DerivedStat[] {
   ];
 }
 
+function getGearModifiers(key: string, augmentations: SR6Augmentation[], gear: SR6Gear[]): { source: string; value: number }[] {
+  const mods: { source: string; value: number }[] = [];
+  const scanMods = (items: { name: string; dice_modifiers?: DiceModifier[] }[]) => {
+    for (const item of items) {
+      if (item.dice_modifiers) {
+        for (const dm of item.dice_modifiers) {
+          if (dm.attribute === key) {
+            mods.push({ source: item.name, value: dm.value });
+          }
+        }
+      }
+    }
+  };
+  scanMods(augmentations);
+  scanMods(gear);
+  return mods;
+}
+
+function buildAttrTooltip(
+  key: keyof SR6Attributes,
+  value: any,
+  sources?: AttributeSources,
+  augmentations?: SR6Augmentation[],
+  gear?: SR6Gear[],
+): string {
+  const gearMods = getGearModifiers(key, augmentations || [], gear || []);
+  const src = sources?.[key as keyof typeof sources];
+
+  if (!src) {
+    const lines = [`Total: ${value}`];
+    gearMods.forEach((m) => lines.push(`${m.source}: ${m.value > 0 ? "+" : ""}${m.value}`));
+    return lines.join("\n");
+  }
+
+  const lines: string[] = [];
+  if (key === "essence") {
+    lines.push(`Base: ${src.base}`);
+    // Essence loss shown as difference
+    const loss = src.base - (typeof value === "number" ? value : 6);
+    if (loss > 0) lines.push(`Augmentations: -${loss.toFixed(1)}`);
+  } else {
+    lines.push(`Base: ${src.base}`);
+    if (src.adjustment) lines.push(`Metatype Adj: +${src.adjustment}`);
+    if (src.attribute_points) lines.push(`Attr Points: +${src.attribute_points}`);
+    if (src.karma) lines.push(`Karma: +${src.karma}`);
+  }
+  gearMods.forEach((m) => lines.push(`${m.source}: ${m.value > 0 ? "+" : ""}${m.value}`));
+  lines.push(`Total: ${value}`);
+  return lines.join("\n");
+}
+
 interface Props {
   attributes: SR6Attributes;
+  attributeSources?: AttributeSources;
+  augmentations?: SR6Augmentation[];
+  gear?: SR6Gear[];
   onUpdate: (attrs: SR6Attributes) => void;
 }
 
-function EditableRow({ field, value, onChange }: { field: AttrField; value: any; onChange: (key: keyof SR6Attributes, val: string) => void }) {
+function EditableRow({
+  field,
+  value,
+  tooltipText,
+  onChange,
+}: {
+  field: AttrField;
+  value: any;
+  tooltipText?: string;
+  onChange: (key: keyof SR6Attributes, val: string) => void;
+}) {
   const isText = field.type === "text";
   return (
     <div className="flex items-center gap-2 border-b border-border/30 py-1">
-      <Label className="font-display text-xs tracking-wide text-muted-foreground text-right min-w-[110px] shrink-0">
+      <Label className="font-display text-xs tracking-wide text-muted-foreground text-right min-w-[110px] shrink-0 flex items-center justify-end gap-1">
         {field.label}
+        {tooltipText && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Info className="h-3 w-3 text-muted-foreground/60 cursor-help shrink-0" />
+            </TooltipTrigger>
+            <TooltipContent side="left" className="font-mono text-xs whitespace-pre-line">
+              {tooltipText}
+            </TooltipContent>
+          </Tooltip>
+        )}
       </Label>
       <Input
         type={isText ? "text" : "number"}
@@ -102,7 +176,7 @@ function DerivedRow({ stat }: { stat: DerivedStat }) {
   );
 }
 
-export function AttributesTab({ attributes, onUpdate }: Props) {
+export function AttributesTab({ attributes, attributeSources, augmentations, gear, onUpdate }: Props) {
   const derived = useMemo(() => computeDerived(attributes), [attributes]);
 
   const handleChange = (key: keyof SR6Attributes, value: string) => {
@@ -125,12 +199,24 @@ export function AttributesTab({ attributes, onUpdate }: Props) {
         <div className="grid grid-cols-2 gap-x-8">
           <div>
             {LEFT_COLUMN.map((field) => (
-              <EditableRow key={field.key} field={field} value={attributes[field.key]} onChange={handleChange} />
+              <EditableRow
+                key={field.key}
+                field={field}
+                value={attributes[field.key]}
+                tooltipText={buildAttrTooltip(field.key, attributes[field.key], attributeSources, augmentations, gear)}
+                onChange={handleChange}
+              />
             ))}
           </div>
           <div>
             {RIGHT_EDITABLE.map((field) => (
-              <EditableRow key={field.key} field={field} value={attributes[field.key]} onChange={handleChange} />
+              <EditableRow
+                key={field.key}
+                field={field}
+                value={attributes[field.key]}
+                tooltipText={buildAttrTooltip(field.key, attributes[field.key], attributeSources, augmentations, gear)}
+                onChange={handleChange}
+              />
             ))}
             {derived.map((stat) => (
               <DerivedRow key={stat.label} stat={stat} />

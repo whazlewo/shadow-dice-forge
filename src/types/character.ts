@@ -1,5 +1,14 @@
 // SR6 Character types
 
+export interface AttributeSource {
+  base: number;
+  adjustment: number;
+  attribute_points: number;
+  karma: number;
+}
+
+export type AttributeSources = Partial<Record<keyof SR6CoreAttributes, AttributeSource>>;
+
 export interface SR6CoreAttributes {
   body: number;
   agility: number;

@@ -23,7 +23,7 @@ import Step3Qualities from "@/components/wizard/Step3Qualities";
 import Step4Karma from "@/components/wizard/Step4Karma";
 import Step5Gear from "@/components/wizard/Step5Gear";
 import { PRIORITY_TABLE, type PriorityLevel } from "@/data/sr6-reference";
-import { SR6_CORE_SKILLS, type SR6Attributes, type SR6Skill, type WizardQuality, type WizardGearItem, type WizardRangedWeapon, type WizardMeleeWeapon, type WizardArmor as WizardArmorType, type WizardAugmentation, type WizardVehicle, type WizardElectronics, type WizardMiscGear } from "@/types/character";
+import { SR6_CORE_SKILLS, type SR6Attributes, type SR6Skill, type WizardQuality, type WizardGearItem, type WizardRangedWeapon, type WizardMeleeWeapon, type WizardArmor as WizardArmorType, type WizardAugmentation, type WizardVehicle, type WizardElectronics, type WizardMiscGear, type AttributeSources, type SR6CoreAttributes } from "@/types/character";
 import { v4 as generateUUID } from "@/lib/uuid";
 
 export interface WizardSkill {
@@ -190,6 +190,30 @@ export default function CharacterWizard() {
         resonance: selectedMagic && selectedMagic.type === "technomancer" ? selectedMagic.magicOrResonance + (state.adjustmentPoints.resonance || 0) : 0,
       };
 
+      // Build attribute sources breakdown
+      const attrKeys: (keyof SR6CoreAttributes)[] = ["body", "agility", "reaction", "strength", "willpower", "logic", "intuition", "charisma", "edge", "essence", "magic", "resonance"];
+      const attributeSources: AttributeSources = {};
+      for (const key of attrKeys) {
+        if (key === "essence") {
+          attributeSources[key] = { base: 6, adjustment: 0, attribute_points: 0, karma: 0 };
+        } else if (key === "edge") {
+          attributeSources[key] = { base: 1, adjustment: state.adjustmentPoints.edge || 0, attribute_points: 0, karma: 0 };
+        } else if (key === "magic") {
+          const magicBase = selectedMagic && selectedMagic.type !== "technomancer" ? selectedMagic.magicOrResonance : 0;
+          attributeSources[key] = { base: magicBase, adjustment: state.adjustmentPoints.magic || 0, attribute_points: 0, karma: 0 };
+        } else if (key === "resonance") {
+          const resBase = selectedMagic && selectedMagic.type === "technomancer" ? selectedMagic.magicOrResonance : 0;
+          attributeSources[key] = { base: resBase, adjustment: state.adjustmentPoints.resonance || 0, attribute_points: 0, karma: 0 };
+        } else {
+          attributeSources[key] = {
+            base: 1,
+            adjustment: state.adjustmentPoints[key] || 0,
+            attribute_points: (state.attributes[key] || 1) - 1,
+            karma: Math.floor((karmaSpend[`attr_${key}`] || 0) / KARMA_PER_POINT),
+          };
+        }
+      }
+
       const skills: SR6Skill[] = state.skills
         .filter((s) => s.rating > 0)
         .map((s) => {
@@ -253,6 +277,7 @@ export default function CharacterWizard() {
           metatype: state.metatype,
           priorities: state.priorities as any,
           attributes: { ...attrs, essence: 6 - totalEssenceLost } as any,
+          attribute_sources: attributeSources as any,
           skills: skills as any,
           qualities: qualities as any,
           ranged_weapons: rangedWeapons as any,

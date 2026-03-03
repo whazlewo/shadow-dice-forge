@@ -42,6 +42,7 @@ export type Database = {
         Row: {
           adept_powers: Json | null
           armor: Json | null
+          attribute_sources: Json | null
           attributes: Json | null
           augmentations: Json | null
           contacts: Json | null
@@ -67,6 +68,7 @@ export type Database = {
         Insert: {
           adept_powers?: Json | null
           armor?: Json | null
+          attribute_sources?: Json | null
           attributes?: Json | null
           augmentations?: Json | null
           contacts?: Json | null
@@ -92,6 +94,7 @@ export type Database = {
         Update: {
           adept_powers?: Json | null
           armor?: Json | null
+          attribute_sources?: Json | null
           attributes?: Json | null
           augmentations?: Json | null
           contacts?: Json | null

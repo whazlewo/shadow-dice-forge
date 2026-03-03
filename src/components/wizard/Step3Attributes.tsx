@@ -95,7 +95,7 @@ export default function Step3Attributes({ state, onChange }: Props) {
               const [, metaMax] = mtData.attributes[attr];
               const rawMax = metaMax - adj;
               const isAtMax = effectiveTotal >= metaMax;
-              const attrPtsSpent = Math.max(0, current - 1);
+              
 
               return (
                 <div key={attr} className="flex items-center gap-3 py-1">
@@ -114,8 +114,6 @@ export default function Step3Attributes({ state, onChange }: Props) {
                   </Button>
                   <span className="text-xs text-muted-foreground font-mono">
                     (1–{metaMax})
-                    {adj > 0 && <span className="text-cyan-400 ml-1">+{adj} adj</span>}
-                    {attrPtsSpent > 0 && <span className="text-primary ml-1">+{attrPtsSpent} pts</span>}
                   </span>
                 </div>
               );

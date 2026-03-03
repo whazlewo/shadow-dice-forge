@@ -11,12 +11,13 @@ import { cn } from "@/lib/utils";
 
 const SKILL_CAN_DEFAULT: Record<string, boolean> = {
   Astral: false,
+  Biotech: false,
   Conjuring: false,
   Cracking: false,
   Enchanting: false,
+  "Exotic Weapons": false,
   Sorcery: false,
   Tasking: false,
-  "Exotic Weapons": false,
 };
 
 const SKILL_DESCRIPTIONS: Record<string, string> = {

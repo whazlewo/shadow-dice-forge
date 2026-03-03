@@ -151,8 +151,10 @@ export default function CharacterSheet() {
             <GenericListTab
               title="Armor"
               items={(character.armor || []) as any[]}
-              fields={["name", "rating", "capacity", "modifications"]}
-              fieldLabels={{ rating: "Defense Rating" }}
+              fields={["name", "subtype", "rating", "capacity", "modifications"]}
+              fieldLabels={{ rating: "Defense Rating", subtype: "Type" }}
+              fieldOptions={{ subtype: ["body", "helmet", "shield"] }}
+              fieldDefaults={{ subtype: "body" }}
               showEquipped
               onUpdate={(a) => updateField("armor", a)}
             />

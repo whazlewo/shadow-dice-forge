@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6MatrixStats, SR6Augmentation, SR6Gear, SR6Vehicle, SR6Spell, SR6AdeptPower, SR6OtherAbility, SR6Priorities, SR6PersonalInfo, SR6IdsLifestyles, AttributeSources } from "@/types/character";
@@ -114,7 +114,16 @@ export default function CharacterSheet() {
 
           <TabsContent value="core" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <PersonalInfoTab info={personalInfo} onUpdate={(i) => updateField("personal_info", i)} />
+              <PersonalInfoTab
+                info={personalInfo}
+                onUpdate={(i) => updateField("personal_info", i)}
+                name={name}
+                metatype={metatype}
+                onNameChange={setName}
+                onMetatypeChange={setMetatype}
+                onNameBlur={() => save({ name })}
+                onMetatypeBlur={() => save({ metatype })}
+              />
               <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={(a) => updateField("attributes", a)} />
             </div>
             <SkillsTab

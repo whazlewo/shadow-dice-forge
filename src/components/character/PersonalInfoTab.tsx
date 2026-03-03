@@ -6,9 +6,15 @@ import type { SR6PersonalInfo } from "@/types/character";
 interface Props {
   info: SR6PersonalInfo;
   onUpdate: (info: SR6PersonalInfo) => void;
+  name: string;
+  metatype: string;
+  onNameChange: (name: string) => void;
+  onMetatypeChange: (metatype: string) => void;
+  onNameBlur: () => void;
+  onMetatypeBlur: () => void;
 }
 
-function Field({ label, value, type = "text", onChange }: { label: string; value: any; type?: string; onChange: (val: string) => void }) {
+function Field({ label, value, type = "text", onChange, onBlur }: { label: string; value: any; type?: string; onChange: (val: string) => void; onBlur?: () => void }) {
   return (
     <div className="space-y-1">
       <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">{label}</Label>
@@ -16,13 +22,14 @@ function Field({ label, value, type = "text", onChange }: { label: string; value
         type={type}
         value={value ?? ""}
         onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
         className="h-9 font-mono text-sm bg-muted/50"
       />
     </div>
   );
 }
 
-export function PersonalInfoTab({ info, onUpdate }: Props) {
+export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, onMetatypeChange, onNameBlur, onMetatypeBlur }: Props) {
   const set = (key: keyof SR6PersonalInfo, value: string, isNum = false) => {
     onUpdate({ ...info, [key]: isNum ? (parseInt(value) || 0) : value });
   };
@@ -33,7 +40,12 @@ export function PersonalInfoTab({ info, onUpdate }: Props) {
         <CardTitle className="font-display tracking-wider">PERSONAL DATA</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        {/* Row: Ethnicity (full width, metatype is in header) */}
+        {/* Row: Name | Metatype */}
+        <div className="grid grid-cols-2 gap-4">
+          <Field label="Name" value={name} onChange={onNameChange} onBlur={onNameBlur} />
+          <Field label="Metatype" value={metatype} onChange={onMetatypeChange} onBlur={onMetatypeBlur} />
+        </div>
+        {/* Row: Ethnicity */}
         <div className="grid grid-cols-1 gap-4">
           <Field label="Ethnicity" value={info.ethnicity} onChange={(v) => set("ethnicity", v)} />
         </div>

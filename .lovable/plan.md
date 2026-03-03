@@ -1,25 +1,21 @@
 
 
-## Add Info Hovers to Attribute Breakdown Table
+## Add "Untrained?" Column to Skills Table
 
-Add a tooltip (using the existing `Tooltip` component) to each attribute name in the breakdown table, showing a short SR6 description of what that attribute represents.
+In SR6, most skills **can** be used untrained (defaulting to the linked attribute alone), but a few **cannot**:
+
+- **Astral** — No (requires Awakened ability)
+- **Conjuring** — No (requires magic)
+- **Enchanting** — No (requires magic)
+- **Sorcery** — No (requires magic)
+- **Tasking** — No (requires Resonance)
+- **Exotic Weapons** — No (specialized training required)
+- All others — **Yes** (can default)
 
 ### Changes
 
-**`src/components/wizard/Step3Attributes.tsx`**:
-1. Import `Tooltip`, `TooltipTrigger`, `TooltipContent`, `TooltipProvider` from `@/components/ui/tooltip` and `Info` icon from `lucide-react`.
-2. Add an `ATTRIBUTE_DESCRIPTIONS` map with short descriptions for each attribute (Body, Agility, Reaction, Strength, Willpower, Logic, Intuition, Charisma, Edge).
-3. In the breakdown table, wrap each attribute name cell content with a `Tooltip`. Show the attribute name plus a small `Info` icon as the trigger, and the description as the tooltip content.
-4. Also add a tooltip to the Edge row.
-
-### Attribute Descriptions (SR6)
-- **Body**: Physical toughness, health, and resistance to damage.
-- **Agility**: Fine motor skills, coordination, and physical precision.
-- **Reaction**: Response time, reflexes, and ability to react quickly.
-- **Strength**: Raw physical power and carrying capacity.
-- **Willpower**: Mental resilience, discipline, and resistance to magic.
-- **Logic**: Reasoning, memory, and analytical thinking.
-- **Intuition**: Gut feelings, perception, and awareness.
-- **Charisma**: Force of personality, social influence, and leadership.
-- **Edge**: Luck, narrative favor, and the X-factor.
+**`src/components/wizard/Step4Skills.tsx`**:
+1. Add a `SKILL_CAN_DEFAULT` map (`Record<string, boolean>`) with `false` for the six skills above and `true` for the rest.
+2. Insert a new column after the skill name showing a green "Yes" or red "No" badge/indicator, with a tooltip explaining what "untrained" means.
+3. Add a column header "Untrained?" with a small info tooltip: "Whether this skill can be attempted without any ranks."
 

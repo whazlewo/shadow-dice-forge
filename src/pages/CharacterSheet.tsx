@@ -13,6 +13,7 @@ import { SkillsTab } from "@/components/character/SkillsTab";
 import { PersonalInfoTab } from "@/components/character/PersonalInfoTab";
 import { QualitiesTab } from "@/components/character/QualitiesTab";
 import { GenericListTab } from "@/components/character/GenericListTab";
+import { EquippedGearTab } from "@/components/character/EquippedGearTab";
 
 type Character = Tables<"characters">;
 
@@ -126,14 +127,21 @@ export default function CharacterSheet() {
               />
               <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={(a) => updateField("attributes", a)} />
             </div>
-            <SkillsTab
-              skills={skills}
-              attributes={attributes}
-              qualities={qualities}
-              augmentations={augmentations}
-              gear={gear}
-              onUpdate={(s) => updateField("skills", s)}
-            />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <SkillsTab
+                skills={skills}
+                attributes={attributes}
+                qualities={qualities}
+                augmentations={augmentations}
+                gear={gear}
+                onUpdate={(s) => updateField("skills", s)}
+              />
+              <EquippedGearTab
+                rangedWeapons={(character.ranged_weapons || []) as unknown as SR6RangedWeapon[]}
+                meleeWeapons={(character.melee_weapons || []) as unknown as SR6MeleeWeapon[]}
+                armor={(character.armor || []) as unknown as SR6Armor[]}
+              />
+            </div>
             <GenericListTab
               title="Contacts"
               items={contacts}

@@ -98,6 +98,7 @@ export interface SR6Armor {
   rating: number;
   capacity: number;
   modifications: string;
+  subtype?: "body" | "helmet" | "shield";
   equipped?: boolean;
 }
 
@@ -205,6 +206,7 @@ export interface WizardArmor extends WizardGearBase {
   defense_rating: number;
   capacity: number;
   modifications: string;
+  subtype?: "body" | "helmet" | "shield";
 }
 
 export interface WizardElectronics extends WizardGearBase {

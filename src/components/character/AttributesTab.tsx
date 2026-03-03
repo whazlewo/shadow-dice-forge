@@ -48,10 +48,13 @@ function computeDerived(
   const str = a.strength || 0;
   const bod = a.body || 0;
 
-  // Defense Rating: BOD + highest equipped armor + modifiers from qualities/augmentations/gear
+  // Defense Rating: BOD + max(body armor) + max(helmet) + max(shield) + modifiers
   const equippedArmor = (armor || []).filter((a) => a.equipped !== false);
-  const bestArmorRating = equippedArmor.length > 0 ? Math.max(...equippedArmor.map((a) => a.rating || 0)) : 0;
-  const bestArmorName = equippedArmor.find((a) => (a.rating || 0) === bestArmorRating)?.name;
+  const bySubtype = (st: string) => equippedArmor.filter((a) => (a.subtype || "body") === st);
+  const bestOf = (items: SR6Armor[]) => items.length > 0 ? items.reduce((best, a) => (a.rating || 0) > (best.rating || 0) ? a : best) : null;
+  const bestBody = bestOf(bySubtype("body"));
+  const bestHelmet = bestOf(bySubtype("helmet"));
+  const bestShield = bestOf(bySubtype("shield"));
 
   // Collect DR modifiers from qualities, augmentations, gear
   const drMods: { source: string; value: number }[] = [];
@@ -72,11 +75,14 @@ function computeDerived(
   scanDRMods((gear || []).filter((g) => g.equipped !== false));
 
   const drBonus = drMods.reduce((sum, m) => sum + m.value, 0);
-  const totalDR = bod + bestArmorRating + drBonus;
+  const armorTotal = (bestBody?.rating || 0) + (bestHelmet?.rating || 0) + (bestShield?.rating || 0);
+  const totalDR = bod + armorTotal + drBonus;
 
   // Build DR tooltip
   const drLines = [`Body: ${bod}`];
-  if (bestArmorRating > 0) drLines.push(`Armor (${bestArmorName}): +${bestArmorRating}`);
+  if (bestBody) drLines.push(`Armor (${bestBody.name}): +${bestBody.rating}`);
+  if (bestHelmet) drLines.push(`Helmet (${bestHelmet.name}): +${bestHelmet.rating}`);
+  if (bestShield) drLines.push(`Shield (${bestShield.name}): +${bestShield.rating}`);
   drMods.forEach((m) => drLines.push(`${m.source}: ${m.value > 0 ? "+" : ""}${m.value}`));
   drLines.push(`Total: ${totalDR}`);
 

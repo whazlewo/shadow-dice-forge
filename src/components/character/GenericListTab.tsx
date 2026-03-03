@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Trash2 } from "lucide-react";
 import { v4 } from "@/lib/uuid";
 
@@ -11,14 +12,16 @@ interface Props {
   items: Record<string, any>[];
   fields: string[];
   fieldLabels?: Record<string, string>;
+  fieldOptions?: Record<string, string[]>;
+  fieldDefaults?: Record<string, string>;
   showEquipped?: boolean;
   onUpdate: (items: Record<string, any>[]) => void;
 }
 
-export function GenericListTab({ title, items, fields, fieldLabels, showEquipped, onUpdate }: Props) {
+export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, showEquipped, onUpdate }: Props) {
   const add = () => {
     const newItem: Record<string, any> = { id: v4(), equipped: true };
-    fields.forEach((f) => (newItem[f] = ""));
+    fields.forEach((f) => (newItem[f] = fieldDefaults?.[f] ?? ""));
     onUpdate([...items, newItem]);
   };
 
@@ -59,11 +62,24 @@ export function GenericListTab({ title, items, fields, fieldLabels, showEquipped
             {fields.map((field) => (
               <div key={field} className="flex-1 min-w-[100px]">
                 <Label className="text-[10px] text-muted-foreground uppercase tracking-widest">{fieldLabels?.[field] || formatLabel(field)}</Label>
-                <Input
-                  value={item[field] ?? ""}
-                  onChange={(e) => update(index, field, e.target.value)}
-                  className="h-8 text-xs font-mono bg-muted/50"
-                />
+                {fieldOptions?.[field] ? (
+                  <Select value={item[field] || fieldDefaults?.[field] || ""} onValueChange={(v) => update(index, field, v)}>
+                    <SelectTrigger className="h-8 text-xs font-mono bg-muted/50">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {fieldOptions[field].map((opt) => (
+                        <SelectItem key={opt} value={opt} className="text-xs capitalize">{opt}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <Input
+                    value={item[field] ?? ""}
+                    onChange={(e) => update(index, field, e.target.value)}
+                    className="h-8 text-xs font-mono bg-muted/50"
+                  />
+                )}
               </div>
             ))}
             <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive mt-4" onClick={() => remove(index)}>

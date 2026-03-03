@@ -47,7 +47,7 @@ function createItem(category: GearCategory): WizardGearItem {
     case "melee_weapon":
       return { ...base, category, dv: "", attack_ratings: "", reach: 0 };
     case "armor":
-      return { ...base, category, defense_rating: 0, capacity: 0, modifications: "" };
+      return { ...base, category, defense_rating: 0, capacity: 0, modifications: "", subtype: "body" as const };
     case "electronics":
       return { ...base, category, device_rating: 0, programs: "", notes: "" };
     case "augmentation":
@@ -131,7 +131,20 @@ function MeleeFields({ item, onUpdate }: { item: WizardMeleeWeapon; onUpdate: (u
 
 function ArmorFields({ item, onUpdate }: { item: WizardArmor; onUpdate: (u: Partial<WizardArmor>) => void }) {
   return (
-    <div className="grid grid-cols-3 gap-2">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div>
+        <Label className="text-xs text-muted-foreground">Type</Label>
+        <Select value={item.subtype || "body"} onValueChange={(v) => onUpdate({ subtype: v as WizardArmor["subtype"] })}>
+          <SelectTrigger className="h-8 text-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="body">Body</SelectItem>
+            <SelectItem value="helmet">Helmet</SelectItem>
+            <SelectItem value="shield">Shield</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       <NumField label="Defense Rating" value={item.defense_rating} onChange={(v) => onUpdate({ defense_rating: v })} />
       <NumField label="Capacity" value={item.capacity} onChange={(v) => onUpdate({ capacity: v })} />
       <Field label="Modifications" value={item.modifications} onChange={(v) => onUpdate({ modifications: v })} />

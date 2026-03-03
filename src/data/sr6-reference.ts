@@ -173,10 +173,10 @@ export const SKILL_SPECIALIZATIONS: Record<string, string[]> = {
   Firearms: ["Tasers", "Hold-Outs", "Light Pistols", "Machine Pistols", "Heavy Pistols", "Submachine Guns", "Shotguns", "Rifles", "Machine Guns", "Assault Cannons"],
   Influence: ["Etiquette", "Instruction", "Intimidation", "Leadership", "Negotiation"],
   Outdoors: ["Navigation", "Survival", "Tracking"],
-  Perception: ["Visual", "Aural", "Tactile"],
+  Perception: ["Visual", "Aural", "Tactile", "Olfactory"],
   Piloting: ["Ground Craft", "Aircraft", "Watercraft"],
   Sorcery: ["Counterspelling", "Ritual Spellcasting", "Spellcasting"],
-  Stealth: ["Camouflage", "Disguise", "Palming", "Sneaking"],
+  Stealth: ["Camouflage", "Palming", "Sneaking"],
   Tasking: ["Compiling", "Decompiling", "Registering"],
 };
 

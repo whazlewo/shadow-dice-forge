@@ -150,6 +150,7 @@ export default function CharacterSheet() {
               title="Armor"
               items={(character.armor || []) as any[]}
               fields={["name", "rating", "capacity", "modifications"]}
+              fieldLabels={{ rating: "Defense Rating" }}
               onUpdate={(a) => updateField("armor", a)}
             />
             <GenericListTab

@@ -9,10 +9,11 @@ interface Props {
   title: string;
   items: Record<string, any>[];
   fields: string[];
+  fieldLabels?: Record<string, string>;
   onUpdate: (items: Record<string, any>[]) => void;
 }
 
-export function GenericListTab({ title, items, fields, onUpdate }: Props) {
+export function GenericListTab({ title, items, fields, fieldLabels, onUpdate }: Props) {
   const add = () => {
     const newItem: Record<string, any> = { id: v4() };
     fields.forEach((f) => (newItem[f] = ""));
@@ -46,7 +47,7 @@ export function GenericListTab({ title, items, fields, onUpdate }: Props) {
           <div key={item.id || index} className="flex flex-wrap items-center gap-2 p-2 rounded-md bg-muted/30">
             {fields.map((field) => (
               <div key={field} className="flex-1 min-w-[100px]">
-                <Label className="text-[10px] text-muted-foreground uppercase tracking-widest">{formatLabel(field)}</Label>
+                <Label className="text-[10px] text-muted-foreground uppercase tracking-widest">{fieldLabels?.[field] || formatLabel(field)}</Label>
                 <Input
                   value={item[field] ?? ""}
                   onChange={(e) => update(index, field, e.target.value)}

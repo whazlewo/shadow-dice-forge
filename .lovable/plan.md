@@ -1,63 +1,34 @@
 
 
-## Problem
+## Equipped vs. Owned Gear
 
-The character sheet currently shows final attribute values with no visibility into how they were calculated. The wizard computes attributes as `base (1) + adjustment points + attribute points + karma raises`, but this breakdown is **not saved** to the character record — only the final number is persisted. Gear/augmentation `dice_modifiers` exist but target skills, not attributes directly.
+Adding an `equipped` boolean to gear items is a good idea — it solves the Defense Rating problem cleanly (only equipped armor contributes) and is faithful to SR6 rules where you can own gear you're not currently using.
 
-## Plan
+### Changes
 
-### 1. Persist attribute breakdown data during character creation
+**1. Add `equipped` field to gear types**
 
-Add an `attribute_sources` JSONB column to the `characters` table via migration. When the wizard finalizes a character, save the breakdown alongside the flat attributes:
+Add an optional `equipped: boolean` field to the shared `WizardGearBase` interface and the character sheet gear types (`SR6Armor`, `SR6Gear`, `SR6RangedWeapon`, `SR6MeleeWeapon`, `SR6Augmentation`). Default to `true` for new items.
 
-```ts
-// Structure saved per attribute:
-{
-  body: { base: 1, adjustment: 2, attribute_points: 3, karma: 1 },
-  agility: { base: 1, adjustment: 0, attribute_points: 4, karma: 0 },
-  // ... etc
-}
-```
+**2. Add equipped toggle to character sheet `GenericListTab`**
 
-### 2. Update the wizard finalization to persist sources
+Add a checkbox column to each gear row in `GenericListTab`. This is a simple toggle — checked means equipped, unchecked means stowed. Show a small visual indicator (dimmed row or badge) for unequipped items.
 
-In `CharacterWizard.tsx`, when inserting the character, also compute and save the `attribute_sources` object from `state.adjustmentPoints`, `state.attributes`, and `state.karmaSpend`.
+**3. Add equipped toggle to wizard `Step5Gear`**
 
-### 3. Add a new TypeScript type for attribute sources
+Same checkbox in the gear editor during character creation.
 
-In `types/character.ts`:
-```ts
-export interface AttributeSource {
-  base: number;
-  adjustment: number;
-  attribute_points: number;
-  karma: number;
-}
-export type AttributeSources = Partial<Record<keyof SR6CoreAttributes, AttributeSource>>;
-```
+**4. Update Defense Rating calculation**
 
-### 4. Add info tooltips to ALL attributes in `AttributesTab`
+In `AttributesTab`, when computing Defense Rating, only consider armor items where `equipped === true` (or `equipped !== false` for backward compatibility with existing characters that lack the field). Use the highest equipped armor's defense rating.
 
-- Pass `attributeSources` (from character data) plus `augmentations` and `gear` into the component.
-- For **base attributes** (body, agility, etc.): show a tooltip breakdown like:
-  ```
-  Base: 1
-  Metatype Adj: +2
-  Attr Points: +3
-  Karma: +1
-  Total: 7
-  ```
-- For **Edge, Essence, Magic/Resonance**: similar breakdown from sources.
-- For **derived stats** (already have tooltips): keep the existing formula tooltips.
-- For **gear modifiers on attributes**: scan `augmentations` and `gear` for `dice_modifiers` that target attributes and include them in the tooltip.
+**5. Update dice modifier scanning**
 
-### 5. Wire it up in `CharacterSheet.tsx`
+When scanning gear/augmentations for `dice_modifiers` (for attributes or skills), only include modifiers from equipped items. Augmentations are always "equipped" by nature (implanted), so they always contribute.
 
-Pass the new `attribute_sources`, `augmentations`, and `gear` data to `AttributesTab` so it has everything needed for the breakdown tooltips.
+### Design decisions
 
-### Technical notes
-
-- The database migration adds a nullable JSONB column `attribute_sources` — backward-compatible with existing characters (they'll just show the total without breakdown).
-- For characters without source data, the tooltip will show "Total: X" with no breakdown.
-- The `DiceModifier` type already has an `attribute` field, so gear that modifies attributes can be detected.
+- **Augmentations**: Always considered equipped (they're implanted). No toggle shown for augmentations.
+- **Backward compatibility**: Existing characters without the `equipped` field treat all gear as equipped (`equipped !== false`).
+- **No DB migration needed**: The field lives inside the existing JSONB columns.
 

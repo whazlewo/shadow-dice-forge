@@ -26,7 +26,7 @@ function calculateDicePool(
   augmentations: SR6Augmentation[],
   gear: SR6Gear[]
 ): DicePoolBreakdown {
-  const attrValue = attributes[skill.attribute] || 0;
+  const attrValue = Number(attributes[skill.attribute]) || 0;
   const modifiers: { source: string; value: number }[] = [];
 
   // Quality modifiers

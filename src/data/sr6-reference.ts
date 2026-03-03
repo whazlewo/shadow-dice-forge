@@ -1,6 +1,6 @@
 // SR6 Character Creation Reference Data
 
-import type { SR6Attributes } from "@/types/character";
+import type { SR6Attributes, SR6CoreAttributes } from "@/types/character";
 
 // Priority table: each priority level maps to values for each column
 export type PriorityLevel = "A" | "B" | "C" | "D" | "E";
@@ -92,7 +92,7 @@ export const PRIORITY_TABLE: Record<PriorityLevel, PriorityRow> = {
 // Metatype attribute limits [min, max]
 export interface MetatypeData {
   name: string;
-  attributes: Record<keyof Omit<SR6Attributes, "edge" | "essence" | "magic" | "resonance">, [number, number]>;
+  attributes: Record<keyof Omit<SR6CoreAttributes, "edge" | "essence" | "magic" | "resonance">, [number, number]>;
   edge: [number, number];
   racialQualities: string[];
   // Which attributes can be raised with adjustment points (those above 6, plus edge)

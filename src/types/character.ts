@@ -1,6 +1,6 @@
 // SR6 Character types
 
-export interface SR6Attributes {
+export interface SR6CoreAttributes {
   body: number;
   agility: number;
   reaction: number;
@@ -13,6 +13,21 @@ export interface SR6Attributes {
   essence: number;
   magic: number;
   resonance: number;
+}
+
+export interface SR6Attributes extends SR6CoreAttributes {
+  // Derived / secondary stats
+  edge_points?: number;
+  unarmed?: string;
+  initiative?: string;
+  matrix_initiative?: string;
+  astral_initiative?: string;
+  composure?: number;
+  judge_intentions?: number;
+  memory?: number;
+  lift_carry?: string;
+  movement?: string;
+  defense_rating?: string;
 }
 
 export interface SR6Skill {

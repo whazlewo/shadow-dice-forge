@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 const SKILL_CAN_DEFAULT: Record<string, boolean> = {
   Astral: false,
   Conjuring: false,
+  Cracking: false,
   Enchanting: false,
   Sorcery: false,
   Tasking: false,

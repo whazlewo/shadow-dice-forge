@@ -1,29 +1,28 @@
 
 
-## Add Armor Sub-type for Helmets & Shields
+## Problem
 
-**Problem**: The current DR calculation picks only the single highest armor rating. In SR6, helmets and shields stack on top of body armor.
+The `GenericListTab` stores **all values as strings** (from `e.target.value`). The armor `rating` field ends up as `"2"` instead of `2`. This causes:
 
-### Changes
+1. **String concatenation instead of addition** — `"2" + "3"` = `"23"` instead of `5`
+2. **String comparison instead of numeric** — `"9" > "10"` is `true` in string comparison
+3. **Users typing "+2"** works with `parseFloat` but only if we actually parse
 
-**1. Add `subtype` field to `SR6Armor` and `WizardArmor`**
+The fix isn't about the "+" prefix specifically — it's that `GenericListTab` never converts numeric fields to numbers.
 
-Add `subtype?: "body" | "helmet" | "shield"` to `SR6Armor` in `types/character.ts`. Default to `"body"` when unset (backward compat). Add the same to `WizardArmor`.
+## Plan
 
-**2. Update DR calculation in `AttributesTab.tsx`**
+### 1. Add `numericFields` prop to `GenericListTab`
 
-Change `computeDerived` to compute:
-```
-DR = BOD + max(equipped body armor) + max(equipped helmet) + max(equipped shield) + dice_modifiers
-```
+Add an optional `numericFields?: string[]` prop. When a field is in this list:
+- Render the input with `type="number"`
+- Parse the value with `parseFloat` before storing (strip any "+" prefix, default to `0` on `NaN`)
 
-Update the tooltip to show each contributing piece separately.
+### 2. Mark `rating` and `capacity` as numeric in `CharacterSheet.tsx`
 
-**3. Add subtype selector to armor UI**
+Pass `numericFields={["rating", "capacity"]}` to the Armor section. Also mark numeric fields on other sections (e.g., `reach` on melee weapons, `loyalty`/`connection` on contacts).
 
-In `CharacterSheet.tsx`, add a `subtype` field to the armor section's field list so users can pick body/helmet/shield. In `GenericListTab`, render it as a dropdown or simple text input.
+### 3. Parse armor ratings in `AttributesTab.tsx` defensively
 
-**4. Add subtype to wizard `Step5Gear`**
-
-When creating armor in the wizard, include the subtype selector defaulting to "body".
+Add `Number()` or `parseFloat()` calls around `a.rating` in `computeDerived` as a safety net, so even if old string data exists, it still works correctly.
 

@@ -86,8 +86,41 @@ function computeDerived(
   drMods.forEach((m) => drLines.push(`${m.source}: ${m.value > 0 ? "+" : ""}${m.value}`));
   drLines.push(`Total: ${totalDR}`);
 
+  // Initiative dice modifiers (e.g. Wired Reflexes, Synaptic Booster)
+  const initDiceMods: { source: string; value: number }[] = [];
+  const initFlatMods: { source: string; value: number }[] = [];
+  const scanInitMods = (items: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[], alwaysEquipped = false) => {
+    for (const item of items) {
+      if (!alwaysEquipped && item.equipped === false) continue;
+      if (item.dice_modifiers) {
+        for (const dm of item.dice_modifiers) {
+          if (dm.attribute === "initiative_dice") {
+            initDiceMods.push({ source: item.name, value: dm.value });
+          } else if (dm.attribute === "initiative") {
+            initFlatMods.push({ source: item.name, value: dm.value });
+          }
+        }
+      }
+    }
+  };
+  scanInitMods(qualities || []);
+  scanInitMods(augmentations || [], true);
+  scanInitMods((gear || []).filter((g) => g.equipped !== false));
+
+  const initDiceBonus = initDiceMods.reduce((sum, m) => sum + m.value, 0);
+  const totalInitDice = Math.min(1 + initDiceBonus, 5);
+  const initFlatBonus = initFlatMods.reduce((sum, m) => sum + m.value, 0);
+  const initScore = rea + int + initFlatBonus;
+
+  // Build initiative tooltip
+  const initLines = [`Base: REA(${rea}) + INT(${int}) + 1D6`];
+  initFlatMods.forEach((m) => initLines.push(`${m.source}: ${m.value > 0 ? "+" : ""}${m.value} to score`));
+  initDiceMods.forEach((m) => initLines.push(`${m.source}: +${m.value}D6`));
+  if (totalInitDice !== 1 + initDiceBonus) initLines.push(`Capped at 5D6`);
+  initLines.push(`Total: ${initScore}+${totalInitDice}D6`);
+
   return [
-    { label: "Initiative", value: `${rea + int}+1D6`, tooltip: "REA + INT + 1D6" },
+    { label: "Initiative", value: `${initScore}+${totalInitDice}D6`, tooltip: initLines.join("\n") },
     { label: "Matrix Initiative", value: `${a.resonance ? (int + (a.resonance || 0)) : int}+${a.resonance ? "4" : "2"}D6`, tooltip: "Depends on interface mode" },
     { label: "Astral Initiative", value: a.magic ? `${int + int}+3D6` : "—", tooltip: "INT×2 + 3D6 (if magical)" },
     { label: "Composure", value: `${wil + cha}`, tooltip: "WIL + CHA" },

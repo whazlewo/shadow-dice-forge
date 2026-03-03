@@ -2,11 +2,34 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { AlertTriangle, Minus, Plus } from "lucide-react";
+import { AlertTriangle, Info, Minus, Plus } from "lucide-react";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { PRIORITY_TABLE, type PriorityLevel } from "@/data/sr6-reference";
 import { SR6_CORE_SKILLS } from "@/types/character";
 import type { WizardState, WizardSkill } from "@/pages/CharacterWizard";
 import { cn } from "@/lib/utils";
+
+const SKILL_DESCRIPTIONS: Record<string, string> = {
+  Astral: "Navigating and interacting with the astral plane, including astral combat and projection.",
+  Athletics: "Running, climbing, swimming, jumping, and other physical feats of coordination.",
+  Biotech: "First aid, medicine, cybertechnology, and biotechnology knowledge.",
+  "Close Combat": "Melee fighting with blades, clubs, unarmed strikes, and other close-range weapons.",
+  Con: "Deception, disguise, impersonation, and fast-talking.",
+  Conjuring: "Summoning, binding, and banishing spirits.",
+  Cracking: "Hacking, cybercombat, and electronic warfare in the Matrix.",
+  Electronics: "Computer use, software, hardware, and electronic devices.",
+  Enchanting: "Creating magical preparations, foci, and other enchanted items.",
+  Engineering: "Building, repairing, and modifying mechanical and structural systems.",
+  "Exotic Weapons": "Proficiency with unusual or specialized weaponry.",
+  Firearms: "Shooting pistols, rifles, shotguns, and other ranged projectile weapons.",
+  Influence: "Negotiation, leadership, etiquette, and social persuasion.",
+  Outdoors: "Survival, tracking, navigation, and wilderness knowledge.",
+  Perception: "Noticing details, searching areas, and general awareness of surroundings.",
+  Piloting: "Operating ground vehicles, drones, watercraft, and aircraft.",
+  Sorcery: "Casting spells, counterspelling, and sustaining magical effects.",
+  Stealth: "Sneaking, palming objects, and avoiding detection.",
+  Tasking: "Compiling, registering, and decompiling sprites in the Matrix.",
+};
 
 interface Props {
   state: WizardState;
@@ -64,13 +87,23 @@ export default function Step4Skills({ state, onChange }: Props) {
           </div>
         )}
 
+        <TooltipProvider delayDuration={200}>
         <div className="space-y-1 max-h-[50vh] overflow-y-auto pr-1">
           {skills.map((skill, i) => (
             <div key={skill.name} className={cn(
               "flex items-center gap-2 py-1 px-2 rounded-sm",
               skill.rating > 0 && "bg-primary/5"
             )}>
-              <span className="w-32 shrink-0 font-display text-sm tracking-wide">{skill.name}</span>
+              <span className="w-32 shrink-0 font-display text-sm tracking-wide">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="inline-flex items-center gap-1 cursor-help">
+                      {skill.name} <Info className="h-3 w-3 text-muted-foreground" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent side="right" className="max-w-64">{SKILL_DESCRIPTIONS[skill.name] || skill.name}</TooltipContent>
+                </Tooltip>
+              </span>
               <span className="text-xs text-muted-foreground font-mono w-16 shrink-0 capitalize">
                 {SR6_CORE_SKILLS[i]?.attribute}
               </span>
@@ -94,6 +127,7 @@ export default function Step4Skills({ state, onChange }: Props) {
             </div>
           ))}
         </div>
+        </TooltipProvider>
       </CardContent>
     </Card>
   );

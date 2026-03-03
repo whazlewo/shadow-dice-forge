@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, Save } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
-import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6MatrixStats, SR6Augmentation, SR6Gear, SR6Vehicle, SR6Spell, SR6AdeptPower, SR6OtherAbility, SR6Priorities, SR6PersonalInfo, SR6IdsLifestyles } from "@/types/character";
+import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6MatrixStats, SR6Augmentation, SR6Gear, SR6Vehicle, SR6Spell, SR6AdeptPower, SR6OtherAbility, SR6Priorities, SR6PersonalInfo, SR6IdsLifestyles, AttributeSources } from "@/types/character";
 import { AttributesTab } from "@/components/character/AttributesTab";
 import { SkillsTab } from "@/components/character/SkillsTab";
 import { PersonalInfoTab } from "@/components/character/PersonalInfoTab";
@@ -67,6 +67,7 @@ export default function CharacterSheet() {
   if (!character) return null;
 
   const attributes = (character.attributes || {}) as unknown as SR6Attributes;
+  const attributeSources = (character as any).attribute_sources as AttributeSources | undefined;
   const skills = (character.skills || []) as unknown as SR6Skill[];
   const qualities = (character.qualities || []) as unknown as SR6Quality[];
   const contacts = (character.contacts || []) as unknown as SR6Contact[];
@@ -114,7 +115,7 @@ export default function CharacterSheet() {
           <TabsContent value="core" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <PersonalInfoTab info={personalInfo} onUpdate={(i) => updateField("personal_info", i)} />
-              <AttributesTab attributes={attributes} onUpdate={(a) => updateField("attributes", a)} />
+              <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} onUpdate={(a) => updateField("attributes", a)} />
             </div>
             <SkillsTab
               skills={skills}

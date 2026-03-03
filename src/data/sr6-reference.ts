@@ -157,6 +157,29 @@ export const BASE_ATTRIBUTES: (keyof Omit<SR6Attributes, "edge" | "essence" | "m
   "body", "agility", "reaction", "strength", "willpower", "logic", "intuition", "charisma",
 ];
 
+// Canonical SR6 specializations per skill
+export const SKILL_SPECIALIZATIONS: Record<string, string[]> = {
+  Astral: ["Astral Combat", "Astral Signatures", "Emotional States", "Spirit Types"],
+  Athletics: ["Archery", "Climbing", "Flying", "Gymnastics", "Sprinting", "Swimming", "Throwing"],
+  Biotech: ["Biotechnology", "Cybertechnology", "First Aid", "Medicine"],
+  "Close Combat": ["Blades", "Clubs", "Unarmed Combat"],
+  Con: ["Acting", "Disguise", "Impersonation", "Performance"],
+  Conjuring: ["Banishing", "Binding", "Summoning"],
+  Cracking: ["Cybercombat", "Electronic Warfare", "Hacking"],
+  Electronics: ["Computer", "Hardware", "Software"],
+  Enchanting: ["Alchemy", "Artificing", "Disenchanting"],
+  Engineering: ["Aeronautics Mechanic", "Automotive Mechanic", "Demolitions", "Gunnery", "Industrial Mechanic", "Lockpicking", "Nautical Mechanic"],
+  "Exotic Weapons": ["Lasers", "Flamethrowers"],
+  Firearms: ["Automatics", "Longarms", "Pistols", "Rifles", "Shotguns"],
+  Influence: ["Etiquette", "Instruction", "Intimidation", "Leadership", "Negotiation"],
+  Outdoors: ["Navigation", "Survival", "Tracking"],
+  Perception: ["Visual", "Aural", "Tactile"],
+  Piloting: ["Ground Craft", "Aircraft", "Watercraft"],
+  Sorcery: ["Counterspelling", "Ritual Spellcasting", "Spellcasting"],
+  Stealth: ["Camouflage", "Disguise", "Palming", "Sneaking"],
+  Tasking: ["Compiling", "Decompiling", "Registering"],
+};
+
 export function formatNuyen(amount: number): string {
   return amount.toLocaleString() + "¥";
 }

@@ -1,10 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { AlertTriangle, Info, Minus, Plus } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
-import { PRIORITY_TABLE, type PriorityLevel } from "@/data/sr6-reference";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { PRIORITY_TABLE, SKILL_SPECIALIZATIONS, type PriorityLevel } from "@/data/sr6-reference";
 import { SR6_CORE_SKILLS } from "@/types/character";
 import type { WizardState, WizardSkill } from "@/pages/CharacterWizard";
 import { cn } from "@/lib/utils";
@@ -50,14 +50,22 @@ export default function Step4Skills({ state, onChange }: Props) {
   const totalPoints = PRIORITY_TABLE[skillPriority].skills;
   const { skills } = state;
 
-  const spentPoints = skills.reduce((sum, s) => sum + s.rating + (s.specialization ? 1 : 0), 0);
+  const spentPoints = skills.reduce(
+    (sum, s) => sum + s.rating + (s.specialization ? 1 : 0) + (s.expertise ? 1 : 0),
+    0
+  );
   const remaining = totalPoints - spentPoints;
 
   const atSixCount = skills.filter((s) => s.rating >= 6).length;
 
   const updateSkill = (index: number, updates: Partial<WizardSkill>) => {
     const newSkills = [...skills];
-    newSkills[index] = { ...newSkills[index], ...updates };
+    const updated = { ...newSkills[index], ...updates };
+    // Clear expertise if specialization is cleared
+    if ("specialization" in updates && !updates.specialization) {
+      updated.expertise = "";
+    }
+    newSkills[index] = updated;
     onChange({ skills: newSkills });
   };
 
@@ -66,7 +74,13 @@ export default function Step4Skills({ state, onChange }: Props) {
     const newVal = current + delta;
     if (newVal < 0 || newVal > 6) return;
     if (delta > 0 && remaining <= 0) return;
-    updateSkill(index, { rating: newVal });
+    const updates: Partial<WizardSkill> = { rating: newVal };
+    // Clear specialization/expertise if rating drops to 0
+    if (newVal === 0) {
+      updates.specialization = "";
+      updates.expertise = "";
+    }
+    updateSkill(index, updates);
   };
 
   return (
@@ -79,7 +93,7 @@ export default function Step4Skills({ state, onChange }: Props) {
           </Badge>
         </div>
         <p className="text-sm text-muted-foreground">
-          Max rank 6, only one skill at rank 6. Specializations cost 1 point each.
+          Max rank 6, only one skill at rank 6. Specializations cost 1 pt (+2 dice), expertise costs 1 pt (+1 die, requires spec).
         </p>
       </CardHeader>
       <CardContent className="space-y-2">
@@ -103,9 +117,11 @@ export default function Step4Skills({ state, onChange }: Props) {
             <span className="w-10 shrink-0 text-center">Untr?</span>
             <span className="w-16 shrink-0">Attr</span>
             <span className="w-[72px] shrink-0 text-center">Rating</span>
-            <span className="flex-1">Specialization</span>
+            <span className="flex-1">Spec / Expertise</span>
           </div>
-          {skills.map((skill, i) => (
+          {skills.map((skill, i) => {
+            const specs = SKILL_SPECIALIZATIONS[skill.name] || [];
+            return (
             <div key={skill.name} className={cn(
               "flex items-center gap-2 py-1 px-2 rounded-sm",
               skill.rating > 0 && "bg-primary/5"
@@ -144,16 +160,44 @@ export default function Step4Skills({ state, onChange }: Props) {
               <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => adjustRating(i, 1)} disabled={skill.rating >= 6 || remaining <= 0}>
                 <Plus className="h-3 w-3" />
               </Button>
-              {skill.rating > 0 && (
-                <Input
-                  placeholder="Specialization"
-                  value={skill.specialization}
-                  onChange={(e) => updateSkill(i, { specialization: e.target.value })}
-                  className="h-7 text-xs font-mono flex-1 min-w-0"
-                />
+              {skill.rating > 0 && specs.length > 0 && (
+                <div className="flex items-center gap-1 flex-1 min-w-0">
+                  <Select
+                    value={skill.specialization || "__none__"}
+                    onValueChange={(v) => updateSkill(i, { specialization: v === "__none__" ? "" : v })}
+                  >
+                    <SelectTrigger className="h-7 text-xs font-mono flex-1 min-w-0">
+                      <SelectValue placeholder="Spec..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="__none__">None</SelectItem>
+                      {specs.map((s) => (
+                        <SelectItem key={s} value={s}>{s}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {skill.specialization && (
+                    <Select
+                      value={skill.expertise || "__none__"}
+                      onValueChange={(v) => updateSkill(i, { expertise: v === "__none__" ? "" : v })}
+                    >
+                      <SelectTrigger className="h-7 text-xs font-mono w-32 shrink-0">
+                        <SelectValue placeholder="Expertise..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="__none__">None</SelectItem>
+                        {specs
+                          .filter((s) => s !== skill.specialization)
+                          .map((s) => (
+                            <SelectItem key={s} value={s}>{s}</SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                </div>
               )}
             </div>
-          ))}
+          )})}
         </div>
         </TooltipProvider>
       </CardContent>

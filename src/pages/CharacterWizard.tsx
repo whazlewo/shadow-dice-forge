@@ -31,6 +31,7 @@ export interface WizardSkill {
   attribute: keyof SR6Attributes;
   rating: number;
   specialization: string;
+  expertise: string;
 }
 
 export interface WizardState {
@@ -61,6 +62,7 @@ function createInitialState(): WizardState {
       attribute: s.attribute,
       rating: 0,
       specialization: "",
+      expertise: "",
     })),
     magicChoice: null,
   };
@@ -183,6 +185,7 @@ export default function CharacterWizard() {
           attribute: s.attribute,
           rating: s.rating,
           specialization: s.specialization || undefined,
+          expertise: s.expertise || undefined,
         }));
 
       const resPriority = state.priorities.resources as PriorityLevel;

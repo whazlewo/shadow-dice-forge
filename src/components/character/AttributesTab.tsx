@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
-import type { SR6Attributes, AttributeSources, SR6Augmentation, SR6Gear, DiceModifier } from "@/types/character";
+import type { SR6Attributes, AttributeSources, SR6Augmentation, SR6Gear, SR6Armor, SR6Quality, DiceModifier } from "@/types/character";
 import { useMemo } from "react";
 
 type AttrField = { key: keyof SR6Attributes; label: string; type?: string };
@@ -33,7 +33,13 @@ interface DerivedStat {
   tooltip?: string;
 }
 
-function computeDerived(a: SR6Attributes): DerivedStat[] {
+function computeDerived(
+  a: SR6Attributes,
+  armor?: SR6Armor[],
+  qualities?: SR6Quality[],
+  augmentations?: SR6Augmentation[],
+  gear?: SR6Gear[],
+): DerivedStat[] {
   const rea = a.reaction || 0;
   const int = a.intuition || 0;
   const wil = a.willpower || 0;
@@ -41,6 +47,38 @@ function computeDerived(a: SR6Attributes): DerivedStat[] {
   const log = a.logic || 0;
   const str = a.strength || 0;
   const bod = a.body || 0;
+
+  // Defense Rating: BOD + highest equipped armor + modifiers from qualities/augmentations/gear
+  const equippedArmor = (armor || []).filter((a) => a.equipped !== false);
+  const bestArmorRating = equippedArmor.length > 0 ? Math.max(...equippedArmor.map((a) => a.rating || 0)) : 0;
+  const bestArmorName = equippedArmor.find((a) => (a.rating || 0) === bestArmorRating)?.name;
+
+  // Collect DR modifiers from qualities, augmentations, gear
+  const drMods: { source: string; value: number }[] = [];
+  const scanDRMods = (items: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[], alwaysEquipped = false) => {
+    for (const item of items) {
+      if (!alwaysEquipped && item.equipped === false) continue;
+      if (item.dice_modifiers) {
+        for (const dm of item.dice_modifiers) {
+          if (dm.attribute === "defense_rating") {
+            drMods.push({ source: item.name, value: dm.value });
+          }
+        }
+      }
+    }
+  };
+  scanDRMods(qualities || []);
+  scanDRMods(augmentations || [], true);
+  scanDRMods((gear || []).filter((g) => g.equipped !== false));
+
+  const drBonus = drMods.reduce((sum, m) => sum + m.value, 0);
+  const totalDR = bod + bestArmorRating + drBonus;
+
+  // Build DR tooltip
+  const drLines = [`Body: ${bod}`];
+  if (bestArmorRating > 0) drLines.push(`Armor (${bestArmorName}): +${bestArmorRating}`);
+  drMods.forEach((m) => drLines.push(`${m.source}: ${m.value > 0 ? "+" : ""}${m.value}`));
+  drLines.push(`Total: ${totalDR}`);
 
   return [
     { label: "Initiative", value: `${rea + int}+2D6`, tooltip: "REA + INT + 2D6" },
@@ -51,14 +89,15 @@ function computeDerived(a: SR6Attributes): DerivedStat[] {
     { label: "Memory", value: `${log + wil}`, tooltip: "LOG + WIL" },
     { label: "Lift/Carry", value: `${str + bod}(${(str + bod) * 2})`, tooltip: "STR + BOD (carry), ×2 (lift)" },
     { label: "Movement", value: `${Math.max(1, Math.floor((rea + str) / 2))}m`, tooltip: "Walk = (REA+STR)/2" },
-    { label: "Defense Rating", value: `${bod}`, tooltip: "Base = BOD (+ armor)" },
+    { label: "Defense Rating", value: `${totalDR}`, tooltip: drLines.join("\n") },
   ];
 }
 
 function getGearModifiers(key: string, augmentations: SR6Augmentation[], gear: SR6Gear[]): { source: string; value: number }[] {
   const mods: { source: string; value: number }[] = [];
-  const scanMods = (items: { name: string; dice_modifiers?: DiceModifier[] }[]) => {
+  const scanMods = (items: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[], alwaysEquipped = false) => {
     for (const item of items) {
+      if (!alwaysEquipped && (item as any).equipped === false) continue;
       if (item.dice_modifiers) {
         for (const dm of item.dice_modifiers) {
           if (dm.attribute === key) {
@@ -68,7 +107,7 @@ function getGearModifiers(key: string, augmentations: SR6Augmentation[], gear: S
       }
     }
   };
-  scanMods(augmentations);
+  scanMods(augmentations, true); // augmentations always equipped
   scanMods(gear);
   return mods;
 }
@@ -111,6 +150,8 @@ interface Props {
   attributeSources?: AttributeSources;
   augmentations?: SR6Augmentation[];
   gear?: SR6Gear[];
+  armor?: SR6Armor[];
+  qualities?: SR6Quality[];
   onUpdate: (attrs: SR6Attributes) => void;
 }
 
@@ -176,8 +217,8 @@ function DerivedRow({ stat }: { stat: DerivedStat }) {
   );
 }
 
-export function AttributesTab({ attributes, attributeSources, augmentations, gear, onUpdate }: Props) {
-  const derived = useMemo(() => computeDerived(attributes), [attributes]);
+export function AttributesTab({ attributes, attributeSources, augmentations, gear, armor, qualities, onUpdate }: Props) {
+  const derived = useMemo(() => computeDerived(attributes, armor, qualities, augmentations, gear), [attributes, armor, qualities, augmentations, gear]);
 
   const handleChange = (key: keyof SR6Attributes, value: string) => {
     const field = [...LEFT_COLUMN, ...RIGHT_EDITABLE].find((f) => f.key === key);

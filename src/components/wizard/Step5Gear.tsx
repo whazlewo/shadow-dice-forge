@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Trash2, PlusCircle, X } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { v4 as generateUUID } from "@/lib/uuid";
 import { PRIORITY_TABLE, formatNuyen, type PriorityLevel } from "@/data/sr6-reference";
 import { SR6_CORE_SKILLS } from "@/types/character";
@@ -39,7 +40,7 @@ const GEAR_CATEGORIES: { value: GearCategory; label: string }[] = [
 ];
 
 function createItem(category: GearCategory): WizardGearItem {
-  const base = { id: generateUUID(), name: "", cost: 0, quantity: 1, availability: "" };
+  const base = { id: generateUUID(), name: "", cost: 0, quantity: 1, availability: "", equipped: true };
   switch (category) {
     case "ranged_weapon":
       return { ...base, category, dv: "", attack_ratings: "", fire_modes: "", ammo: "", accessories: "" };
@@ -305,9 +306,22 @@ export default function Step5Gear({ state, onChange }: Props) {
 
           {/* Gear list */}
           {gear.map((item) => (
-            <div key={item.id} className="border border-border/40 rounded-md p-3 space-y-3 bg-muted/10">
-              {/* Shared row: name, category, cost, qty, avail, delete */}
-              <div className="grid grid-cols-[1fr_140px_90px_60px_90px_auto] gap-2 items-end">
+            <div key={item.id} className={`border border-border/40 rounded-md p-3 space-y-3 bg-muted/10 ${item.category !== "augmentation" && item.equipped === false ? "opacity-50" : ""}`}>
+              {/* Shared row: equipped, name, category, cost, qty, avail, delete */}
+              <div className="grid grid-cols-[auto_1fr_140px_90px_60px_90px_auto] gap-2 items-end">
+                {item.category !== "augmentation" ? (
+                  <div className="space-y-1">
+                    <Label className="text-xs font-display tracking-wide invisible">E</Label>
+                    <Checkbox
+                      checked={item.equipped !== false}
+                      onCheckedChange={(checked) => updateItem(item.id, { equipped: !!checked })}
+                      aria-label="Equipped"
+                      className="mt-2"
+                    />
+                  </div>
+                ) : (
+                  <div />
+                )}
                 <Field label="Name" value={item.name} onChange={(v) => updateItem(item.id, { name: v })} />
                 <div className="space-y-1">
                   <Label className="text-xs font-display tracking-wide">Category</Label>

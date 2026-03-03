@@ -115,7 +115,7 @@ export default function CharacterSheet() {
           <TabsContent value="core" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <PersonalInfoTab info={personalInfo} onUpdate={(i) => updateField("personal_info", i)} />
-              <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} onUpdate={(a) => updateField("attributes", a)} />
+              <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={(a) => updateField("attributes", a)} />
             </div>
             <SkillsTab
               skills={skills}
@@ -138,12 +138,14 @@ export default function CharacterSheet() {
               title="Ranged Weapons"
               items={(character.ranged_weapons || []) as any[]}
               fields={["name", "dv", "ar", "fire_modes", "ammo", "accessories"]}
+              showEquipped
               onUpdate={(w) => updateField("ranged_weapons", w)}
             />
             <GenericListTab
               title="Melee Weapons"
               items={(character.melee_weapons || []) as any[]}
               fields={["name", "dv", "ar", "reach"]}
+              showEquipped
               onUpdate={(w) => updateField("melee_weapons", w)}
             />
             <GenericListTab
@@ -151,6 +153,7 @@ export default function CharacterSheet() {
               items={(character.armor || []) as any[]}
               fields={["name", "rating", "capacity", "modifications"]}
               fieldLabels={{ rating: "Defense Rating" }}
+              showEquipped
               onUpdate={(a) => updateField("armor", a)}
             />
             <GenericListTab
@@ -169,6 +172,7 @@ export default function CharacterSheet() {
               title="Gear"
               items={gear as any[]}
               fields={["name", "quantity", "notes"]}
+              showEquipped
               onUpdate={(g) => updateField("gear", g)}
             />
           </TabsContent>

@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Plus, Trash2 } from "lucide-react";
 import { v4 } from "@/lib/uuid";
 
@@ -10,17 +11,18 @@ interface Props {
   items: Record<string, any>[];
   fields: string[];
   fieldLabels?: Record<string, string>;
+  showEquipped?: boolean;
   onUpdate: (items: Record<string, any>[]) => void;
 }
 
-export function GenericListTab({ title, items, fields, fieldLabels, onUpdate }: Props) {
+export function GenericListTab({ title, items, fields, fieldLabels, showEquipped, onUpdate }: Props) {
   const add = () => {
-    const newItem: Record<string, any> = { id: v4() };
+    const newItem: Record<string, any> = { id: v4(), equipped: true };
     fields.forEach((f) => (newItem[f] = ""));
     onUpdate([...items, newItem]);
   };
 
-  const update = (index: number, field: string, value: string) => {
+  const update = (index: number, field: string, value: string | boolean) => {
     const updated = [...items];
     updated[index] = { ...updated[index], [field]: value };
     onUpdate(updated);
@@ -44,7 +46,16 @@ export function GenericListTab({ title, items, fields, fieldLabels, onUpdate }: 
           <p className="text-muted-foreground text-sm text-center py-6">No items yet.</p>
         )}
         {items.map((item, index) => (
-          <div key={item.id || index} className="flex flex-wrap items-center gap-2 p-2 rounded-md bg-muted/30">
+          <div key={item.id || index} className={`flex flex-wrap items-center gap-2 p-2 rounded-md bg-muted/30 ${showEquipped && item.equipped === false ? "opacity-50" : ""}`}>
+            {showEquipped && (
+              <div className="flex items-center gap-1 mt-4">
+                <Checkbox
+                  checked={item.equipped !== false}
+                  onCheckedChange={(checked) => update(index, "equipped", !!checked)}
+                  aria-label="Equipped"
+                />
+              </div>
+            )}
             {fields.map((field) => (
               <div key={field} className="flex-1 min-w-[100px]">
                 <Label className="text-[10px] text-muted-foreground uppercase tracking-widest">{fieldLabels?.[field] || formatLabel(field)}</Label>

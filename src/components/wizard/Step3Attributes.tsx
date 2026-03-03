@@ -145,10 +145,10 @@ export default function Step3Attributes({ state, onChange }: Props) {
               <TableRow className="border-border/30 hover:bg-transparent">
                 <TableHead className="h-8 px-2 font-display text-xs tracking-wider">Attribute</TableHead>
                 <TableHead className="h-8 px-2 font-mono text-xs text-center">Base</TableHead>
+                <TableHead className="h-8 px-2 font-mono text-xs text-center text-muted-foreground">Max</TableHead>
                 <TableHead className="h-8 px-2 font-mono text-xs text-center text-cyan-400">Adj. Pts</TableHead>
                 <TableHead className="h-8 px-2 font-mono text-xs text-center">Attr. Pts</TableHead>
                 <TableHead className="h-8 px-2 font-mono text-xs text-center text-primary font-bold">Total</TableHead>
-                <TableHead className="h-8 px-2 font-mono text-xs text-center text-muted-foreground">Max</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -165,6 +165,7 @@ export default function Step3Attributes({ state, onChange }: Props) {
                     </Tooltip>
                   </TableCell>
                   <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-muted-foreground">{row.base}</TableCell>
+                  <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-muted-foreground">{row.metaMax}</TableCell>
                   <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-cyan-400">
                     {row.adj > 0 ? `+${row.adj}` : "—"}
                   </TableCell>
@@ -172,7 +173,6 @@ export default function Step3Attributes({ state, onChange }: Props) {
                     {row.attrPts > 0 ? `+${row.attrPts}` : "—"}
                   </TableCell>
                   <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-primary font-bold">{row.total}</TableCell>
-                  <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-muted-foreground">{row.metaMax}</TableCell>
                 </TableRow>
               ))}
               {/* Edge row */}
@@ -188,12 +188,12 @@ export default function Step3Attributes({ state, onChange }: Props) {
                   </Tooltip>
                 </TableCell>
                 <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-muted-foreground">1</TableCell>
+                <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-muted-foreground">—</TableCell>
                 <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-cyan-400">
                   {edgeAdj > 0 ? `+${edgeAdj}` : "—"}
                 </TableCell>
                 <TableCell className="py-1.5 px-2 font-mono text-sm text-center">—</TableCell>
                 <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-primary font-bold">{edgeTotal}</TableCell>
-                <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-muted-foreground">—</TableCell>
               </TableRow>
             </TableBody>
           </Table>

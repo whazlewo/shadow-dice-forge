@@ -151,15 +151,17 @@ export default function Step4Skills({ state, onChange }: Props) {
               <span className="text-xs text-muted-foreground font-mono w-16 shrink-0 capitalize">
                 {SR6_CORE_SKILLS[i]?.attribute}
               </span>
-              <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => adjustRating(i, -1)} disabled={skill.rating <= 0}>
-                <Minus className="h-3 w-3" />
-              </Button>
-              <span className={cn("font-mono text-sm w-6 text-center", skill.rating > 0 && "text-primary font-bold")}>
-                {skill.rating}
-              </span>
-              <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => adjustRating(i, 1)} disabled={skill.rating >= 6 || remaining <= 0}>
-                <Plus className="h-3 w-3" />
-              </Button>
+              <div className="flex items-center gap-1 mx-1.5">
+                <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => adjustRating(i, -1)} disabled={skill.rating <= 0}>
+                  <Minus className="h-3 w-3" />
+                </Button>
+                <span className={cn("font-mono text-sm w-6 text-center", skill.rating > 0 && "text-primary font-bold")}>
+                  {skill.rating}
+                </span>
+                <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => adjustRating(i, 1)} disabled={skill.rating >= 6 || remaining <= 0}>
+                  <Plus className="h-3 w-3" />
+                </Button>
+              </div>
               {skill.rating > 0 && specs.length > 0 && (
                 <div className="flex items-center gap-1 flex-1 min-w-0">
                   <Select

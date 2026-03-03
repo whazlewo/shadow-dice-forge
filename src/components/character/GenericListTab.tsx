@@ -5,8 +5,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Trash2 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Plus, Trash2, Info } from "lucide-react";
 import { v4 } from "@/lib/uuid";
+
+const FIELD_TOOLTIPS: Record<string, string> = {
+  ar: "Point Blank / Short / Medium / Long / Extreme",
+  attack_ratings: "Point Blank / Short / Medium / Long / Extreme",
+};
 
 interface Props {
   title: string;
@@ -68,7 +74,19 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
             )}
             {fields.map((field) => (
               <div key={field} className="flex-1 min-w-[100px]">
-                <Label className="text-[10px] text-muted-foreground uppercase tracking-widest">{fieldLabels?.[field] || formatLabel(field)}</Label>
+                <Label className="text-[10px] text-muted-foreground uppercase tracking-widest flex items-center gap-0.5">
+                  {fieldLabels?.[field] || formatLabel(field)}
+                  {FIELD_TOOLTIPS[field] && (
+                    <TooltipProvider delayDuration={200}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="h-2.5 w-2.5 text-muted-foreground/60 cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="text-xs">{FIELD_TOOLTIPS[field]}</TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  )}
+                </Label>
                 {fieldOptions?.[field] ? (
                   <Select value={item[field] || fieldDefaults?.[field] || ""} onValueChange={(v) => update(index, field, v)}>
                     <SelectTrigger className="h-8 text-xs font-mono bg-muted/50">

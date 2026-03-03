@@ -52,8 +52,9 @@ export default function Step3Attributes({ state, onChange }: Props) {
     const base = 1;
     const adj = adjustmentPoints[attr] || 0;
     const attrPts = Math.max(0, (attributes[attr] || 1) - 1);
+    const metaMax = mtData.attributes[attr][1];
     const total = base + adj + attrPts;
-    return { name: attr, base, adj, attrPts, total };
+    return { name: attr, base, adj, attrPts, total, metaMax };
   });
 
   const edgeAdj = adjustmentPoints.edge || 0;
@@ -108,9 +109,6 @@ export default function Step3Attributes({ state, onChange }: Props) {
                   <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => adjustAttr(attr, 1)} disabled={current >= rawMax || remaining <= 0}>
                     <Plus className="h-3 w-3" />
                   </Button>
-                  <span className="text-xs text-muted-foreground font-mono">
-                    (1–{metaMax})
-                  </span>
                 </div>
               );
             })}
@@ -136,6 +134,7 @@ export default function Step3Attributes({ state, onChange }: Props) {
                 <TableHead className="h-8 px-2 font-mono text-xs text-center text-cyan-400">Adj. Pts</TableHead>
                 <TableHead className="h-8 px-2 font-mono text-xs text-center">Attr. Pts</TableHead>
                 <TableHead className="h-8 px-2 font-mono text-xs text-center text-primary font-bold">Total</TableHead>
+                <TableHead className="h-8 px-2 font-mono text-xs text-center text-muted-foreground">Max</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -150,6 +149,7 @@ export default function Step3Attributes({ state, onChange }: Props) {
                     {row.attrPts > 0 ? `+${row.attrPts}` : "—"}
                   </TableCell>
                   <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-primary font-bold">{row.total}</TableCell>
+                  <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-muted-foreground">{row.metaMax}</TableCell>
                 </TableRow>
               ))}
               {/* Edge row */}
@@ -161,6 +161,7 @@ export default function Step3Attributes({ state, onChange }: Props) {
                 </TableCell>
                 <TableCell className="py-1.5 px-2 font-mono text-sm text-center">—</TableCell>
                 <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-primary font-bold">{edgeTotal}</TableCell>
+                <TableCell className="py-1.5 px-2 font-mono text-sm text-center text-muted-foreground">—</TableCell>
               </TableRow>
             </TableBody>
           </Table>

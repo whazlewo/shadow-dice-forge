@@ -112,8 +112,10 @@ export default function CharacterSheet() {
           </TabsList>
 
           <TabsContent value="core" className="space-y-6">
-            <PersonalInfoTab info={personalInfo} onUpdate={(i) => updateField("personal_info", i)} />
-            <AttributesTab attributes={attributes} onUpdate={(a) => updateField("attributes", a)} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <PersonalInfoTab info={personalInfo} onUpdate={(i) => updateField("personal_info", i)} />
+              <AttributesTab attributes={attributes} onUpdate={(a) => updateField("attributes", a)} />
+            </div>
             <SkillsTab
               skills={skills}
               attributes={attributes}

@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Check, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, X, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import WizardStepper from "@/components/wizard/WizardStepper";
 import Step1Priorities from "@/components/wizard/Step1Priorities";
 import Step2Metatype from "@/components/wizard/Step2Metatype";
@@ -33,6 +44,7 @@ export interface WizardState {
 }
 
 const STEPS = ["Priorities", "Metatype", "Attributes", "Skills", "Magic"];
+const DEBOUNCE_MS = 1000;
 
 function createInitialState(): WizardState {
   return {
@@ -60,6 +72,63 @@ export default function CharacterWizard() {
   const [step, setStep] = useState(0);
   const [state, setState] = useState<WizardState>(createInitialState);
   const [saving, setSaving] = useState(false);
+  const [loadingDraft, setLoadingDraft] = useState(true);
+  const draftLoaded = useRef(false);
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Load draft on mount
+  useEffect(() => {
+    if (!user) {
+      setLoadingDraft(false);
+      return;
+    }
+    (async () => {
+      try {
+        const { data, error } = await supabase
+          .from("character_drafts")
+          .select("wizard_step, wizard_state")
+          .eq("user_id", user.id)
+          .maybeSingle();
+
+        if (data && !error) {
+          setStep(data.wizard_step);
+          setState(data.wizard_state as unknown as WizardState);
+          toast.info("Draft restored");
+        }
+      } catch {
+        // ignore — start fresh
+      } finally {
+        draftLoaded.current = true;
+        setLoadingDraft(false);
+      }
+    })();
+  }, [user]);
+
+  // Auto-save draft (debounced)
+  useEffect(() => {
+    if (!user || !draftLoaded.current) return;
+
+    if (debounceTimer.current) clearTimeout(debounceTimer.current);
+    debounceTimer.current = setTimeout(async () => {
+      await supabase.from("character_drafts").upsert(
+        {
+          user_id: user.id,
+          wizard_step: step,
+          wizard_state: state as any,
+        },
+        { onConflict: "user_id" }
+      );
+    }, DEBOUNCE_MS);
+
+    return () => {
+      if (debounceTimer.current) clearTimeout(debounceTimer.current);
+    };
+  }, [step, state, user]);
+
+  const deleteDraft = useCallback(async () => {
+    if (!user) return;
+    await supabase.from("character_drafts").delete().eq("user_id", user.id);
+  }, [user]);
 
   const update = (updates: Partial<WizardState>) => {
     setState((prev) => ({ ...prev, ...updates }));
@@ -91,7 +160,6 @@ export default function CharacterWizard() {
       const magicOptions = PRIORITY_TABLE[magicPriority].magic_resonance;
       const selectedMagic = magicOptions.find((o) => o.type === state.magicChoice);
 
-      // Build attributes with edge and magic/resonance
       const attrs: SR6Attributes = {
         body: (state.attributes.body || 1) + (state.adjustmentPoints.body || 0),
         agility: (state.attributes.agility || 1) + (state.adjustmentPoints.agility || 0),
@@ -107,7 +175,6 @@ export default function CharacterWizard() {
         resonance: selectedMagic && selectedMagic.type === "technomancer" ? selectedMagic.magicOrResonance + (state.adjustmentPoints.resonance || 0) : 0,
       };
 
-      // Build skills array
       const skills: SR6Skill[] = state.skills
         .filter((s) => s.rating > 0)
         .map((s) => ({
@@ -137,6 +204,7 @@ export default function CharacterWizard() {
 
       if (error) throw error;
 
+      await deleteDraft();
       toast.success("Character created!");
       navigate(`/character/${data.id}`);
     } catch (err: any) {
@@ -146,6 +214,19 @@ export default function CharacterWizard() {
     }
   };
 
+  const handleCancel = async () => {
+    await deleteDraft();
+    navigate("/");
+  };
+
+  if (loadingDraft) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border/50 bg-card/50 backdrop-blur sticky top-0 z-10">
@@ -153,9 +234,25 @@ export default function CharacterWizard() {
           <h1 className="font-display text-xl font-bold tracking-wider text-primary neon-glow-cyan">
             NEW RUNNER
           </h1>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
-            <X className="h-4 w-4 mr-1" /> Cancel
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="ghost" size="sm">
+                <X className="h-4 w-4 mr-1" /> Cancel
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Discard draft?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Your in-progress character will be permanently deleted.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Keep editing</AlertDialogCancel>
+                <AlertDialogAction onClick={handleCancel}>Discard</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </header>
 

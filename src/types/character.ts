@@ -146,14 +146,79 @@ export interface WizardQuality {
   effects: string;
 }
 
-export interface WizardGearItem {
+// Shared fields for all wizard gear
+interface WizardGearBase {
   id: string;
   name: string;
-  category: "weapons" | "armor" | "electronics" | "vehicles" | "augmentations" | "miscellaneous";
   cost: number;
   quantity: number;
+  availability: string;
+}
+
+export interface WizardRangedWeapon extends WizardGearBase {
+  category: "ranged_weapon";
+  dv: string;
+  attack_ratings: string;
+  fire_modes: string;
+  ammo: string;
+  accessories: string;
+}
+
+export interface WizardMeleeWeapon extends WizardGearBase {
+  category: "melee_weapon";
+  dv: string;
+  attack_ratings: string;
+  reach: number;
+}
+
+export interface WizardArmor extends WizardGearBase {
+  category: "armor";
+  defense_rating: number;
+  capacity: number;
+  modifications: string;
+}
+
+export interface WizardElectronics extends WizardGearBase {
+  category: "electronics";
+  device_rating: number;
+  programs: string;
   notes: string;
 }
+
+export interface WizardAugmentation extends WizardGearBase {
+  category: "augmentation";
+  aug_type: "cyberware" | "bioware";
+  essence_cost: number;
+  rating: number;
+  effects: string;
+  dice_modifiers: DiceModifier[];
+}
+
+export interface WizardVehicle extends WizardGearBase {
+  category: "vehicle";
+  handling: string;
+  speed: string;
+  veh_body: number;
+  veh_armor: number;
+  sensor: number;
+  pilot: number;
+  seats: number;
+}
+
+export interface WizardMiscGear extends WizardGearBase {
+  category: "miscellaneous";
+  notes: string;
+  dice_modifiers: DiceModifier[];
+}
+
+export type WizardGearItem =
+  | WizardRangedWeapon
+  | WizardMeleeWeapon
+  | WizardArmor
+  | WizardElectronics
+  | WizardAugmentation
+  | WizardVehicle
+  | WizardMiscGear;
 
 export interface SR6Priorities {
   metatype?: string;

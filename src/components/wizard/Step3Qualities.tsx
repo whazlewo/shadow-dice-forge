@@ -57,15 +57,21 @@ export default function Step3Qualities({ state, onChange }: Props) {
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex gap-4 text-sm font-mono">
+          <div className="flex flex-wrap gap-3 text-sm font-mono">
+            <Badge variant="outline">
+              Base: 50
+            </Badge>
             <Badge variant="outline" className="text-emerald-400 border-emerald-400/30">
-              Positive: {positiveKarma} karma spent
+              Positive: {positiveKarma} spent
             </Badge>
             <Badge variant="outline" className="text-amber-400 border-amber-400/30">
-              Negative: {negativeKarma} karma gained
+              Negative: {negativeKarma} gained
             </Badge>
             <Badge variant="outline">
-              Net: {negativeKarma - positiveKarma} karma
+              Net: {negativeKarma - positiveKarma}
+            </Badge>
+            <Badge variant="outline" className="text-primary border-primary/30 font-bold">
+              Total Available: {50 + negativeKarma - positiveKarma}
             </Badge>
           </div>
 

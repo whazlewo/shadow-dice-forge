@@ -19,37 +19,41 @@ export default function Step3Attributes({ state, onChange }: Props) {
   const mtData = METATYPE_DATA[state.metatype || "Human"];
   const { attributes, adjustmentPoints } = state;
 
+  // Budget: every click above base 1 costs 1 attribute point (adj points are free)
   const spentPoints = BASE_ATTRIBUTES.reduce((sum, attr) => {
-    const base = 1;
-    const adjBonus = adjustmentPoints[attr] || 0;
-    const current = attributes[attr] || 1;
-    return sum + Math.max(0, current - base - adjBonus);
+    return sum + Math.max(0, (attributes[attr] || 1) - 1);
   }, 0);
 
   const remaining = totalPoints - spentPoints;
 
+  // At-max detection uses effective total (raw + adj) vs metatype max
   const atMaxCount = BASE_ATTRIBUTES.filter((attr) => {
+    const adj = adjustmentPoints[attr] || 0;
+    const effectiveTotal = (attributes[attr] || 1) + adj;
     const max = mtData.attributes[attr][1];
-    return (attributes[attr] || 1) >= max;
+    return effectiveTotal >= max;
   }).length;
 
   const adjustAttr = (attr: keyof SR6Attributes, delta: number) => {
     const current = attributes[attr] || 1;
     const newVal = current + delta;
-    const min = mtData.attributes[attr as keyof typeof mtData.attributes]?.[0] ?? 1;
+    const adj = adjustmentPoints[attr as keyof typeof adjustmentPoints] || 0;
+    const min = 1;
     const max = mtData.attributes[attr as keyof typeof mtData.attributes]?.[1] ?? 6;
-    if (newVal < min || newVal > max) return;
+    // Raw max: metatype_max - adj (so effective total won't exceed metatype max)
+    const rawMax = max - adj;
+    if (newVal < min || newVal > rawMax) return;
     if (delta > 0 && remaining <= 0) return;
     onChange({ attributes: { ...attributes, [attr]: newVal } });
   };
 
-  // Build summary rows for the breakdown table
+  // Build summary rows
   const summaryRows = BASE_ATTRIBUTES.map((attr) => {
     const base = 1;
     const adj = adjustmentPoints[attr] || 0;
-    const current = attributes[attr] || 1;
-    const attrPts = Math.max(0, current - base - adj);
-    return { name: attr, base, adj, attrPts, total: current };
+    const attrPts = Math.max(0, (attributes[attr] || 1) - 1);
+    const total = base + adj + attrPts;
+    return { name: attr, base, adj, attrPts, total };
   });
 
   const edgeAdj = adjustmentPoints.edge || 0;
@@ -86,29 +90,31 @@ export default function Step3Attributes({ state, onChange }: Props) {
           <div className="grid gap-2 sm:grid-cols-2">
             {BASE_ATTRIBUTES.map((attr) => {
               const current = attributes[attr] || 1;
-              const [min, max] = mtData.attributes[attr];
-              const adjBonus = adjustmentPoints[attr] || 0;
-              const isAtMax = current >= max;
-              const attrPtsSpent = Math.max(0, current - 1 - adjBonus);
+              const adj = adjustmentPoints[attr] || 0;
+              const effectiveTotal = current + adj;
+              const [, metaMax] = mtData.attributes[attr];
+              const rawMax = metaMax - adj;
+              const isAtMax = effectiveTotal >= metaMax;
+              const attrPtsSpent = Math.max(0, current - 1);
 
               return (
                 <div key={attr} className="flex items-center gap-3 py-1">
                   <span className="w-24 font-display text-sm capitalize tracking-wide">{attr}</span>
-                  <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => adjustAttr(attr, -1)} disabled={current <= min}>
+                  <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => adjustAttr(attr, -1)} disabled={current <= 1}>
                     <Minus className="h-3 w-3" />
                   </Button>
                   <span className={cn(
                     "font-mono text-lg w-8 text-center",
                     isAtMax && "text-primary font-bold"
                   )}>
-                    {current}
+                    {effectiveTotal}
                   </span>
-                  <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => adjustAttr(attr, 1)} disabled={current >= max || remaining <= 0}>
+                  <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => adjustAttr(attr, 1)} disabled={current >= rawMax || remaining <= 0}>
                     <Plus className="h-3 w-3" />
                   </Button>
                   <span className="text-xs text-muted-foreground font-mono">
-                    ({min}–{max})
-                    {adjBonus > 0 && <span className="text-cyan-400 ml-1">+{adjBonus} adj</span>}
+                    (1–{metaMax})
+                    {adj > 0 && <span className="text-cyan-400 ml-1">+{adj} adj</span>}
                     {attrPtsSpent > 0 && <span className="text-primary ml-1">+{attrPtsSpent} pts</span>}
                   </span>
                 </div>

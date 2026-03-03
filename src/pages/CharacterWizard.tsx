@@ -93,14 +93,14 @@ export default function CharacterWizard() {
 
       // Build attributes with edge and magic/resonance
       const attrs: SR6Attributes = {
-        body: state.attributes.body || 1,
-        agility: state.attributes.agility || 1,
-        reaction: state.attributes.reaction || 1,
-        strength: state.attributes.strength || 1,
-        willpower: state.attributes.willpower || 1,
-        logic: state.attributes.logic || 1,
-        intuition: state.attributes.intuition || 1,
-        charisma: state.attributes.charisma || 1,
+        body: (state.attributes.body || 1) + (state.adjustmentPoints.body || 0),
+        agility: (state.attributes.agility || 1) + (state.adjustmentPoints.agility || 0),
+        reaction: (state.attributes.reaction || 1) + (state.adjustmentPoints.reaction || 0),
+        strength: (state.attributes.strength || 1) + (state.adjustmentPoints.strength || 0),
+        willpower: (state.attributes.willpower || 1) + (state.adjustmentPoints.willpower || 0),
+        logic: (state.attributes.logic || 1) + (state.adjustmentPoints.logic || 0),
+        intuition: (state.attributes.intuition || 1) + (state.adjustmentPoints.intuition || 0),
+        charisma: (state.attributes.charisma || 1) + (state.adjustmentPoints.charisma || 0),
         edge: (state.adjustmentPoints.edge || 0) + 1,
         essence: 6,
         magic: selectedMagic && selectedMagic.type !== "technomancer" ? selectedMagic.magicOrResonance + (state.adjustmentPoints.magic || 0) : 0,

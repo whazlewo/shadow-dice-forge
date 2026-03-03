@@ -46,6 +46,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                 <StatPill label="Mode" value={w.fire_modes || "—"} />
                 <StatPill label="Ammo" value={w.ammo || "—"} />
               </div>
+              {w.description && <p className="text-[10px] text-muted-foreground mt-1.5 whitespace-pre-wrap">{w.description}</p>}
             </div>
           </div>
         ))}
@@ -61,6 +62,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                 <StatPill label="AR" value={w.ar || "—"} />
                 <StatPill label="Reach" value={w.reach ?? "—"} />
               </div>
+              {w.description && <p className="text-[10px] text-muted-foreground mt-1.5 whitespace-pre-wrap">{w.description}</p>}
             </div>
           </div>
         ))}
@@ -79,6 +81,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
               {a.modifications && (
                 <p className="text-[10px] text-muted-foreground mt-1 font-mono truncate">{a.modifications}</p>
               )}
+              {a.description && <p className="text-[10px] text-muted-foreground mt-1.5 whitespace-pre-wrap">{a.description}</p>}
             </div>
           </div>
         ))}

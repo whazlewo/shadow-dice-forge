@@ -80,6 +80,7 @@ export interface SR6RangedWeapon {
   fire_modes: string;
   ammo: string;
   accessories: string;
+  description?: string;
   equipped?: boolean;
 }
 
@@ -89,6 +90,7 @@ export interface SR6MeleeWeapon {
   dv: string;
   ar: string;
   reach: number;
+  description?: string;
   equipped?: boolean;
 }
 
@@ -99,6 +101,7 @@ export interface SR6Armor {
   capacity: number;
   modifications: string;
   subtype?: "body" | "helmet" | "shield";
+  description?: string;
   equipped?: boolean;
 }
 

@@ -51,7 +51,7 @@ function computeDerived(
   // Defense Rating: BOD + max(body armor) + max(helmet) + max(shield) + modifiers
   const equippedArmor = (armor || []).filter((a) => a.equipped !== false);
   const bySubtype = (st: string) => equippedArmor.filter((a) => (a.subtype || "body") === st);
-  const bestOf = (items: SR6Armor[]) => items.length > 0 ? items.reduce((best, a) => (a.rating || 0) > (best.rating || 0) ? a : best) : null;
+  const bestOf = (items: SR6Armor[]) => items.length > 0 ? items.reduce((best, a) => (Number(a.rating) || 0) > (Number(best.rating) || 0) ? a : best) : null;
   const bestBody = bestOf(bySubtype("body"));
   const bestHelmet = bestOf(bySubtype("helmet"));
   const bestShield = bestOf(bySubtype("shield"));
@@ -75,7 +75,7 @@ function computeDerived(
   scanDRMods((gear || []).filter((g) => g.equipped !== false));
 
   const drBonus = drMods.reduce((sum, m) => sum + m.value, 0);
-  const armorTotal = (bestBody?.rating || 0) + (bestHelmet?.rating || 0) + (bestShield?.rating || 0);
+  const armorTotal = (Number(bestBody?.rating) || 0) + (Number(bestHelmet?.rating) || 0) + (Number(bestShield?.rating) || 0);
   const totalDR = bod + armorTotal + drBonus;
 
   // Build DR tooltip

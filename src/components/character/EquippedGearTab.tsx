@@ -36,53 +36,59 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
 
         {/* Ranged Weapons */}
         {equippedRanged.map((w) => (
-          <div key={w.id} className="flex items-start gap-2 p-2 rounded-md bg-muted/30">
-            <Crosshair className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-display tracking-wide truncate">{w.name || "Unnamed"}</p>
-              <div className="flex flex-wrap gap-1 mt-1">
-                <StatPill label="DV" value={w.dv || "—"} />
-                <StatPill label="AR" value={w.ar || "—"} />
-                <StatPill label="Mode" value={w.fire_modes || "—"} />
-                <StatPill label="Ammo" value={w.ammo || "—"} />
+          <div key={w.id} className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2 rounded-md bg-muted/30">
+            <div className="flex items-start gap-2">
+              <Crosshair className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+              <div className="min-w-0">
+                <p className="text-sm font-display tracking-wide truncate">{w.name || "Unnamed"}</p>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  <StatPill label="DV" value={w.dv || "—"} />
+                  <StatPill label="AR" value={w.ar || "—"} />
+                  <StatPill label="Mode" value={w.fire_modes || "—"} />
+                  <StatPill label="Ammo" value={w.ammo || "—"} />
+                </div>
               </div>
-              {w.description && <p className="text-[10px] text-muted-foreground mt-1.5 whitespace-pre-wrap">{w.description}</p>}
             </div>
+            {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}
           </div>
         ))}
 
         {/* Melee Weapons */}
         {equippedMelee.map((w) => (
-          <div key={w.id} className="flex items-start gap-2 p-2 rounded-md bg-muted/30">
-            <Sword className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-display tracking-wide truncate">{w.name || "Unnamed"}</p>
-              <div className="flex flex-wrap gap-1 mt-1">
-                <StatPill label="DV" value={w.dv || "—"} />
-                <StatPill label="AR" value={w.ar || "—"} />
-                <StatPill label="Reach" value={w.reach ?? "—"} />
+          <div key={w.id} className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2 rounded-md bg-muted/30">
+            <div className="flex items-start gap-2">
+              <Sword className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+              <div className="min-w-0">
+                <p className="text-sm font-display tracking-wide truncate">{w.name || "Unnamed"}</p>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  <StatPill label="DV" value={w.dv || "—"} />
+                  <StatPill label="AR" value={w.ar || "—"} />
+                  <StatPill label="Reach" value={w.reach ?? "—"} />
+                </div>
               </div>
-              {w.description && <p className="text-[10px] text-muted-foreground mt-1.5 whitespace-pre-wrap">{w.description}</p>}
             </div>
+            {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}
           </div>
         ))}
 
         {/* Armor */}
         {equippedArmor.map((a) => (
-          <div key={a.id} className="flex items-start gap-2 p-2 rounded-md bg-muted/30">
-            <Shield className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-display tracking-wide truncate">{a.name || "Unnamed"}</p>
-              <div className="flex flex-wrap gap-1 mt-1">
-                <StatPill label="DR" value={a.rating ?? "—"} />
-                <StatPill label="Cap" value={a.capacity ?? "—"} />
-                {a.subtype && <StatPill label="Type" value={a.subtype} />}
+          <div key={a.id} className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2 rounded-md bg-muted/30">
+            <div className="flex items-start gap-2">
+              <Shield className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+              <div className="min-w-0">
+                <p className="text-sm font-display tracking-wide truncate">{a.name || "Unnamed"}</p>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  <StatPill label="DR" value={a.rating ?? "—"} />
+                  <StatPill label="Cap" value={a.capacity ?? "—"} />
+                  {a.subtype && <StatPill label="Type" value={a.subtype} />}
+                </div>
+                {a.modifications && (
+                  <p className="text-[10px] text-muted-foreground mt-1 font-mono truncate">{a.modifications}</p>
+                )}
               </div>
-              {a.modifications && (
-                <p className="text-[10px] text-muted-foreground mt-1 font-mono truncate">{a.modifications}</p>
-              )}
-              {a.description && <p className="text-[10px] text-muted-foreground mt-1.5 whitespace-pre-wrap">{a.description}</p>}
             </div>
+            {a.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{a.description}</p>}
           </div>
         ))}
       </CardContent>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, Info, Minus, Plus } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import { PRIORITY_TABLE, SKILL_SPECIALIZATIONS, type PriorityLevel } from "@/data/sr6-reference";
 import { SR6_CORE_SKILLS } from "@/types/character";
 import type { WizardState, WizardSkill } from "@/pages/CharacterWizard";
@@ -166,37 +167,68 @@ export default function Step4Skills({ state, onChange }: Props) {
               </div>
               {skill.rating > 0 && specs.length > 0 && (
                 <div className="flex items-center gap-1 flex-1 min-w-0">
-                  <Select
-                    value={skill.specialization || "__none__"}
-                    onValueChange={(v) => updateSkill(i, { specialization: v === "__none__" ? "" : v })}
-                  >
-                    <SelectTrigger className="h-7 text-xs font-mono flex-1 min-w-0">
-                      <SelectValue placeholder="Spec..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="__none__">None</SelectItem>
-                      {specs.map((s) => (
-                        <SelectItem key={s} value={s}>{s}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  {skill.specialization && (
-                    <Select
-                      value={skill.expertise || "__none__"}
-                      onValueChange={(v) => updateSkill(i, { expertise: v === "__none__" ? "" : v })}
-                    >
-                      <SelectTrigger className="h-7 text-xs font-mono w-32 shrink-0">
-                        <SelectValue placeholder="Expertise..." />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="__none__">None</SelectItem>
-                        {specs
-                          .filter((s) => s !== skill.specialization)
-                          .map((s) => (
+                  {skill.name === "Exotic Weapons" ? (
+                    <>
+                      <Input
+                        list="exotic-specs"
+                        placeholder="Spec..."
+                        value={skill.specialization}
+                        onChange={(e) => updateSkill(i, { specialization: e.target.value })}
+                        className="h-7 text-xs font-mono flex-1 min-w-0"
+                      />
+                      <datalist id="exotic-specs">
+                        {specs.map((s) => <option key={s} value={s} />)}
+                      </datalist>
+                      {skill.specialization && (
+                        <>
+                          <Input
+                            list="exotic-expertise"
+                            placeholder="Expertise..."
+                            value={skill.expertise}
+                            onChange={(e) => updateSkill(i, { expertise: e.target.value })}
+                            className="h-7 text-xs font-mono w-32 shrink-0"
+                          />
+                          <datalist id="exotic-expertise">
+                            {specs.filter((s) => s !== skill.specialization).map((s) => <option key={s} value={s} />)}
+                          </datalist>
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <Select
+                        value={skill.specialization || "__none__"}
+                        onValueChange={(v) => updateSkill(i, { specialization: v === "__none__" ? "" : v })}
+                      >
+                        <SelectTrigger className="h-7 text-xs font-mono flex-1 min-w-0">
+                          <SelectValue placeholder="Spec..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="__none__">None</SelectItem>
+                          {specs.map((s) => (
                             <SelectItem key={s} value={s}>{s}</SelectItem>
                           ))}
-                      </SelectContent>
-                    </Select>
+                        </SelectContent>
+                      </Select>
+                      {skill.specialization && (
+                        <Select
+                          value={skill.expertise || "__none__"}
+                          onValueChange={(v) => updateSkill(i, { expertise: v === "__none__" ? "" : v })}
+                        >
+                          <SelectTrigger className="h-7 text-xs font-mono w-32 shrink-0">
+                            <SelectValue placeholder="Expertise..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="__none__">None</SelectItem>
+                            {specs
+                              .filter((s) => s !== skill.specialization)
+                              .map((s) => (
+                                <SelectItem key={s} value={s}>{s}</SelectItem>
+                              ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    </>
                   )}
                 </div>
               )}

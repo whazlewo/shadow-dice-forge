@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -92,6 +93,15 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
             <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive mt-4" onClick={() => remove(index)}>
               <Trash2 className="h-3 w-3" />
             </Button>
+            <div className="w-full mt-1">
+              <Label className="text-[10px] text-muted-foreground uppercase tracking-widest">Description</Label>
+              <Textarea
+                value={item.description ?? ""}
+                onChange={(e) => update(index, "description", e.target.value)}
+                placeholder="Paste item description from the rulebook…"
+                className="text-xs font-mono bg-muted/50 min-h-[60px] resize-y"
+              />
+            </div>
           </div>
         ))}
       </CardContent>

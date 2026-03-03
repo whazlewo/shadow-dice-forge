@@ -102,20 +102,19 @@ export default function CharacterSheet() {
       </header>
 
       <main className="container py-4">
-        <Tabs defaultValue="attributes" className="w-full">
+        <Tabs defaultValue="core" className="w-full">
           <TabsList className="flex flex-wrap h-auto gap-1 bg-card/50 p-1 mb-4">
-            {["attributes", "skills", "personal", "qualities", "contacts", "ranged", "melee", "armor", "matrix", "augmentations", "gear", "vehicles", "spells", "adept", "other"].map((tab) => (
+            {["core", "contacts", "ranged", "melee", "armor", "matrix", "augmentations", "gear", "vehicles", "spells", "adept", "other"].map((tab) => (
               <TabsTrigger key={tab} value={tab} className="font-display text-xs tracking-wider uppercase">
                 {tab}
               </TabsTrigger>
             ))}
           </TabsList>
 
-          <TabsContent value="attributes">
+          <TabsContent value="core" className="space-y-6">
+            <PersonalInfoTab info={personalInfo} onUpdate={(i) => updateField("personal_info", i)} />
             <AttributesTab attributes={attributes} onUpdate={(a) => updateField("attributes", a)} />
-          </TabsContent>
-
-          <TabsContent value="skills">
+            <QualitiesTab qualities={qualities} onUpdate={(q) => updateField("qualities", q)} />
             <SkillsTab
               skills={skills}
               attributes={attributes}
@@ -124,14 +123,6 @@ export default function CharacterSheet() {
               gear={gear}
               onUpdate={(s) => updateField("skills", s)}
             />
-          </TabsContent>
-
-          <TabsContent value="personal">
-            <PersonalInfoTab info={personalInfo} onUpdate={(i) => updateField("personal_info", i)} />
-          </TabsContent>
-
-          <TabsContent value="qualities">
-            <QualitiesTab qualities={qualities} onUpdate={(q) => updateField("qualities", q)} />
           </TabsContent>
 
           <TabsContent value="contacts">

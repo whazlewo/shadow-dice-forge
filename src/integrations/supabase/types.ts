@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      character_drafts: {
+        Row: {
+          id: string
+          updated_at: string
+          user_id: string
+          wizard_state: Json
+          wizard_step: number
+        }
+        Insert: {
+          id?: string
+          updated_at?: string
+          user_id: string
+          wizard_state?: Json
+          wizard_step?: number
+        }
+        Update: {
+          id?: string
+          updated_at?: string
+          user_id?: string
+          wizard_state?: Json
+          wizard_step?: number
+        }
+        Relationships: []
+      }
       characters: {
         Row: {
           adept_powers: Json | null

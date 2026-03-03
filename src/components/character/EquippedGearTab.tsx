@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Crosshair, Sword } from "lucide-react";
+import { Shield, Crosshair, Sword, Info } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import type { SR6RangedWeapon, SR6MeleeWeapon, SR6Armor } from "@/types/character";
 
 interface Props {
@@ -8,14 +9,28 @@ interface Props {
   armor: SR6Armor[];
 }
 
-function StatPill({ label, value }: { label: string; value: string | number }) {
+function StatPill({ label, value, tooltip }: { label: string; value: string | number; tooltip?: string }) {
   return (
     <div className="flex flex-col items-center bg-muted/50 rounded px-2 py-1 min-w-[48px]">
-      <span className="text-[9px] text-muted-foreground uppercase tracking-widest">{label}</span>
+      <span className="text-[9px] text-muted-foreground uppercase tracking-widest flex items-center gap-0.5">
+        {label}
+        {tooltip && (
+          <TooltipProvider delayDuration={200}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="h-2.5 w-2.5 text-muted-foreground/60 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent side="top" className="text-xs max-w-[200px]">{tooltip}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
+      </span>
       <span className="text-xs font-mono font-bold text-foreground">{value}</span>
     </div>
   );
 }
+
+const AR_TOOLTIP = "Point Blank / Short / Medium / Long / Extreme";
 
 export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
   const equippedRanged = rangedWeapons.filter((w) => w.equipped !== false);
@@ -43,7 +58,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                 <p className="text-sm font-display tracking-wide truncate">{w.name || "Unnamed"}</p>
                 <div className="flex flex-wrap gap-1 mt-1">
                   <StatPill label="DV" value={w.dv || "—"} />
-                  <StatPill label="AR" value={w.ar || "—"} />
+                  <StatPill label="AR" value={w.ar || "—"} tooltip={AR_TOOLTIP} />
                   <StatPill label="Mode" value={w.fire_modes || "—"} />
                   <StatPill label="Ammo" value={w.ammo || "—"} />
                 </div>
@@ -62,7 +77,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                 <p className="text-sm font-display tracking-wide truncate">{w.name || "Unnamed"}</p>
                 <div className="flex flex-wrap gap-1 mt-1">
                   <StatPill label="DV" value={w.dv || "—"} />
-                  <StatPill label="AR" value={w.ar || "—"} />
+                  <StatPill label="AR" value={w.ar || "—"} tooltip={AR_TOOLTIP} />
                   <StatPill label="Reach" value={w.reach ?? "—"} />
                 </div>
               </div>

@@ -80,6 +80,7 @@ export interface SR6RangedWeapon {
   fire_modes: string;
   ammo: string;
   accessories: string;
+  equipped?: boolean;
 }
 
 export interface SR6MeleeWeapon {
@@ -88,6 +89,7 @@ export interface SR6MeleeWeapon {
   dv: string;
   ar: string;
   reach: number;
+  equipped?: boolean;
 }
 
 export interface SR6Armor {
@@ -96,6 +98,7 @@ export interface SR6Armor {
   rating: number;
   capacity: number;
   modifications: string;
+  equipped?: boolean;
 }
 
 export interface SR6MatrixStats {
@@ -123,6 +126,7 @@ export interface SR6Gear {
   quantity: number;
   notes: string;
   dice_modifiers?: DiceModifier[];
+  equipped?: boolean;
 }
 
 export interface SR6Vehicle {
@@ -177,6 +181,7 @@ interface WizardGearBase {
   cost: number;
   quantity: number;
   availability: string;
+  equipped?: boolean;
 }
 
 export interface WizardRangedWeapon extends WizardGearBase {

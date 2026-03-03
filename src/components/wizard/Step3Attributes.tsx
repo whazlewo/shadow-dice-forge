@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { PRIORITY_TABLE, METATYPE_DATA, BASE_ATTRIBUTES, type PriorityLevel } from "@/data/sr6-reference";
 import type { WizardState } from "@/pages/CharacterWizard";
 import type { SR6Attributes } from "@/types/character";
-import { cn } from "@/lib/utils";
+
 
 interface Props {
   state: WizardState;
@@ -91,11 +91,8 @@ export default function Step3Attributes({ state, onChange }: Props) {
             {BASE_ATTRIBUTES.map((attr) => {
               const current = attributes[attr] || 1;
               const adj = adjustmentPoints[attr] || 0;
-              const effectiveTotal = current + adj;
               const [, metaMax] = mtData.attributes[attr];
               const rawMax = metaMax - adj;
-              const isAtMax = effectiveTotal >= metaMax;
-              
 
               return (
                 <div key={attr} className="flex items-center gap-3 py-1">
@@ -103,11 +100,8 @@ export default function Step3Attributes({ state, onChange }: Props) {
                   <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => adjustAttr(attr, -1)} disabled={current <= 1}>
                     <Minus className="h-3 w-3" />
                   </Button>
-                  <span className={cn(
-                    "font-mono text-lg w-8 text-center",
-                    isAtMax && "text-primary font-bold"
-                  )}>
-                    {effectiveTotal}
+                  <span className="font-mono text-lg w-8 text-center">
+                    {current}
                   </span>
                   <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => adjustAttr(attr, 1)} disabled={current >= rawMax || remaining <= 0}>
                     <Plus className="h-3 w-3" />

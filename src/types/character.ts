@@ -138,6 +138,23 @@ export interface SR6OtherAbility {
   description: string;
 }
 
+export interface WizardQuality {
+  id: string;
+  name: string;
+  type: "positive" | "negative";
+  karma_cost: number;
+  effects: string;
+}
+
+export interface WizardGearItem {
+  id: string;
+  name: string;
+  category: "weapons" | "armor" | "electronics" | "vehicles" | "augmentations" | "miscellaneous";
+  cost: number;
+  quantity: number;
+  notes: string;
+}
+
 export interface SR6Priorities {
   metatype?: string;
   attributes?: string;

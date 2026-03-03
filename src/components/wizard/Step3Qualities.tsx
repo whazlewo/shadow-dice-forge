@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Plus, Trash2 } from "lucide-react";
 import { v4 as generateUUID } from "@/lib/uuid";
+import { METATYPE_DATA } from "@/data/sr6-reference";
 import type { WizardState } from "@/pages/CharacterWizard";
 import type { WizardQuality } from "@/types/character";
 
@@ -16,6 +17,8 @@ interface Props {
 
 export default function Step3Qualities({ state, onChange }: Props) {
   const qualities = state.wizardQualities || [];
+  const metatypeInfo = state.metatype ? METATYPE_DATA[state.metatype] : null;
+  const racialQualities = metatypeInfo?.racialQualities || [];
 
   const positiveKarma = qualities
     .filter((q) => q.type === "positive")
@@ -74,6 +77,21 @@ export default function Step3Qualities({ state, onChange }: Props) {
               Total Available: {50 + negativeKarma - positiveKarma}
             </Badge>
           </div>
+
+          {racialQualities.length > 0 && (
+            <div className="space-y-2 border border-border/50 rounded-md p-3 bg-muted/30">
+              <p className="text-xs font-display tracking-widest uppercase text-muted-foreground">
+                Racial Qualities (from {state.metatype})
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {racialQualities.map((rq) => (
+                  <Badge key={rq} variant="secondary" className="font-mono text-sm">
+                    {rq}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
 
           {qualities.map((q) => (
             <div key={q.id} className="grid grid-cols-[1fr_120px_100px_1fr_auto] gap-2 items-end">

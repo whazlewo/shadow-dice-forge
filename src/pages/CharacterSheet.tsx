@@ -104,7 +104,7 @@ export default function CharacterSheet() {
       <main className="container py-4">
         <Tabs defaultValue="core" className="w-full">
           <TabsList className="flex flex-wrap h-auto gap-1 bg-card/50 p-1 mb-4">
-            {["core", "contacts", "ranged", "melee", "armor", "matrix", "augmentations", "gear", "vehicles", "spells", "adept", "other"].map((tab) => (
+            {["core", "ranged", "melee", "armor", "matrix", "augmentations", "gear", "vehicles", "spells", "adept", "other"].map((tab) => (
               <TabsTrigger key={tab} value={tab} className="font-display text-xs tracking-wider uppercase">
                 {tab}
               </TabsTrigger>
@@ -123,9 +123,6 @@ export default function CharacterSheet() {
               gear={gear}
               onUpdate={(s) => updateField("skills", s)}
             />
-          </TabsContent>
-
-          <TabsContent value="contacts">
             <GenericListTab
               title="Contacts"
               items={contacts}

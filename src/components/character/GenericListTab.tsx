@@ -14,11 +14,12 @@ interface Props {
   fieldLabels?: Record<string, string>;
   fieldOptions?: Record<string, string[]>;
   fieldDefaults?: Record<string, string>;
+  numericFields?: string[];
   showEquipped?: boolean;
   onUpdate: (items: Record<string, any>[]) => void;
 }
 
-export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, showEquipped, onUpdate }: Props) {
+export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, numericFields, showEquipped, onUpdate }: Props) {
   const add = () => {
     const newItem: Record<string, any> = { id: v4(), equipped: true };
     fields.forEach((f) => (newItem[f] = fieldDefaults?.[f] ?? ""));
@@ -27,7 +28,12 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
 
   const update = (index: number, field: string, value: string | boolean) => {
     const updated = [...items];
-    updated[index] = { ...updated[index], [field]: value };
+    let finalValue: string | boolean | number = value;
+    if (typeof value === "string" && numericFields?.includes(field)) {
+      const parsed = parseFloat(value.replace(/^\+/, ""));
+      finalValue = isNaN(parsed) ? 0 : parsed;
+    }
+    updated[index] = { ...updated[index], [field]: finalValue };
     onUpdate(updated);
   };
 
@@ -75,6 +81,7 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                   </Select>
                 ) : (
                   <Input
+                    type={numericFields?.includes(field) ? "number" : "text"}
                     value={item[field] ?? ""}
                     onChange={(e) => update(index, field, e.target.value)}
                     className="h-8 text-xs font-mono bg-muted/50"

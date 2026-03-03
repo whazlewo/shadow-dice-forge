@@ -129,6 +129,7 @@ export default function CharacterSheet() {
               title="Contacts"
               items={contacts}
               fields={["name", "loyalty", "connection", "notes"]}
+              numericFields={["loyalty", "connection"]}
               onUpdate={(c) => updateField("contacts", c)}
             />
           </TabsContent>
@@ -145,6 +146,7 @@ export default function CharacterSheet() {
               title="Melee Weapons"
               items={(character.melee_weapons || []) as any[]}
               fields={["name", "dv", "ar", "reach"]}
+              numericFields={["reach"]}
               showEquipped
               onUpdate={(w) => updateField("melee_weapons", w)}
             />
@@ -155,6 +157,7 @@ export default function CharacterSheet() {
               fieldLabels={{ rating: "Defense Rating", subtype: "Type" }}
               fieldOptions={{ subtype: ["body", "helmet", "shield"] }}
               fieldDefaults={{ subtype: "body" }}
+              numericFields={["rating", "capacity"]}
               showEquipped
               onUpdate={(a) => updateField("armor", a)}
             />

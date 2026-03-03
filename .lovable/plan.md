@@ -1,32 +1,35 @@
 
 
-## Update Firearms Specializations
+## Merge Personal, Attributes, Skills, and Qualities into a Single "Core" Tab
 
-The current list (`"Automatics", "Longarms", "Pistols", "Rifles", "Shotguns"`) uses older SR5-style categories. Your SR6 list is solid. Two others worth considering:
+These four sections are the most frequently referenced parts of a character sheet and belong together conceptually. Merging them into one scrollable page reduces tab count from 15 to 12 and keeps the core character identity in one place.
 
-- **Sporting Rifles** — sometimes listed separately from Rifles in some SR6 supplements
-- **Grenade Launchers** — though these sometimes fall under Engineering (Gunnery) depending on interpretation
+### Layout
 
-If you'd rather keep it to your list only, that works fine — it covers all the standard SR6 Firearms weapon categories.
+The merged tab (called **"Core"**) will stack the four existing components vertically in this order:
 
-### Change
-
-**`src/data/sr6-reference.ts`** — replace the `Firearms` entry in `SKILL_SPECIALIZATIONS`:
-
-```ts
-Firearms: [
-  "Tasers",
-  "Hold-Outs",
-  "Light Pistols",
-  "Machine Pistols",
-  "Heavy Pistols",
-  "Submachine Guns",
-  "Shotguns",
-  "Rifles",
-  "Machine Guns",
-  "Assault Cannons",
-],
+```text
+┌─────────────────────────────────┐
+│  PERSONAL INFO (name, karma…)   │
+├─────────────────────────────────┤
+│  ATTRIBUTES (BOD, AGI, etc.)    │
+├─────────────────────────────────┤
+│  QUALITIES (positive/negative)  │
+├─────────────────────────────────┤
+│  SKILLS (with dice pools)       │
+└─────────────────────────────────┘
 ```
 
-Single-line change in one file.
+Skills go last since it's the longest section and benefits from being at the bottom where it can expand without pushing other content off-screen.
+
+### Changes
+
+**`src/pages/CharacterSheet.tsx`**
+- Remove the four individual tab values (`attributes`, `skills`, `personal`, `qualities`) from the tabs list
+- Add a single `"core"` tab in their place
+- Create one `<TabsContent value="core">` that renders `<PersonalInfoTab>`, `<AttributesTab>`, `<QualitiesTab>`, and `<SkillsTab>` stacked vertically with spacing between them
+- Set `defaultValue="core"` on the `<Tabs>` component
+- All props/wiring stays exactly the same — just composition changes
+
+No changes to any of the four component files themselves.
 

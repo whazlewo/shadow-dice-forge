@@ -87,7 +87,7 @@ function computeDerived(
   drLines.push(`Total: ${totalDR}`);
 
   return [
-    { label: "Initiative", value: `${rea + int}+2D6`, tooltip: "REA + INT + 2D6" },
+    { label: "Initiative", value: `${rea + int}+1D6`, tooltip: "REA + INT + 1D6" },
     { label: "Matrix Initiative", value: `${a.resonance ? (int + (a.resonance || 0)) : int}+${a.resonance ? "4" : "2"}D6`, tooltip: "Depends on interface mode" },
     { label: "Astral Initiative", value: a.magic ? `${int + int}+3D6` : "—", tooltip: "INT×2 + 3D6 (if magical)" },
     { label: "Composure", value: `${wil + cha}`, tooltip: "WIL + CHA" },

@@ -1,28 +1,28 @@
 
 
-## Problem
+## Add Initiative Dice Modifiers
 
-The `GenericListTab` stores **all values as strings** (from `e.target.value`). The armor `rating` field ends up as `"2"` instead of `2`. This causes:
+**Problem**: Initiative is hardcoded to `1D6`. Augmentations like Wired Reflexes should add extra initiative dice (e.g. Wired Reflexes 2 = +2D6), but there's no mechanism for it.
 
-1. **String concatenation instead of addition** — `"2" + "3"` = `"23"` instead of `5`
-2. **String comparison instead of numeric** — `"9" > "10"` is `true` in string comparison
-3. **Users typing "+2"** works with `parseFloat` but only if we actually parse
+**Approach**: Reuse the existing `dice_modifiers` system with a new attribute key `"initiative_dice"`.
 
-The fix isn't about the "+" prefix specifically — it's that `GenericListTab` never converts numeric fields to numbers.
+### 1. Scan for initiative dice modifiers in `computeDerived` (`AttributesTab.tsx`)
 
-## Plan
+Use the same pattern as Defense Rating modifiers: scan augmentations, gear, qualities, and adept powers for `dice_modifiers` where `attribute === "initiative_dice"`. Sum them up, add to base 1, and build a tooltip showing the breakdown.
 
-### 1. Add `numericFields` prop to `GenericListTab`
+```
+Base: 1D6
+Wired Reflexes II: +2D6
+Total: REA + INT + 3D6
+```
 
-Add an optional `numericFields?: string[]` prop. When a field is in this list:
-- Render the input with `type="number"`
-- Parse the value with `parseFloat` before storing (strip any "+" prefix, default to `0` on `NaN`)
+Also apply the same scan for `"initiative"` (flat bonus to the score, e.g. from REA-boosting augmentations that also add to initiative base).
 
-### 2. Mark `rating` and `capacity` as numeric in `CharacterSheet.tsx`
+### 2. No type changes needed
 
-Pass `numericFields={["rating", "capacity"]}` to the Armor section. Also mark numeric fields on other sections (e.g., `reach` on melee weapons, `loyalty`/`connection` on contacts).
+`DiceModifier` already supports `attribute?: string` and `value: number`. Users just enter `initiative_dice` as the attribute on their augmentation's dice modifier. The augmentation UI already supports editing dice modifiers.
 
-### 3. Parse armor ratings in `AttributesTab.tsx` defensively
+### 3. Cap at 5D6
 
-Add `Number()` or `parseFloat()` calls around `a.rating` in `computeDerived` as a safety net, so even if old string data exists, it still works correctly.
+SR6 caps physical initiative at 5D6. Clamp the total dice to `Math.min(totalDice, 5)`.
 

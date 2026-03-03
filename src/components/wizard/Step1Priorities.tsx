@@ -81,11 +81,16 @@ export default function Step1Priorities({ state, onChange }: Props) {
                         <SelectValue placeholder="—" />
                       </SelectTrigger>
                       <SelectContent>
-                        {LEVELS.map((l) => (
-                          <SelectItem key={l} value={l} className="font-mono font-bold">
-                            {l}
-                          </SelectItem>
-                        ))}
+              {LEVELS.map((l) => {
+                          const usedByOther = Object.entries(priorities).some(
+                            ([k, v]) => k !== col.key && v === l
+                          );
+                          return (
+                            <SelectItem key={l} value={l} disabled={usedByOther} className="font-mono font-bold">
+                              {l}
+                            </SelectItem>
+                          );
+                        })}
                       </SelectContent>
                     </Select>
                   </div>

@@ -1,28 +1,50 @@
 
 
-## Add Initiative Dice Modifiers
+## Revised Option D: AR Modifier List with Source Annotations
 
-**Problem**: Initiative is hardcoded to `1D6`. Augmentations like Wired Reflexes should add extra initiative dice (e.g. Wired Reflexes 2 = +2D6), but there's no mechanism for it.
+**SR6 context**: Multiple AR modifiers on a single weapon are common (Smartgun +2, Laser Sight +1, Scope +1, APDS ammo, etc.), and some apply to specific range bands only. A single flat bonus field won't cut it.
 
-**Approach**: Reuse the existing `dice_modifiers` system with a new attribute key `"initiative_dice"`.
+### Design
 
-### 1. Scan for initiative dice modifiers in `computeDerived` (`AttributesTab.tsx`)
+Add an `ar_modifiers` array to each weapon (ranged and melee), following the same pattern as the existing `dice_modifiers` on augmentations/qualities. Each modifier entry has:
 
-Use the same pattern as Defense Rating modifiers: scan augmentations, gear, qualities, and adept powers for `dice_modifiers` where `attribute === "initiative_dice"`. Sum them up, add to base 1, and build a tooltip showing the breakdown.
-
+```ts
+interface ARModifier {
+  source: string;        // e.g. "Smartgun System (Internal)"
+  values: string;        // e.g. "+2/+2/+2/+2/+2" or "+0/+0/+0/+1/+1"
+}
 ```
-Base: 1D6
-Wired Reflexes II: +2D6
-Total: REA + INT + 3D6
-```
 
-Also apply the same scan for `"initiative"` (flat bonus to the score, e.g. from REA-boosting augmentations that also add to initiative base).
+Users enter the source name and per-range-band values. The system parses the base AR string and each modifier's values string, sums them per band, and displays the **modified AR** in the Equipped Weapons & Armor section.
 
-### 2. No type changes needed
+### Changes
 
-`DiceModifier` already supports `attribute?: string` and `value: number`. Users just enter `initiative_dice` as the attribute on their augmentation's dice modifier. The augmentation UI already supports editing dice modifiers.
+**1. Types (`src/types/character.ts`)**
+- Add `ARModifier` interface
+- Add `ar_modifiers?: ARModifier[]` to `SR6RangedWeapon` and `SR6MeleeWeapon`
 
-### 3. Cap at 5D6
+**2. GenericListTab or a new sub-component**
+- Below the existing fields for ranged/melee weapons, add a small "AR Modifiers" sub-list with Add/Remove buttons
+- Each row: a text input for `source` and a text input for `values` (with the same AR tooltip for format)
 
-SR6 caps physical initiative at 5D6. Clamp the total dice to `Math.min(totalDice, 5)`.
+**3. EquippedGearTab (`EquippedGearTab.tsx`)**
+- Parse base AR + all `ar_modifiers` entries, sum per range band
+- Display the **modified AR** in the StatPill instead of the raw base
+- Add a tooltip breakdown showing:
+  ```
+  Base:       8/10/6/—/—
+  Smartgun:  +2/+2/+2/+2/+2
+  Scope:     +0/+0/+0/+1/+1
+  Total:     10/12/8/3/3
+  ```
+- Dash (`—`) bands stay as dashes (no modifier applied)
+
+**4. CharacterSheet.tsx**
+- No structural changes needed; `ar_modifiers` will persist as part of the weapon JSON in the database
+
+### Why this works
+- Reuses the familiar "list of modifiers with source labels" pattern already in the codebase
+- Per-range-band values handle both flat bonuses (Smartgun) and range-specific bonuses (Scope)
+- Tooltip breakdown gives full transparency
+- No schema migration needed — it's stored in the existing JSON column
 

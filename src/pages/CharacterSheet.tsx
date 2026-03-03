@@ -104,9 +104,9 @@ export default function CharacterSheet() {
       <main className="container py-4">
         <Tabs defaultValue="core" className="w-full">
           <TabsList className="flex flex-wrap h-auto gap-1 bg-card/50 p-1 mb-4">
-            {["core", "ranged", "melee", "armor", "matrix", "augmentations", "gear", "vehicles", "spells", "adept", "other"].map((tab) => (
+            {["core", "weapons-gear", "vehicles", "spells", "adept", "other"].map((tab) => (
               <TabsTrigger key={tab} value={tab} className="font-display text-xs tracking-wider uppercase">
-                {tab}
+                {tab === "weapons-gear" ? "Weapons & Gear" : tab}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -131,52 +131,37 @@ export default function CharacterSheet() {
             />
           </TabsContent>
 
-          <TabsContent value="ranged">
+          <TabsContent value="weapons-gear" className="space-y-6">
             <GenericListTab
               title="Ranged Weapons"
               items={(character.ranged_weapons || []) as any[]}
               fields={["name", "dv", "ar", "fire_modes", "ammo", "accessories"]}
               onUpdate={(w) => updateField("ranged_weapons", w)}
             />
-          </TabsContent>
-
-          <TabsContent value="melee">
             <GenericListTab
               title="Melee Weapons"
               items={(character.melee_weapons || []) as any[]}
               fields={["name", "dv", "ar", "reach"]}
               onUpdate={(w) => updateField("melee_weapons", w)}
             />
-          </TabsContent>
-
-          <TabsContent value="armor">
             <GenericListTab
               title="Armor"
               items={(character.armor || []) as any[]}
               fields={["name", "rating", "capacity", "modifications"]}
               onUpdate={(a) => updateField("armor", a)}
             />
-          </TabsContent>
-
-          <TabsContent value="matrix">
             <GenericListTab
               title="Matrix Stats"
               items={[character.matrix_stats || {}] as any[]}
               fields={["device_rating", "attack", "sleaze", "data_processing", "firewall"]}
               onUpdate={(m) => updateField("matrix_stats", m[0] || {})}
             />
-          </TabsContent>
-
-          <TabsContent value="augmentations">
             <GenericListTab
               title="Augmentations"
               items={augmentations as any[]}
               fields={["name", "type", "essence_cost", "rating", "effects"]}
               onUpdate={(a) => updateField("augmentations", a)}
             />
-          </TabsContent>
-
-          <TabsContent value="gear">
             <GenericListTab
               title="Gear"
               items={gear as any[]}

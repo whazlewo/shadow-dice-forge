@@ -3,22 +3,34 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { SR6Attributes } from "@/types/character";
 
-const MAIN_ATTRS: { key: keyof SR6Attributes; label: string; color: string }[] = [
-  { key: "body", label: "BOD", color: "text-neon-cyan" },
-  { key: "agility", label: "AGI", color: "text-neon-cyan" },
-  { key: "reaction", label: "REA", color: "text-neon-cyan" },
-  { key: "strength", label: "STR", color: "text-neon-cyan" },
-  { key: "willpower", label: "WIL", color: "text-neon-magenta" },
-  { key: "logic", label: "LOG", color: "text-neon-magenta" },
-  { key: "intuition", label: "INT", color: "text-neon-magenta" },
-  { key: "charisma", label: "CHA", color: "text-neon-magenta" },
+type AttrField = { key: keyof SR6Attributes; label: string; type?: string };
+
+const LEFT_COLUMN: AttrField[] = [
+  { key: "body", label: "Body" },
+  { key: "agility", label: "Agility" },
+  { key: "reaction", label: "Reaction" },
+  { key: "strength", label: "Strength" },
+  { key: "willpower", label: "Willpower" },
+  { key: "logic", label: "Logic" },
+  { key: "intuition", label: "Intuition" },
+  { key: "charisma", label: "Charisma" },
+  { key: "edge", label: "Edge" },
+  { key: "edge_points", label: "Edge Points" },
+  { key: "unarmed", label: "Unarmed", type: "text" },
 ];
 
-const SPECIAL_ATTRS: { key: keyof SR6Attributes; label: string; color: string }[] = [
-  { key: "edge", label: "EDG", color: "text-neon-amber" },
-  { key: "essence", label: "ESS", color: "text-neon-green" },
-  { key: "magic", label: "MAG", color: "text-neon-green" },
-  { key: "resonance", label: "RES", color: "text-neon-green" },
+const RIGHT_COLUMN: AttrField[] = [
+  { key: "essence", label: "Essence", type: "number" },
+  { key: "magic", label: "Magic/Resonance" },
+  { key: "initiative", label: "Initiative", type: "text" },
+  { key: "matrix_initiative", label: "Matrix Initiative", type: "text" },
+  { key: "astral_initiative", label: "Astral Initiative", type: "text" },
+  { key: "composure", label: "Composure" },
+  { key: "judge_intentions", label: "Judge Intentions" },
+  { key: "memory", label: "Memory" },
+  { key: "lift_carry", label: "Lift/Carry", type: "text" },
+  { key: "movement", label: "Movement", type: "text" },
+  { key: "defense_rating", label: "Defense Rating", type: "text" },
 ];
 
 interface Props {
@@ -26,17 +38,20 @@ interface Props {
   onUpdate: (attrs: SR6Attributes) => void;
 }
 
-function AttrInput({ attrKey, label, color, value, onChange }: { attrKey: keyof SR6Attributes; label: string; color: string; value: number; onChange: (key: keyof SR6Attributes, val: string) => void }) {
+function AttrRow({ field, value, onChange }: { field: AttrField; value: any; onChange: (key: keyof SR6Attributes, val: string) => void }) {
+  const isText = field.type === "text";
   return (
-    <div className="space-y-1">
-      <Label className={`font-display text-xs tracking-widest ${color}`}>{label}</Label>
+    <div className="flex items-center gap-2 border-b border-border/30 py-1">
+      <Label className="font-display text-xs tracking-wide text-muted-foreground text-right min-w-[110px] shrink-0">
+        {field.label}
+      </Label>
       <Input
-        type="number"
-        value={value}
-        onChange={(e) => onChange(attrKey, e.target.value)}
-        className="font-mono text-center text-lg h-12 bg-muted/50"
-        min={0}
-        step={attrKey === "essence" ? 0.1 : 1}
+        type={isText ? "text" : "number"}
+        value={value ?? (isText ? "" : 0)}
+        onChange={(e) => onChange(field.key, e.target.value)}
+        className="font-mono text-sm h-8 bg-transparent border-none p-1 focus-visible:ring-0"
+        min={field.key === "essence" ? 0 : undefined}
+        step={field.key === "essence" ? 0.1 : undefined}
       />
     </div>
   );
@@ -44,8 +59,14 @@ function AttrInput({ attrKey, label, color, value, onChange }: { attrKey: keyof 
 
 export function AttributesTab({ attributes, onUpdate }: Props) {
   const handleChange = (key: keyof SR6Attributes, value: string) => {
-    const num = parseFloat(value) || 0;
-    onUpdate({ ...attributes, [key]: key === "essence" ? num : Math.max(0, Math.floor(num)) });
+    const field = [...LEFT_COLUMN, ...RIGHT_COLUMN].find((f) => f.key === key);
+    const isText = field?.type === "text";
+    if (isText) {
+      onUpdate({ ...attributes, [key]: value });
+    } else {
+      const num = parseFloat(value) || 0;
+      onUpdate({ ...attributes, [key]: key === "essence" ? num : Math.max(0, Math.floor(num)) });
+    }
   };
 
   return (
@@ -54,15 +75,15 @@ export function AttributesTab({ attributes, onUpdate }: Props) {
         <CardTitle className="font-display tracking-wider">ATTRIBUTES</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="grid grid-cols-2 gap-3">
-            {MAIN_ATTRS.map(({ key, label, color }) => (
-              <AttrInput key={key} attrKey={key} label={label} color={color} value={attributes[key]} onChange={handleChange} />
+        <div className="grid grid-cols-2 gap-x-8">
+          <div>
+            {LEFT_COLUMN.map((field) => (
+              <AttrRow key={field.key} field={field} value={attributes[field.key]} onChange={handleChange} />
             ))}
           </div>
-          <div className="grid grid-cols-2 gap-3 content-start">
-            {SPECIAL_ATTRS.map(({ key, label, color }) => (
-              <AttrInput key={key} attrKey={key} label={label} color={color} value={attributes[key]} onChange={handleChange} />
+          <div>
+            {RIGHT_COLUMN.map((field) => (
+              <AttrRow key={field.key} field={field} value={attributes[field.key]} onChange={handleChange} />
             ))}
           </div>
         </div>

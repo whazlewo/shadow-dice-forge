@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+// Input removed — character name moved to Step1Concept
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
@@ -23,7 +23,7 @@ const COLUMNS: { key: PriorityColumn; label: string }[] = [
 const LEVELS: PriorityLevel[] = ["A", "B", "C", "D", "E"];
 
 export default function Step1Priorities({ state, onChange }: Props) {
-  const { priorities, characterName } = state;
+  const { priorities } = state;
 
   const usedLevels = Object.values(priorities).filter(Boolean) as PriorityLevel[];
   const duplicates = usedLevels.filter((l, i) => usedLevels.indexOf(l) !== i);
@@ -36,17 +36,6 @@ export default function Step1Priorities({ state, onChange }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="char-name" className="font-display tracking-wide">Character Name</Label>
-        <Input
-          id="char-name"
-          value={characterName}
-          onChange={(e) => onChange({ characterName: e.target.value })}
-          placeholder="Enter runner name..."
-          className="font-mono text-lg"
-        />
-      </div>
-
       <Card className="border-border/50 bg-card/80">
         <CardHeader className="pb-3">
           <CardTitle className="font-display text-lg tracking-wide">Priority Table</CardTitle>

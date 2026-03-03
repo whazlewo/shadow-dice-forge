@@ -64,6 +64,11 @@ export interface DiceModifier {
   source: string;
 }
 
+export interface ARModifier {
+  source: string;
+  values: string; // e.g. "+2/+2/+2/+2/+2" or "+0/+0/+0/+1/+1"
+}
+
 export interface SR6Contact {
   id: string;
   name: string;
@@ -82,6 +87,7 @@ export interface SR6RangedWeapon {
   accessories: string;
   description?: string;
   equipped?: boolean;
+  ar_modifiers?: ARModifier[];
 }
 
 export interface SR6MeleeWeapon {
@@ -92,6 +98,7 @@ export interface SR6MeleeWeapon {
   reach: number;
   description?: string;
   equipped?: boolean;
+  ar_modifiers?: ARModifier[];
 }
 
 export interface SR6Armor {

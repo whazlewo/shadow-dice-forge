@@ -98,6 +98,13 @@ export default function Step4Skills({ state, onChange }: Props) {
 
         <TooltipProvider delayDuration={200}>
         <div className="space-y-1 max-h-[50vh] overflow-y-auto pr-1">
+          <div className="flex items-center gap-2 py-1 px-2 text-xs text-muted-foreground font-mono uppercase tracking-wider border-b border-border/50 mb-1">
+            <span className="w-32 shrink-0">Skill</span>
+            <span className="w-10 shrink-0 text-center">Untr?</span>
+            <span className="w-16 shrink-0">Attr</span>
+            <span className="w-[72px] shrink-0 text-center">Rating</span>
+            <span className="flex-1">Specialization</span>
+          </div>
           {skills.map((skill, i) => (
             <div key={skill.name} className={cn(
               "flex items-center gap-2 py-1 px-2 rounded-sm",
@@ -115,10 +122,7 @@ export default function Step4Skills({ state, onChange }: Props) {
               </span>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <span className={cn(
-                    "text-xs font-mono w-10 shrink-0 text-center cursor-help",
-                    (SKILL_CAN_DEFAULT[skill.name] ?? true) ? "text-emerald-400" : "text-destructive"
-                  )}>
+                  <span className="text-xs font-mono w-10 shrink-0 text-center cursor-help text-muted-foreground">
                     {(SKILL_CAN_DEFAULT[skill.name] ?? true) ? "Yes" : "No"}
                   </span>
                 </TooltipTrigger>

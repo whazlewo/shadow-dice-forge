@@ -23,7 +23,7 @@ import Step3Qualities from "@/components/wizard/Step3Qualities";
 import Step4Karma from "@/components/wizard/Step4Karma";
 import Step5Gear from "@/components/wizard/Step5Gear";
 import { PRIORITY_TABLE, type PriorityLevel } from "@/data/sr6-reference";
-import { SR6_CORE_SKILLS, type SR6Attributes, type SR6Skill, type WizardQuality, type WizardGearItem } from "@/types/character";
+import { SR6_CORE_SKILLS, type SR6Attributes, type SR6Skill, type WizardQuality, type WizardGearItem, type WizardRangedWeapon, type WizardMeleeWeapon, type WizardArmor as WizardArmorType, type WizardAugmentation, type WizardVehicle, type WizardElectronics, type WizardMiscGear } from "@/types/character";
 import { v4 as generateUUID } from "@/lib/uuid";
 
 export interface WizardSkill {
@@ -214,7 +214,36 @@ export default function CharacterWizard() {
 
       const resPriority = state.priorities.resources as PriorityLevel;
       const startingNuyen = PRIORITY_TABLE[resPriority].resources;
-      const gearCost = (state.purchasedGear || []).reduce((sum, g) => sum + g.cost * g.quantity, 0);
+      const allGear = state.purchasedGear || [];
+      const gearCost = allGear.reduce((sum, g) => sum + g.cost * g.quantity, 0);
+
+      // Split gear by category into character columns
+      const rangedWeapons = allGear
+        .filter((g): g is WizardRangedWeapon => g.category === "ranged_weapon")
+        .map((g) => ({ id: g.id, name: g.name, dv: g.dv, ar: g.attack_ratings, fire_modes: g.fire_modes, ammo: g.ammo, accessories: g.accessories }));
+
+      const meleeWeapons = allGear
+        .filter((g): g is WizardMeleeWeapon => g.category === "melee_weapon")
+        .map((g) => ({ id: g.id, name: g.name, dv: g.dv, ar: g.attack_ratings, reach: g.reach }));
+
+      const armorItems = allGear
+        .filter((g): g is WizardArmorType => g.category === "armor")
+        .map((g) => ({ id: g.id, name: g.name, rating: g.defense_rating, capacity: g.capacity, modifications: g.modifications }));
+
+      const augmentationItems = allGear
+        .filter((g): g is WizardAugmentation => g.category === "augmentation")
+        .map((g) => ({ id: g.id, name: g.name, type: g.aug_type, essence_cost: g.essence_cost, rating: g.rating, effects: g.effects, dice_modifiers: g.dice_modifiers }));
+
+      const vehicleItems = allGear
+        .filter((g): g is WizardVehicle => g.category === "vehicle")
+        .map((g) => ({ id: g.id, name: g.name, handling: g.handling, speed: g.speed, body: g.veh_body, armor: g.veh_armor, sensor: g.sensor, pilot: g.pilot, seats: g.seats }));
+
+      const miscGear = allGear
+        .filter((g): g is WizardElectronics | WizardMiscGear => g.category === "electronics" || g.category === "miscellaneous")
+        .map((g) => ({ id: g.id, name: g.name, quantity: g.quantity, notes: "notes" in g ? g.notes : "", dice_modifiers: "dice_modifiers" in g ? g.dice_modifiers : undefined }));
+
+      // Update essence based on augmentations
+      const totalEssenceLost = augmentationItems.reduce((sum, a) => sum + a.essence_cost, 0);
 
       const { data, error } = await supabase
         .from("characters")
@@ -223,10 +252,15 @@ export default function CharacterWizard() {
           name: state.characterName || "New Runner",
           metatype: state.metatype,
           priorities: state.priorities as any,
-          attributes: attrs as any,
+          attributes: { ...attrs, essence: 6 - totalEssenceLost } as any,
           skills: skills as any,
           qualities: qualities as any,
-          gear: (state.purchasedGear || []) as any,
+          ranged_weapons: rangedWeapons as any,
+          melee_weapons: meleeWeapons as any,
+          armor: armorItems as any,
+          augmentations: augmentationItems as any,
+          vehicles: vehicleItems as any,
+          gear: miscGear as any,
           ids_lifestyles: { sins: [], licenses: [], lifestyles: [], nuyen: startingNuyen - gearCost } as any,
           personal_info: { role: state.role, backstory: state.backstory } as any,
         })

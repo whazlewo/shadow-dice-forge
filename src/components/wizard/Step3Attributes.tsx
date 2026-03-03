@@ -27,7 +27,10 @@ interface Props {
 }
 
 export default function Step3Attributes({ state, onChange }: Props) {
-  const attrPriority = state.priorities.attributes as PriorityLevel;
+  const attrPriority = state.priorities.attributes as PriorityLevel | undefined;
+  if (!attrPriority) {
+    return <p className="text-sm text-muted-foreground">Please assign an Attributes priority first.</p>;
+  }
   const totalPoints = PRIORITY_TABLE[attrPriority].attributes;
   const mtData = METATYPE_DATA[state.metatype || "Human"];
   const { attributes, adjustmentPoints } = state;

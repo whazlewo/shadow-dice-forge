@@ -49,7 +49,10 @@ interface Props {
 }
 
 export default function Step4Skills({ state, onChange }: Props) {
-  const skillPriority = state.priorities.skills as PriorityLevel;
+  const skillPriority = state.priorities.skills as PriorityLevel | undefined;
+  if (!skillPriority) {
+    return <p className="text-sm text-muted-foreground">Please assign a Skills priority first.</p>;
+  }
   const totalPoints = PRIORITY_TABLE[skillPriority].skills;
   const { skills } = state;
 

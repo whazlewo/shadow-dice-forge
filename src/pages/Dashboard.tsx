@@ -33,18 +33,8 @@ export default function Dashboard() {
     fetchCharacters();
   }, []);
 
-  const createCharacter = async () => {
-    if (!user) return;
-    const { data, error } = await supabase
-      .from("characters")
-      .insert({ user_id: user.id, name: "New Runner" })
-      .select()
-      .single();
-    if (error) {
-      toast.error("Failed to create character");
-    } else if (data) {
-      navigate(`/character/${data.id}`);
-    }
+  const createCharacter = () => {
+    navigate("/new-character");
   };
 
   const duplicateCharacter = async (char: Character) => {

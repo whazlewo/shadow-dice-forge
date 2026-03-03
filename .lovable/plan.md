@@ -1,14 +1,14 @@
 
 
-## Add Base Karma Total to Qualities Step
+## Show Metatype Racial Qualities on the Qualities Step
 
-The Qualities step (Step 3) currently shows positive karma spent, negative karma gained, and net karma from qualities — but it doesn't show the base 50 karma or the resulting total available for the next Karma step. The user has no way to see how their quality choices affect their overall karma budget.
+The metatype's racial qualities (e.g., Thermographic Vision, Low-light Vision, Built Tough) are already stored in `METATYPE_DATA` and displayed on the Metatype sub-step, but they don't appear on the Qualities page (Step 3) where the user manages all their qualities.
 
 ### Change
 
 **`src/components/wizard/Step3Qualities.tsx`**
-- Add a badge showing the base karma (50) and a badge showing the total available karma (50 + net from qualities)
-- This gives the user a clear picture: "I start with 50, my qualities give me +X, so I'll have Y karma to spend in Step 4"
-
-The badge row will become: `Base: 50 | Positive: X spent | Negative: Y gained | Net: Z | Total Available: 50+Z`
+- Import `METATYPE_DATA` from `sr6-reference.ts`
+- Read `state.metatype` to look up racial qualities
+- If a metatype is selected and has racial qualities, render a read-only section at the top of the card (before the user-added qualities) showing them as badges labeled "RACIAL QUALITIES (from [Metatype])"
+- These are display-only — not editable or removable, since they come from the metatype choice
 

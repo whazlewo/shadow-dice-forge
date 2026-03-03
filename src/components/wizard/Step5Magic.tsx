@@ -11,7 +11,10 @@ interface Props {
 }
 
 export default function Step5Magic({ state, onChange }: Props) {
-  const magicPriority = state.priorities.magic_resonance as PriorityLevel;
+  const magicPriority = state.priorities.magic_resonance as PriorityLevel | undefined;
+  if (!magicPriority) {
+    return <p className="text-sm text-muted-foreground">Please assign a Magic/Resonance priority first.</p>;
+  }
   const options = PRIORITY_TABLE[magicPriority].magic_resonance;
   const { magicChoice } = state;
 

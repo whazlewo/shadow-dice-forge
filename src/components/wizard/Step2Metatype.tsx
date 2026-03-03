@@ -13,7 +13,10 @@ interface Props {
 }
 
 export default function Step2Metatype({ state, onChange }: Props) {
-  const metatypePriority = state.priorities.metatype as PriorityLevel;
+  const metatypePriority = state.priorities.metatype as PriorityLevel | undefined;
+  if (!metatypePriority) {
+    return <p className="text-sm text-muted-foreground">Please assign a Metatype priority first.</p>;
+  }
   const row = PRIORITY_TABLE[metatypePriority];
   const availableMetatypes = row.metatype.metatypes;
   const totalAdj = row.metatype.adjustmentPoints;

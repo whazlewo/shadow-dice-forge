@@ -9,6 +9,15 @@ import { SR6_CORE_SKILLS } from "@/types/character";
 import type { WizardState, WizardSkill } from "@/pages/CharacterWizard";
 import { cn } from "@/lib/utils";
 
+const SKILL_CAN_DEFAULT: Record<string, boolean> = {
+  Astral: false,
+  Conjuring: false,
+  Enchanting: false,
+  Sorcery: false,
+  Tasking: false,
+  "Exotic Weapons": false,
+};
+
 const SKILL_DESCRIPTIONS: Record<string, string> = {
   Astral: "Navigating and interacting with the astral plane, including astral combat and projection.",
   Athletics: "Running, climbing, swimming, jumping, and other physical feats of coordination.",
@@ -104,6 +113,21 @@ export default function Step4Skills({ state, onChange }: Props) {
                   <TooltipContent side="right" className="max-w-64">{SKILL_DESCRIPTIONS[skill.name] || skill.name}</TooltipContent>
                 </Tooltip>
               </span>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className={cn(
+                    "text-xs font-mono w-10 shrink-0 text-center cursor-help",
+                    (SKILL_CAN_DEFAULT[skill.name] ?? true) ? "text-emerald-400" : "text-destructive"
+                  )}>
+                    {(SKILL_CAN_DEFAULT[skill.name] ?? true) ? "Yes" : "No"}
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-64">
+                  {(SKILL_CAN_DEFAULT[skill.name] ?? true)
+                    ? "Can be attempted untrained, defaulting to the linked attribute."
+                    : "Cannot be used without at least 1 rank."}
+                </TooltipContent>
+              </Tooltip>
               <span className="text-xs text-muted-foreground font-mono w-16 shrink-0 capitalize">
                 {SR6_CORE_SKILLS[i]?.attribute}
               </span>

@@ -88,7 +88,9 @@ export default function Step3Attributes({ state, onChange }: Props) {
           )}
 
           <div className="grid gap-2 sm:grid-cols-2">
-            {BASE_ATTRIBUTES.map((attr) => {
+            {([["body", "agility", "reaction", "strength"], ["willpower", "logic", "intuition", "charisma"]] as const).map((group, gi) => (
+              <div key={gi} className="space-y-2">
+                {group.map((attr) => {
               const current = attributes[attr] || 1;
               const adj = adjustmentPoints[attr] || 0;
               const [, metaMax] = mtData.attributes[attr];
@@ -112,6 +114,8 @@ export default function Step3Attributes({ state, onChange }: Props) {
                 </div>
               );
             })}
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>

@@ -119,11 +119,13 @@ function FireModeBadges({ modes }: { modes: string }) {
             return info ? (
               <Tooltip key={code}>
                 <TooltipTrigger asChild>
-                  <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 h-4 cursor-help border-primary/30 text-primary">
-                    {code}
-                  </Badge>
+                  <span className="cursor-help">
+                    <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 h-4 border-primary/30 text-primary">
+                      {code}
+                    </Badge>
+                  </span>
                 </TooltipTrigger>
-                <TooltipContent side="top" className="text-xs max-w-[220px]">
+                <TooltipContent side="top" className="text-xs max-w-[250px]">
                   <span className="font-bold">{info.full}:</span> {info.tip}
                 </TooltipContent>
               </Tooltip>

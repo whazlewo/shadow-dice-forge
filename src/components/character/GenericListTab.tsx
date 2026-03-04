@@ -26,6 +26,7 @@ interface Props {
   fieldLabels?: Record<string, string>;
   fieldOptions?: Record<string, string[]>;
   fieldDefaults?: Record<string, string>;
+  fieldWidths?: Record<string, string>;
   numericFields?: string[];
   showEquipped?: boolean;
   showAccessories?: boolean;
@@ -35,7 +36,7 @@ interface Props {
   onUpdate: (items: Record<string, any>[]) => void;
 }
 
-export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, numericFields, showEquipped, showAccessories, showDiceModifiers, showEffects, readOnlyToggle, onUpdate }: Props) {
+export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, fieldWidths, numericFields, showEquipped, showAccessories, showDiceModifiers, showEffects, readOnlyToggle, onUpdate }: Props) {
   const [editing, setEditing] = useState(!readOnlyToggle);
 
   const add = () => {
@@ -109,7 +110,7 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                     </div>
                   )}
                   {fields.map((field) => (
-                    <div key={field} className="flex-1 min-w-[100px]">
+                    <div key={field} className="min-w-[100px]" style={fieldWidths?.[field] ? { flex: fieldWidths[field] } : { flex: '1' }}>
                       <Label className="text-[10px] text-muted-foreground uppercase tracking-widest flex items-center gap-0.5">
                         {fieldLabels?.[field] || formatLabel(field)}
                         {FIELD_TOOLTIPS[field] && (

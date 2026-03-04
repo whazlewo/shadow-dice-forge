@@ -181,12 +181,6 @@ export default function CharacterSheet() {
               onUpdate={(a) => updateField("armor", a)}
             />
             <GenericListTab
-              title="Matrix Stats"
-              items={[character.matrix_stats || {}] as any[]}
-              fields={["device_rating", "attack", "sleaze", "data_processing", "firewall"]}
-              onUpdate={(m) => updateField("matrix_stats", m[0] || {})}
-            />
-            <GenericListTab
               title="Augmentations"
               items={augmentations as any[]}
               fields={["name", "type", "essence_cost", "rating", "effects"]}
@@ -198,6 +192,12 @@ export default function CharacterSheet() {
               fields={["name", "quantity", "notes"]}
               showEquipped
               onUpdate={(g) => updateField("gear", g)}
+            />
+            <GenericListTab
+              title="Matrix Stats"
+              items={[character.matrix_stats || {}] as any[]}
+              fields={["device_rating", "attack", "sleaze", "data_processing", "firewall"]}
+              onUpdate={(m) => updateField("matrix_stats", m[0] || {})}
             />
           </TabsContent>
 

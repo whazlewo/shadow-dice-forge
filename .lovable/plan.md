@@ -1,87 +1,42 @@
 
 
-## Codebase Optimization Plan
+## Add Weapon Subtype for Specialization-Aware Dice Pools
 
-After a thorough analysis of all source files, here are the issues found and proposed fixes, grouped by category.
+### Problem
+Weapons don't carry a subtype (e.g., "Pistols (Heavy)", "Shotguns", "Blades") so the dice pool calculator can't check if the character's specialization applies for the +2 bonus.
 
----
+### Changes
 
-### 1. Duplicated Fire Mode Constants and Components
+**1. Add `subtype` field to weapon types** (`src/types/character.ts`)
+- Add optional `subtype?: string` to `SR6RangedWeapon` and `SR6MeleeWeapon`
+- This stores the Firearms/Close Combat specialization category (e.g., "Pistols (Heavy)", "Blades")
 
-**Problem:** The fire mode data and `FireModeCheckboxes` component are defined **three separate times** with identical logic:
-- `src/components/character/GenericListTab.tsx` — `FIRE_MODES` + `FireModeCheckboxes`
-- `src/components/wizard/Step5Gear.tsx` — `FIRE_MODES` + `FireModeCheckboxes`
-- `src/components/character/EquippedGearTab.tsx` — `FIRE_MODE_INFO` (same data, different shape) + `FireModeBadges`
+**2. Add subtype dropdown to weapon editing** (`src/components/character/GenericListTab.tsx`)
+- For ranged weapons: show a `<Select>` populated with Firearms specializations from `SR6_CORE_SKILLS`
+- For melee weapons: show a `<Select>` populated with Close Combat specializations
+- Allow free-text fallback for custom subtypes
 
-**Fix:** Extract into a single shared file `src/components/character/FireModes.tsx` containing:
-- One `FIRE_MODES` constant (single source of truth)
-- Exported `FireModeCheckboxes` component
-- Exported `FireModeBadges` component
+**3. Extract `calculateDicePool` to shared utility** (`src/lib/dice-pool.ts`)
+- Move the function from `SkillsTab.tsx` into a shared module
+- Update `SkillsTab.tsx` to import from there
 
-Then import from that file in all three consumers.
+**4. Add dice pool display to `EquippedGearTab`** (`src/components/character/EquippedGearTab.tsx`)
+- Accept `skills`, `attributes`, `qualities`, `augmentations`, `gear` as props
+- For each ranged weapon: look up the "Firearms" skill, compute base pool, then check if `weapon.subtype` matches the skill's `specialization` (+2) or `expertise` (+3)
+- For each melee weapon: same logic with "Close Combat" skill
+- Display as a "Pool" `StatPill` with tooltip breakdown showing attribute + skill + spec/exp + modifiers
 
----
+**5. Pass props from `CharacterSheet.tsx`**
+- Add the additional props to the `EquippedGearTab` call
 
-### 2. Duplicated Specialization Data
+**6. Map subtype during wizard finalization** (`src/pages/CharacterWizard.tsx`)
+- No change needed — subtypes don't exist in wizard gear currently; users will set them on the character sheet
 
-**Problem:** Skill specializations are defined **twice**:
-- `src/data/sr6-reference.ts` → `SKILL_SPECIALIZATIONS` (used in wizard Step4Skills)
-- `src/types/character.ts` → `SR6_CORE_SKILLS[].specializations` (used in character sheet SkillsTab)
-
-These contain the same data but with some discrepancies (e.g., Firearms specializations differ between the two).
-
-**Fix:** Remove `SKILL_SPECIALIZATIONS` from `sr6-reference.ts`. Update `Step4Skills.tsx` to use `SR6_CORE_SKILLS` (which already has specializations) as the single source of truth.
-
----
-
-### 3. Dead Code
-
-| File | Dead Code | Action |
-|------|-----------|--------|
-| `src/components/character/EquippedGearTab.tsx` | `accessoryNames()` function — defined but never called | Delete |
-| `src/components/character/ARModifierList.tsx` | Entire file — never imported anywhere | Delete file |
-| `src/components/NavLink.tsx` | Entire file — never imported anywhere | Delete file |
-| `src/pages/Index.tsx` | Redirects to `/` but `/` is already routed directly in `App.tsx`. No route maps to `/index` | Delete file and remove route if any |
-| `src/types/character.ts` | `SR6PersonalInfo.karma` and `SR6PersonalInfo.total_karma` fields — superseded by the karma ledger system | Remove these two fields |
-
----
-
-### 4. `uuid.ts` Wrapper is Unnecessary
-
-**Problem:** `src/lib/uuid.ts` is a one-line wrapper around `crypto.randomUUID()`. It's imported in 4 files as `v4` or `generateUUID`.
-
-**Fix:** Replace all imports with direct `crypto.randomUUID()` calls and delete the file. This removes an abstraction layer with no value.
-
----
-
-### 5. Repeated `scanMods` Helper Pattern in AttributesTab
-
-**Problem:** `AttributesTab.tsx` contains three near-identical `scanMods`/`scanDRMods`/`scanInitMods` inline functions that iterate items looking for dice modifiers by attribute name.
-
-**Fix:** Extract a single generic `collectDiceModifiers(items, attributeKey)` utility function and reuse it for DR, initiative dice, and initiative flat modifiers.
-
----
-
-### 6. No Security Issues Found
-
-The codebase is clean on security:
-- RLS policies are correctly applied on all tables (restrictive, user-scoped)
-- Auth uses server-side validation via Supabase Auth (no client-side role checks)
-- No secrets or credentials are hardcoded
-- No direct manipulation of `auth` schema tables
-
----
-
-### Summary of Changes
-
-| Change | Files Affected |
-|--------|---------------|
-| Extract shared `FireModes.tsx` | Create 1 new file, modify 3 files |
-| Consolidate specialization data | Modify 2 files |
-| Delete dead code | Delete 3 files, modify 2 files |
-| Inline `crypto.randomUUID()` | Delete 1 file, modify 4 files |
-| Extract `collectDiceModifiers` utility | Modify 1 file |
-| Remove stale `karma`/`total_karma` fields | Modify 1 file |
-
-Total: ~3 new/modified utilities, 4 deleted files, 8 files modified. No database changes needed.
+### Tooltip Breakdown Example
+```
+Agility          6
+Firearms         5
+Spec: Heavy P.  +2
+Total          13d6
+```
 

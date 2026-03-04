@@ -243,40 +243,42 @@ export default function CharacterSheet() {
     <div className="min-h-screen bg-background">
       <KarmaConfirmDialog request={karmaConfirm} />
 
-      {/* Header */}
-      <header className="border-b border-border/50 bg-card/50 backdrop-blur sticky top-0 z-10">
-        <div className="container flex h-14 items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onBlur={() => save({ name })}
-            className="font-display text-lg font-bold tracking-wider bg-transparent border-none h-auto p-0 max-w-xs focus-visible:ring-0"
-          />
-          <span className="text-xs text-muted-foreground font-mono">|</span>
-          <Input
-            value={metatype}
-            onChange={(e) => setMetatype(e.target.value)}
-            onBlur={() => save({ metatype })}
-            className="text-sm font-mono bg-transparent border-none h-auto p-0 max-w-[120px] focus-visible:ring-0 text-muted-foreground"
-          />
-          <div className="ml-auto flex items-center gap-2">
-            {saving && <span className="text-xs text-neon-amber font-mono animate-pulse">Saving...</span>}
+      <Tabs defaultValue="core" className="w-full">
+        {/* Fixed header with tabs */}
+        <header className="border-b border-border/50 bg-card/80 backdrop-blur-md sticky top-0 z-10">
+          <div className="container flex h-12 items-center gap-3">
+            <Button variant="ghost" size="icon" className="shrink-0 h-8 w-8" onClick={() => navigate("/")}>
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+            <Input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              onBlur={() => save({ name })}
+              className="font-display text-base font-bold tracking-wider bg-transparent border-none h-auto p-0 max-w-[200px] focus-visible:ring-0"
+            />
+            <span className="text-xs text-muted-foreground font-mono">|</span>
+            <Input
+              value={metatype}
+              onChange={(e) => setMetatype(e.target.value)}
+              onBlur={() => save({ metatype })}
+              className="text-sm font-mono bg-transparent border-none h-auto p-0 max-w-[100px] focus-visible:ring-0 text-muted-foreground"
+            />
+            <div className="ml-auto flex items-center gap-2">
+              {saving && <span className="text-xs text-neon-amber font-mono animate-pulse">Saving...</span>}
+            </div>
           </div>
-        </div>
-      </header>
+          <div className="container pb-1">
+            <TabsList className="flex flex-wrap h-auto gap-0.5 bg-transparent p-0">
+              {["core", "weapons-gear", "vehicles", "spells", "adept", "other"].map((tab) => (
+                <TabsTrigger key={tab} value={tab} className="font-display text-[10px] tracking-wider uppercase px-3 py-1.5 h-auto data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-none border-b-2 border-transparent data-[state=active]:border-primary">
+                  {tab === "weapons-gear" ? "Weapons & Gear" : tab}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+        </header>
 
       <main className="container py-4">
-        <Tabs defaultValue="core" className="w-full">
-          <TabsList className="flex flex-wrap h-auto gap-1 bg-card/50 p-1 mb-4">
-            {["core", "weapons-gear", "vehicles", "spells", "adept", "other"].map((tab) => (
-              <TabsTrigger key={tab} value={tab} className="font-display text-xs tracking-wider uppercase">
-                {tab === "weapons-gear" ? "Weapons & Gear" : tab}
-              </TabsTrigger>
-            ))}
-          </TabsList>
 
           <TabsContent value="core" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -420,8 +422,8 @@ export default function CharacterSheet() {
               onUpdate={(o) => updateField("other_abilities", o)}
             />
           </TabsContent>
-        </Tabs>
       </main>
+      </Tabs>
     </div>
   );
 }

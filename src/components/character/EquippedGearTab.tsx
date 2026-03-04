@@ -76,24 +76,26 @@ function AccessoryBadges({ accessories }: { accessories?: { name: string; ar_mod
   if (items.length === 0) return null;
   return (
     <TooltipProvider delayDuration={200}>
-      <div className="flex flex-wrap gap-1 mt-1">
+      <div className="flex flex-wrap items-center gap-1 mt-1">
         {items.map((acc, i) => {
-          const details: string[] = [];
-          if (acc.ar_modifier) details.push(`AR: ${acc.ar_modifier}`);
-          if (acc.notes) details.push(acc.notes);
-          const tip = details.join(" · ");
+          const arTip = acc.ar_modifier ? `AR: ${acc.ar_modifier}` : "";
           const badge = (
             <Badge variant="secondary" className="text-[10px] font-mono px-1.5 py-0 h-4 bg-accent/30 text-accent-foreground">
               {acc.name}
             </Badge>
           );
-          return tip ? (
-            <Tooltip key={i}>
-              <TooltipTrigger asChild>{badge}</TooltipTrigger>
-              <TooltipContent side="top" className="text-xs max-w-[260px]">{tip}</TooltipContent>
-            </Tooltip>
-          ) : (
-            <span key={i}>{badge}</span>
+          return (
+            <span key={i} className="inline-flex items-center gap-1">
+              {arTip ? (
+                <Tooltip>
+                  <TooltipTrigger asChild>{badge}</TooltipTrigger>
+                  <TooltipContent side="top" className="text-xs max-w-[260px]">{arTip}</TooltipContent>
+                </Tooltip>
+              ) : badge}
+              {acc.notes && (
+                <span className="text-[10px] text-muted-foreground font-mono">{acc.notes}</span>
+              )}
+            </span>
           );
         })}
       </div>

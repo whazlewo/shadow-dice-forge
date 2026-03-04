@@ -1,36 +1,27 @@
 
 
-## Add Read-Only / Edit Mode Toggle to Core Tab Sections
+## Replace Fire Modes Text Field with Checkboxes + Tooltips
 
-Add a toggle between read-only display and edit mode for **Personal Data**, **Skills**, and **Contacts** on the Core tab. Each section gets a small pencil icon in the card header that switches it into edit mode (showing the current input-based UI). In read-only mode, values display as styled text instead of inputs.
+The four SR6 firing modes are: **SS** (Single-Shot), **SA** (Semi-Automatic), **BF** (Burst Fire), **FA** (Full Auto). Replace the free-text `fire_modes` field with a row of labeled checkboxes, each with a tooltip explaining the mode.
 
-### Approach
+### Data Model
+Keep `fire_modes` as a `string` internally (no type changes needed). Store as comma-joined abbreviations, e.g. `"SS,SA,BF"`. This keeps the character sheet display and save logic unchanged.
 
-**1. PersonalInfoTab** — Add `editing` state (default `false`).
-- Read-only mode: render each field as a `<span>` with the label above it, same grid layout.
-- Edit mode: render current `<Input>` fields as-is.
-- Pencil/check icon in the `CardHeader` toggles between modes. On switching back to read-only, trigger the existing blur/save callbacks.
+### Changes
 
-**2. SkillsTab** — Add `editing` state (default `false`).
-- Read-only mode: render each skill as a compact row showing name, rating, attribute, specialization/expertise (if set), and dice pool — no inputs, no expand/collapse, no Add/Remove buttons.
-- Edit mode: current collapsible UI with selects, inputs, add/remove.
-- Pencil/check icon in header toggles.
+**`src/components/wizard/Step5Gear.tsx`** — Replace `<Field label="Fire Modes" ...>` in `RangedFields` with a new `FireModeCheckboxes` component:
+- Four checkboxes in a horizontal row: SS, SA, BF, FA
+- Each wrapped in a `Tooltip` showing the full name and brief rule description
+- Parse the current `fire_modes` string into a Set, toggle on check/uncheck, join back to string on change
+- Styled with `text-xs font-mono` to match existing aesthetic
 
-**3. Contacts (GenericListTab)** — Add an optional `readOnlyToggle` prop.
-- When enabled, the component manages its own `editing` state.
-- Read-only mode: render items as compact text rows (field values separated by " | " or in a mini grid), no Add/Remove buttons, no inputs.
-- Edit mode: current input-based UI.
-- Only the Contacts instance on the Core tab passes `readOnlyToggle={true}`.
+**`src/components/character/EquippedGearTab.tsx`** — No changes needed (already displays the string as-is via `StatPill`).
 
-### UI Details
-- Toggle icon: `Pencil` (lucide) when read-only → `Check` when editing, placed in the CardHeader next to the title.
-- Read-only text uses `font-mono text-sm` styling to match the current aesthetic.
-- Empty/unset fields show "—" in read-only mode.
-- No changes to save logic — edits still auto-save on each field change as they do now.
+### Tooltip Content
+- **SS** — "Single-Shot: One shot per Attack action, must reload after"
+- **SA** — "Semi-Automatic: One shot per Attack action, +1 per additional"  
+- **BF** — "Burst Fire: Fires a burst, −2 Defense Rating"
+- **FA** — "Full Auto: Fires continuous, −6 Defense Rating"
 
-### Files Changed
-- `src/components/character/PersonalInfoTab.tsx` — add editing toggle + read-only render
-- `src/components/character/SkillsTab.tsx` — add editing toggle + read-only render
-- `src/components/character/GenericListTab.tsx` — add optional `readOnlyToggle` prop + read-only render
-- `src/pages/CharacterSheet.tsx` — pass `readOnlyToggle` to the Contacts GenericListTab
+Single file changed, ~30 lines added.
 

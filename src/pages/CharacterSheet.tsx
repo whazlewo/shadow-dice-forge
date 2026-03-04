@@ -155,9 +155,9 @@ export default function CharacterSheet() {
             <GenericListTab
               title="Ranged Weapons"
               items={(character.ranged_weapons || []) as any[]}
-              fields={["name", "dv", "ar", "fire_modes", "ammo", "accessories"]}
+              fields={["name", "dv", "ar", "fire_modes", "ammo"]}
               showEquipped
-              showARModifiers
+              showAccessories
               onUpdate={(w) => updateField("ranged_weapons", w)}
             />
             <GenericListTab
@@ -166,7 +166,7 @@ export default function CharacterSheet() {
               fields={["name", "dv", "ar", "reach"]}
               numericFields={["reach"]}
               showEquipped
-              showARModifiers
+              showAccessories
               onUpdate={(w) => updateField("melee_weapons", w)}
             />
             <GenericListTab

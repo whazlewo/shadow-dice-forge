@@ -8,8 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Plus, Trash2, Info } from "lucide-react";
 import { v4 } from "@/lib/uuid";
-import { ARModifierList } from "./ARModifierList";
-import type { ARModifier } from "@/types/character";
+import { AccessoryList } from "./AccessoryList";
+import type { WeaponAccessory } from "@/types/character";
 
 const FIELD_TOOLTIPS: Record<string, string> = {
   ar: "Point Blank / Short / Medium / Long / Extreme",
@@ -25,11 +25,11 @@ interface Props {
   fieldDefaults?: Record<string, string>;
   numericFields?: string[];
   showEquipped?: boolean;
-  showARModifiers?: boolean;
+  showAccessories?: boolean;
   onUpdate: (items: Record<string, any>[]) => void;
 }
 
-export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, numericFields, showEquipped, showARModifiers, onUpdate }: Props) {
+export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, numericFields, showEquipped, showAccessories, onUpdate }: Props) {
   const add = () => {
     const newItem: Record<string, any> = { id: v4(), equipped: true };
     fields.forEach((f) => (newItem[f] = fieldDefaults?.[f] ?? ""));
@@ -123,11 +123,11 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                 className="text-xs font-mono bg-muted/50 min-h-[60px] resize-y"
               />
             </div>
-            {showARModifiers && fields.includes("ar") && (
+            {showAccessories && (
               <div className="w-full">
-                <ARModifierList
-                  modifiers={(item.ar_modifiers as ARModifier[]) || []}
-                  onChange={(mods) => update(index, "ar_modifiers", mods as any)}
+                <AccessoryList
+                  accessories={(item.accessories as WeaponAccessory[]) || []}
+                  onChange={(accs) => update(index, "accessories", accs as any)}
                 />
               </div>
             )}

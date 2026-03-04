@@ -45,17 +45,27 @@ function StatPill({ label, value, tooltip }: { label: string; value: string | nu
   return content;
 }
 
-function arTooltip(weapon: { ar: string; ar_modifiers?: { source: string; values: string }[] }): string | undefined {
-  const mods = weapon.ar_modifiers || [];
+function accessoriesToARModifiers(weapon: { accessories?: { name: string; ar_modifier?: string }[] }): { source: string; values: string }[] {
+  return (weapon.accessories || [])
+    .filter((a) => a.ar_modifier && a.ar_modifier.trim())
+    .map((a) => ({ source: a.name || "Accessory", values: a.ar_modifier! }));
+}
+
+function arTooltip(weapon: { ar: string; accessories?: { name: string; ar_modifier?: string }[] }): string | undefined {
+  const mods = accessoriesToARModifiers(weapon);
   if (mods.length === 0) return "Point Blank / Short / Medium / Long / Extreme";
   const { breakdown } = calculateModifiedAR(weapon.ar, mods);
   return breakdown.map((b) => `${b.label.padEnd(12)} ${b.values}`).join("\n");
 }
 
-function modifiedAR(weapon: { ar: string; ar_modifiers?: { source: string; values: string }[] }): string {
-  const mods = weapon.ar_modifiers || [];
+function modifiedAR(weapon: { ar: string; accessories?: { name: string; ar_modifier?: string }[] }): string {
+  const mods = accessoriesToARModifiers(weapon);
   if (mods.length === 0) return weapon.ar || "—";
   return calculateModifiedAR(weapon.ar, mods).modified;
+}
+
+function accessoryNames(weapon: { accessories?: { name: string }[] }): string {
+  return (weapon.accessories || []).map((a) => a.name).filter(Boolean).join(", ");
 }
 
 export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
@@ -87,6 +97,9 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                   <StatPill label="Mode" value={w.fire_modes || "—"} />
                   <StatPill label="Ammo" value={w.ammo || "—"} />
                 </div>
+                {accessoryNames(w) && (
+                  <p className="text-[10px] text-muted-foreground mt-1 font-mono truncate">{accessoryNames(w)}</p>
+                )}
               </div>
             </div>
             {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}
@@ -104,6 +117,9 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <StatPill label="Reach" value={w.reach ?? "—"} />
                 </div>
+                {accessoryNames(w) && (
+                  <p className="text-[10px] text-muted-foreground mt-1 font-mono truncate">{accessoryNames(w)}</p>
+                )}
               </div>
             </div>
             {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}

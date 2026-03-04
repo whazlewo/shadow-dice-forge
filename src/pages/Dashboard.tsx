@@ -110,40 +110,53 @@ export default function Dashboard() {
           </Card>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {characters.map((char) => (
+            {characters.map((char) => {
+              const portraitUrl = (char as any).portrait_url as string | null;
+              return (
               <Card
                 key={char.id}
-                className="border-border/50 bg-card/80 hover:border-primary/50 transition-all cursor-pointer group"
+                className="border-border/50 bg-card/80 hover:border-primary/50 transition-all cursor-pointer group overflow-hidden"
                 onClick={() => navigate(`/character/${char.id}`)}
               >
-                <CardHeader className="pb-2">
-                  <CardTitle className="font-display text-lg tracking-wide group-hover:text-primary transition-colors">
-                    {char.name}
-                  </CardTitle>
-                  <CardDescription className="font-mono text-xs">
-                    {char.metatype} · Updated {new Date(char.updated_at).toLocaleDateString()}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex gap-2 pt-2">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8"
-                    onClick={(e) => { e.stopPropagation(); duplicateCharacter(char); }}
-                  >
-                    <Copy className="h-3.5 w-3.5" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 text-destructive hover:text-destructive"
-                    onClick={(e) => { e.stopPropagation(); deleteCharacter(char.id); }}
-                  >
-                    <Trash2 className="h-3.5 w-3.5" />
-                  </Button>
-                </CardContent>
+                <div className="flex">
+                  {/* Portrait */}
+                  <div className="shrink-0 w-20 h-20 m-3 rounded-md overflow-hidden bg-muted/30 flex items-center justify-center">
+                    {portraitUrl ? (
+                      <img src={portraitUrl} alt={char.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <User className="h-8 w-8 text-muted-foreground/40" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0 py-3 pr-3">
+                    <h3 className="font-display text-lg tracking-wide group-hover:text-primary transition-colors truncate">
+                      {char.name}
+                    </h3>
+                    <p className="font-mono text-xs text-muted-foreground">
+                      {char.metatype} · Updated {new Date(char.updated_at).toLocaleDateString()}
+                    </p>
+                    <div className="flex gap-2 mt-2">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-7 w-7"
+                        onClick={(e) => { e.stopPropagation(); duplicateCharacter(char); }}
+                      >
+                        <Copy className="h-3.5 w-3.5" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-7 w-7 text-destructive hover:text-destructive"
+                        onClick={(e) => { e.stopPropagation(); deleteCharacter(char.id); }}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </Card>
-            ))}
+              );
+            })}
           </div>
         )}
       </main>

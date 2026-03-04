@@ -55,6 +55,7 @@ export type Database = {
           melee_weapons: Json | null
           metatype: string | null
           name: string
+          notes: Json | null
           other_abilities: Json | null
           personal_info: Json | null
           portrait_url: string | null
@@ -83,6 +84,7 @@ export type Database = {
           melee_weapons?: Json | null
           metatype?: string | null
           name?: string
+          notes?: Json | null
           other_abilities?: Json | null
           personal_info?: Json | null
           portrait_url?: string | null
@@ -111,6 +113,7 @@ export type Database = {
           melee_weapons?: Json | null
           metatype?: string | null
           name?: string
+          notes?: Json | null
           other_abilities?: Json | null
           personal_info?: Json | null
           portrait_url?: string | null

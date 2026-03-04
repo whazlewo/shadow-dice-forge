@@ -362,6 +362,8 @@ export default function CharacterSheet() {
               title="Augmentations"
               items={augmentations as any[]}
               fields={["name", "type", "essence_cost", "rating", "effects"]}
+              fieldOptions={{ type: ["cyberware", "bioware", "cultured bioware", "nanotechnology", "geneware"] }}
+              fieldDefaults={{ type: "cyberware" }}
               showDiceModifiers
               showEffects
               onUpdate={(a) => updateField("augmentations", a)}

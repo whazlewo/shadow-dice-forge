@@ -20,6 +20,14 @@ export function DiceModifierEditor({ modifiers, onChange }: Props) {
   return (
     <div className="space-y-1">
       <Label className="text-xs font-display tracking-wide">Dice Modifiers</Label>
+      {modifiers.length > 0 && (
+        <div className="flex gap-1 items-center flex-wrap text-[10px] text-muted-foreground uppercase tracking-widest">
+          <span className="flex-1 min-w-[120px]">Skill</span>
+          <span className="w-16">Value</span>
+          <span className="flex-1 min-w-[100px]">Requires Accessory</span>
+          <span className="h-6 w-6" />
+        </div>
+      )}
       {modifiers.map((mod, i) => (
         <div key={i} className="flex gap-1 items-center flex-wrap">
           <Select value={mod.skill || "__all__"} onValueChange={(v) => update(i, { skill: v === "__all__" ? undefined : v })}>

@@ -112,13 +112,13 @@ export function EffectsEditor({ modifiers, onChange }: Props) {
         <Label className="text-[9px] text-muted-foreground uppercase tracking-widest">Attribute Bonuses</Label>
         <div className="flex flex-wrap gap-1.5">
           {attrBonuses.map((mod, i) => (
-            <Badge key={i} variant="secondary" className="gap-1.5 pl-2.5 pr-1 py-1 font-mono text-xs">
+            <Badge key={i} variant="outline" className="gap-1.5 pl-2.5 pr-1 py-1 font-mono text-xs">
               {ATTRIBUTE_OPTIONS.find((a) => a.value === mod.attribute)?.label || mod.attribute}{" "}
               {formatSign(mod.value)}
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-5 w-5 ml-1 text-destructive hover:bg-destructive/20 rounded-full"
+                className="h-5 w-5 ml-1 text-muted-foreground hover:text-destructive hover:bg-destructive/20 rounded-full"
                 onClick={() => removeAttrBonus(i)}
               >
                 <X className="h-3 w-3" />

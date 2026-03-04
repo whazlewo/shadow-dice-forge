@@ -5,7 +5,7 @@ import { AlertTriangle, Info, Minus, Plus } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { PRIORITY_TABLE, SKILL_SPECIALIZATIONS, type PriorityLevel } from "@/data/sr6-reference";
+import { PRIORITY_TABLE, type PriorityLevel } from "@/data/sr6-reference";
 import { SR6_CORE_SKILLS } from "@/types/character";
 import type { WizardState, WizardSkill } from "@/pages/CharacterWizard";
 import { cn } from "@/lib/utils";
@@ -126,7 +126,8 @@ export default function Step4Skills({ state, onChange }: Props) {
             <span className="flex-1">Spec / Expertise</span>
           </div>
           {skills.map((skill, i) => {
-            const specs = SKILL_SPECIALIZATIONS[skill.name] || [];
+            const coreSkill = SR6_CORE_SKILLS.find((s) => s.name === skill.name);
+            const specs = coreSkill?.specializations || [];
             return (
             <div key={skill.name} className={cn(
               "flex items-center gap-2 py-1 px-2 rounded-sm",

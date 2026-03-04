@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Trash2 } from "lucide-react";
 import type { SR6Quality } from "@/types/character";
-import { v4 } from "@/lib/uuid";
+
 
 interface Props {
   qualities: SR6Quality[];
@@ -13,7 +13,7 @@ interface Props {
 
 export function QualitiesTab({ qualities, onUpdate }: Props) {
   const add = () => {
-    onUpdate([...qualities, { id: v4(), name: "", type: "positive", karma_cost: 0, effects: "" }]);
+    onUpdate([...qualities, { id: crypto.randomUUID(), name: "", type: "positive", karma_cost: 0, effects: "" }]);
   };
 
   const update = (index: number, updates: Partial<SR6Quality>) => {

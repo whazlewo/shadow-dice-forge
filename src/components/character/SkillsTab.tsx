@@ -8,7 +8,7 @@ import { Plus, Trash2, ChevronDown, ChevronRight, Pencil, Check } from "lucide-r
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import type { SR6Attributes, SR6Skill, SR6Quality, SR6Augmentation, SR6Gear, DicePoolBreakdown } from "@/types/character";
 import { SR6_CORE_SKILLS } from "@/types/character";
-import { v4 } from "@/lib/uuid";
+
 import { skillKarmaCost, SPECIALIZATION_KARMA_COST, EXPERTISE_KARMA_COST } from "@/lib/karma";
 
 interface Props {
@@ -103,7 +103,7 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
   const addSkill = () => {
     const firstAvailable = SR6_CORE_SKILLS.find((s) => !skills.some((sk) => sk.name === s.name));
     const newSkill: SR6Skill = {
-      id: v4(),
+      id: crypto.randomUUID(),
       name: firstAvailable?.name || "Custom Skill",
       attribute: firstAvailable?.attribute || "agility",
       rating: 0,

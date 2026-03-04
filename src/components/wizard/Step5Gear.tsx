@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Trash2, PlusCircle, X } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
-import { v4 as generateUUID } from "@/lib/uuid";
+import { FireModeCheckboxes } from "@/components/character/FireModes";
 import { PRIORITY_TABLE, formatNuyen, type PriorityLevel } from "@/data/sr6-reference";
 import { SR6_CORE_SKILLS } from "@/types/character";
 import type { WizardState } from "@/pages/CharacterWizard";
@@ -41,7 +41,7 @@ const GEAR_CATEGORIES: { value: GearCategory; label: string }[] = [
 ];
 
 function createItem(category: GearCategory): WizardGearItem {
-  const base = { id: generateUUID(), name: "", cost: 0, quantity: 1, availability: "", equipped: true };
+  const base = { id: crypto.randomUUID(), name: "", cost: 0, quantity: 1, availability: "", equipped: true };
   switch (category) {
     case "ranged_weapon":
       return { ...base, category, dv: "", attack_ratings: "", fire_modes: "", ammo: "", accessories: "" };
@@ -108,52 +108,16 @@ function DiceModifierEditor({
 }
 
 // ----- Category-specific field renderers -----
-const FIRE_MODES = [
-  { code: "SS", tip: "Single Shot (1 round): No change to stats. Precise and ammo-efficient." },
-  { code: "SA", tip: "Semi-Automatic (2 rounds): DV +1 and AR −2. A quick double-tap." },
-  { code: "BF", tip: "Burst Fire (4 rounds): DV +2 and AR −4. High impact, harder to control." },
-  { code: "FA", tip: "Full Auto (10 rounds): DV +3 and AR −6. Absolute devastation, but massive AR penalty." },
-] as const;
-
-function FireModeCheckboxes({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  const active = new Set(value.split(",").map((s) => s.trim()).filter(Boolean));
-  const toggle = (code: string) => {
-    const next = new Set(active);
-    if (next.has(code)) next.delete(code); else next.add(code);
-    onChange(FIRE_MODES.map((m) => m.code).filter((c) => next.has(c)).join(","));
-  };
-  return (
-    <div className="space-y-1">
-      <Label className="text-xs font-display tracking-wide">Fire Modes</Label>
-      <TooltipProvider delayDuration={200}>
-        <div className="flex items-center gap-3">
-          {FIRE_MODES.map((m) => (
-            <Tooltip key={m.code}>
-              <TooltipTrigger asChild>
-                <label className="flex items-center gap-1 cursor-pointer">
-                  <Checkbox
-                    checked={active.has(m.code)}
-                    onCheckedChange={() => toggle(m.code)}
-                    className="h-3.5 w-3.5"
-                  />
-                  <span className="font-mono text-xs">{m.code}</span>
-                </label>
-              </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-[220px] text-xs">{m.tip}</TooltipContent>
-            </Tooltip>
-          ))}
-        </div>
-      </TooltipProvider>
-    </div>
-  );
-}
 
 function RangedFields({ item, onUpdate }: { item: WizardRangedWeapon; onUpdate: (u: Partial<WizardRangedWeapon>) => void }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
       <Field label="DV" value={item.dv} onChange={(v) => onUpdate({ dv: v })} />
       <Field label="Attack Ratings" value={item.attack_ratings} onChange={(v) => onUpdate({ attack_ratings: v })} />
-      <FireModeCheckboxes value={item.fire_modes} onChange={(v) => onUpdate({ fire_modes: v })} />
+      <div className="space-y-1">
+        <Label className="text-xs font-display tracking-wide">Fire Modes</Label>
+        <FireModeCheckboxes value={item.fire_modes} onChange={(v) => onUpdate({ fire_modes: v })} />
+      </div>
       <Field label="Ammo" value={item.ammo} onChange={(v) => onUpdate({ ammo: v })} />
       <Field label="Accessories" value={item.accessories} onChange={(v) => onUpdate({ accessories: v })} className="col-span-2" />
     </div>

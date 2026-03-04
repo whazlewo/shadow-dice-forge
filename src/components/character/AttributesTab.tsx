@@ -57,22 +57,7 @@ function computeDerived(
   const bestShield = bestOf(bySubtype("shield"));
 
   // Collect DR modifiers from qualities, augmentations, gear
-  const drMods: { source: string; value: number }[] = [];
-  const scanDRMods = (items: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[], alwaysEquipped = false) => {
-    for (const item of items) {
-      if (!alwaysEquipped && item.equipped === false) continue;
-      if (item.dice_modifiers) {
-        for (const dm of item.dice_modifiers) {
-          if (dm.attribute === "defense_rating") {
-            drMods.push({ source: item.name, value: dm.value });
-          }
-        }
-      }
-    }
-  };
-  scanDRMods(qualities || []);
-  scanDRMods(augmentations || [], true);
-  scanDRMods((gear || []).filter((g) => g.equipped !== false));
+  const drMods = collectDiceModifiers("defense_rating", qualities, augmentations, gear);
 
   const drBonus = drMods.reduce((sum, m) => sum + m.value, 0);
   const armorTotal = (Number(bestBody?.rating) || 0) + (Number(bestHelmet?.rating) || 0) + (Number(bestShield?.rating) || 0);
@@ -87,25 +72,8 @@ function computeDerived(
   drLines.push(`Total: ${totalDR}`);
 
   // Initiative dice modifiers (e.g. Wired Reflexes, Synaptic Booster)
-  const initDiceMods: { source: string; value: number }[] = [];
-  const initFlatMods: { source: string; value: number }[] = [];
-  const scanInitMods = (items: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[], alwaysEquipped = false) => {
-    for (const item of items) {
-      if (!alwaysEquipped && item.equipped === false) continue;
-      if (item.dice_modifiers) {
-        for (const dm of item.dice_modifiers) {
-          if (dm.attribute === "initiative_dice") {
-            initDiceMods.push({ source: item.name, value: dm.value });
-          } else if (dm.attribute === "initiative") {
-            initFlatMods.push({ source: item.name, value: dm.value });
-          }
-        }
-      }
-    }
-  };
-  scanInitMods(qualities || []);
-  scanInitMods(augmentations || [], true);
-  scanInitMods((gear || []).filter((g) => g.equipped !== false));
+  const initDiceMods = collectDiceModifiers("initiative_dice", qualities, augmentations, gear);
+  const initFlatMods = collectDiceModifiers("initiative", qualities, augmentations, gear);
 
   const initDiceBonus = initDiceMods.reduce((sum, m) => sum + m.value, 0);
   const totalInitDice = Math.min(1 + initDiceBonus, 5);
@@ -132,22 +100,25 @@ function computeDerived(
   ];
 }
 
-function getGearModifiers(key: string, augmentations: SR6Augmentation[], gear: SR6Gear[]): { source: string; value: number }[] {
+/** Collect dice modifiers for a given attribute key from qualities, augmentations, and gear */
+function collectDiceModifiers(
+  attrKey: string,
+  qualities?: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[],
+  augmentations?: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[],
+  gear?: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[],
+): { source: string; value: number }[] {
   const mods: { source: string; value: number }[] = [];
-  const scanMods = (items: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[], alwaysEquipped = false) => {
+  const scan = (items: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[], alwaysEquipped = false) => {
     for (const item of items) {
-      if (!alwaysEquipped && (item as any).equipped === false) continue;
-      if (item.dice_modifiers) {
-        for (const dm of item.dice_modifiers) {
-          if (dm.attribute === key) {
-            mods.push({ source: item.name, value: dm.value });
-          }
-        }
+      if (!alwaysEquipped && item.equipped === false) continue;
+      for (const dm of item.dice_modifiers || []) {
+        if (dm.attribute === attrKey) mods.push({ source: item.name, value: dm.value });
       }
     }
   };
-  scanMods(augmentations, true); // augmentations always equipped
-  scanMods(gear);
+  scan(qualities || []);
+  scan(augmentations || [], true);
+  scan((gear || []).filter((g) => g.equipped !== false));
   return mods;
 }
 
@@ -158,7 +129,7 @@ function buildAttrTooltip(
   augmentations?: SR6Augmentation[],
   gear?: SR6Gear[],
 ): string {
-  const gearMods = getGearModifiers(key, augmentations || [], gear || []);
+  const gearMods = collectDiceModifiers(key, [], augmentations, gear);
   const src = sources?.[key as keyof typeof sources];
 
   if (!src) {

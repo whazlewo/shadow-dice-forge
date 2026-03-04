@@ -18,23 +18,32 @@ interface Props {
   gear: SR6Gear[];
 }
 
-function StatPill({ label, value, tooltip }: { label: string; value: string | number; tooltip?: string }) {
+type PillVariant = "neutral" | "destructive" | "primary" | "shield";
+
+const pillStyles: Record<PillVariant, string> = {
+  neutral: "bg-muted/50 text-foreground",
+  destructive: "bg-destructive/15 text-destructive",
+  primary: "bg-primary/15 text-primary",
+  shield: "bg-[hsl(210_60%_40%/0.2)] text-[hsl(210_80%_70%)]",
+};
+
+function StatPill({ label, value, tooltip, variant = "neutral" }: { label: string; value: string | number; tooltip?: string; variant?: PillVariant }) {
   const content = (
-    <div className="flex flex-col items-center bg-muted/50 rounded px-2 py-1 min-w-[48px]">
-      <span className="text-[9px] text-muted-foreground uppercase tracking-widest flex items-center gap-0.5">
+    <div className={`flex flex-col items-center rounded px-2 py-1 min-w-[48px] ${pillStyles[variant]}`}>
+      <span className="text-[10px] uppercase tracking-widest flex items-center gap-0.5 opacity-70">
         {label}
         {tooltip && !tooltip.includes("\n") && (
           <TooltipProvider delayDuration={200}>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Info className="h-2.5 w-2.5 text-muted-foreground/60 cursor-help" />
+                <Info className="h-2.5 w-2.5 opacity-60 cursor-help" />
               </TooltipTrigger>
               <TooltipContent side="top" className="text-xs max-w-[200px]">{tooltip}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         )}
       </span>
-      <span className="text-xs font-mono font-bold text-foreground">{value}</span>
+      <span className="text-sm font-mono font-bold">{value}</span>
     </div>
   );
 
@@ -121,7 +130,17 @@ function PoolPill({ skillName, subtype, weaponAccessories, attributes, skills, q
     `${"Total".padEnd(15)} ${pool.total}d6`,
   ].join("\n");
 
-  return <StatPill label="Pool" value={`${pool.total}d6`} tooltip={lines} />;
+  return <StatPill label="Pool" value={`${pool.total}d6`} tooltip={lines} variant="primary" />;
+}
+
+function CategoryHeader({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
+  return (
+    <div className="flex items-center gap-2 pt-2 pb-1">
+      <Icon className="h-3.5 w-3.5 text-muted-foreground" />
+      <span className="text-[10px] font-display uppercase tracking-[0.2em] text-muted-foreground">{label}</span>
+      <div className="flex-1 h-px bg-border" />
+    </div>
+  );
 }
 
 export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, attributes, qualities, augmentations, gear }: Props) {
@@ -136,69 +155,77 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
       <CardHeader>
         <CardTitle className="font-display tracking-wider">EQUIPPED WEAPONS &amp; ARMOR</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-2">
         {hasNothing && (
           <p className="text-muted-foreground text-sm text-center py-6">No equipped items. Add and equip items in the Weapons &amp; Gear tab.</p>
         )}
 
-        {equippedRanged.map((w) => (
-          <div key={w.id} className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2 rounded-md bg-muted/30">
-            <div className="flex items-start gap-2">
-              <Crosshair className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-              <div className="min-w-0">
-                <p className="text-sm font-display tracking-wide truncate">{w.name || "Unnamed"}</p>
-                <div className="flex flex-wrap gap-1 mt-1">
-                  <StatPill label="DV" value={w.dv || "—"} />
+        {equippedRanged.length > 0 && (
+          <>
+            <CategoryHeader icon={Crosshair} label="Ranged Weapons" />
+            {equippedRanged.map((w) => (
+              <div key={w.id} className="border-l-2 border-primary pl-3 py-2 space-y-1.5 bg-muted/20 rounded-r-md">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm font-semibold font-display tracking-wide text-foreground">{w.name || "Unnamed"}</span>
+                  {w.subtype && <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 font-mono opacity-60">{w.subtype}</Badge>}
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  <StatPill label="DV" value={w.dv || "—"} variant="destructive" />
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <FireModeBadges modes={w.fire_modes || ""} />
                   <StatPill label="Ammo" value={w.ammo || "—"} />
                   <PoolPill skillName="Firearms" subtype={w.subtype} weaponAccessories={w.accessories} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
+                {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}
               </div>
-            </div>
-            {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}
-          </div>
-        ))}
+            ))}
+          </>
+        )}
 
-        {equippedMelee.map((w) => (
-          <div key={w.id} className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2 rounded-md bg-muted/30">
-            <div className="flex items-start gap-2">
-              <Sword className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-              <div className="min-w-0">
-                <p className="text-sm font-display tracking-wide truncate">{w.name || "Unnamed"}</p>
-                <div className="flex flex-wrap gap-1 mt-1">
-                  <StatPill label="DV" value={w.dv || "—"} />
+        {equippedMelee.length > 0 && (
+          <>
+            <CategoryHeader icon={Sword} label="Melee Weapons" />
+            {equippedMelee.map((w) => (
+              <div key={w.id} className="border-l-2 border-secondary pl-3 py-2 space-y-1.5 bg-muted/20 rounded-r-md">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm font-semibold font-display tracking-wide text-foreground">{w.name || "Unnamed"}</span>
+                  {w.subtype && <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 font-mono opacity-60">{w.subtype}</Badge>}
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  <StatPill label="DV" value={w.dv || "—"} variant="destructive" />
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <StatPill label="Reach" value={w.reach ?? "—"} />
                   <PoolPill skillName="Close Combat" subtype={w.subtype} weaponAccessories={w.accessories} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
+                {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}
               </div>
-            </div>
-            {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}
-          </div>
-        ))}
+            ))}
+          </>
+        )}
 
-        {equippedArmor.map((a) => (
-          <div key={a.id} className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2 rounded-md bg-muted/30">
-            <div className="flex items-start gap-2">
-              <Shield className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-              <div className="min-w-0">
-                <p className="text-sm font-display tracking-wide truncate">{a.name || "Unnamed"}</p>
-                <div className="flex flex-wrap gap-1 mt-1">
-                  <StatPill label="DR" value={a.rating ?? "—"} />
+        {equippedArmor.length > 0 && (
+          <>
+            <CategoryHeader icon={Shield} label="Armor" />
+            {equippedArmor.map((a) => (
+              <div key={a.id} className="border-l-2 border-[hsl(var(--neon-green))] pl-3 py-2 space-y-1.5 bg-muted/20 rounded-r-md">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm font-semibold font-display tracking-wide text-foreground">{a.name || "Unnamed"}</span>
+                  {a.subtype && <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 font-mono opacity-60">{a.subtype}</Badge>}
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  <StatPill label="DR" value={a.rating ?? "—"} variant="shield" />
                   <StatPill label="Cap" value={a.capacity ?? "—"} />
-                  {a.subtype && <StatPill label="Type" value={a.subtype} />}
                 </div>
                 {a.modifications && (
-                  <p className="text-[10px] text-muted-foreground mt-1 font-mono truncate">{a.modifications}</p>
+                  <p className="text-[10px] text-muted-foreground font-mono truncate">{a.modifications}</p>
                 )}
+                {a.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{a.description}</p>}
               </div>
-            </div>
-            {a.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{a.description}</p>}
-          </div>
-        ))}
+            ))}
+          </>
+        )}
       </CardContent>
     </Card>
   );

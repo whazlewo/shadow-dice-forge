@@ -19,6 +19,7 @@ import { QualitiesTab } from "@/components/character/QualitiesTab";
 import { GenericListTab } from "@/components/character/GenericListTab";
 import { EquippedGearTab } from "@/components/character/EquippedGearTab";
 import { KarmaConfirmDialog, type KarmaConfirmRequest } from "@/components/character/KarmaConfirmDialog";
+import { NotesTab } from "@/components/character/NotesTab";
 
 type Character = Tables<"characters">;
 
@@ -288,7 +289,7 @@ export default function CharacterSheet() {
             </div>
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <TabsList className="flex h-auto gap-0 bg-transparent p-0 pointer-events-auto">
-                {["core", "weapons-gear", "vehicles", "spells", "adept", "other"].map((tab) => (
+                {["core", "notes", "weapons-gear", "vehicles", "spells", "adept", "other"].map((tab) => (
                   <TabsTrigger key={tab} value={tab} className="font-display text-[10px] tracking-wider uppercase px-2.5 py-1 h-auto data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-sm data-[state=inactive]:text-muted-foreground">
                     {tab === "weapons-gear" ? "Gear" : tab}
                   </TabsTrigger>
@@ -349,6 +350,13 @@ export default function CharacterSheet() {
               numericFields={["loyalty", "connection"]}
               readOnlyToggle
               onUpdate={(c) => updateField("contacts", c)}
+            />
+          </TabsContent>
+
+          <TabsContent value="notes">
+            <NotesTab
+              notes={((character as any).notes || []) as any[]}
+              onUpdate={(n) => updateField("notes", n)}
             />
           </TabsContent>
 

@@ -101,16 +101,17 @@ function AccessoryBadges({ accessories }: { accessories?: { name: string; ar_mod
   );
 }
 
-function PoolPill({ skillName, subtype, attributes, skills, qualities, augmentations, gear }: {
+function PoolPill({ skillName, subtype, weaponAccessories, attributes, skills, qualities, augmentations, gear }: {
   skillName: string;
   subtype?: string;
+  weaponAccessories?: { name: string }[];
   attributes: SR6Attributes;
   skills: SR6Skill[];
   qualities: SR6Quality[];
   augmentations: SR6Augmentation[];
   gear: SR6Gear[];
 }) {
-  const pool = calculateWeaponPool(skillName, subtype, attributes, skills, qualities, augmentations, gear);
+  const pool = calculateWeaponPool(skillName, subtype, attributes, skills, qualities, augmentations, gear, weaponAccessories);
   const lines = [
     `${pool.attribute_name.charAt(0).toUpperCase() + pool.attribute_name.slice(1).padEnd(14)} ${pool.attribute_value}`,
     `${pool.skill_name.padEnd(15)} ${pool.skill_rating}`,
@@ -149,7 +150,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <FireModeBadges modes={w.fire_modes || ""} />
                   <StatPill label="Ammo" value={w.ammo || "—"} />
-                  <PoolPill skillName="Firearms" subtype={w.subtype} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
+                  <PoolPill skillName="Firearms" subtype={w.subtype} weaponAccessories={w.accessories} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
               </div>
@@ -168,7 +169,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
                   <StatPill label="DV" value={w.dv || "—"} />
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <StatPill label="Reach" value={w.reach ?? "—"} />
-                  <PoolPill skillName="Close Combat" subtype={w.subtype} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
+                  <PoolPill skillName="Close Combat" subtype={w.subtype} weaponAccessories={w.accessories} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
               </div>

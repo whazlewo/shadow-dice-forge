@@ -1,18 +1,30 @@
 import type { SR6Attributes, SR6Skill, SR6Quality, SR6Augmentation, SR6Gear, DicePoolBreakdown } from "@/types/character";
 
+/**
+ * Check if a modifier should apply given the weapon's accessories.
+ * If the modifier has requires_accessory set, only apply when a matching accessory exists.
+ */
+function modifierApplies(mod: { requires_accessory?: string }, weaponAccessories?: { name: string }[]): boolean {
+  if (!mod.requires_accessory) return true;
+  if (!weaponAccessories || weaponAccessories.length === 0) return false;
+  const needle = mod.requires_accessory.toLowerCase();
+  return weaponAccessories.some((acc) => acc.name.toLowerCase().includes(needle));
+}
+
 export function calculateDicePool(
   skill: SR6Skill,
   attributes: SR6Attributes,
   qualities: SR6Quality[],
   augmentations: SR6Augmentation[],
-  gear: SR6Gear[]
+  gear: SR6Gear[],
+  weaponAccessories?: { name: string }[]
 ): DicePoolBreakdown {
   const attrValue = Number(attributes[skill.attribute]) || 0;
   const modifiers: { source: string; value: number }[] = [];
 
   qualities.forEach((q) => {
     q.dice_modifiers?.forEach((mod) => {
-      if (!mod.skill || mod.skill === skill.name) {
+      if ((!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
         modifiers.push({ source: `Quality: ${q.name}`, value: mod.value });
       }
     });
@@ -20,7 +32,7 @@ export function calculateDicePool(
 
   augmentations.forEach((aug) => {
     aug.dice_modifiers?.forEach((mod) => {
-      if (!mod.skill || mod.skill === skill.name) {
+      if ((!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
         modifiers.push({ source: `Aug: ${aug.name}`, value: mod.value });
       }
     });
@@ -28,7 +40,7 @@ export function calculateDicePool(
 
   gear.forEach((g) => {
     g.dice_modifiers?.forEach((mod) => {
-      if (!mod.skill || mod.skill === skill.name) {
+      if ((!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
         modifiers.push({ source: `Gear: ${g.name}`, value: mod.value });
       }
     });
@@ -56,7 +68,8 @@ export function calculateWeaponPool(
   skills: SR6Skill[],
   qualities: SR6Quality[],
   augmentations: SR6Augmentation[],
-  gear: SR6Gear[]
+  gear: SR6Gear[],
+  weaponAccessories?: { name: string }[]
 ): DicePoolBreakdown {
   const skill = skills.find((s) => s.name === skillName);
   const effectiveSkill: SR6Skill = skill || {
@@ -66,7 +79,7 @@ export function calculateWeaponPool(
     rating: 0,
   };
 
-  const base = calculateDicePool(effectiveSkill, attributes, qualities, augmentations, gear);
+  const base = calculateDicePool(effectiveSkill, attributes, qualities, augmentations, gear, weaponAccessories);
 
   // Check specialization / expertise match
   if (weaponSubtype && skill) {

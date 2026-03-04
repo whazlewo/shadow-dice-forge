@@ -4,12 +4,10 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Trash2, PlusCircle, X } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { FireModeCheckboxes } from "@/components/character/FireModes";
 import { PRIORITY_TABLE, formatNuyen, type PriorityLevel } from "@/data/sr6-reference";
-import { SR6_CORE_SKILLS } from "@/types/character";
 import type { WizardState } from "@/pages/CharacterWizard";
 import type {
   WizardGearItem,
@@ -20,7 +18,6 @@ import type {
   WizardAugmentation,
   WizardVehicle,
   WizardMiscGear,
-  DiceModifier,
 } from "@/types/character";
 
 interface Props {
@@ -60,52 +57,8 @@ function createItem(category: GearCategory): WizardGearItem {
   }
 }
 
-// ----- Dice Modifier Editor (for augmentations & misc) -----
-function DiceModifierEditor({
-  modifiers,
-  onChange,
-}: {
-  modifiers: DiceModifier[];
-  onChange: (mods: DiceModifier[]) => void;
-}) {
-  const add = () => onChange([...modifiers, { skill: "", value: 1, source: "" }]);
-  const remove = (i: number) => onChange(modifiers.filter((_, idx) => idx !== i));
-  const update = (i: number, u: Partial<DiceModifier>) =>
-    onChange(modifiers.map((m, idx) => (idx === i ? { ...m, ...u } : m)));
-
-  return (
-    <div className="space-y-1">
-      <Label className="text-xs font-display tracking-wide">Dice Modifiers</Label>
-      {modifiers.map((mod, i) => (
-        <div key={i} className="flex gap-1 items-center">
-          <Select value={mod.skill || "__all__"} onValueChange={(v) => update(i, { skill: v === "__all__" ? undefined : v })}>
-            <SelectTrigger className="font-mono text-xs h-8 flex-1">
-              <SelectValue placeholder="Skill" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="__all__">All Skills</SelectItem>
-              {SR6_CORE_SKILLS.map((s) => (
-                <SelectItem key={s.name} value={s.name}>{s.name}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Input
-            type="number"
-            value={mod.value}
-            onChange={(e) => update(i, { value: parseInt(e.target.value) || 0 })}
-            className="w-16 h-8 font-mono text-xs"
-          />
-          <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => remove(i)}>
-            <X className="h-3 w-3" />
-          </Button>
-        </div>
-      ))}
-      <Button variant="ghost" size="sm" onClick={add} className="text-xs h-7">
-        <PlusCircle className="h-3 w-3 mr-1" /> Add Modifier
-      </Button>
-    </div>
-  );
-}
+// DiceModifierEditor is now a shared component
+import { DiceModifierEditor } from "@/components/character/DiceModifierEditor";
 
 // ----- Category-specific field renderers -----
 

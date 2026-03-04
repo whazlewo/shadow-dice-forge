@@ -358,7 +358,7 @@ export default function CharacterSheet() {
             <GenericListTab
               title="Augmentations"
               items={augmentations as any[]}
-              fields={["name", "type", "essence_cost", "rating", "effects"]}
+              fields={["name", "type", "essence_cost", "rating"]}
               fieldOptions={{ type: ["cyberware", "bioware", "cultured bioware", "nanotechnology", "geneware"] }}
               fieldDefaults={{ type: "cyberware" }}
               showDiceModifiers

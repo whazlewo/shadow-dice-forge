@@ -134,7 +134,10 @@ export default function Dashboard() {
                       {char.name}
                     </h3>
                     <p className="font-mono text-xs text-muted-foreground">
-                      {char.metatype} · {(() => { const k = computeKarmaSummary(((char as any).karma_ledger || []) as KarmaTransaction[]); return `Karma ${k.available}`; })()} · Updated {new Date(char.updated_at).toLocaleDateString()}
+                      {char.metatype} · {(() => { const k = computeKarmaSummary(((char as any).karma_ledger || []) as KarmaTransaction[]); return `Karma ${k.available}`; })()}
+                    </p>
+                    <p className="font-mono text-[10px] text-muted-foreground/60">
+                      Updated {new Date(char.updated_at).toLocaleDateString()}
                     </p>
                     <div className="flex gap-2 mt-2">
                       <Button

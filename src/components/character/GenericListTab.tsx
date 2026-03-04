@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Separator } from "@/components/ui/separator";
 import { Plus, Trash2, Info, Pencil, Check, Zap, Dice5 } from "lucide-react";
 import { AccessoryList } from "./AccessoryList";
 import { FireModeCheckboxes } from "./FireModes";
@@ -80,7 +79,7 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
           )}
         </div>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-5">
         {items.length === 0 && (
           <p className="text-muted-foreground text-sm text-center py-6">No items yet.</p>
         )}
@@ -96,10 +95,10 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
           : items.map((item, index) => (
               <div
                 key={item.id || index}
-                className={`rounded-lg border border-border/40 bg-muted/20 overflow-hidden ${showEquipped && item.equipped === false ? "opacity-50" : ""}`}
+                className={`rounded-lg border border-border/60 border-l-[3px] border-l-primary/40 bg-muted/20 overflow-hidden pb-1 ${showEquipped && item.equipped === false ? "opacity-50" : ""}`}
               >
                 {/* === Core Fields === */}
-                <div className="flex flex-wrap items-center gap-2 p-3">
+                <div className="flex flex-wrap items-center gap-2 p-3 bg-muted/40 rounded-t-lg">
                   {showEquipped && (
                     <div className="flex items-center gap-1 mt-4">
                       <Checkbox
@@ -156,8 +155,7 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                 </div>
 
                 {/* === Description === */}
-                <Separator />
-                <div className="px-3 py-2 border-l-2 border-primary/20 ml-3 mr-3 my-2">
+                <div className="bg-background/30 rounded-md mx-3 mt-3 mb-2 p-3">
                   <Label className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Description</Label>
                   <Textarea
                     value={item.description ?? ""}
@@ -169,49 +167,40 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
 
                 {/* === Accessories === */}
                 {showAccessories && (
-                  <>
-                    <Separator />
-                    <div className="px-3 py-2">
-                      <AccessoryList
-                        accessories={(item.accessories as WeaponAccessory[]) || []}
-                        onChange={(accs) => update(index, "accessories", accs as any)}
-                      />
-                    </div>
-                  </>
+                  <div className="bg-background/30 rounded-md mx-3 mb-2 p-3">
+                    <AccessoryList
+                      accessories={(item.accessories as WeaponAccessory[]) || []}
+                      onChange={(accs) => update(index, "accessories", accs as any)}
+                    />
+                  </div>
                 )}
 
                 {/* === Effects === */}
                 {showEffects && (
-                  <>
-                    <Separator />
-                    <div className="px-3 py-2 border-l-2 border-accent/30 ml-3 mr-3 my-2">
-                      <div className="flex items-center gap-1.5 mb-2">
-                        <Zap className="h-3.5 w-3.5 text-accent-foreground/70" />
-                        <span className="text-[11px] font-display font-semibold uppercase tracking-widest text-accent-foreground/70">Effects</span>
-                      </div>
-                      <EffectsEditor
-                        modifiers={(item.dice_modifiers as DiceModifier[]) || []}
-                        onChange={(mods) => update(index, "dice_modifiers", mods as any)}
-                      />
+                  <div className="bg-background/30 rounded-md mx-3 mb-2 p-3">
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <Zap className="h-3.5 w-3.5 text-accent-foreground/70" />
+                      <span className="text-[11px] font-display font-semibold uppercase tracking-widest text-accent-foreground/70">Effects</span>
                     </div>
-                  </>
+                    <EffectsEditor
+                      modifiers={(item.dice_modifiers as DiceModifier[]) || []}
+                      onChange={(mods) => update(index, "dice_modifiers", mods as any)}
+                    />
+                  </div>
                 )}
 
                 {/* === Dice / Skill Modifiers === */}
                 {showDiceModifiers && (
-                  <>
-                    <Separator />
-                    <div className="px-3 py-2 border-l-2 border-primary/20 ml-3 mr-3 my-2">
-                      <div className="flex items-center gap-1.5 mb-2">
-                        <Dice5 className="h-3.5 w-3.5 text-primary/70" />
-                        <span className="text-[11px] font-display font-semibold uppercase tracking-widest text-primary/70">Skill Modifiers</span>
-                      </div>
-                      <DiceModifierEditor
-                        modifiers={(item.dice_modifiers as DiceModifier[]) || []}
-                        onChange={(mods) => update(index, "dice_modifiers", mods as any)}
-                      />
+                  <div className="bg-background/30 rounded-md mx-3 mb-2 p-3">
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <Dice5 className="h-3.5 w-3.5 text-primary/70" />
+                      <span className="text-[11px] font-display font-semibold uppercase tracking-widest text-primary/70">Skill Modifiers</span>
                     </div>
-                  </>
+                    <DiceModifierEditor
+                      modifiers={(item.dice_modifiers as DiceModifier[]) || []}
+                      onChange={(mods) => update(index, "dice_modifiers", mods as any)}
+                    />
+                  </div>
                 )}
               </div>
             ))}

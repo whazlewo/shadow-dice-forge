@@ -18,18 +18,10 @@ interface Props {
   gear: SR6Gear[];
 }
 
-type PillVariant = "neutral" | "destructive" | "primary" | "shield";
 
-const pillStyles: Record<PillVariant, string> = {
-  neutral: "bg-muted/50 text-foreground",
-  destructive: "bg-destructive/15 text-destructive",
-  primary: "bg-primary/15 text-primary",
-  shield: "bg-[hsl(210_60%_40%/0.2)] text-[hsl(210_80%_70%)]",
-};
-
-function StatPill({ label, value, tooltip, variant = "neutral" }: { label: string; value: string | number; tooltip?: string; variant?: PillVariant }) {
+function StatPill({ label, value, tooltip }: { label: string; value: string | number; tooltip?: string }) {
   const content = (
-    <div className={`flex flex-col items-center rounded px-2 py-1 min-w-[48px] ${pillStyles[variant]}`}>
+    <div className="flex flex-col items-center rounded px-2 py-1 min-w-[48px] bg-muted/50 text-foreground">
       <span className="text-[10px] uppercase tracking-widest flex items-center gap-0.5 opacity-70">
         {label}
         {tooltip && !tooltip.includes("\n") && (
@@ -130,7 +122,7 @@ function PoolPill({ skillName, subtype, weaponAccessories, attributes, skills, q
     `${"Total".padEnd(15)} ${pool.total}d6`,
   ].join("\n");
 
-  return <StatPill label="Pool" value={`${pool.total}d6`} tooltip={lines} variant="primary" />;
+  return <StatPill label="Pool" value={`${pool.total}d6`} tooltip={lines} />;
 }
 
 function CategoryHeader({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
@@ -170,7 +162,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
                   {w.subtype && <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 font-mono opacity-60">{w.subtype}</Badge>}
                 </div>
                 <div className="flex flex-wrap gap-1">
-                  <StatPill label="DV" value={w.dv || "—"} variant="destructive" />
+                  <StatPill label="DV" value={w.dv || "—"} />
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <FireModeBadges modes={w.fire_modes || ""} />
                   <StatPill label="Ammo" value={w.ammo || "—"} />
@@ -193,7 +185,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
                   {w.subtype && <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 font-mono opacity-60">{w.subtype}</Badge>}
                 </div>
                 <div className="flex flex-wrap gap-1">
-                  <StatPill label="DV" value={w.dv || "—"} variant="destructive" />
+                  <StatPill label="DV" value={w.dv || "—"} />
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <StatPill label="Reach" value={w.reach ?? "—"} />
                   <PoolPill skillName="Close Combat" subtype={w.subtype} weaponAccessories={w.accessories} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
@@ -215,7 +207,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
                   {a.subtype && <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 font-mono opacity-60">{a.subtype}</Badge>}
                 </div>
                 <div className="flex flex-wrap gap-1">
-                  <StatPill label="DR" value={a.rating ?? "—"} variant="shield" />
+                  <StatPill label="DR" value={a.rating ?? "—"} />
                   <StatPill label="Cap" value={a.capacity ?? "—"} />
                 </div>
                 {a.modifications && (

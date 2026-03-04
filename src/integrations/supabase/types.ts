@@ -57,6 +57,7 @@ export type Database = {
           name: string
           other_abilities: Json | null
           personal_info: Json | null
+          portrait_url: string | null
           priorities: Json | null
           qualities: Json | null
           ranged_weapons: Json | null
@@ -84,6 +85,7 @@ export type Database = {
           name?: string
           other_abilities?: Json | null
           personal_info?: Json | null
+          portrait_url?: string | null
           priorities?: Json | null
           qualities?: Json | null
           ranged_weapons?: Json | null
@@ -111,6 +113,7 @@ export type Database = {
           name?: string
           other_abilities?: Json | null
           personal_info?: Json | null
+          portrait_url?: string | null
           priorities?: Json | null
           qualities?: Json | null
           ranged_weapons?: Json | null

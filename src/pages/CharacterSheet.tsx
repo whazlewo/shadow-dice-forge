@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -24,6 +25,7 @@ type Character = Tables<"characters">;
 export default function CharacterSheet() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [character, setCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -123,6 +125,32 @@ export default function CharacterSheet() {
     await save(updates);
     toast.success("Karma transaction undone");
   }, [karmaLedger, character, save]);
+
+  // Portrait upload handler
+  const handlePortraitUpload = useCallback(async (blob: Blob) => {
+    if (!id || !user) return;
+    const path = `${user.id}/${id}.webp`;
+
+    // Delete old file if exists
+    await supabase.storage.from("character-portraits").remove([path]);
+
+    const { error: uploadError } = await supabase.storage
+      .from("character-portraits")
+      .upload(path, blob, { contentType: "image/webp", upsert: true });
+
+    if (uploadError) {
+      toast.error("Portrait upload failed");
+      return;
+    }
+
+    const { data: urlData } = supabase.storage
+      .from("character-portraits")
+      .getPublicUrl(path);
+
+    const url = `${urlData.publicUrl}?t=${Date.now()}`;
+    await updateField("portrait_url", url);
+    toast.success("Portrait saved");
+  }, [id, user, updateField]);
 
   // Karma-aware attribute update
   const handleAttributeChange = useCallback((newAttrs: SR6Attributes) => {
@@ -289,6 +317,8 @@ export default function CharacterSheet() {
                 karmaLedger={karmaLedger}
                 onKarmaUndo={undoKarmaTransaction}
                 onAddKarmaTransaction={addKarmaTransaction}
+                portraitUrl={(character as any).portrait_url}
+                onPortraitUpload={handlePortraitUpload}
               />
               <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={handleAttributeChange} />
             </div>

@@ -1,25 +1,67 @@
 
 
-## Fix Attribute Bonus Chip Readability
+## Improve Gear Tab Item Separation and Readability
 
-The current `secondary` badge variant produces a bright pink/magenta chip where the destructive-colored X blends in. Two quick fixes:
+The core problem: each item in a `GenericListTab` section (e.g., two augmentations) uses a subtle `border-border/40 bg-muted/20` card, which barely distinguishes items from each other or from the section background. The sub-sections (Description, Effects, Skill Modifiers) also blend together.
 
-### Change in `src/components/character/EffectsEditor.tsx`
+### Changes to `src/components/character/GenericListTab.tsx`
 
-- Switch badge variant from `"secondary"` to `"outline"` — gives a subtle bordered chip on dark background, making both text and the X clearly visible
-- Style the X button with a contrasting `text-muted-foreground hover:text-destructive` instead of always `text-destructive` (which clashes with the pink)
+**1. Stronger item card separation**
+- Increase item gap from `space-y-3` to `space-y-4`
+- Give each item card a more visible border and slightly stronger background: `border-border/60 bg-muted/30` with a subtle left accent border (`border-l-2 border-l-primary/30`) so items have a clear visual anchor
+- Add a small item index/name header strip at the top of each card with a slightly darker background to act as a visual "title bar"
 
-```tsx
-// Before
-<Badge key={i} variant="secondary" className="gap-1.5 pl-2.5 pr-1 py-1 font-mono text-xs">
-  ...
-  <Button ... className="h-5 w-5 ml-1 text-destructive hover:bg-destructive/20 rounded-full">
+**2. Collapsible sub-sections**
+- Keep Description, Effects, and Skill Modifiers sections but replace the flat `<Separator>` dividers with visually distinct sub-section containers that have their own background tint and consistent padding
+- Remove the redundant `<Separator />` elements — instead rely on spacing and background contrast between sub-sections
 
-// After  
-<Badge key={i} variant="outline" className="gap-1.5 pl-2.5 pr-1 py-1 font-mono text-xs">
-  ...
-  <Button ... className="h-5 w-5 ml-1 text-muted-foreground hover:text-destructive hover:bg-destructive/20 rounded-full">
+**3. Visual hierarchy improvements**
+- Core fields row: slightly darker background strip (`bg-muted/40 rounded-t-lg`) to anchor the item identity
+- Sub-sections (Description, Effects, Modifiers): use a consistent indented panel style with `bg-background/30 rounded-md mx-3 my-2 p-3` instead of the current border-left-only approach, making them read as distinct contained blocks
+- Increase bottom padding on each item card to create breathing room before the next item
+
+### Technical details
+
+All changes are in one file: `src/components/character/GenericListTab.tsx`.
+
+```text
+Before (item structure):
+┌─ border-border/40 bg-muted/20 ──────────────┐
+│ [fields row]                                  │
+│ ── separator ──                               │
+│ │ Description (border-left only)              │
+│ ── separator ──                               │
+│ │ Effects (border-left only)                  │
+│ ── separator ──                               │
+│ │ Skill Modifiers (border-left only)          │
+└───────────────────────────────────────────────┘
+ (space-y-3)
+┌─ border-border/40 bg-muted/20 ──────────────┐
+│ ... next item ...                             │
+
+After (item structure):
+┌─ border-border/60 border-l-2 border-l-primary/40 ─┐
+│▓▓ [fields row — bg-muted/40 rounded-t]         ▓▓│
+│                                                    │
+│  ┌─ Description ── bg-background/30 rounded ──┐   │
+│  │ textarea                                    │   │
+│  └─────────────────────────────────────────────┘   │
+│  ┌─ Effects ── bg-background/30 rounded ──────┐   │
+│  │ initiative / dice / def rating / bonuses    │   │
+│  └─────────────────────────────────────────────┘   │
+│  ┌─ Skill Modifiers ── bg-background/30 ──────┐   │
+│  │ modifier pills                              │   │
+│  └─────────────────────────────────────────────┘   │
+│                                                    │
+└────────────────────────────────────────────────────┘
+ (space-y-5)
+┌─ next item ...
 ```
 
-One file, two class changes. The outline variant keeps things readable on both light and dark themes.
+Key class changes:
+- Item wrapper: `rounded-lg border border-border/60 border-l-[3px] border-l-primary/40 bg-muted/20 overflow-hidden`
+- Fields row: add `bg-muted/40` background
+- Replace all `<Separator /> + border-l-2` patterns with `bg-background/30 rounded-md mx-3 mb-3 p-3` panels
+- Container gap: `space-y-5` instead of `space-y-3`
+- Add `pb-1` to item wrapper for bottom breathing room
 

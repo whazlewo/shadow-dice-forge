@@ -17,6 +17,39 @@ const FIELD_TOOLTIPS: Record<string, string> = {
   attack_ratings: "Point Blank / Short / Medium / Long / Extreme",
 };
 
+const FIRE_MODES = [
+  { code: "SS", tip: "Single-Shot: One shot per Attack action, must reload after" },
+  { code: "SA", tip: "Semi-Automatic: One shot per Attack action, +1 per additional" },
+  { code: "BF", tip: "Burst Fire: Fires a burst, −2 Defense Rating" },
+  { code: "FA", tip: "Full Auto: Fires continuous, −6 Defense Rating" },
+] as const;
+
+function FireModeCheckboxes({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const active = new Set(value.split(",").map((s) => s.trim()).filter(Boolean));
+  const toggle = (code: string) => {
+    const next = new Set(active);
+    if (next.has(code)) next.delete(code); else next.add(code);
+    onChange(FIRE_MODES.map((m) => m.code).filter((c) => next.has(c)).join(","));
+  };
+  return (
+    <TooltipProvider delayDuration={200}>
+      <div className="flex items-center gap-3 mt-1">
+        {FIRE_MODES.map((m) => (
+          <Tooltip key={m.code}>
+            <TooltipTrigger asChild>
+              <label className="flex items-center gap-1 cursor-pointer">
+                <Checkbox checked={active.has(m.code)} onCheckedChange={() => toggle(m.code)} className="h-3.5 w-3.5" />
+                <span className="font-mono text-xs">{m.code}</span>
+              </label>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="max-w-[220px] text-xs">{m.tip}</TooltipContent>
+          </Tooltip>
+        ))}
+      </div>
+    </TooltipProvider>
+  );
+}
+
 interface Props {
   title: string;
   items: Record<string, any>[];
@@ -114,7 +147,12 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                         </TooltipProvider>
                       )}
                     </Label>
-                    {fieldOptions?.[field] ? (
+                    {field === "fire_modes" ? (
+                      <FireModeCheckboxes
+                        value={item[field] ?? ""}
+                        onChange={(v) => update(index, field, v)}
+                      />
+                    ) : fieldOptions?.[field] ? (
                       <Select value={item[field] || fieldDefaults?.[field] || ""} onValueChange={(v) => update(index, field, v)}>
                         <SelectTrigger className="h-8 text-xs font-mono bg-muted/50">
                           <SelectValue />

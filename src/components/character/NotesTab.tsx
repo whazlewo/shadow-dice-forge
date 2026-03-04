@@ -33,6 +33,7 @@ function NoteEditor({
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [StarterKit],
     content: note.content || "",
     onUpdate: ({ editor }) => {
@@ -54,6 +55,7 @@ function NoteEditor({
   if (!editor) return null;
 
   const tb = (action: () => boolean, active: string) => ({
+    onMouseDown: (e: React.MouseEvent) => e.preventDefault(),
     onClick: () => action(),
     variant: editor.isActive(active) ? "secondary" as const : "ghost" as const,
     size: "icon" as const,

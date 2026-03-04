@@ -8,47 +8,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Plus, Trash2, Info, Pencil, Check } from "lucide-react";
-import { v4 } from "@/lib/uuid";
 import { AccessoryList } from "./AccessoryList";
+import { FireModeCheckboxes } from "./FireModes";
 import type { WeaponAccessory } from "@/types/character";
 
 const FIELD_TOOLTIPS: Record<string, string> = {
   ar: "Point Blank / Short / Medium / Long / Extreme",
   attack_ratings: "Point Blank / Short / Medium / Long / Extreme",
 };
-
-const FIRE_MODES = [
-  { code: "SS", tip: "Single Shot (1 round): No change to stats. Precise and ammo-efficient." },
-  { code: "SA", tip: "Semi-Automatic (2 rounds): DV +1 and AR −2. A quick double-tap." },
-  { code: "BF", tip: "Burst Fire (4 rounds): DV +2 and AR −4. High impact, harder to control." },
-  { code: "FA", tip: "Full Auto (10 rounds): DV +3 and AR −6. Absolute devastation, but massive AR penalty." },
-] as const;
-
-function FireModeCheckboxes({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  const active = new Set(value.split(",").map((s) => s.trim()).filter(Boolean));
-  const toggle = (code: string) => {
-    const next = new Set(active);
-    if (next.has(code)) next.delete(code); else next.add(code);
-    onChange(FIRE_MODES.map((m) => m.code).filter((c) => next.has(c)).join(","));
-  };
-  return (
-    <TooltipProvider delayDuration={200}>
-      <div className="flex items-center gap-3 mt-1">
-        {FIRE_MODES.map((m) => (
-          <Tooltip key={m.code}>
-            <TooltipTrigger asChild>
-              <label className="flex items-center gap-1 cursor-pointer">
-                <Checkbox checked={active.has(m.code)} onCheckedChange={() => toggle(m.code)} className="h-3.5 w-3.5" />
-                <span className="font-mono text-xs">{m.code}</span>
-              </label>
-            </TooltipTrigger>
-            <TooltipContent side="top" className="max-w-[220px] text-xs">{m.tip}</TooltipContent>
-          </Tooltip>
-        ))}
-      </div>
-    </TooltipProvider>
-  );
-}
 
 interface Props {
   title: string;
@@ -68,7 +35,7 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
   const [editing, setEditing] = useState(!readOnlyToggle);
 
   const add = () => {
-    const newItem: Record<string, any> = { id: v4(), equipped: true };
+    const newItem: Record<string, any> = { id: crypto.randomUUID(), equipped: true };
     fields.forEach((f) => (newItem[f] = fieldDefaults?.[f] ?? ""));
     onUpdate([...items, newItem]);
   };

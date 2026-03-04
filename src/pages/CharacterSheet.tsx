@@ -7,10 +7,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
-import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6MatrixStats, SR6Augmentation, SR6Gear, SR6Vehicle, SR6Spell, SR6AdeptPower, SR6OtherAbility, SR6Priorities, SR6PersonalInfo, SR6IdsLifestyles, AttributeSources } from "@/types/character";
+import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Augmentation, SR6Gear, SR6PersonalInfo, AttributeSources } from "@/types/character";
 import type { KarmaTransaction } from "@/types/karma";
-import { computeKarmaSummary, attributeKarmaCost, skillKarmaCost, SPECIALIZATION_KARMA_COST, EXPERTISE_KARMA_COST } from "@/lib/karma";
-import { v4 } from "@/lib/uuid";
+import { computeKarmaSummary, attributeKarmaCost } from "@/lib/karma";
+
 import { AttributesTab } from "@/components/character/AttributesTab";
 import { SkillsTab } from "@/components/character/SkillsTab";
 import { PersonalInfoTab } from "@/components/character/PersonalInfoTab";
@@ -73,7 +73,7 @@ export default function CharacterSheet() {
   const addKarmaTransaction = useCallback(async (tx: Omit<KarmaTransaction, "id" | "timestamp">) => {
     const newTx: KarmaTransaction = {
       ...tx,
-      id: v4(),
+      id: crypto.randomUUID(),
       timestamp: new Date().toISOString(),
     };
     const newLedger = [...karmaLedger, newTx];
@@ -93,7 +93,7 @@ export default function CharacterSheet() {
 
     // Add refund entry
     const refundTx: KarmaTransaction = {
-      id: v4(),
+      id: crypto.randomUUID(),
       timestamp: new Date().toISOString(),
       type: "refund",
       description: `Undo: ${tx.description}`,

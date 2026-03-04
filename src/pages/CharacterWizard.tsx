@@ -24,7 +24,7 @@ import Step4Karma from "@/components/wizard/Step4Karma";
 import Step5Gear from "@/components/wizard/Step5Gear";
 import { PRIORITY_TABLE, type PriorityLevel } from "@/data/sr6-reference";
 import { SR6_CORE_SKILLS, type SR6Attributes, type SR6Skill, type WizardQuality, type WizardGearItem, type WizardRangedWeapon, type WizardMeleeWeapon, type WizardArmor as WizardArmorType, type WizardAugmentation, type WizardVehicle, type WizardElectronics, type WizardMiscGear, type AttributeSources, type SR6CoreAttributes } from "@/types/character";
-import { v4 as generateUUID } from "@/lib/uuid";
+
 
 export interface WizardSkill {
   name: string;
@@ -219,7 +219,7 @@ export default function CharacterWizard() {
         .map((s) => {
           const karmaRaises = Math.floor((karmaSpend[`skill_${s.name}`] || 0) / KARMA_PER_POINT);
           return {
-            id: generateUUID(),
+            id: crypto.randomUUID(),
             name: s.name,
             attribute: s.attribute,
             rating: s.rating + karmaRaises,

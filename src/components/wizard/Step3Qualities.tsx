@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Trash2 } from "lucide-react";
-import { v4 as generateUUID } from "@/lib/uuid";
+
 import { METATYPE_DATA } from "@/data/sr6-reference";
 import type { WizardState } from "@/pages/CharacterWizard";
 import type { WizardQuality } from "@/types/character";
@@ -29,7 +29,7 @@ export default function Step3Qualities({ state, onChange }: Props) {
 
   const addQuality = () => {
     const newQ: WizardQuality = {
-      id: generateUUID(),
+      id: crypto.randomUUID(),
       name: "",
       type: "positive",
       karma_cost: 0,

@@ -283,8 +283,6 @@ export interface SR6PersonalInfo {
   street_cred?: number;
   notoriety?: number;
   public_awareness?: number;
-  karma?: number;
-  total_karma?: number;
 }
 
 export interface SR6IdsLifestyles {

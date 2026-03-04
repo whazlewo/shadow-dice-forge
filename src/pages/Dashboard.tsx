@@ -7,6 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Plus, Trash2, Copy, LogOut, User } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
+import { computeKarmaSummary } from "@/lib/karma";
+import type { KarmaTransaction } from "@/types/karma";
 
 type Character = Tables<"characters">;
 
@@ -132,7 +134,7 @@ export default function Dashboard() {
                       {char.name}
                     </h3>
                     <p className="font-mono text-xs text-muted-foreground">
-                      {char.metatype} · Updated {new Date(char.updated_at).toLocaleDateString()}
+                      {char.metatype} · {(() => { const k = computeKarmaSummary(((char as any).karma_ledger || []) as KarmaTransaction[]); return `Karma ${k.available}`; })()} · Updated {new Date(char.updated_at).toLocaleDateString()}
                     </p>
                     <div className="flex gap-2 mt-2">
                       <Button

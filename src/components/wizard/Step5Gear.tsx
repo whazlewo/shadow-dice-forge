@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Plus, Trash2, PlusCircle, X } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { v4 as generateUUID } from "@/lib/uuid";
 import { PRIORITY_TABLE, formatNuyen, type PriorityLevel } from "@/data/sr6-reference";
 import { SR6_CORE_SKILLS } from "@/types/character";
@@ -107,12 +108,52 @@ function DiceModifierEditor({
 }
 
 // ----- Category-specific field renderers -----
+const FIRE_MODES = [
+  { code: "SS", tip: "Single-Shot: One shot per Attack action, must reload after" },
+  { code: "SA", tip: "Semi-Automatic: One shot per Attack action, +1 per additional" },
+  { code: "BF", tip: "Burst Fire: Fires a burst, −2 Defense Rating" },
+  { code: "FA", tip: "Full Auto: Fires continuous, −6 Defense Rating" },
+] as const;
+
+function FireModeCheckboxes({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const active = new Set(value.split(",").map((s) => s.trim()).filter(Boolean));
+  const toggle = (code: string) => {
+    const next = new Set(active);
+    if (next.has(code)) next.delete(code); else next.add(code);
+    onChange(FIRE_MODES.map((m) => m.code).filter((c) => next.has(c)).join(","));
+  };
+  return (
+    <div className="space-y-1">
+      <Label className="text-xs font-display tracking-wide">Fire Modes</Label>
+      <TooltipProvider delayDuration={200}>
+        <div className="flex items-center gap-3">
+          {FIRE_MODES.map((m) => (
+            <Tooltip key={m.code}>
+              <TooltipTrigger asChild>
+                <label className="flex items-center gap-1 cursor-pointer">
+                  <Checkbox
+                    checked={active.has(m.code)}
+                    onCheckedChange={() => toggle(m.code)}
+                    className="h-3.5 w-3.5"
+                  />
+                  <span className="font-mono text-xs">{m.code}</span>
+                </label>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-[220px] text-xs">{m.tip}</TooltipContent>
+            </Tooltip>
+          ))}
+        </div>
+      </TooltipProvider>
+    </div>
+  );
+}
+
 function RangedFields({ item, onUpdate }: { item: WizardRangedWeapon; onUpdate: (u: Partial<WizardRangedWeapon>) => void }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
       <Field label="DV" value={item.dv} onChange={(v) => onUpdate({ dv: v })} />
       <Field label="Attack Ratings" value={item.attack_ratings} onChange={(v) => onUpdate({ attack_ratings: v })} />
-      <Field label="Fire Modes" value={item.fire_modes} onChange={(v) => onUpdate({ fire_modes: v })} />
+      <FireModeCheckboxes value={item.fire_modes} onChange={(v) => onUpdate({ fire_modes: v })} />
       <Field label="Ammo" value={item.ammo} onChange={(v) => onUpdate({ ammo: v })} />
       <Field label="Accessories" value={item.accessories} onChange={(v) => onUpdate({ accessories: v })} className="col-span-2" />
     </div>

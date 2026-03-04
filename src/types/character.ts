@@ -69,6 +69,12 @@ export interface ARModifier {
   values: string; // e.g. "+2/+2/+2/+2/+2" or "+0/+0/+0/+1/+1"
 }
 
+export interface WeaponAccessory {
+  name: string;              // e.g. "Smartgun System (Internal)"
+  ar_modifier?: string;      // e.g. "+2/+2/+2/+2/+2" (optional)
+  notes?: string;            // free text for other effects
+}
+
 export interface SR6Contact {
   id: string;
   name: string;
@@ -84,10 +90,9 @@ export interface SR6RangedWeapon {
   ar: string;
   fire_modes: string;
   ammo: string;
-  accessories: string;
   description?: string;
   equipped?: boolean;
-  ar_modifiers?: ARModifier[];
+  accessories?: WeaponAccessory[];
 }
 
 export interface SR6MeleeWeapon {
@@ -98,7 +103,7 @@ export interface SR6MeleeWeapon {
   reach: number;
   description?: string;
   equipped?: boolean;
-  ar_modifiers?: ARModifier[];
+  accessories?: WeaponAccessory[];
 }
 
 export interface SR6Armor {

@@ -90,6 +90,7 @@ export interface SR6RangedWeapon {
   ar: string;
   fire_modes: string;
   ammo: string;
+  subtype?: string;
   description?: string;
   equipped?: boolean;
   accessories?: WeaponAccessory[];
@@ -101,6 +102,7 @@ export interface SR6MeleeWeapon {
   dv: string;
   ar: string;
   reach: number;
+  subtype?: string;
   description?: string;
   equipped?: boolean;
   accessories?: WeaponAccessory[];

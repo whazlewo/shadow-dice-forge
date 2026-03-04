@@ -2,14 +2,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield, Crosshair, Sword, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
-import type { SR6RangedWeapon, SR6MeleeWeapon, SR6Armor } from "@/types/character";
+import type { SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Skill, SR6Attributes, SR6Quality, SR6Augmentation, SR6Gear } from "@/types/character";
 import { calculateModifiedAR } from "@/lib/ar-utils";
+import { calculateWeaponPool } from "@/lib/dice-pool";
 import { FireModeBadges } from "./FireModes";
 
 interface Props {
   rangedWeapons: SR6RangedWeapon[];
   meleeWeapons: SR6MeleeWeapon[];
   armor: SR6Armor[];
+  skills: SR6Skill[];
+  attributes: SR6Attributes;
+  qualities: SR6Quality[];
+  augmentations: SR6Augmentation[];
+  gear: SR6Gear[];
 }
 
 function StatPill({ label, value, tooltip }: { label: string; value: string | number; tooltip?: string }) {
@@ -32,7 +38,6 @@ function StatPill({ label, value, tooltip }: { label: string; value: string | nu
     </div>
   );
 
-  // Multi-line tooltip (AR breakdown)
   if (tooltip && tooltip.includes("\n")) {
     return (
       <TooltipProvider delayDuration={200}>
@@ -66,7 +71,6 @@ function modifiedAR(weapon: { ar: string; accessories?: { name: string; ar_modif
   return calculateModifiedAR(weapon.ar, mods).modified;
 }
 
-
 function AccessoryBadges({ accessories }: { accessories?: { name: string; ar_modifier?: string; notes?: string }[] }) {
   const items = (accessories || []).filter((a) => a.name);
   if (items.length === 0) return null;
@@ -97,8 +101,27 @@ function AccessoryBadges({ accessories }: { accessories?: { name: string; ar_mod
   );
 }
 
+function PoolPill({ skillName, subtype, attributes, skills, qualities, augmentations, gear }: {
+  skillName: string;
+  subtype?: string;
+  attributes: SR6Attributes;
+  skills: SR6Skill[];
+  qualities: SR6Quality[];
+  augmentations: SR6Augmentation[];
+  gear: SR6Gear[];
+}) {
+  const pool = calculateWeaponPool(skillName, subtype, attributes, skills, qualities, augmentations, gear);
+  const lines = [
+    `${pool.attribute_name.charAt(0).toUpperCase() + pool.attribute_name.slice(1).padEnd(14)} ${pool.attribute_value}`,
+    `${pool.skill_name.padEnd(15)} ${pool.skill_rating}`,
+    ...pool.modifiers.map((m) => `${m.source.padEnd(15)} ${m.value >= 0 ? "+" : ""}${m.value}`),
+    `${"Total".padEnd(15)} ${pool.total}d6`,
+  ].join("\n");
 
-export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
+  return <StatPill label="Pool" value={`${pool.total}d6`} tooltip={lines} />;
+}
+
+export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, attributes, qualities, augmentations, gear }: Props) {
   const equippedRanged = rangedWeapons.filter((w) => w.equipped !== false);
   const equippedMelee = meleeWeapons.filter((w) => w.equipped !== false);
   const equippedArmor = armor.filter((a) => a.equipped !== false);
@@ -126,6 +149,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <FireModeBadges modes={w.fire_modes || ""} />
                   <StatPill label="Ammo" value={w.ammo || "—"} />
+                  <PoolPill skillName="Firearms" subtype={w.subtype} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
               </div>
@@ -144,6 +168,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                   <StatPill label="DV" value={w.dv || "—"} />
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <StatPill label="Reach" value={w.reach ?? "—"} />
+                  <PoolPill skillName="Close Combat" subtype={w.subtype} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
               </div>

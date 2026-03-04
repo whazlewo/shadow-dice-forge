@@ -147,6 +147,7 @@ export default function CharacterSheet() {
               items={contacts}
               fields={["name", "loyalty", "connection", "notes"]}
               numericFields={["loyalty", "connection"]}
+              readOnlyToggle
               onUpdate={(c) => updateField("contacts", c)}
             />
           </TabsContent>

@@ -1,48 +1,36 @@
 
 
-## Generalize AR Modifiers → Weapon Accessories
+## Add Read-Only / Edit Mode Toggle to Core Tab Sections
 
-Replace the current `ar_modifiers` array with a richer `accessories` array on each weapon. Each accessory entry captures a name, optional AR modifier values, and a notes field. This replaces both the flat `accessories` text field on ranged weapons and the `ar_modifiers` array.
+Add a toggle between read-only display and edit mode for **Personal Data**, **Skills**, and **Contacts** on the Core tab. Each section gets a small pencil icon in the card header that switches it into edit mode (showing the current input-based UI). In read-only mode, values display as styled text instead of inputs.
 
-### Data Model Changes (`src/types/character.ts`)
+### Approach
 
-```ts
-export interface WeaponAccessory {
-  name: string;              // e.g. "Smartgun System (Internal)"
-  ar_modifier?: string;      // e.g. "+2/+2/+2/+2/+2" (optional)
-  notes?: string;            // free text for other effects
-}
-```
+**1. PersonalInfoTab** — Add `editing` state (default `false`).
+- Read-only mode: render each field as a `<span>` with the label above it, same grid layout.
+- Edit mode: render current `<Input>` fields as-is.
+- Pencil/check icon in the `CardHeader` toggles between modes. On switching back to read-only, trigger the existing blur/save callbacks.
 
-- Add `accessories?: WeaponAccessory[]` to `SR6RangedWeapon` and `SR6MeleeWeapon`
-- Remove the flat `accessories: string` field from `SR6RangedWeapon`
-- Remove `ar_modifiers?: ARModifier[]` from both weapon types (replaced by accessory-level `ar_modifier`)
-- Keep `ARModifier` type for now or remove — it's fully superseded
+**2. SkillsTab** — Add `editing` state (default `false`).
+- Read-only mode: render each skill as a compact row showing name, rating, attribute, specialization/expertise (if set), and dice pool — no inputs, no expand/collapse, no Add/Remove buttons.
+- Edit mode: current collapsible UI with selects, inputs, add/remove.
+- Pencil/check icon in header toggles.
 
-### Component: Rename `ARModifierList` → `AccessoryList`
+**3. Contacts (GenericListTab)** — Add an optional `readOnlyToggle` prop.
+- When enabled, the component manages its own `editing` state.
+- Read-only mode: render items as compact text rows (field values separated by " | " or in a mini grid), no Add/Remove buttons, no inputs.
+- Edit mode: current input-based UI.
+- Only the Contacts instance on the Core tab passes `readOnlyToggle={true}`.
 
-Rework the component to render per-accessory rows with three fields:
-- **Name** (text input, e.g. "Smartgun System")
-- **AR Mod** (text input, optional, e.g. "+2/+2/+2/+2/+2") — same format tooltip as before
-- **Notes** (small text input, optional, e.g. "Also adds +1 dice to attacks")
+### UI Details
+- Toggle icon: `Pencil` (lucide) when read-only → `Check` when editing, placed in the CardHeader next to the title.
+- Read-only text uses `font-mono text-sm` styling to match the current aesthetic.
+- Empty/unset fields show "—" in read-only mode.
+- No changes to save logic — edits still auto-save on each field change as they do now.
 
-Add/Remove buttons work the same way as current AR modifier list.
-
-### GenericListTab Changes
-
-- Remove `accessories` from the ranged weapons `fields` array in `CharacterSheet.tsx`
-- Remove `showARModifiers` prop — replace with `showAccessories` prop
-- Render the new `AccessoryList` component below the weapon fields when `showAccessories` is true
-
-### EquippedGearTab Changes
-
-- Update `arTooltip` and `modifiedAR` to read from `accessories` array, extracting `ar_modifier` values from each accessory that has one
-- List accessory names below the weapon (compact, like "Smartgun, Laser Sight, Scope")
-- AR breakdown tooltip now uses accessory names as labels
-
-### CharacterSheet.tsx
-
-- Remove `"accessories"` from ranged weapon `fields` array
-- Change `showARModifiers` to `showAccessories` on ranged and melee weapon GenericListTabs
-- Data migration: existing `ar_modifiers` arrays will naturally map since the shape is compatible (source→name, values→ar_modifier)
+### Files Changed
+- `src/components/character/PersonalInfoTab.tsx` — add editing toggle + read-only render
+- `src/components/character/SkillsTab.tsx` — add editing toggle + read-only render
+- `src/components/character/GenericListTab.tsx` — add optional `readOnlyToggle` prop + read-only render
+- `src/pages/CharacterSheet.tsx` — pass `readOnlyToggle` to the Contacts GenericListTab
 

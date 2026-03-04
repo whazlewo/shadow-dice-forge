@@ -3,10 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Pencil, Check } from "lucide-react";
+import { Pencil, Check, Camera } from "lucide-react";
 import type { SR6PersonalInfo } from "@/types/character";
 import type { KarmaTransaction } from "@/types/karma";
 import { KarmaTracker } from "./KarmaTracker";
+import { PortraitUploadDialog } from "./PortraitUploadDialog";
 
 interface Props {
   info: SR6PersonalInfo;
@@ -20,6 +21,8 @@ interface Props {
   karmaLedger?: KarmaTransaction[];
   onKarmaUndo?: (txId: string) => void;
   onAddKarmaTransaction?: (tx: Omit<KarmaTransaction, "id" | "timestamp">) => void;
+  portraitUrl?: string | null;
+  onPortraitUpload?: (blob: Blob) => Promise<void>;
 }
 
 function Field({ label, value, type, onChange, onBlur, readOnly }: { label: string; value: any; type?: string; onChange?: (val: string) => void; onBlur?: () => void; readOnly?: boolean }) {
@@ -41,8 +44,10 @@ function Field({ label, value, type, onChange, onBlur, readOnly }: { label: stri
   );
 }
 
-export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, onMetatypeChange, onNameBlur, onMetatypeBlur, karmaLedger, onKarmaUndo, onAddKarmaTransaction }: Props) {
+export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, onMetatypeChange, onNameBlur, onMetatypeBlur, karmaLedger, onKarmaUndo, onAddKarmaTransaction, portraitUrl, onPortraitUpload }: Props) {
   const [editing, setEditing] = useState(false);
+  const [portraitOpen, setPortraitOpen] = useState(false);
+  const [portraitSaving, setPortraitSaving] = useState(false);
 
   const set = (key: keyof SR6PersonalInfo, value: string, isNum = false) => {
     onUpdate({ ...info, [key]: isNum ? (parseInt(value) || 0) : value });
@@ -56,6 +61,17 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
     setEditing(!editing);
   };
 
+  const handlePortraitSave = async (blob: Blob) => {
+    if (!onPortraitUpload) return;
+    setPortraitSaving(true);
+    try {
+      await onPortraitUpload(blob);
+      setPortraitOpen(false);
+    } finally {
+      setPortraitSaving(false);
+    }
+  };
+
   const ro = !editing;
 
   return (
@@ -67,26 +83,52 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
             {editing ? <Check className="h-4 w-4" /> : <Pencil className="h-4 w-4" />}
           </Button>
         </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="grid grid-cols-2 gap-4">
-            <Field label="Name" value={name} readOnly={ro} onChange={onNameChange} onBlur={onNameBlur} />
-            <Field label="Metatype" value={metatype} readOnly={ro} onChange={onMetatypeChange} onBlur={onMetatypeBlur} />
-          </div>
-          <div className="grid grid-cols-1 gap-4">
-            <Field label="Ethnicity" value={info.ethnicity} readOnly={ro} onChange={(v) => set("ethnicity", v)} />
-          </div>
-          <div className="grid grid-cols-4 gap-4">
-            <Field label="Age" value={info.age} type="number" readOnly={ro} onChange={(v) => set("age", v, true)} />
-            <Field label="Sex" value={info.sex} readOnly={ro} onChange={(v) => set("sex", v)} />
-            <Field label="Height" value={info.height} readOnly={ro} onChange={(v) => set("height", v)} />
-            <Field label="Weight" value={info.weight} readOnly={ro} onChange={(v) => set("weight", v)} />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <Field label="Street Cred" value={info.street_cred} type="number" readOnly={ro} onChange={(v) => set("street_cred", v, true)} />
-            <Field label="Notoriety" value={info.notoriety} type="number" readOnly={ro} onChange={(v) => set("notoriety", v, true)} />
-          </div>
-          <div className="grid grid-cols-1 gap-4">
-            <Field label="Public Awareness" value={info.public_awareness} type="number" readOnly={ro} onChange={(v) => set("public_awareness", v, true)} />
+        <CardContent>
+          <div className="flex gap-4">
+            {/* Portrait */}
+            <button
+              type="button"
+              onClick={() => setPortraitOpen(true)}
+              className="shrink-0 w-[120px] h-[120px] rounded-md border border-border/50 bg-muted/30 overflow-hidden flex items-center justify-center group relative hover:border-primary/50 transition-colors"
+            >
+              {portraitUrl ? (
+                <>
+                  <img src={portraitUrl} alt="Character portrait" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <Camera className="h-5 w-5 text-foreground" />
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col items-center gap-1 text-muted-foreground group-hover:text-foreground transition-colors">
+                  <Camera className="h-6 w-6" />
+                  <span className="text-[9px] uppercase tracking-wider">Portrait</span>
+                </div>
+              )}
+            </button>
+
+            {/* Fields */}
+            <div className="flex-1 space-y-3">
+              <div className="grid grid-cols-2 gap-4">
+                <Field label="Name" value={name} readOnly={ro} onChange={onNameChange} onBlur={onNameBlur} />
+                <Field label="Metatype" value={metatype} readOnly={ro} onChange={onMetatypeChange} onBlur={onMetatypeBlur} />
+              </div>
+              <div className="grid grid-cols-1 gap-4">
+                <Field label="Ethnicity" value={info.ethnicity} readOnly={ro} onChange={(v) => set("ethnicity", v)} />
+              </div>
+              <div className="grid grid-cols-4 gap-4">
+                <Field label="Age" value={info.age} type="number" readOnly={ro} onChange={(v) => set("age", v, true)} />
+                <Field label="Sex" value={info.sex} readOnly={ro} onChange={(v) => set("sex", v)} />
+                <Field label="Height" value={info.height} readOnly={ro} onChange={(v) => set("height", v)} />
+                <Field label="Weight" value={info.weight} readOnly={ro} onChange={(v) => set("weight", v)} />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <Field label="Street Cred" value={info.street_cred} type="number" readOnly={ro} onChange={(v) => set("street_cred", v, true)} />
+                <Field label="Notoriety" value={info.notoriety} type="number" readOnly={ro} onChange={(v) => set("notoriety", v, true)} />
+              </div>
+              <div className="grid grid-cols-1 gap-4">
+                <Field label="Public Awareness" value={info.public_awareness} type="number" readOnly={ro} onChange={(v) => set("public_awareness", v, true)} />
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -94,6 +136,13 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
       {karmaLedger && onKarmaUndo && (
         <KarmaTracker ledger={karmaLedger} onUndo={onKarmaUndo} />
       )}
+
+      <PortraitUploadDialog
+        open={portraitOpen}
+        onClose={() => setPortraitOpen(false)}
+        onSave={handlePortraitSave}
+        saving={portraitSaving}
+      />
     </div>
   );
 }

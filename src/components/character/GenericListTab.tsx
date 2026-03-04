@@ -11,6 +11,7 @@ import { Plus, Trash2, Info, Pencil, Check } from "lucide-react";
 import { AccessoryList } from "./AccessoryList";
 import { FireModeCheckboxes } from "./FireModes";
 import { DiceModifierEditor } from "./DiceModifierEditor";
+import { EffectsEditor } from "./EffectsEditor";
 import type { WeaponAccessory, DiceModifier } from "@/types/character";
 
 const FIELD_TOOLTIPS: Record<string, string> = {
@@ -29,11 +30,12 @@ interface Props {
   showEquipped?: boolean;
   showAccessories?: boolean;
   showDiceModifiers?: boolean;
+  showEffects?: boolean;
   readOnlyToggle?: boolean;
   onUpdate: (items: Record<string, any>[]) => void;
 }
 
-export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, numericFields, showEquipped, showAccessories, showDiceModifiers, readOnlyToggle, onUpdate }: Props) {
+export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, numericFields, showEquipped, showAccessories, showDiceModifiers, showEffects, readOnlyToggle, onUpdate }: Props) {
   const [editing, setEditing] = useState(!readOnlyToggle);
 
   const add = () => {
@@ -159,6 +161,14 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                     <AccessoryList
                       accessories={(item.accessories as WeaponAccessory[]) || []}
                       onChange={(accs) => update(index, "accessories", accs as any)}
+                    />
+                  </div>
+                )}
+                {showEffects && (
+                  <div className="w-full mt-1">
+                    <EffectsEditor
+                      modifiers={(item.dice_modifiers as DiceModifier[]) || []}
+                      onChange={(mods) => update(index, "dice_modifiers", mods as any)}
                     />
                   </div>
                 )}

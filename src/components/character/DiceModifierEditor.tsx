@@ -12,15 +12,21 @@ interface Props {
 }
 
 export function DiceModifierEditor({ modifiers, onChange }: Props) {
-  const add = () => onChange([...modifiers, { skill: "", value: 1, source: "" }]);
-  const remove = (i: number) => onChange(modifiers.filter((_, idx) => idx !== i));
+  // Filter out attribute-based modifiers (handled by EffectsEditor)
+  const skillModifiers = modifiers.filter((m) => !m.attribute);
+  const attrModifiers = modifiers.filter((m) => m.attribute);
+
+  const merge = (newSkillMods: DiceModifier[]) => onChange([...attrModifiers, ...newSkillMods]);
+
+  const add = () => merge([...skillModifiers, { skill: "", value: 1, source: "" }]);
+  const remove = (i: number) => merge(skillModifiers.filter((_, idx) => idx !== i));
   const update = (i: number, u: Partial<DiceModifier>) =>
-    onChange(modifiers.map((m, idx) => (idx === i ? { ...m, ...u } : m)));
+    merge(skillModifiers.map((m, idx) => (idx === i ? { ...m, ...u } : m)));
 
   return (
     <div className="space-y-1">
       <Label className="text-xs font-display tracking-wide">Dice Modifiers</Label>
-      {modifiers.length > 0 && (
+      {skillModifiers.length > 0 && (
         <div className="flex gap-1 items-center flex-wrap text-[10px] text-muted-foreground uppercase tracking-widest">
           <span className="flex-1 min-w-[120px]">Skill</span>
           <span className="w-16">Value</span>
@@ -28,7 +34,7 @@ export function DiceModifierEditor({ modifiers, onChange }: Props) {
           <span className="h-6 w-6" />
         </div>
       )}
-      {modifiers.map((mod, i) => (
+      {skillModifiers.map((mod, i) => (
         <div key={i} className="flex gap-1 items-center flex-wrap">
           <Select value={mod.skill || "__all__"} onValueChange={(v) => update(i, { skill: v === "__all__" ? undefined : v })}>
             <SelectTrigger className="font-mono text-xs h-8 flex-1 min-w-[120px]">

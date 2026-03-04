@@ -1,62 +1,52 @@
 
 
-## Equipped Weapons & Armor — Readability Redesign
+## Character Portrait Upload with Crop/Center
 
-### Current Problems
-1. **Flat hierarchy** — Every item is the same `bg-muted/30` box with no visual distinction between weapon categories (ranged vs melee vs armor)
-2. **Stat pills blend together** — Tiny 9px labels on muted backgrounds, all the same color, making it hard to scan for the number you need
-3. **Weapon name is too small** — `text-sm` with no weight difference from surrounding content
-4. **No section grouping** — Ranged, melee, and armor items are just stacked with no headers or dividers
-5. **Description shoved into a 2-col grid** — The `md:grid-cols-2` layout splits name/stats from description awkwardly
+### Overview
+Add a square character portrait to the Personal Data card. Users can upload an image, then crop and center it in a modal before saving. The portrait displays alongside the personal info fields.
 
-### Proposed Changes — `EquippedGearTab.tsx`
+### Infrastructure
 
-**1. Add category sub-headers with icons**
-- When there are ranged weapons, show a small `RANGED WEAPONS` label before them; same for `MELEE WEAPONS` and `ARMOR`
-- Uses the existing icon (Crosshair/Sword/Shield) + uppercase label, styled as a separator row
-- Removes the per-item icon (redundant once grouped)
+**Storage bucket** (SQL migration):
+- Create a `character-portraits` public bucket
+- RLS policy: authenticated users can upload/delete to path `{user_id}/{character_id}.*`; anyone can read (public bucket)
 
-**2. Improve weapon name prominence**
-- Bump name to `text-sm font-semibold` with `text-foreground` (currently inherits muted tones)
-- Add weapon subtype as a subtle tag next to the name (e.g., "Ares Predator VI" `Pistols`)
+**Database**: Add a `portrait_url` text column to the `characters` table (nullable, default null).
 
-**3. Color-code stat pills by purpose**
-- **DV**: Use a subtle red/destructive tint (`bg-destructive/15 text-destructive`)
-- **AR**: Keep neutral (`bg-muted/50`)
-- **Pool**: Use primary/cyan tint (`bg-primary/15 text-primary`)
-- **DR** (armor): Use a blue/shield tint
-- This lets users scan by color — damage is warm, defense is cool, pool is cyan
+### UI Changes
 
-**4. Increase stat pill font sizes**
-- Label: `text-[10px]` (up from 9px)
-- Value: `text-sm font-bold` (up from `text-xs`)
+**`src/components/character/PersonalInfoTab.tsx`** — Layout restructure:
+- Add portrait display area: a square `aspect-square` container (roughly 120-140px) on the left side of the card content, with the existing fields on the right
+- When no portrait exists: show a placeholder with camera/upload icon
+- When portrait exists: show the cropped image with a small overlay edit button
+- Clicking opens the crop dialog
 
-**5. Switch to single-column layout**
-- Drop the `md:grid-cols-2` split; use full-width rows instead
-- Description moves below stats as a full-width line (if present)
-- Accessories render on their own line beneath stats
+**New: `src/components/character/PortraitUploadDialog.tsx`**:
+- Modal with file input to select an image
+- Canvas-based crop UI: renders the uploaded image, lets user drag to pan and use a slider to zoom, constraining output to a 1:1 square
+- "Save" button uploads the cropped result as a blob to storage, updates the character's `portrait_url`, and closes the dialog
+- Uses native Canvas API for cropping (no extra dependencies needed)
 
-**6. Add left accent border per category**
-- Ranged items get a `border-l-2 border-primary` (cyan)
-- Melee items get a `border-l-2 border-secondary` (magenta)  
-- Armor items get a `border-l-2 border-neon-green` or similar distinct color
-- Creates instant visual grouping
+**`src/pages/CharacterSheet.tsx`**:
+- Pass `portraitUrl` and `onPortraitChange` callback to `PersonalInfoTab`
+- `onPortraitChange` uploads to storage bucket and calls `updateField("portrait_url", url)`
 
-### Visual Structure (per item)
+### Layout (Personal Data card)
+
 ```text
-┌─ border-l-2 (color by type) ─────────────────────┐
-│  Ares Predator VI          [Pistols]              │
-│  [DV 3P] [AR 9/11/8/—/—] [SA/BF] [Ammo 15] [12d6]│
-│  ┊ Smartlink · +1 DV, min STR 5                   │
-│  A heavy pistol favored by...                      │
-└───────────────────────────────────────────────────-─┘
+┌─ PERSONAL DATA ──────────────── [edit] ┐
+│ ┌──────────┐  Name: Shadowcat          │
+│ │          │  Metatype: Elf            │
+│ │ Portrait │  Ethnicity: ...           │
+│ │  120x120 │  Age/Sex/Height/Weight    │
+│ └──────────┘  Street Cred / Notoriety  │
+│               Public Awareness         │
+└────────────────────────────────────────┘
 ```
 
 ### File Changes
-- **`src/components/character/EquippedGearTab.tsx`** — All changes in this single file:
-  - Update `StatPill` to accept an optional `variant` prop for color tinting
-  - Add category sub-header rendering logic before each weapon group
-  - Restructure item layout to single-column with left border accent
-  - Bump font sizes for name and stat values
-  - Remove `md:grid-cols-2` grid in favor of stacked layout
+1. **SQL migration** — Create `character-portraits` storage bucket + RLS policies; add `portrait_url` column to `characters`
+2. **`src/components/character/PortraitUploadDialog.tsx`** — New crop/upload dialog component
+3. **`src/components/character/PersonalInfoTab.tsx`** — Add portrait display area, restructure layout to side-by-side
+4. **`src/pages/CharacterSheet.tsx`** — Wire portrait URL and upload handler
 

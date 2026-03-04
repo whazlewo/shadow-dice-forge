@@ -1,30 +1,58 @@
+## Plan: Dedicated Effect Fields on Augmentations and Gear
 
+### Problem
 
-## Problem
+Currently, attribute bonuses (+1 Body), initiative dice (+2D6), and defense rating changes from augmentations/gear are configured through the generic `DiceModifierEditor`, which is designed for skill pool modifiers. Users have to know to set `attribute: "initiative_dice"` or `attribute: "defense_rating"` — unintuitive and error-prone.
 
-Currently, dice modifiers on gear/augmentations apply **globally** to all rolls for a skill. A Smartlink with `value: 1` on Firearms applies +1 to every Firearms-based weapon pool. In SR6 rules, Smartlink should be +1 (gear accessory) or +2 (cyberware implant), and only applies to weapons with a Smartgun System accessory.
+### Current State
 
-## Solution
+The system already reads `dm.attribute` values like `"defense_rating"`, `"initiative_dice"`, and `"initiative"` from `DiceModifier[]` via `collectDiceModifiers` in `AttributesTab.tsx`. The plumbing works; the UX for setting these values is the problem.
 
-Add a `DiceModifierEditor` to the character sheet's Gear and Augmentations sections (it currently only exists in the wizard), so users can edit modifier values post-creation. Additionally, add a **weapon-specific** modifier system so bonuses like Smartlink only apply to weapons that have matching accessories.
+### Approach
+
+Add a dedicated **"Effects"** editor component that provides labeled, purpose-built fields for common augmentation/gear effects. This sits alongside (not replacing) the existing `DiceModifierEditor`, which remains for skill pool modifiers.
 
 ### Changes
 
-**1. Extract `DiceModifierEditor` to shared component** (`src/components/character/DiceModifierEditor.tsx`)
-- Move from `Step5Gear.tsx` into its own file so both wizard and character sheet can use it.
+**1. New component: `src/components/character/EffectsEditor.tsx**`
+A compact editor with explicit fields for:
 
-**2. Add `DiceModifierEditor` to character sheet gear editing** (`GenericListTab.tsx`)
-- When editing Augmentations or Gear items, show the `DiceModifierEditor` below the other fields so users can adjust modifier values (e.g., change Smartlink from +1 to +2 after installing cyberware).
+- **Attribute Bonuses** — dropdown (Body, Agility, Reaction, etc.) + numeric value. Writes to `dice_modifiers` with `attribute: "body"`, etc.
+- **Initiative Bonus** — numeric field for flat bonus to initiative score. Writes `attribute: "initiative"`.
+- **Initiative Dice** — numeric field for extra D6s. Writes `attribute: "initiative_dice"`.
+- **Defense Rating** — numeric field. Writes `attribute: "defense_rating"`.
 
-**3. Add weapon-specific modifier matching** (`src/lib/dice-pool.ts`)
-- Update `calculateWeaponPool` to check if a gear/augmentation modifier has a `requires_accessory` field. If set, only apply the modifier when the weapon has a matching accessory name.
-- Add `requires_accessory?: string` to `DiceModifier` type.
+Under the hood, it reads/writes the same `DiceModifier[]` array, just filtering by whether `dm.attribute` is set (effects) vs `dm.skill` (skill pool modifiers). This means no data model changes and full backward compatibility.
 
-**4. Update `DiceModifier` type** (`src/types/character.ts`)
-- Add optional `requires_accessory?: string` field — when set, the modifier only applies to weapons with an accessory whose name contains this string (e.g., "Smartgun").
+**2. Update `GenericListTab.tsx**`
 
-### Result
-- Users can set Smartlink to +2 on their cyberware augmentation via the character sheet
-- The +2 only applies to weapons that have a "Smartgun System" accessory installed
-- The Pool tooltip shows the correct breakdown
+- Add a `showEffects?: boolean` prop.
+- When true, render `<EffectsEditor>` between the description and the `DiceModifierEditor`.
 
+**3. Update `CharacterSheet.tsx**`
+
+- Pass `showEffects={true}` on the Augmentations and Gear tabs.
+
+**4. Update `DiceModifierEditor.tsx**`
+
+- Filter out modifiers where `attribute` is set (those belong to the EffectsEditor), so the two editors don't show duplicates.
+
+### Technical Detail
+
+The `EffectsEditor` component manages a subset of the item's `dice_modifiers` array:
+
+```text
+dice_modifiers: [
+  { attribute: "reaction", value: 1, source: "..." },       ← EffectsEditor
+  { attribute: "initiative_dice", value: 2, source: "..." }, ← EffectsEditor  
+  { skill: "Firearms", value: 2, requires_accessory: "..." } ← DiceModifierEditor
+]
+```
+
+Both editors call the same `onChange(modifiers)` but each only touches its own subset, merging back on save.
+
+### What This Does NOT Change
+
+- No database migration needed — same `DiceModifier[]` structure in JSONB.
+- No changes to `collectDiceModifiers` or `computeDerived` — they already read these attribute keys.
+- `DiceModifierEditor` still works for skill pool modifiers.

@@ -62,6 +62,7 @@ export interface DiceModifier {
   attribute?: string;
   value: number;
   source: string;
+  requires_accessory?: string;
 }
 
 export interface ARModifier {

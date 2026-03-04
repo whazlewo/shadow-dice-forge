@@ -246,32 +246,28 @@ export default function CharacterSheet() {
       <Tabs defaultValue="core" className="w-full">
         {/* Fixed header with tabs */}
         <header className="border-b border-border/50 bg-card/80 backdrop-blur-md sticky top-0 z-10">
-          <div className="container flex h-11 items-center gap-3">
-            <Button variant="ghost" size="icon" className="shrink-0 h-7 w-7" onClick={() => navigate("/")}>
-              <ArrowLeft className="h-3.5 w-3.5" />
-            </Button>
-            <Input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              onBlur={() => save({ name })}
-              className="font-display text-sm font-bold tracking-wider bg-transparent border-none h-auto p-0 max-w-[160px] focus-visible:ring-0"
-            />
-            <span className="text-[10px] text-muted-foreground font-mono">|</span>
-            <Input
-              value={metatype}
-              onChange={(e) => setMetatype(e.target.value)}
-              onBlur={() => save({ metatype })}
-              className="text-xs font-mono bg-transparent border-none h-auto p-0 max-w-[80px] focus-visible:ring-0 text-muted-foreground"
-            />
-            <div className="mx-1 h-4 w-px bg-border/50 shrink-0" />
-            <TabsList className="flex h-auto gap-0 bg-transparent p-0">
-              {["core", "weapons-gear", "vehicles", "spells", "adept", "other"].map((tab) => (
-                <TabsTrigger key={tab} value={tab} className="font-display text-[10px] tracking-wider uppercase px-2.5 py-1 h-auto data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-sm data-[state=inactive]:text-muted-foreground">
-                  {tab === "weapons-gear" ? "Gear" : tab}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            <div className="ml-auto flex items-center gap-2 shrink-0">
+          <div className="container flex h-11 items-center">
+            <div className="flex items-center gap-2 shrink-0">
+              <Button variant="ghost" size="icon" className="shrink-0 h-7 w-7" onClick={() => navigate("/")}>
+                <ArrowLeft className="h-3.5 w-3.5" />
+              </Button>
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                onBlur={() => save({ name })}
+                className="font-display text-sm font-bold tracking-wider bg-transparent border-none h-auto p-0 max-w-[160px] focus-visible:ring-0"
+              />
+            </div>
+            <div className="flex-1 flex justify-center">
+              <TabsList className="flex h-auto gap-0 bg-transparent p-0">
+                {["core", "weapons-gear", "vehicles", "spells", "adept", "other"].map((tab) => (
+                  <TabsTrigger key={tab} value={tab} className="font-display text-[10px] tracking-wider uppercase px-2.5 py-1 h-auto data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-sm data-[state=inactive]:text-muted-foreground">
+                    {tab === "weapons-gear" ? "Gear" : tab}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
               {saving && <span className="text-[10px] text-neon-amber font-mono animate-pulse">Saving...</span>}
             </div>
           </div>

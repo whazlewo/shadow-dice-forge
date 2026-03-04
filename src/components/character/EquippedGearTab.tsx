@@ -100,10 +100,10 @@ function AccessoryBadges({ accessories }: { accessories?: { name: string; ar_mod
 }
 
 const FIRE_MODE_INFO: Record<string, { full: string; tip: string }> = {
-  SS: { full: "Single-Shot", tip: "One shot per Attack action, must reload after" },
-  SA: { full: "Semi-Automatic", tip: "One shot per Attack action, +1 per additional" },
-  BF: { full: "Burst Fire", tip: "Fires a burst, −2 Defense Rating" },
-  FA: { full: "Full Auto", tip: "Fires continuous, −6 Defense Rating" },
+  SS: { full: "Single Shot", tip: "1 round fired. No change to stats. Precise and ammo-efficient." },
+  SA: { full: "Semi-Automatic", tip: "2 rounds fired. DV +1 and AR −2. A quick double-tap." },
+  BF: { full: "Burst Fire", tip: "4 rounds fired. DV +2 and AR −4. High impact, harder to control." },
+  FA: { full: "Full Auto", tip: "10 rounds fired. DV +3 and AR −6. Absolute devastation, but massive AR penalty." },
 };
 
 function FireModeBadges({ modes }: { modes: string }) {

@@ -109,10 +109,10 @@ function DiceModifierEditor({
 
 // ----- Category-specific field renderers -----
 const FIRE_MODES = [
-  { code: "SS", tip: "Single-Shot: One shot per Attack action, must reload after" },
-  { code: "SA", tip: "Semi-Automatic: One shot per Attack action, +1 per additional" },
-  { code: "BF", tip: "Burst Fire: Fires a burst, −2 Defense Rating" },
-  { code: "FA", tip: "Full Auto: Fires continuous, −6 Defense Rating" },
+  { code: "SS", tip: "Single Shot (1 round): No change to stats. Precise and ammo-efficient." },
+  { code: "SA", tip: "Semi-Automatic (2 rounds): DV +1 and AR −2. A quick double-tap." },
+  { code: "BF", tip: "Burst Fire (4 rounds): DV +2 and AR −4. High impact, harder to control." },
+  { code: "FA", tip: "Full Auto (10 rounds): DV +3 and AR −6. Absolute devastation, but massive AR penalty." },
 ] as const;
 
 function FireModeCheckboxes({ value, onChange }: { value: string; onChange: (v: string) => void }) {

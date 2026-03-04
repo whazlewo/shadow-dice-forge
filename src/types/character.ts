@@ -304,25 +304,29 @@ export interface DicePoolBreakdown {
   total: number;
 }
 
-// SR6 core skill list with linked attributes
-export const SR6_CORE_SKILLS: { name: string; attribute: keyof SR6Attributes }[] = [
-  { name: "Astral", attribute: "intuition" },
-  { name: "Athletics", attribute: "agility" },
-  { name: "Biotech", attribute: "logic" },
-  { name: "Close Combat", attribute: "agility" },
-  { name: "Con", attribute: "charisma" },
-  { name: "Conjuring", attribute: "magic" },
-  { name: "Cracking", attribute: "logic" },
-  { name: "Electronics", attribute: "logic" },
-  { name: "Enchanting", attribute: "magic" },
-  { name: "Engineering", attribute: "logic" },
-  { name: "Exotic Weapons", attribute: "agility" },
-  { name: "Firearms", attribute: "agility" },
-  { name: "Influence", attribute: "charisma" },
-  { name: "Outdoors", attribute: "intuition" },
-  { name: "Perception", attribute: "intuition" },
-  { name: "Piloting", attribute: "reaction" },
-  { name: "Sorcery", attribute: "magic" },
-  { name: "Stealth", attribute: "agility" },
-  { name: "Tasking", attribute: "resonance" },
+// SR6 core skill list with linked attributes, specializations, and expertise
+export const SR6_CORE_SKILLS: {
+  name: string;
+  attribute: keyof SR6Attributes;
+  specializations: string[];
+}[] = [
+  { name: "Astral", attribute: "intuition", specializations: ["Astral Combat", "Astral Signatures", "Emotional States", "Spirit Types"] },
+  { name: "Athletics", attribute: "agility", specializations: ["Archery", "Climbing", "Flying", "Gymnastics", "Sprinting", "Swimming", "Throwing"] },
+  { name: "Biotech", attribute: "logic", specializations: ["Biotechnology", "Cybertechnology", "First Aid", "Medicine"] },
+  { name: "Close Combat", attribute: "agility", specializations: ["Blades", "Clubs", "Unarmed Combat"] },
+  { name: "Con", attribute: "charisma", specializations: ["Acting", "Disguise", "Impersonation", "Performance"] },
+  { name: "Conjuring", attribute: "magic", specializations: ["Banishing", "Summoning"] },
+  { name: "Cracking", attribute: "logic", specializations: ["Cybercombat", "Electronic Warfare", "Hacking"] },
+  { name: "Electronics", attribute: "logic", specializations: ["Computer", "Hardware", "Software"] },
+  { name: "Enchanting", attribute: "magic", specializations: ["Alchemy", "Artificing", "Disenchanting"] },
+  { name: "Engineering", attribute: "logic", specializations: ["Aeronautics Mechanic", "Automotive Mechanic", "Demolitions", "Gunnery", "Industrial Mechanic", "Lockpicking", "Nautical Mechanic"] },
+  { name: "Exotic Weapons", attribute: "agility", specializations: [] },
+  { name: "Firearms", attribute: "agility", specializations: ["Automatics", "Hold-Outs", "Longarms", "Machine Pistols", "Pistols (Heavy)", "Pistols (Light)", "Shotguns", "Sniper Rifles", "Submachine Guns", "Tasers"] },
+  { name: "Influence", attribute: "charisma", specializations: ["Etiquette", "Instruction", "Intimidation", "Leadership", "Negotiation"] },
+  { name: "Outdoors", attribute: "intuition", specializations: ["Navigation", "Survival", "Tracking"] },
+  { name: "Perception", attribute: "intuition", specializations: ["Auditory", "Environmental", "Olfactory", "Tactile", "Visual"] },
+  { name: "Piloting", attribute: "reaction", specializations: ["Ground Craft", "Aircraft", "Watercraft"] },
+  { name: "Sorcery", attribute: "magic", specializations: ["Counterspelling", "Ritual Spellcasting", "Spellcasting"] },
+  { name: "Stealth", attribute: "agility", specializations: ["Camouflage", "Palming", "Sneaking"] },
+  { name: "Tasking", attribute: "resonance", specializations: ["Compiling", "Decompiling", "Registering"] },
 ];

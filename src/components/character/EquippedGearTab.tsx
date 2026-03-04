@@ -69,6 +69,36 @@ function accessoryNames(weapon: { accessories?: { name: string }[] }): string {
   return (weapon.accessories || []).map((a) => a.name).filter(Boolean).join(", ");
 }
 
+function AccessoryBadges({ accessories }: { accessories?: { name: string; ar_modifier?: string; notes?: string }[] }) {
+  const items = (accessories || []).filter((a) => a.name);
+  if (items.length === 0) return null;
+  return (
+    <TooltipProvider delayDuration={200}>
+      <div className="flex flex-wrap gap-1 mt-1">
+        {items.map((acc, i) => {
+          const details: string[] = [];
+          if (acc.ar_modifier) details.push(`AR: ${acc.ar_modifier}`);
+          if (acc.notes) details.push(acc.notes);
+          const tip = details.join(" · ");
+          const badge = (
+            <Badge variant="secondary" className="text-[10px] font-mono px-1.5 py-0 h-4 bg-accent/30 text-accent-foreground">
+              {acc.name}
+            </Badge>
+          );
+          return tip ? (
+            <Tooltip key={i}>
+              <TooltipTrigger asChild>{badge}</TooltipTrigger>
+              <TooltipContent side="top" className="text-xs max-w-[260px]">{tip}</TooltipContent>
+            </Tooltip>
+          ) : (
+            <span key={i}>{badge}</span>
+          );
+        })}
+      </div>
+    </TooltipProvider>
+  );
+}
+
 const FIRE_MODE_INFO: Record<string, { full: string; tip: string }> = {
   SS: { full: "Single-Shot", tip: "One shot per Attack action, must reload after" },
   SA: { full: "Semi-Automatic", tip: "One shot per Attack action, +1 per additional" },
@@ -137,11 +167,8 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <FireModeBadges modes={w.fire_modes || ""} />
                   <StatPill label="Ammo" value={w.ammo || "—"} />
-                  <StatPill label="Ammo" value={w.ammo || "—"} />
                 </div>
-                {accessoryNames(w) && (
-                  <p className="text-[10px] text-muted-foreground mt-1 font-mono truncate">{accessoryNames(w)}</p>
-                )}
+                <AccessoryBadges accessories={w.accessories} />
               </div>
             </div>
             {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}
@@ -159,9 +186,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <StatPill label="Reach" value={w.reach ?? "—"} />
                 </div>
-                {accessoryNames(w) && (
-                  <p className="text-[10px] text-muted-foreground mt-1 font-mono truncate">{accessoryNames(w)}</p>
-                )}
+                <AccessoryBadges accessories={w.accessories} />
               </div>
             </div>
             {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}

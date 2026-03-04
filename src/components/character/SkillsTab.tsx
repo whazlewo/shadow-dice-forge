@@ -6,9 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Trash2, ChevronDown, ChevronRight, Pencil, Check } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import type { SR6Attributes, SR6Skill, SR6Quality, SR6Augmentation, SR6Gear, DicePoolBreakdown } from "@/types/character";
+import type { SR6Skill, SR6Attributes, SR6Quality, SR6Augmentation, SR6Gear, DicePoolBreakdown } from "@/types/character";
 import { SR6_CORE_SKILLS } from "@/types/character";
-
+import { calculateDicePool } from "@/lib/dice-pool";
 import { skillKarmaCost, SPECIALIZATION_KARMA_COST, EXPERTISE_KARMA_COST } from "@/lib/karma";
 
 interface Props {
@@ -18,52 +18,6 @@ interface Props {
   augmentations: SR6Augmentation[];
   gear: SR6Gear[];
   onUpdate: (skills: SR6Skill[], karmaInfo?: { description: string; cost: number; field: string }) => void;
-}
-
-function calculateDicePool(
-  skill: SR6Skill,
-  attributes: SR6Attributes,
-  qualities: SR6Quality[],
-  augmentations: SR6Augmentation[],
-  gear: SR6Gear[]
-): DicePoolBreakdown {
-  const attrValue = Number(attributes[skill.attribute]) || 0;
-  const modifiers: { source: string; value: number }[] = [];
-
-  qualities.forEach((q) => {
-    q.dice_modifiers?.forEach((mod) => {
-      if (!mod.skill || mod.skill === skill.name) {
-        modifiers.push({ source: `Quality: ${q.name}`, value: mod.value });
-      }
-    });
-  });
-
-  augmentations.forEach((aug) => {
-    aug.dice_modifiers?.forEach((mod) => {
-      if (!mod.skill || mod.skill === skill.name) {
-        modifiers.push({ source: `Aug: ${aug.name}`, value: mod.value });
-      }
-    });
-  });
-
-  gear.forEach((g) => {
-    g.dice_modifiers?.forEach((mod) => {
-      if (!mod.skill || mod.skill === skill.name) {
-        modifiers.push({ source: `Gear: ${g.name}`, value: mod.value });
-      }
-    });
-  });
-
-  const total = attrValue + skill.rating + modifiers.reduce((sum, m) => sum + m.value, 0);
-
-  return {
-    skill_name: skill.name,
-    attribute_name: skill.attribute,
-    attribute_value: attrValue,
-    skill_rating: skill.rating,
-    modifiers,
-    total: Math.max(0, total),
-  };
 }
 
 function ReadOnlySkillRow({ skill, pool }: { skill: SR6Skill; pool: DicePoolBreakdown }) {

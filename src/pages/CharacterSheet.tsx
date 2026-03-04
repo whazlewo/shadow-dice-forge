@@ -308,6 +308,11 @@ export default function CharacterSheet() {
                 rangedWeapons={(character.ranged_weapons || []) as unknown as SR6RangedWeapon[]}
                 meleeWeapons={(character.melee_weapons || []) as unknown as SR6MeleeWeapon[]}
                 armor={(character.armor || []) as unknown as SR6Armor[]}
+                skills={skills}
+                attributes={attributes}
+                qualities={qualities}
+                augmentations={augmentations}
+                gear={gear}
               />
             </div>
             <GenericListTab
@@ -324,7 +329,9 @@ export default function CharacterSheet() {
             <GenericListTab
               title="Ranged Weapons"
               items={(character.ranged_weapons || []) as any[]}
-              fields={["name", "dv", "ar", "fire_modes", "ammo"]}
+              fields={["name", "subtype", "dv", "ar", "fire_modes", "ammo"]}
+              fieldLabels={{ subtype: "Category" }}
+              fieldOptions={{ subtype: ["Automatics", "Hold-Outs", "Longarms", "Machine Pistols", "Pistols (Heavy)", "Pistols (Light)", "Shotguns", "Sniper Rifles", "Submachine Guns", "Tasers"] }}
               showEquipped
               showAccessories
               onUpdate={(w) => updateField("ranged_weapons", w)}
@@ -332,7 +339,9 @@ export default function CharacterSheet() {
             <GenericListTab
               title="Melee Weapons"
               items={(character.melee_weapons || []) as any[]}
-              fields={["name", "dv", "ar", "reach"]}
+              fields={["name", "subtype", "dv", "ar", "reach"]}
+              fieldLabels={{ subtype: "Category" }}
+              fieldOptions={{ subtype: ["Blades", "Clubs", "Unarmed Combat"] }}
               numericFields={["reach"]}
               showEquipped
               showAccessories

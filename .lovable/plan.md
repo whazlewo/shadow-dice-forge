@@ -1,42 +1,30 @@
 
 
-## Add Weapon Subtype for Specialization-Aware Dice Pools
+## Problem
 
-### Problem
-Weapons don't carry a subtype (e.g., "Pistols (Heavy)", "Shotguns", "Blades") so the dice pool calculator can't check if the character's specialization applies for the +2 bonus.
+Currently, dice modifiers on gear/augmentations apply **globally** to all rolls for a skill. A Smartlink with `value: 1` on Firearms applies +1 to every Firearms-based weapon pool. In SR6 rules, Smartlink should be +1 (gear accessory) or +2 (cyberware implant), and only applies to weapons with a Smartgun System accessory.
+
+## Solution
+
+Add a `DiceModifierEditor` to the character sheet's Gear and Augmentations sections (it currently only exists in the wizard), so users can edit modifier values post-creation. Additionally, add a **weapon-specific** modifier system so bonuses like Smartlink only apply to weapons that have matching accessories.
 
 ### Changes
 
-**1. Add `subtype` field to weapon types** (`src/types/character.ts`)
-- Add optional `subtype?: string` to `SR6RangedWeapon` and `SR6MeleeWeapon`
-- This stores the Firearms/Close Combat specialization category (e.g., "Pistols (Heavy)", "Blades")
+**1. Extract `DiceModifierEditor` to shared component** (`src/components/character/DiceModifierEditor.tsx`)
+- Move from `Step5Gear.tsx` into its own file so both wizard and character sheet can use it.
 
-**2. Add subtype dropdown to weapon editing** (`src/components/character/GenericListTab.tsx`)
-- For ranged weapons: show a `<Select>` populated with Firearms specializations from `SR6_CORE_SKILLS`
-- For melee weapons: show a `<Select>` populated with Close Combat specializations
-- Allow free-text fallback for custom subtypes
+**2. Add `DiceModifierEditor` to character sheet gear editing** (`GenericListTab.tsx`)
+- When editing Augmentations or Gear items, show the `DiceModifierEditor` below the other fields so users can adjust modifier values (e.g., change Smartlink from +1 to +2 after installing cyberware).
 
-**3. Extract `calculateDicePool` to shared utility** (`src/lib/dice-pool.ts`)
-- Move the function from `SkillsTab.tsx` into a shared module
-- Update `SkillsTab.tsx` to import from there
+**3. Add weapon-specific modifier matching** (`src/lib/dice-pool.ts`)
+- Update `calculateWeaponPool` to check if a gear/augmentation modifier has a `requires_accessory` field. If set, only apply the modifier when the weapon has a matching accessory name.
+- Add `requires_accessory?: string` to `DiceModifier` type.
 
-**4. Add dice pool display to `EquippedGearTab`** (`src/components/character/EquippedGearTab.tsx`)
-- Accept `skills`, `attributes`, `qualities`, `augmentations`, `gear` as props
-- For each ranged weapon: look up the "Firearms" skill, compute base pool, then check if `weapon.subtype` matches the skill's `specialization` (+2) or `expertise` (+3)
-- For each melee weapon: same logic with "Close Combat" skill
-- Display as a "Pool" `StatPill` with tooltip breakdown showing attribute + skill + spec/exp + modifiers
+**4. Update `DiceModifier` type** (`src/types/character.ts`)
+- Add optional `requires_accessory?: string` field — when set, the modifier only applies to weapons with an accessory whose name contains this string (e.g., "Smartgun").
 
-**5. Pass props from `CharacterSheet.tsx`**
-- Add the additional props to the `EquippedGearTab` call
-
-**6. Map subtype during wizard finalization** (`src/pages/CharacterWizard.tsx`)
-- No change needed — subtypes don't exist in wizard gear currently; users will set them on the character sheet
-
-### Tooltip Breakdown Example
-```
-Agility          6
-Firearms         5
-Spec: Heavy P.  +2
-Total          13d6
-```
+### Result
+- Users can set Smartlink to +2 on their cyberware augmentation via the character sheet
+- The +2 only applies to weapons that have a "Smartgun System" accessory installed
+- The Pool tooltip shows the correct breakdown
 

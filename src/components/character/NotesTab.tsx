@@ -76,7 +76,7 @@ function NoteEditor({
       </div>
       <EditorContent
         editor={editor}
-        className="prose prose-sm prose-invert max-w-none min-h-[200px] border border-border/50 rounded-md p-3 focus-within:ring-1 focus-within:ring-primary/50 [&_.tiptap]:outline-none [&_.tiptap]:min-h-[180px]"
+        className="prose prose-sm prose-invert max-w-none min-h-[200px] border border-border/50 rounded-md p-3 focus-within:ring-1 focus-within:ring-primary/50 [&_.tiptap]:outline-none [&_.tiptap]:min-h-[180px] [&_.tiptap_ul]:list-disc [&_.tiptap_ul]:pl-6 [&_.tiptap_ol]:list-decimal [&_.tiptap_ol]:pl-6 [&_.tiptap_li]:my-1"
       />
     </div>
   );

@@ -24,7 +24,7 @@ export function calculateDicePool(
 
   qualities.forEach((q) => {
     q.dice_modifiers?.forEach((mod) => {
-      if ((!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
+      if (!mod.attribute && (!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
         modifiers.push({ source: `Quality: ${q.name}`, value: mod.value });
       }
     });
@@ -32,7 +32,7 @@ export function calculateDicePool(
 
   augmentations.forEach((aug) => {
     aug.dice_modifiers?.forEach((mod) => {
-      if ((!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
+      if (!mod.attribute && (!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
         modifiers.push({ source: `Aug: ${aug.name}`, value: mod.value });
       }
     });
@@ -40,7 +40,7 @@ export function calculateDicePool(
 
   gear.forEach((g) => {
     g.dice_modifiers?.forEach((mod) => {
-      if ((!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
+      if (!mod.attribute && (!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
         modifiers.push({ source: `Gear: ${g.name}`, value: mod.value });
       }
     });

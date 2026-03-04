@@ -363,6 +363,7 @@ export default function CharacterSheet() {
               items={augmentations as any[]}
               fields={["name", "type", "essence_cost", "rating", "effects"]}
               showDiceModifiers
+              showEffects
               onUpdate={(a) => updateField("augmentations", a)}
             />
             <GenericListTab
@@ -371,6 +372,7 @@ export default function CharacterSheet() {
               fields={["name", "quantity", "notes"]}
               showEquipped
               showDiceModifiers
+              showEffects
               onUpdate={(g) => updateField("gear", g)}
             />
             <GenericListTab

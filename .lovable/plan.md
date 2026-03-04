@@ -1,52 +1,31 @@
 
 
-## Character Portrait Upload with Crop/Center
+## Add "Notes" Tab with Rich Text Editor
 
 ### Overview
-Add a square character portrait to the Personal Data card. Users can upload an image, then crop and center it in a modal before saving. The portrait displays alongside the personal info fields.
+Add a new "Notes" tab to the character sheet with a rich text editor supporting basic formatting and session-based organization. Notes are stored per-character in a JSONB column.
 
-### Infrastructure
+### Database
+- Add a `notes` column (JSONB, nullable, default `'[]'`) to the `characters` table to store an array of session note entries: `[{ id, title, content, created_at, collapsed }]`
+- `content` stores HTML produced by the editor
 
-**Storage bucket** (SQL migration):
-- Create a `character-portraits` public bucket
-- RLS policy: authenticated users can upload/delete to path `{user_id}/{character_id}.*`; anyone can read (public bucket)
+### Dependencies
+- Install **`@tiptap/react`**, **`@tiptap/starter-kit`**, and **`@tiptap/extension-task-list`** / **`@tiptap/extension-task-item`** — Tiptap is a lightweight, headless rich text editor built on ProseMirror that integrates cleanly with React and requires no heavy UI framework
 
-**Database**: Add a `portrait_url` text column to the `characters` table (nullable, default null).
+### New Component: `src/components/character/NotesTab.tsx`
+- **Session list panel**: displays collapsible session entries sorted by date, each with a title (editable), timestamp, and collapse/expand toggle
+- **"+ New Session" button**: creates a new entry with today's date as the default title
+- **Editor area**: Tiptap editor instance with a minimal toolbar — bold, italic, headings (H2/H3), bullet list, ordered list, horizontal rule
+- **Auto-save**: debounced save (e.g. 1s after last keystroke) calls `updateField("notes", ...)`
+- **Delete session**: option to remove a session entry with confirmation
 
-### UI Changes
-
-**`src/components/character/PersonalInfoTab.tsx`** — Layout restructure:
-- Add portrait display area: a square `aspect-square` container (roughly 120-140px) on the left side of the card content, with the existing fields on the right
-- When no portrait exists: show a placeholder with camera/upload icon
-- When portrait exists: show the cropped image with a small overlay edit button
-- Clicking opens the crop dialog
-
-**New: `src/components/character/PortraitUploadDialog.tsx`**:
-- Modal with file input to select an image
-- Canvas-based crop UI: renders the uploaded image, lets user drag to pan and use a slider to zoom, constraining output to a 1:1 square
-- "Save" button uploads the cropped result as a blob to storage, updates the character's `portrait_url`, and closes the dialog
-- Uses native Canvas API for cropping (no extra dependencies needed)
-
-**`src/pages/CharacterSheet.tsx`**:
-- Pass `portraitUrl` and `onPortraitChange` callback to `PersonalInfoTab`
-- `onPortraitChange` uploads to storage bucket and calls `updateField("portrait_url", url)`
-
-### Layout (Personal Data card)
-
-```text
-┌─ PERSONAL DATA ──────────────── [edit] ┐
-│ ┌──────────┐  Name: Shadowcat          │
-│ │          │  Metatype: Elf            │
-│ │ Portrait │  Ethnicity: ...           │
-│ │  120x120 │  Age/Sex/Height/Weight    │
-│ └──────────┘  Street Cred / Notoriety  │
-│               Public Awareness         │
-└────────────────────────────────────────┘
-```
+### Integration: `src/pages/CharacterSheet.tsx`
+- Add `"notes"` to the tabs array (between "core" and "weapons-gear" or at the end before "other")
+- Add `<TabsContent value="notes">` rendering `<NotesTab>`
+- Pass `notes={(character.notes || []) as any[]}` and `onUpdate={(n) => updateField("notes", n)}`
 
 ### File Changes
-1. **SQL migration** — Create `character-portraits` storage bucket + RLS policies; add `portrait_url` column to `characters`
-2. **`src/components/character/PortraitUploadDialog.tsx`** — New crop/upload dialog component
-3. **`src/components/character/PersonalInfoTab.tsx`** — Add portrait display area, restructure layout to side-by-side
-4. **`src/pages/CharacterSheet.tsx`** — Wire portrait URL and upload handler
+1. **SQL migration** — add `notes` JSONB column to `characters`
+2. **`src/components/character/NotesTab.tsx`** — new component with Tiptap editor + session organization
+3. **`src/pages/CharacterSheet.tsx`** — wire up the new tab
 

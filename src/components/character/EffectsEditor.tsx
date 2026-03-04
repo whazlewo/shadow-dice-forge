@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PlusCircle, X } from "lucide-react";
 import type { DiceModifier } from "@/types/character";
@@ -18,52 +20,28 @@ const ATTRIBUTE_OPTIONS = [
 ];
 
 const SPECIAL_EFFECTS = [
-  { attribute: "initiative", label: "Initiative Bonus" },
-  { attribute: "initiative_dice", label: "Initiative Dice" },
-  { attribute: "defense_rating", label: "Defense Rating" },
+  { attribute: "initiative", label: "Initiative" },
+  { attribute: "initiative_dice", label: "Init Dice" },
+  { attribute: "defense_rating", label: "Def Rating" },
 ];
 
 interface Props {
-  /** The full dice_modifiers array for this item */
   modifiers: DiceModifier[];
-  /** Called with the full updated array (effects + skill mods merged) */
   onChange: (mods: DiceModifier[]) => void;
 }
 
-/**
- * Manages attribute-based effects (attribute bonuses, initiative, DR).
- * Reads/writes the same DiceModifier[] as DiceModifierEditor, but only
- * touches entries where `attribute` is set.
- */
 export function EffectsEditor({ modifiers, onChange }: Props) {
+  const [addingAttr, setAddingAttr] = useState(false);
+  const [newAttr, setNewAttr] = useState("body");
+  const [newAttrVal, setNewAttrVal] = useState(1);
+
   const effects = modifiers.filter((m) => m.attribute);
   const skillMods = modifiers.filter((m) => !m.attribute);
-
   const merge = (newEffects: DiceModifier[]) => onChange([...newEffects, ...skillMods]);
 
-  // --- Attribute bonus rows ---
   const attrBonuses = effects.filter(
     (m) => m.attribute && !SPECIAL_EFFECTS.some((s) => s.attribute === m.attribute)
   );
-
-  const addAttrBonus = () =>
-    merge([...effects, { attribute: "body", value: 1, source: "" }]);
-
-  const updateAttrBonus = (i: number, patch: Partial<DiceModifier>) => {
-    const updated = [...effects];
-    // Find the actual index in the effects array for this attr bonus
-    let attrIdx = 0;
-    for (let j = 0; j < effects.length; j++) {
-      if (!SPECIAL_EFFECTS.some((s) => s.attribute === effects[j].attribute)) {
-        if (attrIdx === i) {
-          updated[j] = { ...updated[j], ...patch };
-          break;
-        }
-        attrIdx++;
-      }
-    }
-    merge(updated);
-  };
 
   const removeAttrBonus = (i: number) => {
     const updated = [...effects];
@@ -80,7 +58,15 @@ export function EffectsEditor({ modifiers, onChange }: Props) {
     merge(updated);
   };
 
-  // --- Special effect helpers ---
+  const commitNewAttr = () => {
+    if (newAttrVal !== 0) {
+      merge([...effects, { attribute: newAttr, value: newAttrVal, source: "" }]);
+    }
+    setAddingAttr(false);
+    setNewAttr("body");
+    setNewAttrVal(1);
+  };
+
   const getSpecialValue = (attr: string): number => {
     const found = effects.find((m) => m.attribute === attr);
     return found ? found.value : 0;
@@ -89,7 +75,6 @@ export function EffectsEditor({ modifiers, onChange }: Props) {
   const setSpecialValue = (attr: string, value: number) => {
     const idx = effects.findIndex((m) => m.attribute === attr);
     if (value === 0 && idx >= 0) {
-      // Remove
       merge(effects.filter((_, j) => j !== idx));
     } else if (idx >= 0) {
       const updated = [...effects];
@@ -100,72 +85,77 @@ export function EffectsEditor({ modifiers, onChange }: Props) {
     }
   };
 
-  return (
-    <div className="space-y-2">
-      <Label className="text-xs font-display tracking-wide">Effects</Label>
+  const formatSign = (v: number) => (v > 0 ? `+${v}` : `${v}`);
 
-      {/* Special single-value fields */}
-      <div className="flex flex-wrap gap-3">
+  return (
+    <div className="space-y-3">
+      {/* Special stats grid */}
+      <div className="grid grid-cols-3 gap-2">
         {SPECIAL_EFFECTS.map((se) => (
-          <div key={se.attribute} className="flex items-center gap-1.5">
-            <Label className="text-[10px] text-muted-foreground uppercase tracking-widest whitespace-nowrap">
+          <div key={se.attribute} className="rounded-md bg-muted/40 p-2 text-center">
+            <Label className="text-[9px] text-muted-foreground uppercase tracking-widest block mb-1">
               {se.label}
             </Label>
             <Input
               type="number"
               value={getSpecialValue(se.attribute) || ""}
               onChange={(e) => setSpecialValue(se.attribute, parseInt(e.target.value) || 0)}
-              className="w-16 h-7 font-mono text-xs"
+              className="w-full h-7 font-mono text-xs text-center bg-background/50"
               placeholder="0"
             />
           </div>
         ))}
       </div>
 
-      {/* Attribute bonus rows */}
-      {attrBonuses.length > 0 && (
-        <div className="flex gap-1 items-center text-[10px] text-muted-foreground uppercase tracking-widest">
-          <span className="flex-1 min-w-[120px]">Attribute</span>
-          <span className="w-16">Value</span>
-          <span className="h-6 w-6" />
+      {/* Attribute bonuses as pills */}
+      <div className="space-y-1.5">
+        <Label className="text-[9px] text-muted-foreground uppercase tracking-widest">Attribute Bonuses</Label>
+        <div className="flex flex-wrap gap-1.5">
+          {attrBonuses.map((mod, i) => (
+            <Badge key={i} variant="secondary" className="gap-1 pl-2 pr-1 py-0.5 font-mono text-xs">
+              {ATTRIBUTE_OPTIONS.find((a) => a.value === mod.attribute)?.label || mod.attribute}{" "}
+              {formatSign(mod.value)}
+              <button
+                onClick={() => removeAttrBonus(i)}
+                className="ml-0.5 rounded-full hover:bg-destructive/20 p-0.5"
+              >
+                <X className="h-2.5 w-2.5 text-destructive" />
+              </button>
+            </Badge>
+          ))}
+
+          {addingAttr ? (
+            <div className="flex items-center gap-1">
+              <Select value={newAttr} onValueChange={setNewAttr}>
+                <SelectTrigger className="h-7 text-xs w-[100px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {ATTRIBUTE_OPTIONS.map((a) => (
+                    <SelectItem key={a.value} value={a.value} className="text-xs">{a.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Input
+                type="number"
+                value={newAttrVal}
+                onChange={(e) => setNewAttrVal(parseInt(e.target.value) || 0)}
+                className="w-14 h-7 font-mono text-xs"
+              />
+              <Button variant="ghost" size="sm" className="h-7 text-xs px-2" onClick={commitNewAttr}>
+                Add
+              </Button>
+              <Button variant="ghost" size="sm" className="h-7 text-xs px-1" onClick={() => setAddingAttr(false)}>
+                <X className="h-3 w-3" />
+              </Button>
+            </div>
+          ) : (
+            <Button variant="ghost" size="sm" onClick={() => setAddingAttr(true)} className="text-xs h-6 px-2">
+              <PlusCircle className="h-3 w-3 mr-1" /> Add
+            </Button>
+          )}
         </div>
-      )}
-      {attrBonuses.map((mod, i) => (
-        <div key={i} className="flex gap-1 items-center">
-          <Select
-            value={mod.attribute || "body"}
-            onValueChange={(v) => updateAttrBonus(i, { attribute: v })}
-          >
-            <SelectTrigger className="font-mono text-xs h-8 flex-1 min-w-[120px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {ATTRIBUTE_OPTIONS.map((a) => (
-                <SelectItem key={a.value} value={a.value}>
-                  {a.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Input
-            type="number"
-            value={mod.value}
-            onChange={(e) => updateAttrBonus(i, { value: parseInt(e.target.value) || 0 })}
-            className="w-16 h-8 font-mono text-xs"
-          />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-6 w-6 text-destructive"
-            onClick={() => removeAttrBonus(i)}
-          >
-            <X className="h-3 w-3" />
-          </Button>
-        </div>
-      ))}
-      <Button variant="ghost" size="sm" onClick={addAttrBonus} className="text-xs h-7">
-        <PlusCircle className="h-3 w-3 mr-1" /> Add Attribute Bonus
-      </Button>
+      </div>
     </div>
   );
 }

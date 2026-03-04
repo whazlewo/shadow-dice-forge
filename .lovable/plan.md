@@ -1,50 +1,48 @@
 
 
-## Revised Option D: AR Modifier List with Source Annotations
+## Generalize AR Modifiers → Weapon Accessories
 
-**SR6 context**: Multiple AR modifiers on a single weapon are common (Smartgun +2, Laser Sight +1, Scope +1, APDS ammo, etc.), and some apply to specific range bands only. A single flat bonus field won't cut it.
+Replace the current `ar_modifiers` array with a richer `accessories` array on each weapon. Each accessory entry captures a name, optional AR modifier values, and a notes field. This replaces both the flat `accessories` text field on ranged weapons and the `ar_modifiers` array.
 
-### Design
-
-Add an `ar_modifiers` array to each weapon (ranged and melee), following the same pattern as the existing `dice_modifiers` on augmentations/qualities. Each modifier entry has:
+### Data Model Changes (`src/types/character.ts`)
 
 ```ts
-interface ARModifier {
-  source: string;        // e.g. "Smartgun System (Internal)"
-  values: string;        // e.g. "+2/+2/+2/+2/+2" or "+0/+0/+0/+1/+1"
+export interface WeaponAccessory {
+  name: string;              // e.g. "Smartgun System (Internal)"
+  ar_modifier?: string;      // e.g. "+2/+2/+2/+2/+2" (optional)
+  notes?: string;            // free text for other effects
 }
 ```
 
-Users enter the source name and per-range-band values. The system parses the base AR string and each modifier's values string, sums them per band, and displays the **modified AR** in the Equipped Weapons & Armor section.
+- Add `accessories?: WeaponAccessory[]` to `SR6RangedWeapon` and `SR6MeleeWeapon`
+- Remove the flat `accessories: string` field from `SR6RangedWeapon`
+- Remove `ar_modifiers?: ARModifier[]` from both weapon types (replaced by accessory-level `ar_modifier`)
+- Keep `ARModifier` type for now or remove — it's fully superseded
 
-### Changes
+### Component: Rename `ARModifierList` → `AccessoryList`
 
-**1. Types (`src/types/character.ts`)**
-- Add `ARModifier` interface
-- Add `ar_modifiers?: ARModifier[]` to `SR6RangedWeapon` and `SR6MeleeWeapon`
+Rework the component to render per-accessory rows with three fields:
+- **Name** (text input, e.g. "Smartgun System")
+- **AR Mod** (text input, optional, e.g. "+2/+2/+2/+2/+2") — same format tooltip as before
+- **Notes** (small text input, optional, e.g. "Also adds +1 dice to attacks")
 
-**2. GenericListTab or a new sub-component**
-- Below the existing fields for ranged/melee weapons, add a small "AR Modifiers" sub-list with Add/Remove buttons
-- Each row: a text input for `source` and a text input for `values` (with the same AR tooltip for format)
+Add/Remove buttons work the same way as current AR modifier list.
 
-**3. EquippedGearTab (`EquippedGearTab.tsx`)**
-- Parse base AR + all `ar_modifiers` entries, sum per range band
-- Display the **modified AR** in the StatPill instead of the raw base
-- Add a tooltip breakdown showing:
-  ```
-  Base:       8/10/6/—/—
-  Smartgun:  +2/+2/+2/+2/+2
-  Scope:     +0/+0/+0/+1/+1
-  Total:     10/12/8/3/3
-  ```
-- Dash (`—`) bands stay as dashes (no modifier applied)
+### GenericListTab Changes
 
-**4. CharacterSheet.tsx**
-- No structural changes needed; `ar_modifiers` will persist as part of the weapon JSON in the database
+- Remove `accessories` from the ranged weapons `fields` array in `CharacterSheet.tsx`
+- Remove `showARModifiers` prop — replace with `showAccessories` prop
+- Render the new `AccessoryList` component below the weapon fields when `showAccessories` is true
 
-### Why this works
-- Reuses the familiar "list of modifiers with source labels" pattern already in the codebase
-- Per-range-band values handle both flat bonuses (Smartgun) and range-specific bonuses (Scope)
-- Tooltip breakdown gives full transparency
-- No schema migration needed — it's stored in the existing JSON column
+### EquippedGearTab Changes
+
+- Update `arTooltip` and `modifiedAR` to read from `accessories` array, extracting `ar_modifier` values from each accessory that has one
+- List accessory names below the weapon (compact, like "Smartgun, Laser Sight, Scope")
+- AR breakdown tooltip now uses accessory names as labels
+
+### CharacterSheet.tsx
+
+- Remove `"accessories"` from ranged weapon `fields` array
+- Change `showARModifiers` to `showAccessories` on ranged and melee weapon GenericListTabs
+- Data migration: existing `ar_modifiers` arrays will naturally map since the shape is compatible (source→name, values→ar_modifier)
 

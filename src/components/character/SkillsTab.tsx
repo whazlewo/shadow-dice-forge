@@ -204,26 +204,68 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 mt-2">
-                      <div>
-                        <Label className="text-xs text-muted-foreground">Specialization (+2)</Label>
-                        <Input
-                          value={skill.specialization || ""}
-                          onChange={(e) => updateSkill(index, { specialization: e.target.value })}
-                          className="h-7 text-xs"
-                          placeholder="None"
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-xs text-muted-foreground">Expertise (+3)</Label>
-                        <Input
-                          value={skill.expertise || ""}
-                          onChange={(e) => updateSkill(index, { expertise: e.target.value })}
-                          className="h-7 text-xs"
-                          placeholder="None"
-                        />
-                      </div>
-                    </div>
+                    {(() => {
+                      const skillDef = SR6_CORE_SKILLS.find((s) => s.name === skill.name);
+                      const specs = skillDef?.specializations || [];
+                      const isExotic = skill.name === "Exotic Weapons";
+
+                      return (
+                        <div className="grid grid-cols-2 gap-2 mt-2">
+                          <div>
+                            <Label className="text-xs text-muted-foreground">Specialization (+2)</Label>
+                            {isExotic || specs.length === 0 ? (
+                              <Input
+                                value={skill.specialization || ""}
+                                onChange={(e) => updateSkill(index, { specialization: e.target.value })}
+                                className="h-7 text-xs"
+                                placeholder="None"
+                              />
+                            ) : (
+                              <Select
+                                value={skill.specialization || "__none__"}
+                                onValueChange={(v) => updateSkill(index, { specialization: v === "__none__" ? "" : v })}
+                              >
+                                <SelectTrigger className="h-7 text-xs">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="__none__">None</SelectItem>
+                                  {specs.map((s) => (
+                                    <SelectItem key={s} value={s}>{s}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            )}
+                          </div>
+                          <div>
+                            <Label className="text-xs text-muted-foreground">Expertise (+3)</Label>
+                            {isExotic || specs.length === 0 ? (
+                              <Input
+                                value={skill.expertise || ""}
+                                onChange={(e) => updateSkill(index, { expertise: e.target.value })}
+                                className="h-7 text-xs"
+                                placeholder="None"
+                              />
+                            ) : (
+                              <Select
+                                value={skill.expertise || "__none__"}
+                                onValueChange={(v) => updateSkill(index, { expertise: v === "__none__" ? "" : v })}
+                              >
+                                <SelectTrigger className="h-7 text-xs">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="__none__">None</SelectItem>
+                                  {specs.map((s) => (
+                                    <SelectItem key={s} value={s}>{s}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </CollapsibleContent>
                 </Collapsible>
               );

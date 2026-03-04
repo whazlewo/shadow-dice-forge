@@ -66,18 +66,31 @@ function calculateDicePool(
 }
 
 function ReadOnlySkillRow({ skill, pool }: { skill: SR6Skill; pool: DicePoolBreakdown }) {
+  const hasExtras = !!(skill.specialization || skill.expertise);
   return (
-    <div className="flex items-center gap-3 px-2 py-1.5 rounded-md bg-muted/30">
-      <span className="font-display tracking-wider text-xs w-40 truncate">{skill.name}</span>
-      <span className="font-mono text-xs text-muted-foreground w-8 text-center">{skill.rating}</span>
-      <span className="font-mono text-[10px] text-muted-foreground uppercase w-12">{skill.attribute.slice(0, 3)}</span>
-      {skill.specialization && (
-        <span className="font-mono text-[10px] text-muted-foreground">Spec: {skill.specialization}</span>
+    <div className="flex flex-col gap-0.5 px-2 py-1.5 rounded-md bg-muted/30">
+      <div className="flex items-center gap-3">
+        <span className="font-display tracking-wider text-xs w-40 truncate">{skill.name}</span>
+        <span className="font-mono text-[11px] text-muted-foreground">
+          {pool.skill_rating} + {pool.attribute_value}
+          <span className="uppercase ml-0.5">({pool.attribute_name.slice(0, 3)})</span>
+        </span>
+        <span className="ml-auto font-mono text-sm font-bold text-primary neon-glow-cyan">{pool.total}d6</span>
+      </div>
+      {hasExtras && (
+        <div className="flex items-center gap-1.5 ml-1">
+          {skill.specialization && (
+            <span className="inline-flex items-center rounded-full bg-primary/10 text-primary px-2 py-0.5 text-[10px] font-mono">
+              Spec: {skill.specialization} +2
+            </span>
+          )}
+          {skill.expertise && (
+            <span className="inline-flex items-center rounded-full bg-accent/50 text-accent-foreground px-2 py-0.5 text-[10px] font-mono">
+              Exp: {skill.expertise} +3
+            </span>
+          )}
+        </div>
       )}
-      {skill.expertise && (
-        <span className="font-mono text-[10px] text-muted-foreground">Exp: {skill.expertise}</span>
-      )}
-      <span className="ml-auto font-mono text-sm font-bold text-primary neon-glow-cyan">{pool.total}d6</span>
     </div>
   );
 }

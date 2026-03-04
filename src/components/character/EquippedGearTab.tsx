@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield, Crosshair, Sword, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Badge } from "@/components/ui/badge";
 import type { SR6RangedWeapon, SR6MeleeWeapon, SR6Armor } from "@/types/character";
 import { calculateModifiedAR } from "@/lib/ar-utils";
 
@@ -68,6 +69,46 @@ function accessoryNames(weapon: { accessories?: { name: string }[] }): string {
   return (weapon.accessories || []).map((a) => a.name).filter(Boolean).join(", ");
 }
 
+const FIRE_MODE_INFO: Record<string, { full: string; tip: string }> = {
+  SS: { full: "Single-Shot", tip: "One shot per Attack action, must reload after" },
+  SA: { full: "Semi-Automatic", tip: "One shot per Attack action, +1 per additional" },
+  BF: { full: "Burst Fire", tip: "Fires a burst, −2 Defense Rating" },
+  FA: { full: "Full Auto", tip: "Fires continuous, −6 Defense Rating" },
+};
+
+function FireModeBadges({ modes }: { modes: string }) {
+  const codes = modes.split(",").map((s) => s.trim()).filter(Boolean);
+  if (codes.length === 0) return <StatPill label="Mode" value="—" />;
+  return (
+    <div className="flex flex-col items-center bg-muted/50 rounded px-2 py-1 min-w-[48px]">
+      <span className="text-[9px] text-muted-foreground uppercase tracking-widest">Mode</span>
+      <TooltipProvider delayDuration={200}>
+        <div className="flex gap-0.5 mt-0.5">
+          {codes.map((code) => {
+            const info = FIRE_MODE_INFO[code];
+            return info ? (
+              <Tooltip key={code}>
+                <TooltipTrigger asChild>
+                  <Badge variant="outline" className="text-[10px] font-mono px-1.5 py-0 h-4 cursor-help border-primary/30 text-primary">
+                    {code}
+                  </Badge>
+                </TooltipTrigger>
+                <TooltipContent side="top" className="text-xs max-w-[220px]">
+                  <span className="font-bold">{info.full}:</span> {info.tip}
+                </TooltipContent>
+              </Tooltip>
+            ) : (
+              <Badge key={code} variant="outline" className="text-[10px] font-mono px-1.5 py-0 h-4 border-primary/30 text-primary">
+                {code}
+              </Badge>
+            );
+          })}
+        </div>
+      </TooltipProvider>
+    </div>
+  );
+}
+
 export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
   const equippedRanged = rangedWeapons.filter((w) => w.equipped !== false);
   const equippedMelee = meleeWeapons.filter((w) => w.equipped !== false);
@@ -94,7 +135,8 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor }: Props) {
                 <div className="flex flex-wrap gap-1 mt-1">
                   <StatPill label="DV" value={w.dv || "—"} />
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
-                  <StatPill label="Mode" value={w.fire_modes || "—"} />
+                  <FireModeBadges modes={w.fire_modes || ""} />
+                  <StatPill label="Ammo" value={w.ammo || "—"} />
                   <StatPill label="Ammo" value={w.ammo || "—"} />
                 </div>
                 {accessoryNames(w) && (

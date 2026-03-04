@@ -9,6 +9,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import type { SR6Attributes, SR6Skill, SR6Quality, SR6Augmentation, SR6Gear, DicePoolBreakdown } from "@/types/character";
 import { SR6_CORE_SKILLS } from "@/types/character";
 import { v4 } from "@/lib/uuid";
+import { skillKarmaCost, SPECIALIZATION_KARMA_COST, EXPERTISE_KARMA_COST } from "@/lib/karma";
 
 interface Props {
   skills: SR6Skill[];
@@ -16,7 +17,7 @@ interface Props {
   qualities: SR6Quality[];
   augmentations: SR6Augmentation[];
   gear: SR6Gear[];
-  onUpdate: (skills: SR6Skill[]) => void;
+  onUpdate: (skills: SR6Skill[], karmaInfo?: { description: string; cost: number; field: string }) => void;
 }
 
 function calculateDicePool(
@@ -111,8 +112,42 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
   };
 
   const updateSkill = (index: number, updates: Partial<SR6Skill>) => {
+    const oldSkill = skills[index];
     const updated = [...skills];
     updated[index] = { ...updated[index], ...updates };
+
+    // Check if rating increased (costs karma)
+    if (updates.rating !== undefined && updates.rating > oldSkill.rating) {
+      const cost = skillKarmaCost(updates.rating);
+      onUpdate(updated, {
+        description: `Raise ${oldSkill.name} ${oldSkill.rating}→${updates.rating} (${updates.rating} × 5)`,
+        cost,
+        field: `skills[${oldSkill.id}].rating`,
+      });
+      return;
+    }
+
+    // Check if specialization was added
+    if (updates.specialization !== undefined && updates.specialization !== "" && !oldSkill.specialization) {
+      onUpdate(updated, {
+        description: `Add specialization "${updates.specialization}" to ${oldSkill.name}`,
+        cost: SPECIALIZATION_KARMA_COST,
+        field: `skills[${oldSkill.id}].specialization`,
+      });
+      return;
+    }
+
+    // Check if expertise was added
+    if (updates.expertise !== undefined && updates.expertise !== "" && !oldSkill.expertise) {
+      onUpdate(updated, {
+        description: `Add expertise "${updates.expertise}" to ${oldSkill.name}`,
+        cost: EXPERTISE_KARMA_COST,
+        field: `skills[${oldSkill.id}].expertise`,
+      });
+      return;
+    }
+
+    // No karma cost (decrease, removal, name change, etc.)
     onUpdate(updated);
   };
 

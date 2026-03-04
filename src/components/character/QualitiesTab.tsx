@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Trash2 } from "lucide-react";
 import type { SR6Quality } from "@/types/character";
@@ -9,7 +8,7 @@ import { v4 } from "@/lib/uuid";
 
 interface Props {
   qualities: SR6Quality[];
-  onUpdate: (q: SR6Quality[]) => void;
+  onUpdate: (q: SR6Quality[], karmaInfo?: { description: string; cost: number }) => void;
 }
 
 export function QualitiesTab({ qualities, onUpdate }: Props) {
@@ -18,15 +17,37 @@ export function QualitiesTab({ qualities, onUpdate }: Props) {
   };
 
   const update = (index: number, updates: Partial<SR6Quality>) => {
+    const oldQ = qualities[index];
     const updated = [...qualities];
     updated[index] = { ...updated[index], ...updates };
+
+    // If a quality's karma_cost was just set (from 0 to something) and it has a name, prompt for karma
+    if (updates.karma_cost !== undefined && updates.karma_cost > 0 && updated[index].name) {
+      const q = updated[index];
+      if (q.type === "positive") {
+        onUpdate(updated, {
+          description: `Buy positive quality "${q.name}" (${q.karma_cost} karma)`,
+          cost: q.karma_cost,
+        });
+        return;
+      }
+    }
+
     onUpdate(updated);
   };
 
-  const remove = (index: number) => onUpdate(qualities.filter((_, i) => i !== index));
-
-  const positives = qualities.filter((q) => q.type === "positive");
-  const negatives = qualities.filter((q) => q.type === "negative");
+  const remove = (index: number) => {
+    const q = qualities[index];
+    // Buying off a negative quality costs karma
+    if (q.type === "negative" && q.karma_cost > 0) {
+      onUpdate(qualities.filter((_, i) => i !== index), {
+        description: `Buy off negative quality "${q.name}" (${q.karma_cost} karma)`,
+        cost: q.karma_cost,
+      });
+      return;
+    }
+    onUpdate(qualities.filter((_, i) => i !== index));
+  };
 
   return (
     <Card className="border-border/50 bg-card/80">

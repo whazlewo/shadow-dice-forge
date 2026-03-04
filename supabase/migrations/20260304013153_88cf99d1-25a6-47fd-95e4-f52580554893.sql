@@ -1,0 +1,1 @@
+ALTER TABLE public.characters ADD COLUMN karma_ledger jsonb DEFAULT '[]'::jsonb;

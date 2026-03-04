@@ -50,6 +50,7 @@ export type Database = {
           gear: Json | null
           id: string
           ids_lifestyles: Json | null
+          karma_ledger: Json | null
           matrix_stats: Json | null
           melee_weapons: Json | null
           metatype: string | null
@@ -76,6 +77,7 @@ export type Database = {
           gear?: Json | null
           id?: string
           ids_lifestyles?: Json | null
+          karma_ledger?: Json | null
           matrix_stats?: Json | null
           melee_weapons?: Json | null
           metatype?: string | null
@@ -102,6 +104,7 @@ export type Database = {
           gear?: Json | null
           id?: string
           ids_lifestyles?: Json | null
+          karma_ledger?: Json | null
           matrix_stats?: Json | null
           melee_weapons?: Json | null
           metatype?: string | null

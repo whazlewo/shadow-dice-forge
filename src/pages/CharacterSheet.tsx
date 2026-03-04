@@ -8,12 +8,16 @@ import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6MatrixStats, SR6Augmentation, SR6Gear, SR6Vehicle, SR6Spell, SR6AdeptPower, SR6OtherAbility, SR6Priorities, SR6PersonalInfo, SR6IdsLifestyles, AttributeSources } from "@/types/character";
+import type { KarmaTransaction } from "@/types/karma";
+import { computeKarmaSummary, attributeKarmaCost, skillKarmaCost, SPECIALIZATION_KARMA_COST, EXPERTISE_KARMA_COST } from "@/lib/karma";
+import { v4 } from "@/lib/uuid";
 import { AttributesTab } from "@/components/character/AttributesTab";
 import { SkillsTab } from "@/components/character/SkillsTab";
 import { PersonalInfoTab } from "@/components/character/PersonalInfoTab";
 import { QualitiesTab } from "@/components/character/QualitiesTab";
 import { GenericListTab } from "@/components/character/GenericListTab";
 import { EquippedGearTab } from "@/components/character/EquippedGearTab";
+import { KarmaConfirmDialog, type KarmaConfirmRequest } from "@/components/character/KarmaConfirmDialog";
 
 type Character = Tables<"characters">;
 
@@ -25,6 +29,7 @@ export default function CharacterSheet() {
   const [saving, setSaving] = useState(false);
   const [name, setName] = useState("");
   const [metatype, setMetatype] = useState("Human");
+  const [karmaConfirm, setKarmaConfirm] = useState<KarmaConfirmRequest | null>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -61,6 +66,164 @@ export default function CharacterSheet() {
     await save({ [field]: value });
   }, [save]);
 
+  // Karma ledger helpers
+  const karmaLedger = ((character as any)?.karma_ledger || []) as KarmaTransaction[];
+  const karmaSummary = computeKarmaSummary(karmaLedger);
+
+  const addKarmaTransaction = useCallback(async (tx: Omit<KarmaTransaction, "id" | "timestamp">) => {
+    const newTx: KarmaTransaction = {
+      ...tx,
+      id: v4(),
+      timestamp: new Date().toISOString(),
+    };
+    const newLedger = [...karmaLedger, newTx];
+    setCharacter((prev) => prev ? { ...prev, karma_ledger: newLedger as any } : prev);
+    await save({ karma_ledger: newLedger as any });
+    return newTx;
+  }, [karmaLedger, save]);
+
+  const undoKarmaTransaction = useCallback(async (txId: string) => {
+    const tx = karmaLedger.find((t) => t.id === txId);
+    if (!tx || tx.undone) return;
+
+    // Mark as undone
+    const updatedLedger = karmaLedger.map((t) =>
+      t.id === txId ? { ...t, undone: true } : t
+    );
+
+    // Add refund entry
+    const refundTx: KarmaTransaction = {
+      id: v4(),
+      timestamp: new Date().toISOString(),
+      type: "refund",
+      description: `Undo: ${tx.description}`,
+      amount: tx.amount,
+      related_field: tx.related_field,
+    };
+    const newLedger = [...updatedLedger, refundTx];
+
+    // Revert the associated field change
+    const updates: Partial<Character> = { karma_ledger: newLedger as any };
+
+    if (tx.related_field && tx.previous_value !== undefined) {
+      const [section, key] = tx.related_field.split(".");
+      if (section === "attributes" && key) {
+        const attrs = { ...((character?.attributes || {}) as any) };
+        attrs[key] = tx.previous_value;
+        updates.attributes = attrs;
+      } else if (section === "skills") {
+        // Restore full skills array from previous_value
+        updates.skills = tx.previous_value as any;
+      } else if (section === "qualities") {
+        updates.qualities = tx.previous_value as any;
+      }
+    }
+
+    setCharacter((prev) => prev ? { ...prev, ...updates } : prev);
+    await save(updates);
+    toast.success("Karma transaction undone");
+  }, [karmaLedger, character, save]);
+
+  // Karma-aware attribute update
+  const handleAttributeChange = useCallback((newAttrs: SR6Attributes) => {
+    const oldAttrs = (character?.attributes || {}) as unknown as SR6Attributes;
+
+    // Find which attribute changed
+    const coreAttrs = ["body", "agility", "reaction", "strength", "willpower", "logic", "intuition", "charisma", "edge", "magic", "resonance"] as const;
+    let changedKey: string | null = null;
+    let oldVal = 0;
+    let newVal = 0;
+
+    for (const key of coreAttrs) {
+      const ov = Number(oldAttrs[key]) || 0;
+      const nv = Number(newAttrs[key]) || 0;
+      if (nv !== ov) {
+        changedKey = key;
+        oldVal = ov;
+        newVal = nv;
+        break;
+      }
+    }
+
+    // If it's a raise (costs karma), show confirmation
+    if (changedKey && newVal > oldVal) {
+      const cost = attributeKarmaCost(newVal);
+      const label = changedKey.charAt(0).toUpperCase() + changedKey.slice(1);
+      setKarmaConfirm({
+        description: `Raise ${label} from ${oldVal} → ${newVal} costs ${cost} karma (${newVal} × 5).`,
+        cost,
+        available: karmaSummary.available,
+        onConfirm: () => {
+          addKarmaTransaction({
+            type: "spent",
+            amount: cost,
+            description: `Raise ${label} ${oldVal}→${newVal}`,
+            related_field: `attributes.${changedKey}`,
+            previous_value: oldVal,
+          });
+          updateField("attributes", newAttrs);
+          setKarmaConfirm(null);
+        },
+        onCancel: () => setKarmaConfirm(null),
+      });
+    } else {
+      // Non-karma change (decrease, essence, text fields, etc.)
+      updateField("attributes", newAttrs);
+    }
+  }, [character, karmaSummary.available, addKarmaTransaction, updateField]);
+
+  // Karma-aware skill update
+  const handleSkillsChange = useCallback((newSkills: SR6Skill[], karmaInfo?: { description: string; cost: number; field: string }) => {
+    if (karmaInfo) {
+      const oldSkills = (character?.skills || []) as unknown as SR6Skill[];
+      setKarmaConfirm({
+        description: karmaInfo.description,
+        cost: karmaInfo.cost,
+        available: karmaSummary.available,
+        onConfirm: () => {
+          addKarmaTransaction({
+            type: "spent",
+            amount: karmaInfo.cost,
+            description: karmaInfo.description,
+            related_field: "skills",
+            previous_value: oldSkills,
+          });
+          updateField("skills", newSkills);
+          setKarmaConfirm(null);
+        },
+        onCancel: () => setKarmaConfirm(null),
+      });
+    } else {
+      updateField("skills", newSkills);
+    }
+  }, [character, karmaSummary.available, addKarmaTransaction, updateField]);
+
+  // Karma-aware quality update
+  const handleQualitiesChange = useCallback((newQualities: SR6Quality[], karmaInfo?: { description: string; cost: number }) => {
+    if (karmaInfo) {
+      const oldQualities = (character?.qualities || []) as unknown as SR6Quality[];
+      setKarmaConfirm({
+        description: karmaInfo.description,
+        cost: karmaInfo.cost,
+        available: karmaSummary.available,
+        onConfirm: () => {
+          addKarmaTransaction({
+            type: "spent",
+            amount: karmaInfo.cost,
+            description: karmaInfo.description,
+            related_field: "qualities",
+            previous_value: oldQualities,
+          });
+          updateField("qualities", newQualities);
+          setKarmaConfirm(null);
+        },
+        onCancel: () => setKarmaConfirm(null),
+      });
+    } else {
+      updateField("qualities", newQualities);
+    }
+  }, [character, karmaSummary.available, addKarmaTransaction, updateField]);
+
   if (loading) {
     return <div className="flex min-h-screen items-center justify-center text-muted-foreground">Loading...</div>;
   }
@@ -78,6 +241,8 @@ export default function CharacterSheet() {
 
   return (
     <div className="min-h-screen bg-background">
+      <KarmaConfirmDialog request={karmaConfirm} />
+
       {/* Header */}
       <header className="border-b border-border/50 bg-card/50 backdrop-blur sticky top-0 z-10">
         <div className="container flex h-14 items-center gap-4">
@@ -124,8 +289,11 @@ export default function CharacterSheet() {
                 onMetatypeChange={setMetatype}
                 onNameBlur={() => save({ name })}
                 onMetatypeBlur={() => save({ metatype })}
+                karmaLedger={karmaLedger}
+                onKarmaUndo={undoKarmaTransaction}
+                onAddKarmaTransaction={addKarmaTransaction}
               />
-              <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={(a) => updateField("attributes", a)} />
+              <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={handleAttributeChange} />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <SkillsTab
@@ -134,7 +302,7 @@ export default function CharacterSheet() {
                 qualities={qualities}
                 augmentations={augmentations}
                 gear={gear}
-                onUpdate={(s) => updateField("skills", s)}
+                onUpdate={handleSkillsChange}
               />
               <EquippedGearTab
                 rangedWeapons={(character.ranged_weapons || []) as unknown as SR6RangedWeapon[]}
@@ -242,3 +410,4 @@ export default function CharacterSheet() {
     </div>
   );
 }
+

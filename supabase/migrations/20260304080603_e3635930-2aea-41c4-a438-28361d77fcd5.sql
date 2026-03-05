@@ -1,1 +1,2 @@
 ALTER TABLE public.characters ADD COLUMN IF NOT EXISTS notes jsonb DEFAULT '[]'::jsonb;
+-- Test comment

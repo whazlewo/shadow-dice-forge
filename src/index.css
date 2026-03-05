@@ -66,6 +66,23 @@
   }
 }
 
+/* Tiptap Placeholder - Notion-style notes editor */
+.notes-editor .tiptap p.is-editor-empty:first-child::before {
+  color: hsl(var(--muted-foreground) / 0.6);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.notes-editor .tiptap p.is-empty::before {
+  color: hsl(var(--muted-foreground) / 0.5);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
 @layer utilities {
   .neon-glow-cyan {
     text-shadow: 0 0 7px hsl(var(--neon-cyan) / 0.6), 0 0 20px hsl(var(--neon-cyan) / 0.3);

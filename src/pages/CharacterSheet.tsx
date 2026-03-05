@@ -353,7 +353,7 @@ export default function CharacterSheet() {
             />
           </TabsContent>
 
-          <TabsContent value="notes">
+          <TabsContent value="notes" className="pt-4">
             <NotesTab
               notes={((character as any).notes || []) as any[]}
               onUpdate={(n) => updateField("notes", n)}

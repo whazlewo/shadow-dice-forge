@@ -1,73 +1,71 @@
-# Welcome to your Lovable project
+# Shadow Dice Forge
 
-## Project info
+Web-based character creation and management for Shadowrun 6th Edition (SR6). Build and manage runners with a guided wizard, full character sheets, karma tracking, and SR6-compliant dice pool calculations.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Features
 
-## How can I edit this code?
+- **Character creation wizard** — 5-step flow: Concept → Priorities (metatype, attributes, skills, magic, resources) → Qualities → Karma spend → Gear
+- **Character sheet** — Tabbed editor: Core (attributes, skills, personal info, qualities, equipped gear), Notes, Weapons & Gear, Vehicles, Spells, Adept, Other
+- **Karma tracking** — Ledger-based system with undo/refund; karma confirmation dialogs for attribute raises
+- **Dice pool calculation** — Attribute + skill + modifiers from qualities, augmentations, gear; supports weapon accessories
+- **Portrait upload** — Character portraits stored in Supabase Storage
+- **Dashboard** — Create, duplicate, delete characters; list view with quick actions
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- React 18, TypeScript, Vite
+- Supabase (Auth, PostgreSQL, Storage)
+- Tailwind CSS, shadcn-ui
+- React Query, React Router, Zod, react-hook-form
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+**Prerequisites:** Node.js 18+ ([nvm](https://github.com/nvm-sh/nvm#installing-and-updating) recommended)
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Clone and install
 git clone <YOUR_GIT_URL>
+cd shadow-dice-forge
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Configure environment
+cp .env.example .env.development
+# Edit .env.development: set VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY
+# (from Supabase project settings → API)
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start dev server (port 8080)
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Scripts
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server (port 8080) |
+| `npm run build` | Production build |
+| `npm run build:dev` | Development build |
+| `npm run lint` | ESLint |
+| `npm run preview` | Preview production build |
+| `npm run test` | Run tests once |
+| `npm run test:watch` | Watch mode tests |
 
-**Use GitHub Codespaces**
+## Project Structure
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+| Directory | Purpose |
+|-----------|---------|
+| `src/components/character/` | Character sheet tab components |
+| `src/components/wizard/` | Multi-step wizard steps |
+| `src/pages/` | Routes (Auth, Dashboard, CharacterSheet, CharacterWizard) |
+| `src/types/` | SR6 type definitions |
+| `src/lib/` | Game logic (dice pools, karma costs, AR utilities) |
+| `src/data/sr6-reference.ts` | Priority tables, rules data |
+| `src/integrations/supabase/` | Supabase client and types |
+| `supabase/migrations/` | Database schema migrations |
 
-## What technologies are used for this project?
+Path alias: `@/` maps to `src/`
 
-This project is built with:
+## Supabase Setup
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- Schema: apply migrations in `supabase/migrations/`
+- Storage: `character-portraits` bucket for portrait uploads
+- RLS policies enforce per-user data access

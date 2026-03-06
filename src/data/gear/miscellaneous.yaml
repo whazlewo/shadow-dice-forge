@@ -1,0 +1,133 @@
+# Shadowrun 6e Miscellaneous Gear - Core Rulebook
+# Add items from the rulebook; include full description for each.
+
+- name: Fake SIN (Rating 1)
+  cost: 2500
+  availability: "1"
+  notes: "Basic fake identity"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A fake System Identification Number. Rating indicates quality—how well it holds up to scrutiny. Rating 1 is cheap and won't survive serious checks. Essential for any runner operating in civilized areas. Higher ratings cost more but stand up better to Matrix and authority checks."
+- name: Fake SIN (Rating 4)
+  cost: 10000
+  availability: "4"
+  notes: "Quality fake identity"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A quality fake SIN that can pass most routine checks. Good enough for crossing borders and dealing with corporate security. Still vulnerable to deep background checks by dedicated investigators."
+- name: Medkit (Rating 3)
+  cost: 300
+  availability: "2"
+  notes: "First aid and basic medical care"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Portable medical kit for field first aid. Rating indicates capability. A Rating 3 medkit provides +3 dice to First Aid tests. Essential for any team. Wireless bonus: Displays patient condition and provides guided instructions for treatment."
+- name: Grapple Gun
+  cost: 500
+  availability: "3"
+  notes: "Climbing and mobility"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Fires a line with a grappling hook for climbing and crossing gaps. Essential for infiltration specialists. Can be used with Athletics (Climbing) for vertical movement. Wireless models can reel in the line automatically."
+# Grenades
+- name: Fragmentation Grenade
+  cost: 100
+  availability: "2(L)"
+  notes: "8P, DV -2/-1/0/1/2, Blast 2m radius"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Standard fragmentation grenade. Shrapnel in all directions. Lethal in close range. Thrown with Athletics (Throwing). Availability (L) for restricted military hardware."
+- name: High-Explosive Grenade
+  cost: 150
+  availability: "3(L)"
+  notes: "12P, DV -3/-2/-1/0/1, Blast 3m radius"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "High-explosive grenade. More destructive than frag. Larger blast radius. Restricted."
+- name: Smoke Grenade
+  cost: 50
+  availability: "1"
+  notes: "Obscures vision, -2 Perception, 5m radius"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Creates a cloud of smoke. Obscures vision and provides cover. Non-lethal. Essential for tactical retreats and infiltration."
+- name: Flash-Pak
+  cost: 75
+  availability: "2"
+  notes: "Blinds and deafens, 3m radius"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Stun grenade. Bright flash and loud bang. Disorients targets in the blast radius. Non-lethal. Good for room clearing."
+- name: Gas Grenade (CS/Tear Gas)
+  cost: 80
+  availability: "2(L)"
+  notes: "Nausea, -2 dice, 4m radius"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Tear gas or CS gas. Causes nausea and impairs vision. Area denial. Restricted in some jurisdictions."
+# Stimulants & Medical
+- name: Stim Patch (Rating 1)
+  cost: 50
+  availability: "1"
+  notes: "+1 dice to one Physical attribute for (Rating) hours"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal stimulant patch. Boosts physical performance. Rating 1 gives +1 dice to one Physical attribute for 1 hour. Crash when it wears off. Wireless: Can be triggered remotely or on a delay."
+- name: Stim Patch (Rating 3)
+  cost: 150
+  availability: "2"
+  notes: "+3 dice to one Physical attribute for (Rating) hours"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Stronger stim patch. +3 dice to one Physical attribute for 3 hours. Bigger crash. Use with caution."
+- name: Trauma Patch
+  cost: 100
+  availability: "2"
+  notes: "Stabilizes dying character, +2 to First Aid"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Emergency medical patch. Stabilizes a dying character. Provides +2 dice to First Aid tests when used. Essential for combat teams. One use."
+- name: Medkit (Rating 6)
+  cost: 600
+  availability: "4"
+  notes: "Advanced first aid, +6 dice to First Aid"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "High-end portable medkit. +6 dice to First Aid tests. For serious runners who expect serious injuries. Wireless bonus: Full diagnostic suite and guided treatment."
+# Electronics & Countermeasures
+- name: Tag Eraser
+  cost: 250
+  availability: "2"
+  notes: "Removes RFID tags and similar tracking"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Handheld device that erases or disables RFID tags and similar tracking devices. Essential for runners who need to disappear. Scans and neutralizes tags on objects and clothing."
+- name: White Noise Generator
+  cost: 200
+  availability: "2"
+  notes: "Jams audio surveillance, 5m radius"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Generates white noise to defeat audio surveillance. Creates a 5-meter zone where bugs and directional microphones cannot pick up conversation. Wireless models can be tuned to specific frequencies."
+# Explosives
+- name: Plastic Explosives (Rating 3)
+  cost: 300
+  availability: "4(R)"
+  notes: "Demolitions, DV 6P, Blast 1m per kg"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Moldable plastic explosive. Rating indicates potency. Used for demolitions, breaching, and other destructive applications. Restricted. Requires Demolitions skill to use effectively."
+- name: Detonator (Timer)
+  cost: 50
+  availability: "1"
+  notes: "Timer-based detonation"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Simple timer detonator. Set and run. Cheap and reliable. No wireless signature when used in offline mode."
+- name: Detonator (Wireless)
+  cost: 150
+  availability: "2"
+  notes: "Remote detonation via commlink"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Wireless detonator. Trigger remotely via commlink. More convenient but creates a Matrix signature. Can be jammed or hacked."

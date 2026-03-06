@@ -1,0 +1,112 @@
+# Shadowrun 6e Electronics - Core Rulebook
+# Commlinks and Cyberdecks from p. 267
+
+# --- Commlinks (D/F = Data Processing / Firewall) ---
+- name: Meta Link
+  cost: 100
+  availability: "2"
+  device_rating: 1
+  programs: "0"
+  notes: "D/F 1/0. Basic burner commlink."
+  source: "Core Rulebook"
+  description: "The most basic way to access the Matrix. Handheld or wearable, used for commcalls, messaging, and basic Matrix searches. Most people have at least one. Limited firewall and data processing compared to higher-end models. Zero active program slots."
+
+- name: Sony Emperor
+  cost: 700
+  availability: "2"
+  device_rating: 2
+  programs: "1"
+  notes: "D/F 1/1. 1 active program slot."
+  source: "Core Rulebook"
+  description: "A step up from the Meta Link. Better firewall and data processing. One active program slot for running a single program. Popular budget choice for runners who need basic Matrix access without drawing attention."
+
+- name: Renraku Sensei
+  cost: 1000
+  availability: "2"
+  device_rating: 3
+  programs: "1"
+  notes: "D/F 2/0. 1 active program slot."
+  source: "Core Rulebook"
+  description: "Mid-range commlink from Renraku. Solid data processing for everyday use. One program slot. Good balance of cost and capability for street-level operations."
+
+- name: Erika Elite
+  cost: 2500
+  availability: "2"
+  device_rating: 4
+  programs: "2"
+  notes: "D/F 2/1. 2 active program slots."
+  source: "Core Rulebook"
+  description: "Professional-grade commlink. Two active program slots. Better firewall for PAN defense. Standard choice for most shadowrunners. Often includes sim module for AR and cold-sim VR."
+
+- name: Hermes Ikon
+  cost: 5000
+  availability: "3"
+  device_rating: 5
+  programs: "2"
+  notes: "D/F 3/0. 2 active program slots."
+  source: "Core Rulebook"
+  description: "High-end commlink with robust data processing. Two program slots. Popular with corporate executives and runners who want top-tier personal device performance without a cyberdeck."
+
+- name: Transys Avalon
+  cost: 8000
+  availability: "3"
+  device_rating: 6
+  programs: "3"
+  notes: "D/F 3/1. 3 active program slots."
+  source: "Core Rulebook"
+  description: "The best commlink money can buy. Three active program slots. Excellent firewall and data processing. Popular with corporate types and runners who want the best personal device without springing for a cyberdeck. All cyberdecks include hot-sim modules."
+
+# --- Cyberdecks (A/S = Attack / Sleaze; illegal) ---
+- name: Erika MCD-6
+  cost: 24750
+  availability: "3(I)"
+  device_rating: 1
+  programs: "2"
+  notes: "A/S 4/3. 2 program slots. Hot-sim. Illegal."
+  source: "Core Rulebook"
+  description: "Entry-level cyberdeck. The MCD-6 is the cheapest way to get real hacking capability. Worn like a medieval bracer. Two program slots. All cyberdecks include hot-sim modules. Illegal for private ownership in most jurisdictions."
+
+- name: Spinrad Falcon
+  cost: 61500
+  availability: "3(I)"
+  device_rating: 2
+  programs: "4"
+  notes: "A/S 5/4. 4 program slots. Hot-sim. Illegal."
+  source: "Core Rulebook"
+  description: "Step up from the MCD-6. Four program slots. Better attack and sleaze for serious decking. Popular with aspiring deckers. Illegal for private ownership."
+
+- name: MCT 360
+  cost: 107000
+  availability: "3(I)"
+  device_rating: 3
+  programs: "6"
+  notes: "A/S 6/5. 6 program slots. Hot-sim. Illegal."
+  source: "Core Rulebook"
+  description: "Mitsubishi Computer Technologies mid-range deck. Six program slots. Solid performance for professional hackers. Illegal for private ownership."
+
+- name: Renraku Kitsune
+  cost: 95000
+  availability: "4(I)"
+  device_rating: 4
+  programs: "8"
+  notes: "A/S 7/6. 8 program slots. Hot-sim. Illegal."
+  source: "Core Rulebook"
+  description: "Renraku's answer to the corporate deck market. Eight program slots. Strong attack and sleaze. Favored by Japanacorp security spiders. Illegal for private ownership."
+
+- name: Shiawase Cyber-6
+  cost: 172500
+  availability: "5(I)"
+  device_rating: 5
+  programs: "10"
+  notes: "A/S 8/7. 10 program slots. Hot-sim. Illegal."
+  source: "Core Rulebook"
+  description: "High-end cyberdeck from Shiawase. Ten program slots. Excellent for serious deckers. Illegal for private ownership."
+
+- name: Fairlight Excalibur
+  cost: 410600
+  availability: "6(I)"
+  device_rating: 6
+  programs: "12"
+  notes: "A/S 9/8. 12 program slots. Hot-sim. Illegal."
+  source: "Core Rulebook"
+  description: "The pinnacle of cyberdeck technology. Twelve program slots. Best attack and sleaze available. The dream of every decker. Illegal for private ownership."

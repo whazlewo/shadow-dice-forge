@@ -1,0 +1,122 @@
+# Shadowrun 6e Armor - Core Rulebook
+# From p. 265-266
+
+- name: Synthleather Jacket
+  subtype: body
+  cost: 300
+  availability: "1"
+  rating: 1
+  capacity: 3
+  modifications: ""
+  source: "Core Rulebook"
+  description: "Synthleather is the norm for street types, and this type of jacket (waist-length to duster) never goes out of style. It even offers a modicum of protection. Capacity 3 for modifications."
+
+- name: Armor Clothing
+  subtype: body
+  cost: 500
+  availability: "2"
+  rating: 2
+  capacity: 4
+  modifications: ""
+  source: "Core Rulebook"
+  description: "Lightweight ballistic weave makes these garments almost impossible to detect as armor. It doesn't provide as much protection as real armor, but it comes in just about any style you desire."
+
+- name: Armor Vest
+  subtype: body
+  cost: 750
+  availability: "2"
+  rating: 3
+  capacity: 6
+  modifications: ""
+  source: "Core Rulebook"
+  description: "A flexible-wrap vest designed to be worn under regular clothing without displaying any bulk. Popular with those who need concealable protection."
+
+- name: Armor Jacket
+  subtype: body
+  cost: 1000
+  availability: "2"
+  rating: 4
+  capacity: 8
+  modifications: ""
+  source: "Core Rulebook"
+  description: "Available in all manner of styles, it offers good protection without catching too much attention. But don't think of wearing one to a social event or government building. The street runner's best friend. Capacity 8 for modifications."
+
+- name: Lined Coat
+  subtype: body
+  cost: 900
+  availability: "2"
+  rating: 3
+  capacity: 7
+  modifications: ""
+  source: "Core Rulebook"
+  description: "This cowboy-style duster has been consistently popular on the mean streets of the world's sprawls for the past fifty years. Besides being protective, the armored trenchcoat provides a bonus Edge against tests to spot items hidden underneath. Capacity 7."
+
+- name: Chameleon Suit
+  subtype: body
+  cost: 2000
+  availability: "4(I)"
+  rating: 2
+  capacity: 4
+  modifications: ""
+  source: "Core Rulebook"
+  description: "A head-to-toe suit with a ruthenium polymer coating supported by a sensor suite, allowing it to scan its surroundings and replicate the images at the proper perspectives. You gain a bonus Edge when performing Stealth tests to hide while wearing an active suit. Wireless bonus: The suit also raises your Defense Rating by 2 thanks to improved hiding ability. Illegal."
+
+- name: Urban Explorer Jumpsuit
+  subtype: body
+  cost: 800
+  availability: "2"
+  rating: 3
+  capacity: 6
+  modifications: ""
+  source: "Core Rulebook"
+  description: "Designed for couriers, athletes, and freerunners, this is the armored version of \"flats\" but available in a stupid array of styles. Because they're so hip, these jumpsuits include a built-in music player and biomonitor."
+
+- name: Actioneer Business Clothes
+  subtype: body
+  cost: 1500
+  availability: "2"
+  rating: 2
+  capacity: 6
+  modifications: ""
+  source: "Core Rulebook"
+  description: "This is the fancy armored suit popular among Mr. Johnsons, faces, and fixers looking for a little protection coupled with style. It features a concealable holster in the jacket."
+
+- name: Full Body Armor
+  subtype: body
+  cost: 2000
+  availability: "4(L)"
+  rating: 5
+  capacity: 10
+  modifications: ""
+  source: "Core Rulebook"
+  description: "This armor is worn by military and security personnel around the world for heavy-duty jobs. It is styled for intimidation but includes an array of tactical holsters, pouches, and webbing for deadly efficiency. It's going to draw attention. The suit comes with a helmet (Capacity 6) and can be modified for environmental adaptation or chemically sealed. Requires license."
+
+- name: Helmet
+  subtype: helmet
+  cost: 200
+  availability: "1"
+  rating: 1
+  capacity: 4
+  modifications: ""
+  source: "Core Rulebook"
+  description: "Helmets come in a wide variety of shapes and sizes and protect your noggin from trauma. Helmets have Capacity 4 or 6 so they can hold accessories such as trode nets and vision enhancements. Can be combined with body armor for additional Defense Rating."
+
+- name: Ballistic Shield
+  subtype: shield
+  cost: 900
+  availability: "4"
+  rating: 2
+  capacity: 2
+  modifications: ""
+  source: "Core Rulebook"
+  description: "The impressive black shield used by SWAT teams and in urban combat. It features a clear plasteel window and a built-in ladder frame along the inside so that it can be used to climb over short obstacles. Can be used as a weapon (Exotic, DV 2S, AR 4/—/—/—/—)."
+
+- name: Riot Shield
+  subtype: shield
+  cost: 1200
+  availability: "4"
+  rating: 2
+  capacity: 2
+  modifications: ""
+  source: "Core Rulebook"
+  description: "The clear plasteel cousin of the ballistic shield, this one adds an electricity attack option. Use the Close Combat skill for the attack and characteristics of a Stun Baton (DV 4S(e)). The taser shield holds 10 charges; when attached to a power point, it regains one charge per 10 seconds. Wireless bonus: Recharges by induction, one charge per hour."

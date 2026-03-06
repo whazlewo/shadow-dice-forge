@@ -8,6 +8,8 @@ import { Plus, Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FireModeCheckboxes } from "@/components/character/FireModes";
 import { PRIORITY_TABLE, formatNuyen, type PriorityLevel } from "@/data/sr6-reference";
+import { GearReferenceSelect } from "@/components/GearReferenceSelect";
+import { referenceToWizardItem } from "@/lib/gear-reference-utils";
 import type { WizardState } from "@/pages/CharacterWizard";
 import type {
   WizardGearItem,
@@ -321,10 +323,19 @@ export default function Step5Gear({ state, onChange }: Props) {
             </div>
           ))}
 
-          {/* Add button */}
-          <Button variant="outline" size="sm" onClick={() => addItem("miscellaneous")} className="font-display tracking-wide">
-            <Plus className="h-4 w-4 mr-1" /> Add Item
-          </Button>
+          {/* Add buttons */}
+          <div className="flex gap-2 flex-wrap">
+            <GearReferenceSelect
+              onSelect={(item, category) => {
+                const wizardItem = referenceToWizardItem(category, item);
+                onChange({ purchasedGear: [...gear, wizardItem] });
+              }}
+              triggerLabel="Add from reference"
+            />
+            <Button variant="outline" size="sm" onClick={() => addItem("miscellaneous")} className="font-display tracking-wide">
+              <Plus className="h-4 w-4 mr-1" /> Add blank item
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

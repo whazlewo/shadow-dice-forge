@@ -1,0 +1,195 @@
+# Shadowrun 6e Melee Weapons - Core Rulebook
+# Add items from the rulebook; include full description for each.
+
+- name: Combat Knife
+  subtype: Blades
+  cost: 220
+  availability: "2"
+  dv: "3P"
+  ar: "8/2*/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "A simple, elegant, efficient killing device with a chisel point to make light work of armor. It's also carbon-coated black, so no reflections give away your approach. *Max range is 20 meters."
+
+- name: Katana
+  subtype: Blades
+  cost: 350
+  availability: "3"
+  dv: "4P"
+  ar: "10/—/—/—/—"
+  reach: 1
+  source: "Core Rulebook"
+  description: "The iconic two-handed sword of the samurai is standard issue for trid-series shadowrunners. Out on the street, the deadly blade teaches lessons to those who think the trope is solely about looks."
+
+- name: Club
+  subtype: Clubs
+  cost: 65
+  availability: "1"
+  dv: "3S"
+  ar: "6/—/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "The stats listed can be used for a range of objects, including an axe handle, baseball bat, crowbar, tire iron, wrench, or even a two-by-four with a couple nails in it. The price listed is for a professionally made, old-style police baton."
+
+- name: Extendable Baton
+  subtype: Clubs
+  cost: 52
+  availability: "2"
+  dv: "2S"
+  ar: "5/—/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "This telescoping club can be extended with a wrist flick or a wireless signal. In its retracted form, it's easier to conceal (Concealability threshold 4 when retracted, 2 when extended). Retracting or extending it is a Minor Action. Wireless bonus: You gain a bonus Minor Action on a turn when you retract or extend the baton."
+
+- name: Knucks
+  subtype: Unarmed Combat
+  cost: 100
+  availability: "1"
+  dv: "3P"
+  ar: "6/—/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "Everything from a roll of quarters in the palm to brass knuckles to Ares Hardliner Gloves, these weapons move a fist from potentially deadly to probably deadly by augmenting the structure of the hand with metals or composites."
+
+# Additional Blades
+- name: Combat Axe
+  subtype: Blades
+  cost: 200
+  availability: "2"
+  dv: "6P"
+  ar: "8/—/—/—/—"
+  reach: 1
+  source: "Core Rulebook"
+  description: "A heavy, single-handed axe designed for combat. Effective against armored targets. Favored by street samurai who prefer up-close and personal encounters."
+
+- name: Forearm Snap Blades
+  subtype: Blades
+  cost: 450
+  availability: "4(R)"
+  dv: "4P"
+  ar: "9/—/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "Concealed blades that extend from forearm housings. Retract with a flick of the wrist or wireless signal. Popular among infiltrators and assassins. Extending or retracting is a Minor Action."
+
+- name: Knife
+  subtype: Blades
+  cost: 50
+  availability: "1"
+  dv: "2P"
+  ar: "7/—/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "A simple utility knife. Not as deadly as a combat knife but easily concealed and ubiquitous. Every shadowrunner carries at least one."
+
+- name: Polearm
+  subtype: Blades
+  cost: 180
+  availability: "2"
+  dv: "3P"
+  ar: "7/—/—/—/—"
+  reach: 2
+  source: "Core Rulebook"
+  description: "A long-bladed weapon on a pole. The extended reach keeps opponents at bay. Includes spears, halberds, and similar pole weapons."
+
+- name: Survival Knife
+  subtype: Blades
+  cost: 150
+  availability: "1"
+  dv: "3P"
+  ar: "8/—/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "A rugged, multi-purpose blade designed for survival situations. Doubles as a tool. Slightly heavier than a combat knife but more versatile."
+
+- name: Sword
+  subtype: Blades
+  cost: 300
+  availability: "2"
+  dv: "4P"
+  ar: "9/—/—/—/—"
+  reach: 1
+  source: "Core Rulebook"
+  description: "A one-handed sword. Classic design, reliable performance. The standard blade for those who prefer European martial traditions over the katana."
+
+# Additional Clubs
+- name: Sap
+  subtype: Clubs
+  cost: 25
+  availability: "1"
+  dv: "2S"
+  ar: "6/—/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "A blackjack or sap. Designed to stun rather than kill. Filled with lead shot or sand. Easily concealed and favored by those who want to knock someone out without leaving evidence."
+
+- name: Staff
+  subtype: Clubs
+  cost: 80
+  availability: "1"
+  dv: "3S"
+  ar: "7/—/—/—/—"
+  reach: 1
+  source: "Core Rulebook"
+  description: "A wooden or composite staff. Traditional martial arts weapon. Good reach and leverage. Favored by adepts and those trained in staff combat."
+
+- name: Stun Baton
+  subtype: Clubs
+  cost: 350
+  availability: "2"
+  dv: "4S(e)"
+  ar: "8/—/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "An electrified baton that delivers a stunning shock on contact. Non-lethal option favored by security forces. Wireless bonus: Can be set to different intensity levels."
+
+- name: Telescoping Staff
+  subtype: Clubs
+  cost: 120
+  availability: "2"
+  dv: "2S"
+  ar: "6/—/—/—/—"
+  reach: 1
+  source: "Core Rulebook"
+  description: "A collapsible staff that extends with a wrist flick or wireless signal. Easier to conceal when retracted. Extending or retracting is a Minor Action."
+
+# Other Melee
+- name: Bike Chain
+  subtype: Other
+  cost: 30
+  availability: "1"
+  dv: "3P"
+  ar: "6/—/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "A length of chain, often from a bicycle. Classic street weapon. Wrapped around the fist or swung. Cheap, effective, and deniable."
+
+- name: Bullwhip
+  subtype: Other
+  cost: 75
+  availability: "2"
+  dv: "2P"
+  ar: "6/—/—/—/—"
+  reach: 1
+  source: "Core Rulebook"
+  description: "A leather or synthetic whip. Unusual but effective. Can be used to disarm or entangle. Requires specialized training to use effectively."
+
+- name: Monofilament Whip
+  subtype: Other
+  cost: 1200
+  availability: "6(R)"
+  dv: "4P"
+  ar: "9/—/—/—/—"
+  reach: 2
+  source: "Core Rulebook"
+  description: "A monofilament line that can cut through almost anything. Extremely dangerous. Illegal in most jurisdictions. Requires a specialized skill to use without injuring oneself."
+
+- name: Shock Gloves
+  subtype: Unarmed Combat
+  cost: 250
+  availability: "2"
+  dv: "3S(e)"
+  ar: "7/—/—/—/—"
+  reach: 0
+  source: "Core Rulebook"
+  description: "Gloves with built-in electrical contacts. Deliver a stunning shock on impact. Non-lethal alternative to knucks. Wireless bonus: Can be set to different intensity levels."

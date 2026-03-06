@@ -369,6 +369,7 @@ export default function CharacterSheet() {
               fieldOptions={{ subtype: ["Automatics", "Hold-Outs", "Longarms", "Machine Pistols", "Pistols (Heavy)", "Pistols (Light)", "Shotguns", "Sniper Rifles", "Submachine Guns", "Tasers"] }}
               showEquipped
               showAccessories
+              referenceCategory="rangedWeapons"
               onUpdate={(w) => updateField("ranged_weapons", w)}
             />
             <GenericListTab
@@ -380,6 +381,7 @@ export default function CharacterSheet() {
               numericFields={["reach"]}
               showEquipped
               showAccessories
+              referenceCategory="meleeWeapons"
               onUpdate={(w) => updateField("melee_weapons", w)}
             />
             <GenericListTab
@@ -391,6 +393,7 @@ export default function CharacterSheet() {
               fieldDefaults={{ subtype: "body" }}
               numericFields={["rating", "capacity"]}
               showEquipped
+              referenceCategory="armor"
               onUpdate={(a) => updateField("armor", a)}
             />
             <GenericListTab
@@ -402,6 +405,7 @@ export default function CharacterSheet() {
               fieldDefaults={{ type: "cyberware" }}
               showDiceModifiers
               showEffects
+              referenceCategory="augmentations"
               onUpdate={(a) => updateField("augmentations", a)}
             />
             <GenericListTab
@@ -411,6 +415,7 @@ export default function CharacterSheet() {
               showEquipped
               showDiceModifiers
               showEffects
+              referenceCategory="miscellaneous"
               onUpdate={(g) => updateField("gear", g)}
             />
             <GenericListTab
@@ -426,6 +431,7 @@ export default function CharacterSheet() {
               title="Vehicles / Drones"
               items={(character.vehicles || []) as any[]}
               fields={["name", "handling", "speed", "body", "armor", "sensor", "pilot", "seats"]}
+              referenceCategory="vehicles"
               onUpdate={(v) => updateField("vehicles", v)}
             />
           </TabsContent>

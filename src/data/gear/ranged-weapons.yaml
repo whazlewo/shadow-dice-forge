@@ -1,0 +1,246 @@
+# Shadowrun 6e Ranged Weapons - Core Rulebook
+# Add items from the rulebook; include full description for each.
+
+- name: Ares Predator VI
+  subtype: Pistols (Heavy)
+  cost: 750
+  availability: "2(L)"
+  dv: "3P"
+  ar: "10/10/8/—/—"
+  fire_modes: "SA/BF"
+  ammo: "15(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "The Predator V rode on the laurels of its name. The Predator VI is genuine innovation built into some classic styling. Built on the framing of the original Predator, the VI comes with the standard smartgun operations but adds Burst Fire capability and a new variable ammunition system that will make it king of the streets and warzones once again, even if it comes with a price tag to match that innovation. The variable ammunition system allows a single specially designed magazine (30¥ per spare) to be loaded with different ammo types. The smartgun is used to select ammo types and cycles them to the chamber in whatever quantity is necessary and available."
+
+- name: Colt America L36
+  subtype: Pistols (Light)
+  cost: 230
+  availability: "2(L)"
+  dv: "2P"
+  ar: "8/8/6/—/—"
+  fire_modes: "SA"
+  ammo: "11(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "A tribute to Colt's world-class reputation, the L36 is cheap, easily concealed, and abundant on the streets. In order to be easily transferred between corporate security rookies, the weapon features an ownership swap feature that has been abused by cops and crooks alike. A perfect throwaway weapon. Wireless Bonus: The user can alter ownership data with a Minor Action."
+
+- name: Fichetti Tiffani Needler
+  subtype: Hold-Outs
+  cost: 435
+  availability: "2"
+  dv: "3P"
+  ar: "10/6/2/—/—"
+  fire_modes: "SS"
+  ammo: "4(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Pretty and deadly are not mutually exclusive. Fichetti gunsmithing combined with Tiffani style makes the Needler the single most popular designer handgun in the world. The base model is matte grey, but its special color-changing coating can be manipulated via wireless signal with an infinite number of patterns and designs. Wireless bonus: You can change the color with a Minor Action. Applying a camouflage pattern increases the concealability threshold by 1 for visual Perception tests."
+
+- name: Ares Light Fire 70
+  subtype: Pistols (Light)
+  cost: 350
+  availability: "3(L)"
+  dv: "2P"
+  ar: "10/7/6/—/—"
+  fire_modes: "SA"
+  ammo: "16(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "The Light Fire Series is designed for special operators. The 70 is a street standard. The integration of a barrel-mounted silencer in the design makes the Light Fire series nearly trid-flick silent."
+
+- name: Browning Ultra Power
+  subtype: Pistols (Heavy)
+  cost: 315
+  availability: "2(L)"
+  dv: "3P"
+  ar: "10/9/6/—/—"
+  fire_modes: "SA"
+  ammo: "10(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Once the Predator's primary competition as the world's best heavy pistol, the Ultra Power has ceded its claim to the title since it has not kept pace with the tech advances in the Pred-VI. The Browning is cheaper, though, and offers a built-in top-mounted laser sight."
+
+# Hold-outs / Tasers
+- name: Defiance Super Shock
+  subtype: Tasers
+  cost: 340
+  availability: "1"
+  dv: "6S(e)"
+  ar: "10/6*/—/—/—"
+  fire_modes: "SS"
+  ammo: "4(m)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "This heavy-duty taser can fire up to four darts with twenty-meter-long wires. The wired connection to the battery allows for a more powerful shock but limits range. *Max range 20m. Wireless bonus: A successful hit informs you of the target's basic health and Condition Monitors."
+
+- name: Yamaha Pulsar I
+  subtype: Tasers
+  cost: 325
+  availability: "1"
+  dv: "4S(e)"
+  ar: "9/9†/—/—/—"
+  fire_modes: "SS"
+  ammo: "4(m)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "The Pulsar uses wireless capacitors, meaning increased range compared to wired tasers. Packs less punch but fires faster. Pulsar I has no melee contacts. †Max range 50m."
+
+- name: Streetline Special
+  subtype: Hold-Outs
+  cost: 200
+  availability: "2"
+  dv: "2P"
+  ar: "8/8/—/—/—"
+  fire_modes: "SS"
+  ammo: "6(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Designed for cheap 3D nanoprinting, made of composite materials, making it harder to detect with MAD scanners (increasing the threshold to detect it by 1). A perfect throwaway weapon."
+
+# Light / Machine Pistols
+- name: Beretta 101T
+  subtype: Pistols (Light)
+  cost: 260
+  availability: "2(L)"
+  dv: "2P"
+  ar: "9/8/6/—/—"
+  fire_modes: "SA"
+  ammo: "21(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "The preferred sidearm of many security forces around the world. Classified as a light pistol. Same frame as the 201T, easier to disguise."
+
+- name: Fichetti Security 600
+  subtype: Pistols (Light)
+  cost: 390
+  availability: "3(L)"
+  dv: "2P"
+  ar: "10/9/6/—/—"
+  fire_modes: "SA"
+  ammo: "30(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Designed as a light sidearm for security forces. Thirty-round magazine. Comes with detachable folding stock and laser sight. Great for deckers."
+
+- name: Ruger Redhawk
+  subtype: Pistols (Light)
+  cost: 250
+  availability: "2(L)"
+  dv: "3P"
+  ar: "7/10/7/—/—"
+  fire_modes: "SA/BF"
+  ammo: "8(cy)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Rugged revolver with revolutionary single/double firing selector. Double action allows a shot with each trigger pull; single setting lets you fan the hammer for Burst Fire. Wireless bonus: Extra Minor Action when changing action selection."
+
+- name: Ares Crusader II
+  subtype: Machine Pistols
+  cost: 520
+  availability: "4(L)"
+  dv: "2P"
+  ar: "9/9/7/—/—"
+  fire_modes: "SA/BF"
+  ammo: "40(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "High capacity and comfortable styling. Integrates gas-vent recoil compensation and comes standard with smartgun systems and software preloaded."
+
+- name: Ingram Smartgun XI
+  subtype: Submachine Guns
+  cost: 750
+  availability: "3(L)"
+  dv: "3P"
+  ar: "11/9/6/—/—"
+  fire_modes: "SA/BF"
+  ammo: "32(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Famous as the weapon of choice for many legendary street samurai since the 2050s. Comes tricked out with gas-vent system, smartgun system, and integral silencer."
+
+- name: HK-227
+  subtype: Submachine Guns
+  cost: 825
+  availability: "3(L)"
+  dv: "3P"
+  ar: "10/11/8/—/—"
+  fire_modes: "SA/BF"
+  ammo: "28(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Built off the same frame (the venerable MP5) for over a century. Top choice for corporate and military security. Offers retractable stock, integrated smartgun, and integral silencer."
+
+# Shotguns
+- name: Defiance T-250
+  subtype: Shotguns
+  cost: 330
+  availability: "2(L)"
+  dv: "4P"
+  ar: "7/10/6/—/—"
+  fire_modes: "SS/SA"
+  ammo: "5(m)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Solid street howitzer. Semi-automatic, gas operated with secondary pump action for clearing jams (Minor Action). Available in normal or short-barreled version."
+
+- name: Remington Roomsweeper
+  subtype: Shotguns
+  cost: 325
+  availability: "2(L)"
+  dv: "5P"
+  ar: "9/8/4/—/—"
+  fire_modes: "SA"
+  ammo: "8(m)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Double-barreled and pistol gripped. Bad news when it slips out of a pocket. Can load Heavy Pistol rounds and shoot like a really inaccurate hand cannon."
+
+# Rifles
+- name: AK-97
+  subtype: Automatics
+  cost: 2100
+  availability: "2(L)"
+  dv: "5P"
+  ar: "4/11/9/7/1"
+  fire_modes: "SA/BF/FA"
+  ammo: "38(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Will never go out of style. Still looks like its mid-twentieth-century predecessor. Built for reliability and endurance. Cheap, mass-produced, infinitely adaptable."
+
+- name: Colt M23
+  subtype: Automatics
+  cost: 2100
+  availability: "3(L)"
+  dv: "4P"
+  ar: "3/11/10/6/1"
+  fire_modes: "SA/BF/FA"
+  ammo: "35(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Cheap, mass-produced, infinitely adaptable. Finds its way to everyone from gangbangers to pirates to delta-level government operators. Can accept two additional underbarrel accessories."
+
+- name: FN HAR
+  subtype: Automatics
+  cost: 5100
+  availability: "2(L)"
+  dv: "5P"
+  ar: "5/8/8/8/4"
+  fire_modes: "SA/BF/FA"
+  ammo: "40(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "The name to fear when facing private security and corporate high-threat-response teams. Features laser sight and gas-vent system."
+
+- name: Ares Alpha
+  subtype: Automatics
+  cost: 3400
+  availability: "5(L)"
+  dv: "4P"
+  ar: "4/10/9/7/2"
+  fire_modes: "SA/BF/FA"
+  ammo: "42(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Made famous by Ares Firewatch teams. Integrated underbarrel grenade launcher, smartgun system, and innovative design for superior handling. Grenade launcher: As grenade, SS, 6(c)."

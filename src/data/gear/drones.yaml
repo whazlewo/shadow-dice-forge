@@ -1,0 +1,175 @@
+# Shadowrun 6e Drones - Core Rulebook
+# Same schema as vehicles (handling, speed, body, armor, sensor, pilot, seats)
+
+# Microdrones
+- name: GMC Micromachine
+  cost: 500
+  availability: "1"
+  handling: "4/4"
+  speed: "2"
+  body: 1
+  armor: 1
+  sensor: 1
+  pilot: 1
+  seats: 0
+  source: "Core Rulebook"
+  description: "Tiny surveillance drone. Fits in the palm of your hand. Limited capability but cheap and disposable. Good for scouting vents and tight spaces."
+- name: MCT Hornet
+  cost: 1200
+  availability: "2"
+  handling: "4/3"
+  speed: "4"
+  body: 1
+  armor: 1
+  sensor: 2
+  pilot: 2
+  seats: 0
+  source: "Core Rulebook"
+  description: "Microdrone with rotors. Agile and quiet. Popular for indoor surveillance. Can carry a micro-camera or sensor package."
+- name: Sikorsky-Bell Microskimmer XXS
+  cost: 800
+  availability: "1"
+  handling: "3/4"
+  speed: "3"
+  body: 1
+  armor: 1
+  sensor: 1
+  pilot: 1
+  seats: 0
+  source: "Core Rulebook"
+  description: "Ultra-compact rotor drone. Good for outdoor scouting. Cheap and widely available."
+# Minidrones
+- name: GM-Nissan Doberman
+  cost: 4500
+  availability: "2"
+  handling: "4/4"
+  speed: "6"
+  body: 4
+  armor: 4
+  sensor: 2
+  pilot: 2
+  seats: 0
+  source: "Core Rulebook"
+  description: "Quadruped security drone. Walks like a dog. Standard issue for corporate security. Can mount a small weapon or sensor package."
+- name: Chrysler-Nissan Pursuit V
+  cost: 8500
+  availability: "3"
+  handling: "5/4"
+  speed: "12"
+  body: 4
+  armor: 4
+  sensor: 3
+  pilot: 2
+  seats: 0
+  source: "Core Rulebook"
+  description: "Wheeled pursuit drone. Fast and agile. Used by law enforcement for chases. Can be configured with weapon mounts."
+- name: Cyberspace Designs Quadrotor
+  cost: 3500
+  availability: "2"
+  handling: "4/4"
+  speed: "6"
+  body: 2
+  armor: 2
+  sensor: 4
+  pilot: 2
+  seats: 0
+  source: "Core Rulebook"
+  description: "Flying minidrone. Excellent sensor platform. Favored by deckers and riggers for matrix support and overwatch."
+- name: Cyberspace Designs Dalmatian
+  cost: 6000
+  availability: "2"
+  handling: "4/4"
+  speed: "6"
+  body: 4
+  armor: 4
+  sensor: 3
+  pilot: 2
+  seats: 0
+  source: "Core Rulebook"
+  description: "Quadruped drone with fire suppression systems. Used by fire departments and corporate security. Can carry extinguisher payloads."
+- name: MCT-Nissan Roto-Drone
+  cost: 5000
+  availability: "2"
+  handling: "4/3"
+  speed: "8"
+  body: 3
+  armor: 3
+  sensor: 2
+  pilot: 2
+  seats: 0
+  source: "Core Rulebook"
+  description: "Rotor minidrone. Versatile and reliable. Common workhorse for riggers. Good balance of cost and capability."
+- name: Federated Boeing Blackhawk
+  cost: 12000
+  availability: "3"
+  handling: "4/4"
+  speed: "10"
+  body: 5
+  armor: 5
+  sensor: 3
+  pilot: 3
+  seats: 0
+  source: "Core Rulebook"
+  description: "Military-grade rotor drone. Heavily armored. Used by military and high-threat corporate security. Weapon mount available."
+# Medium Drones
+- name: Steel Lynx Combat Drone
+  cost: 25000
+  availability: "4(R)"
+  handling: "4/5"
+  speed: "6"
+  body: 12
+  armor: 6
+  sensor: 3
+  pilot: 3
+  seats: 0
+  source: "Core Rulebook"
+  description: "Wheeled combat drone. Heavy weapon platform. The standard for serious riggers. Turret mount for heavy weapons. Restricted."
+- name: Nissan Samurai
+  cost: 18000
+  availability: "3"
+  handling: "4/4"
+  speed: "10"
+  body: 8
+  armor: 6
+  sensor: 3
+  pilot: 3
+  seats: 0
+  source: "Core Rulebook"
+  description: "Anthroform drone. Humanoid shape. Can use humanoid weapons and tools. Popular with riggers who want versatility."
+- name: Nissan Oni
+  cost: 22000
+  availability: "4"
+  handling: "4/4"
+  speed: "10"
+  body: 10
+  armor: 8
+  sensor: 3
+  pilot: 3
+  seats: 0
+  source: "Core Rulebook"
+  description: "Military anthroform drone. Heavier than the Samurai. Built for combat. Weapon mount and enhanced armor."
+- name: Ares Packmule
+  cost: 15000
+  availability: "2"
+  handling: "4/5"
+  speed: "4"
+  body: 10
+  armor: 6
+  sensor: 2
+  pilot: 2
+  seats: 0
+  source: "Core Rulebook"
+  description: "Quadruped cargo drone. Carries heavy loads. Essential for riggers who need to move gear. Can be modified with weapon mounts."
+# Large Drones
+- name: Ares Black Sky
+  cost: 45000
+  availability: "5(R)"
+  handling: "4/4"
+  speed: "12"
+  body: 14
+  armor: 10
+  sensor: 4
+  pilot: 4
+  seats: 0
+  source: "Core Rulebook"
+  description: "Large rotor drone. Military transport and gunship. Heavy weapon platform. Restricted. The pinnacle of drone technology for riggers."

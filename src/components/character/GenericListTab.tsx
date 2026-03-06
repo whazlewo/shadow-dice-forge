@@ -12,6 +12,16 @@ import { AccessoryList } from "./AccessoryList";
 import { FireModeCheckboxes } from "./FireModes";
 import { DiceModifierEditor } from "./DiceModifierEditor";
 import { EffectsEditor } from "./EffectsEditor";
+import { GearReferenceSelect } from "@/components/GearReferenceSelect";
+import {
+  referenceToCharacterRanged,
+  referenceToCharacterMelee,
+  referenceToCharacterArmor,
+  referenceToCharacterAugmentation,
+  referenceToCharacterGear,
+  referenceToCharacterVehicle,
+} from "@/lib/gear-reference-utils";
+import type { GearCategory } from "@/types/gear-reference";
 import type { WeaponAccessory, DiceModifier } from "@/types/character";
 
 const FIELD_TOOLTIPS: Record<string, string> = {
@@ -33,10 +43,23 @@ interface Props {
   showDiceModifiers?: boolean;
   showEffects?: boolean;
   readOnlyToggle?: boolean;
+  referenceCategory?: GearCategory;
   onUpdate: (items: Record<string, any>[]) => void;
 }
 
-export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, fieldWidths, numericFields, showEquipped, showAccessories, showDiceModifiers, showEffects, readOnlyToggle, onUpdate }: Props) {
+type RefItem = import("@/types/gear-reference").GearReference[GearCategory][number];
+
+const REFERENCE_CONVERTERS: Record<GearCategory, (ref: RefItem) => Record<string, unknown>> = {
+  rangedWeapons: referenceToCharacterRanged,
+  meleeWeapons: referenceToCharacterMelee,
+  armor: referenceToCharacterArmor,
+  electronics: (ref) => referenceToCharacterGear(ref as import("@/types/gear-reference").ReferenceMiscGear),
+  augmentations: referenceToCharacterAugmentation,
+  vehicles: referenceToCharacterVehicle,
+  miscellaneous: referenceToCharacterGear,
+};
+
+export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, fieldWidths, numericFields, showEquipped, showAccessories, showDiceModifiers, showEffects, readOnlyToggle, referenceCategory, onUpdate }: Props) {
   const [editing, setEditing] = useState(!readOnlyToggle);
 
   const add = () => {
@@ -67,7 +90,20 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
     <Card className="border-border/50 bg-card/80">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="font-display tracking-wider text-sm sm:text-base">{title.toUpperCase()}</CardTitle>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 flex-wrap">
+          {showEditUI && referenceCategory && (
+            <GearReferenceSelect
+              category={referenceCategory}
+              onSelect={(item, cat) => {
+                const converter = REFERENCE_CONVERTERS[cat];
+                if (converter) {
+                  const newItem = converter(item);
+                  onUpdate([...items, newItem]);
+                }
+              }}
+              triggerLabel="Add from reference"
+            />
+          )}
           {showEditUI && (
             <Button variant="outline" size="sm" onClick={add}>
               <Plus className="h-3.5 w-3.5 mr-1" /> Add

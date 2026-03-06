@@ -13,6 +13,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: supabase/setup-cli@v1
       - name: Push migrations
-        run: supabase db push --db-url "${{ secrets.SUPABASE_DB_URL }}" --yes
+        run: yes | supabase db push --db-url "${{ secrets.SUPABASE_DB_URL }}"
         env:
           SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}

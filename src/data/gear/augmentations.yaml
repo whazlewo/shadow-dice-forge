@@ -12,6 +12,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "A small cybernetic port that allows direct neural interface with electronic devices. Essential for deckers and technomancers. Enables DNI without trodes. The most common cyberware implant."
+
 - name: Cybereyes (Rating 1)
   cost: 1000
   availability: "2"
@@ -22,6 +23,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Cybernetic replacement eyes. Rating indicates quality and capacity for add-ons like low-light, thermographic vision, or image link. Higher ratings allow more modifications. Essence cost increases with rating."
+
 - name: Muscle Replacement (Rating 1)
   cost: 12000
   availability: "4"
@@ -32,7 +34,9 @@
   dice_modifiers: [{ attribute: "strength", value: 1, source: "Muscle Replacement" }]
   source: "Core Rulebook"
   description: "Cybernetic muscle augmentation that increases raw physical strength. Each rating adds +1 to Strength. Popular with street samurai and physical adepts. Higher ratings available at greater cost and essence."
+
 # Cyberware
+
 - name: Cyberears (Rating 1)
   cost: 800
   availability: "2"
@@ -43,6 +47,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Cybernetic replacement ears. Rating indicates quality and capacity for add-ons like audio enhancement, spatial recognizer, or damper. Pairs well with cybereyes for full sensory suite."
+
 - name: Cyberarm (Standard)
   cost: 8500
   availability: "3"
@@ -53,6 +58,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Full cybernetic arm replacement. Has its own Agility and Strength (typically 3). Capacity for built-in weapons, tools, or other modifications. Popular with street samurai."
+
 - name: Cyberleg (Standard)
   cost: 9000
   availability: "3"
@@ -63,6 +69,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Cybernetic leg replacement. Enhances movement and agility. Capacity for skimmers, hydraulic jacks, or other mods. Two legs can share capacity for larger systems."
+
 - name: Wired Reflexes (Rating 1)
   cost: 32000
   availability: "4(R)"
@@ -73,6 +80,7 @@
   dice_modifiers: [{ attribute: "reaction", value: 1, source: "Wired Reflexes" }]
   source: "Core Rulebook"
   description: "Neural accelerator. Boosts reaction time and initiative. Each rating adds +1 Reaction and +1d6 Initiative Dice. The classic street samurai upgrade. Restricted."
+
 - name: Bone Lacing (Aluminum)
   cost: 8000
   availability: "3"
@@ -83,6 +91,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Reinforces bones with metal. Aluminum is the lightest option. Adds a Physical condition monitor box and damage resistance. Titanium and plastisteel variants available."
+
 - name: Dermal Plating (Rating 1)
   cost: 6000
   availability: "3"
@@ -93,6 +102,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Subdermal armor plating. Each rating adds damage resistance. Does not stack with worn armor for the same damage type. Visible under skin in some metatypes."
+
 - name: Smartlink
   cost: 1500
   availability: "2"
@@ -103,6 +113,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Neural link to smartgun systems. Must be installed in eyes (cyber or natural). +2 dice when using smartgun-enabled weapons. Eliminates some visibility penalties. Essential for combat-focused characters."
+
 - name: Reaction Enhancers (Rating 1)
   cost: 18000
   availability: "4"
@@ -113,6 +124,7 @@
   dice_modifiers: [{ attribute: "reaction", value: 1, source: "Reaction Enhancers" }]
   source: "Core Rulebook"
   description: "Neural enhancement for faster reflexes. Adds +1 Reaction per rating. Lighter essence cost than Wired Reflexes but no Initiative bonus. Stacks with Wired Reflexes."
+
 - name: Internal Router
   cost: 2000
   availability: "2"
@@ -123,6 +135,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Internal network that connects cyberware and provides datajack functionality. Allows internal devices to communicate without external ports. Reduces wireless exposure."
+
 - name: Tailored Pheromones (Rating 1)
   cost: 8000
   availability: "3"
@@ -133,6 +146,7 @@
   dice_modifiers: [{ attribute: "charisma", value: 1, source: "Tailored Pheromones" }]
   source: "Core Rulebook"
   description: "Bio-engineered pheromones. Makes you more likable and persuasive. +1 Charisma per rating. Invisible and undetectable by normal means. Popular with faces and infiltrators."
+
 - name: Orthoskin (Rating 1)
   cost: 10000
   availability: "3"
@@ -143,6 +157,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Genetically enhanced skin. Adds damage resistance. Bioware alternative to Dermal Plating. Less essence cost than cyberware armor. Does not stack with worn armor for same damage."
+
 - name: Synthskin
   cost: 2500
   availability: "2"
@@ -153,6 +168,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Synthetic skin overlay. Covers cyberlimbs and other visible cyberware. +2 dice to Disguise tests to appear fully organic. Essential for infiltrators with obvious chrome."
+
 - name: Muscle Toner (Rating 1)
   cost: 8000
   availability: "3"
@@ -163,6 +179,7 @@
   dice_modifiers: [{ attribute: "agility", value: 1, source: "Muscle Toner" }]
   source: "Core Rulebook"
   description: "Enhanced muscle fibers. +1 Agility per rating. Bioware alternative to muscle replacement. Lighter essence cost. Popular with athletes and street samurai."
+
 - name: Muscle Augmentation (Rating 1)
   cost: 8000
   availability: "3"
@@ -173,6 +190,7 @@
   dice_modifiers: [{ attribute: "strength", value: 1, source: "Muscle Augmentation" }]
   source: "Core Rulebook"
   description: "Enhanced muscle mass. +1 Strength per rating. Bioware alternative to muscle replacement. Often paired with Muscle Toner for balanced physical enhancement."
+
 - name: Synaptic Booster (Rating 1)
   cost: 25000
   availability: "4"
@@ -183,6 +201,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Enhanced neural pathways. +1d6 Initiative Dice per rating. Bioware alternative to Wired Reflexes. No Reaction bonus but lighter essence cost. Stacks with other initiative boosters."
+
 - name: Platelet Factory
   cost: 15000
   availability: "4"
@@ -193,6 +212,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Produces artificial platelets. Reduces bleeding from wounds. +2 dice to First Aid tests when stabilizing. Helps with recovery. Expensive but valuable for combat-focused characters."
+
 - name: Trauma Damper (Rating 1)
   cost: 12000
   availability: "4"
@@ -203,6 +223,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Neural dampening of pain response. Each rating lets you ignore 1 box of Physical damage when determining if damage converts to Stun. Helps you stay in the fight."
+
 - name: Adrenaline Pump (Rating 1)
   cost: 28000
   availability: "4"
@@ -213,6 +234,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Emergency boost system. When activated (Minor Action), provides +1 Reaction and +1d6 Initiative for (Rating) combat turns. Crash afterward. Wireless: Can be triggered by biomonitor when damage is taken."
+
 - name: Bone Density Augmentation (Rating 1)
   cost: 12000
   availability: "4"
@@ -223,6 +245,7 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Denser bones. Adds a Physical condition monitor box per rating. Bioware alternative to Bone Lacing. No damage resistance bonus but lighter essence cost."
+
 - name: Cerebral Booster (Rating 1)
   cost: 15000
   availability: "4"
@@ -233,6 +256,7 @@
   dice_modifiers: [{ attribute: "logic", value: 1, source: "Cerebral Booster" }]
   source: "Core Rulebook"
   description: "Enhanced neural tissue. +1 Logic per rating. Essential for deckers, technomancers, and anyone who relies on mental acuity. Does not affect Resonance."
+
 - name: Mnemonic Enhancer (Rating 1)
   cost: 10000
   availability: "3"

@@ -19,6 +19,7 @@ npm run test:watch   # Watch mode testing
 **Stack:** React 18 + TypeScript + Vite + Supabase + Tailwind CSS + shadcn-ui
 
 **Key directories:**
+
 - `src/components/character/` — Character sheet tab components
 - `src/components/wizard/` — Multi-step character creation wizard
 - `src/components/ui/` — shadcn-ui primitives (do not edit directly)

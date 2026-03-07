@@ -1,0 +1,155 @@
+# Shadowrun 6e Weapon Accessories - Core Rulebook (pp. 259-261)
+# Mount: top, barrel, underbarrel, or — for N/A (holsters, etc.)
+
+- name: Airburst link
+  cost: 600
+  availability: "3"
+  mount: other
+  notes: "Smartgun accessory for grenade/rocket launchers. Reduces scatter by 2m per net hit. Prevents defender from using Hit the Deck. Requires wireless."
+  source: "Core Rulebook"
+  description: "A smartgun accessory for grenade and rocket launchers that uses a rangefinder to air-burst the explosive projectile in close proximity to the target. Reduces scatter distance by two meters per net hit instead of one. Prevents defender from using Hit the Deck Action. Wireless bonus: Requires wireless functionality."
+
+- name: Bipod
+  cost: 200
+  availability: "1"
+  mount: underbarrel
+  ar_modifier: "+2/+2/+2/+2/+2"
+  ar_modifier_wireless: "+3 when prone or sitting"
+  notes: "Underbarrel. Deploy Major Action, fold Minor Action."
+  source: "Core Rulebook"
+  description: "A two-legged brace for the underbarrel mount. +2 Attack Rating when deployed (prone/sitting). Wireless: +3 when prone or sitting. Attaching takes Major Action; folding/deploying is Minor Action."
+
+- name: Concealable holster
+  cost: 150
+  availability: "1"
+  mount: other
+  notes: "Increases Concealability threshold by 1. Pistols, machine pistols, tasers only. Wireless: +1 additional Concealability."
+  source: "Core Rulebook"
+  description: "Small holster with smart adhesive. +1 Concealability threshold. Pistols, machine pistols, and tasers only. Wireless: Sensors and smart-fabric increase Concealability by additional 1."
+
+- name: Gas-vent system
+  cost: 500
+  availability: "3"
+  mount: barrel
+  notes: "Barrel-mounted, permanent. Removes SA penalty, reduces BF penalty to 2."
+  source: "Core Rulebook"
+  description: "Barrel-mounted recoil compensation. Vents barrel gases to counter muzzle climb. Once installed cannot be removed. Removes Semi-Auto Attack Rating penalty; reduces Burst Fire penalty to 2."
+
+- name: Gyro mount
+  cost: 1400
+  availability: "3"
+  mount: underbarrel
+  ar_modifier: "+3/+3/+3/+3/+3"
+  notes: "Heavy harness for rifle/machine gun. Negates SA/BF penalties, +3 Full-Auto. Shifts Strength req to 3+/4+ for medium/heavy MG."
+  source: "Core Rulebook"
+  description: "Heavy harness with gyro-stabilized arm. Holds rifle or machine gun. Negates SA/BF Attack Rating adjustments, +3 for Full-Auto. Shifts Strength requirements for medium/heavy MG to 3+ and 4+. Attach/remove weapon: Minor Action."
+
+- name: Hidden arm slide
+  cost: 350
+  availability: "2"
+  mount: other
+  notes: "Forearm slide for Hold-out, Light Pistol, or Taser. +1 Concealability. Bonus Edge on first use. Draw: Minor Action."
+  source: "Core Rulebook"
+  description: "Attached to forearm, worn under clothing. Fits Hold-out, Light Pistol, or Taser. +1 Concealability. Bonus Edge when first used. Minor Action to slide weapon into hand. Wireless: Bonus Minor Action when activating slide."
+
+- name: Imaging scope
+  cost: 350
+  availability: "1"
+  mount: top
+  notes: "Take Aim required for bonus. Capacity 3 for vision enhancements. Attach/remove: Minor Action."
+  source: "Core Rulebook"
+  description: "Top-mounted scope with micro camera and vision magnification. Capacity 3 for vision enhancements (p. 275). Take Aim Minor Action required for benefits. Target cannot gain Edge from higher Defense Rating when using. Wireless: Share line of sight with team."
+
+- name: Laser sight
+  cost: 125
+  availability: "1"
+  mount: top # Top or underbarrel
+  ar_modifier: "+1/+1/+1/+1/+1"
+  ar_modifier_wireless: "+2/+2/+2/+2/+2"
+  notes: "Top or underbarrel. Not cumulative with smartlink. Activate/deactivate: Minor Action."
+  source: "Core Rulebook"
+  description: "Projects visible dot (normal, low-light, or thermographic) on target. +1 Attack Rating (not cumulative with smartlink). Top or underbarrel mount. Wireless: +2 Attack Rating; bonus Minor Action when activating/deactivating."
+
+- name: Periscope
+  cost: 70
+  availability: "2"
+  mount: top
+  notes: "Target around corners. Reduces Cover penalty to -1. Can upgrade with vision enhancements."
+  source: "Core Rulebook"
+  description: "Adjustable viewer for top mount. Target weapon around corners. Reduces Cover IV dice pool penalty to -1 when using Take Cover. Upgradable with vision enhancements (p. 275). Wireless: Penalty reduced to 0."
+
+- name: Quick-draw holster
+  cost: 175
+  availability: "2"
+  mount: other
+  notes: "Bonus Minor Action when taking Quick-Draw Action."
+  source: "Core Rulebook"
+  description: "Easy access holster for pistols and tasers. Provides bonus Minor Action when Quick-Draw Action is taken."
+
+- name: Shock pad
+  cost: 50
+  availability: "2"
+  mount: other
+  notes: "On rigid stock. Decreases SA and BF Attack Rating modifiers by 1."
+  source: "Core Rulebook"
+  description: "Shock-absorbing pad on rigid stock of rifle, shotgun, or heavy weapon. Decreases Semi-Auto and Burst Fire Attack Rating modifiers by 1."
+
+- name: Silencer/suppressor
+  cost: 500
+  availability: "4"
+  mount: barrel
+  notes: "Barrel-mounted. Not compatible with revolvers or shotguns. +2 threshold to Perception tests. Attach/remove: Major Action."
+  source: "Core Rulebook"
+  description: "Barrel-mounted accessory reducing sound and flash. Not compatible with revolvers or shotguns. +2 threshold on Perception tests to notice use or locate firer. Attach/remove: Major Action. Wireless: Alerts via AR if someone moves quickly in response."
+
+- name: Smart firing platform
+  cost: 2500
+  availability: "5"
+  mount: underbarrel
+  ar_modifier: "+3/+3/+3/+3/+3"
+  notes: "Robotic tripod, 180° arc. Mounts one smartgun. Fired by onboard pilot (DR3). Negates SA/BF, +3 Full-Auto."
+  source: "Core Rulebook"
+  description: "Robotic tripod with mechanized pivot. 180° firing arc, 60° inclination. Mounts one smartgun-equipped weapon. Fired by onboard pilot (Device Rating 3) with Targeting Autosoft (Rating 3). Negates SA/BF adjustments, +3 Full-Auto. Wireless: Fire remotely via implanted smartlink in VR."
+
+- name: Smartgun system, internal
+  cost: 500
+  availability: "1(L)"
+  mount: other
+  ar_modifier: "+2/+2/+2/+2/+2"
+  notes: "Integral to weapon. Adds 500¥ to weapon price. DNI for mode switch, eject clip, fire."
+  source: "Core Rulebook"
+  description: "Firearm side of smartlink system. Camera and rangefinder. +2 Attack Rating. DNI allows switching modes, ejecting clip, firing without trigger. Fire from cover with no penalties. Internal adds 500¥ to weapon price. Wireless: +1 dice pool bonus; bonus Minor Action for Reload Smartgun or Change Device Mode."
+
+- name: Smartgun system, external
+  cost: 200
+  availability: "2(L)"
+  mount: top
+  ar_modifier: "+2/+2/+2/+2/+2"
+  notes: "Top or underbarrel. Engineering + Logic (4, 1 hour) to attach. Capacity 1 for vision enhancements."
+  source: "Core Rulebook"
+  description: "External smartgun module for top or underbarrel mount. +2 Attack Rating. Engineering + Logic (4, 1 hour) Extended Test to attach. Camera has Capacity 1 for vision enhancements (p. 275). Wireless: +1 dice pool bonus; bonus Minor Action for Reload Smartgun or Change Device Mode."
+
+- name: Spare clip
+  cost: 5
+  availability: "2"
+  mount: other
+  notes: "Unloaded magazine for selected weapon."
+  source: "Core Rulebook"
+  description: "Unloaded standard magazine for a specific weapon. Wireless: Provides ammo count without smartgun."
+
+- name: Speed loader
+  cost: 25
+  availability: "1"
+  mount: other
+  notes: "Revolver only. Full reload as Minor Action."
+  source: "Core Rulebook"
+  description: "Ring of bullets for revolver cylinder. Weapon-specific. Full reload as Minor Action. Wireless: Transmits type and count of rounds."
+
+- name: Tripod
+  cost: 500
+  availability: "2"
+  mount: underbarrel
+  ar_modifier: "+3/+3/+3/+3/+3"
+  notes: "Underbarrel. Negates SA/BF, +3 Full-Auto when deployed. Attach: Major Action; fold/deploy: Minor Action."
+  source: "Core Rulebook"
+  description: "Three-legged brace for underbarrel mount. Negates SA/BF Attack Rating adjustments, +3 for Full-Auto when deployed. Attach: Major Action. Fold/deploy: Minor Action. Wireless: Free Minor Action when folding, deploying, or removing."

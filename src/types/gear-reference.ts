@@ -95,6 +95,20 @@ export interface ReferenceMiscGear {
   description?: string;
 }
 
+export type WeaponAccessoryMount = "top" | "barrel" | "underbarrel" | "other";
+
+export interface ReferenceWeaponAccessory {
+  name: string;
+  cost: number;
+  availability: string;
+  mount: WeaponAccessoryMount;
+  ar_modifier?: string;
+  ar_modifier_wireless?: string;
+  notes?: string;
+  description?: string;
+  source?: string;
+}
+
 export interface GearReference {
   rangedWeapons: ReferenceRangedWeapon[];
   meleeWeapons: ReferenceMeleeWeapon[];

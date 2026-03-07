@@ -13,6 +13,7 @@
   seats: 4
   source: "Core Rulebook"
   description: "The everyman's car. Reliable, affordable, and ubiquitous. The Americar is the default choice for runners who need wheels without drawing attention. Handles reasonably well on-road, adequate off-road. Acceleration 12, Speed Interval 20, Top Speed 160."
+
 - name: Chrysler-Nissan Jackrabbit
   cost: 11000
   availability: "2"
@@ -25,6 +26,7 @@
   seats: 3
   source: "Core Rulebook"
   description: "Compact and nimble. Popular in urban environments where parking is at a premium. Good acceleration makes it decent for getaways. Acceleration 20, Speed Interval 15, Top Speed 160."
+
 - name: GMC Bulldog
   cost: 35000
   availability: "2"
@@ -37,7 +39,9 @@
   seats: 2
   source: "Core Rulebook"
   description: "Heavy-duty truck. The Bulldog is a workhorse that can carry a lot of gear and take a beating. Popular with riggers and teams that need to move equipment. Can be modified with a weapon mount. Acceleration 10, Speed Interval 10, Top Speed 140."
+
 # Bikes
+
 - name: Dodge Scoot
   cost: 3000
   availability: "1"
@@ -50,6 +54,7 @@
   seats: 1
   source: "Core Rulebook"
   description: "Affordable electric scooter. Not intended for serious shadowrunners but gets you from A to B without drawing attention. Popular with deckers and other low-profile operators."
+
 - name: Harley-Davidson Scorpion
   cost: 12000
   availability: "2"
@@ -62,6 +67,7 @@
   seats: 1
   source: "Core Rulebook"
   description: "A classic, heavy-bodied, heavily chromed road hog. Armored and styled for intimidation. Favored by gangers and those who want to make an impression."
+
 - name: Yamaha Growler
   cost: 5000
   availability: "1"
@@ -74,6 +80,7 @@
   seats: 1
   source: "Core Rulebook"
   description: "Lightweight off-road bike. Good handling in rough terrain. Popular with scouts and runners who need to navigate the barrens."
+
 - name: Suzuki Mirage
   cost: 8500
   availability: "2"
@@ -86,7 +93,9 @@
   seats: 1
   source: "Core Rulebook"
   description: "Sport bike built for speed. Excellent acceleration and handling on paved roads. The choice for runners who need to outrun pursuit."
+
 # Additional Cars
+
 - name: Honda Spirit
   cost: 18000
   availability: "2"
@@ -99,6 +108,7 @@
   seats: 4
   source: "Core Rulebook"
   description: "Reliable sedan. Slightly more upscale than the Americar. Good balance of comfort and performance. Popular with corporate types and runners who blend in."
+
 - name: Eurocar Westwind X80
   cost: 45000
   availability: "3"
@@ -111,6 +121,7 @@
   seats: 4
   source: "Core Rulebook"
   description: "European luxury sedan. Sleek design and advanced electronics. Favored by executives and runners who need to impress."
+
 - name: Hyundai Shinhyung
   cost: 22000
   availability: "2"
@@ -123,6 +134,7 @@
   seats: 4
   source: "Core Rulebook"
   description: "Korean-manufactured sedan. Good value for money. Popular in the Pacific Rim and increasingly common on the streets of Seattle."
+
 - name: Saeder-Krupp-Bentley Concordat
   cost: 120000
   availability: "4"
@@ -135,6 +147,7 @@
   seats: 4
   source: "Core Rulebook"
   description: "Ultra-luxury sedan. The pinnacle of corporate transportation. Armored, sophisticated, and unmistakably expensive. For those who have arrived."
+
 - name: Mitsubishi Nightsky
   cost: 25000
   availability: "2"
@@ -147,7 +160,9 @@
   seats: 4
   source: "Core Rulebook"
   description: "Solid mid-range sedan. Reliable and unassuming. A step up from the Americar without drawing too much attention."
+
 # Additional Trucks
+
 - name: Toyota Gopher
   cost: 28000
   availability: "2"
@@ -160,6 +175,7 @@
   seats: 4
   source: "Core Rulebook"
   description: "Compact pickup truck. Versatile and reliable. Good for hauling gear without the bulk of a full-size truck. Popular with riggers."
+
 - name: Range Rover Model 2080
   cost: 55000
   availability: "3"

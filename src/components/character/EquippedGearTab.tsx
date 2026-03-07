@@ -2,9 +2,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield, Crosshair, Sword, Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
-import type { SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Skill, SR6Attributes, SR6Quality, SR6Augmentation, SR6Gear } from "@/types/character";
+import type {
+  SR6RangedWeapon,
+  SR6MeleeWeapon,
+  SR6Armor,
+  SR6Skill,
+  SR6Attributes,
+  SR6Quality,
+  SR6Augmentation,
+  SR6Gear,
+} from "@/types/character";
 import { calculateModifiedAR } from "@/lib/ar-utils";
 import { calculateWeaponPool } from "@/lib/dice-pool";
+import { normalizeAccessories } from "@/lib/gear-reference-utils";
 import { FireModeBadges } from "./FireModes";
 
 interface Props {
@@ -18,24 +28,33 @@ interface Props {
   gear: SR6Gear[];
 }
 
-
-function StatPill({ label, value, tooltip }: { label: string; value: string | number; tooltip?: string }) {
+function StatPill({
+  label,
+  value,
+  tooltip,
+}: {
+  label: string;
+  value: string | number;
+  tooltip?: string;
+}) {
   const content = (
-    <div className="flex flex-col items-center rounded px-2 py-1 min-w-[48px] bg-muted/50 text-foreground">
-      <span className="text-[10px] uppercase tracking-widest flex items-center gap-0.5 opacity-70">
+    <div className="flex min-w-[48px] flex-col items-center rounded bg-muted/50 px-2 py-1 text-foreground">
+      <span className="flex items-center gap-0.5 text-[10px] uppercase tracking-widest opacity-70">
         {label}
         {tooltip && !tooltip.includes("\n") && (
           <TooltipProvider delayDuration={200}>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Info className="h-2.5 w-2.5 opacity-60 cursor-help" />
+                <Info className="h-2.5 w-2.5 cursor-help opacity-60" />
               </TooltipTrigger>
-              <TooltipContent side="top" className="text-xs max-w-[200px]">{tooltip}</TooltipContent>
+              <TooltipContent side="top" className="max-w-[200px] text-xs">
+                {tooltip}
+              </TooltipContent>
             </Tooltip>
           </TooltipProvider>
         )}
       </span>
-      <span className="text-sm font-mono font-bold">{value}</span>
+      <span className="font-mono text-sm font-bold">{value}</span>
     </div>
   );
 
@@ -44,7 +63,9 @@ function StatPill({ label, value, tooltip }: { label: string; value: string | nu
       <TooltipProvider delayDuration={200}>
         <Tooltip>
           <TooltipTrigger asChild>{content}</TooltipTrigger>
-          <TooltipContent side="top" className="text-xs max-w-[280px] whitespace-pre font-mono">{tooltip}</TooltipContent>
+          <TooltipContent side="top" className="max-w-[280px] whitespace-pre font-mono text-xs">
+            {tooltip}
+          </TooltipContent>
         </Tooltip>
       </TooltipProvider>
     );
@@ -53,35 +74,51 @@ function StatPill({ label, value, tooltip }: { label: string; value: string | nu
   return content;
 }
 
-function accessoriesToARModifiers(weapon: { accessories?: { name: string; ar_modifier?: string }[] }): { source: string; values: string }[] {
-  return (weapon.accessories || [])
+function accessoriesToARModifiers(weapon: {
+  accessories?: string | { name: string; ar_modifier?: string }[];
+}): { source: string; values: string }[] {
+  const accs = normalizeAccessories(weapon.accessories);
+  return accs
     .filter((a) => a.ar_modifier && a.ar_modifier.trim())
     .map((a) => ({ source: a.name || "Accessory", values: a.ar_modifier! }));
 }
 
-function arTooltip(weapon: { ar: string; accessories?: { name: string; ar_modifier?: string }[] }): string | undefined {
+function arTooltip(weapon: {
+  ar: string;
+  accessories?: string | { name: string; ar_modifier?: string }[];
+}): string | undefined {
   const mods = accessoriesToARModifiers(weapon);
   if (mods.length === 0) return "Point Blank / Short / Medium / Long / Extreme";
   const { breakdown } = calculateModifiedAR(weapon.ar, mods);
   return breakdown.map((b) => `${b.label.padEnd(12)} ${b.values}`).join("\n");
 }
 
-function modifiedAR(weapon: { ar: string; accessories?: { name: string; ar_modifier?: string }[] }): string {
+function modifiedAR(weapon: {
+  ar: string;
+  accessories?: string | { name: string; ar_modifier?: string }[];
+}): string {
   const mods = accessoriesToARModifiers(weapon);
   if (mods.length === 0) return weapon.ar || "—";
   return calculateModifiedAR(weapon.ar, mods).modified;
 }
 
-function AccessoryBadges({ accessories }: { accessories?: { name: string; ar_modifier?: string; notes?: string }[] }) {
-  const items = (accessories || []).filter((a) => a.name);
+function AccessoryBadges({
+  accessories,
+}: {
+  accessories?: string | { name: string; ar_modifier?: string; notes?: string }[];
+}) {
+  const items = normalizeAccessories(accessories).filter((a) => a.name);
   if (items.length === 0) return null;
   return (
     <TooltipProvider delayDuration={200}>
-      <div className="flex flex-wrap items-center gap-1 mt-1">
+      <div className="mt-1 flex flex-wrap items-center gap-1">
         {items.map((acc, i) => {
           const arTip = acc.ar_modifier ? `AR: ${acc.ar_modifier}` : "";
           const badge = (
-            <Badge variant="secondary" className="text-[10px] font-mono px-1.5 py-0 h-4 bg-accent/30 text-accent-foreground">
+            <Badge
+              variant="secondary"
+              className="h-4 bg-accent/30 px-1.5 py-0 font-mono text-[10px] text-accent-foreground"
+            >
               {acc.name}
             </Badge>
           );
@@ -90,11 +127,15 @@ function AccessoryBadges({ accessories }: { accessories?: { name: string; ar_mod
               {arTip ? (
                 <Tooltip>
                   <TooltipTrigger asChild>{badge}</TooltipTrigger>
-                  <TooltipContent side="top" className="text-xs max-w-[260px]">{arTip}</TooltipContent>
+                  <TooltipContent side="top" className="max-w-[260px] text-xs">
+                    {arTip}
+                  </TooltipContent>
                 </Tooltip>
-              ) : badge}
+              ) : (
+                badge
+              )}
               {acc.notes && (
-                <span className="text-[10px] text-muted-foreground font-mono">{acc.notes}</span>
+                <span className="font-mono text-[10px] text-muted-foreground">{acc.notes}</span>
               )}
             </span>
           );
@@ -104,7 +145,16 @@ function AccessoryBadges({ accessories }: { accessories?: { name: string; ar_mod
   );
 }
 
-function PoolPill({ skillName, subtype, weaponAccessories, attributes, skills, qualities, augmentations, gear }: {
+function PoolPill({
+  skillName,
+  subtype,
+  weaponAccessories,
+  attributes,
+  skills,
+  qualities,
+  augmentations,
+  gear,
+}: {
   skillName: string;
   subtype?: string;
   weaponAccessories?: { name: string }[];
@@ -114,7 +164,16 @@ function PoolPill({ skillName, subtype, weaponAccessories, attributes, skills, q
   augmentations: SR6Augmentation[];
   gear: SR6Gear[];
 }) {
-  const pool = calculateWeaponPool(skillName, subtype, attributes, skills, qualities, augmentations, gear, weaponAccessories);
+  const pool = calculateWeaponPool(
+    skillName,
+    subtype,
+    attributes,
+    skills,
+    qualities,
+    augmentations,
+    gear,
+    weaponAccessories
+  );
   const lines = [
     `${pool.attribute_name.charAt(0).toUpperCase() + pool.attribute_name.slice(1).padEnd(14)} ${pool.attribute_value}`,
     `${pool.skill_name.padEnd(15)} ${pool.skill_rating}`,
@@ -127,20 +186,32 @@ function PoolPill({ skillName, subtype, weaponAccessories, attributes, skills, q
 
 function CategoryHeader({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
   return (
-    <div className="flex items-center gap-2 pt-2 pb-1">
+    <div className="flex items-center gap-2 pb-1 pt-2">
       <Icon className="h-3.5 w-3.5 text-muted-foreground" />
-      <span className="text-[10px] font-display uppercase tracking-[0.2em] text-muted-foreground">{label}</span>
-      <div className="flex-1 h-px bg-border" />
+      <span className="font-display text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+        {label}
+      </span>
+      <div className="h-px flex-1 bg-border" />
     </div>
   );
 }
 
-export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, attributes, qualities, augmentations, gear }: Props) {
+export function EquippedGearTab({
+  rangedWeapons,
+  meleeWeapons,
+  armor,
+  skills,
+  attributes,
+  qualities,
+  augmentations,
+  gear,
+}: Props) {
   const equippedRanged = rangedWeapons.filter((w) => w.equipped !== false);
   const equippedMelee = meleeWeapons.filter((w) => w.equipped !== false);
   const equippedArmor = armor.filter((a) => a.equipped !== false);
 
-  const hasNothing = equippedRanged.length === 0 && equippedMelee.length === 0 && equippedArmor.length === 0;
+  const hasNothing =
+    equippedRanged.length === 0 && equippedMelee.length === 0 && equippedArmor.length === 0;
 
   return (
     <Card className="border-border/50 bg-card/80">
@@ -149,27 +220,54 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
       </CardHeader>
       <CardContent className="space-y-2">
         {hasNothing && (
-          <p className="text-muted-foreground text-sm text-center py-6">No equipped items. Add and equip items in the Weapons &amp; Gear tab.</p>
+          <p className="py-6 text-center text-sm text-muted-foreground">
+            No equipped items. Add and equip items in the Weapons &amp; Gear tab.
+          </p>
         )}
 
         {equippedRanged.length > 0 && (
           <>
             <CategoryHeader icon={Crosshair} label="Ranged Weapons" />
             {equippedRanged.map((w) => (
-              <div key={w.id} className="border-l-2 border-primary pl-3 py-2 space-y-1.5 bg-muted/20 rounded-r-md">
+              <div
+                key={w.id}
+                className="space-y-1.5 rounded-r-md border-l-2 border-primary bg-muted/20 py-2 pl-3"
+              >
                 <div className="flex items-baseline gap-2">
-                  <span className="text-sm font-semibold font-display tracking-wide text-foreground">{w.name || "Unnamed"}</span>
-                  {w.subtype && <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 font-mono opacity-60">{w.subtype}</Badge>}
+                  <span className="font-display text-sm font-semibold tracking-wide text-foreground">
+                    {w.name || "Unnamed"}
+                  </span>
+                  {w.subtype && (
+                    <Badge
+                      variant="outline"
+                      className="h-4 px-1.5 py-0 font-mono text-[9px] opacity-60"
+                    >
+                      {w.subtype}
+                    </Badge>
+                  )}
                 </div>
                 <div className="flex flex-wrap gap-1">
                   <StatPill label="DV" value={w.dv || "—"} />
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <FireModeBadges modes={w.fire_modes || ""} />
                   <StatPill label="Ammo" value={w.ammo || "—"} />
-                  <PoolPill skillName="Firearms" subtype={w.subtype} weaponAccessories={w.accessories} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
+                  <PoolPill
+                    skillName="Firearms"
+                    subtype={w.subtype}
+                    weaponAccessories={normalizeAccessories(w.accessories)}
+                    attributes={attributes}
+                    skills={skills}
+                    qualities={qualities}
+                    augmentations={augmentations}
+                    gear={gear}
+                  />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
-                {w.notes && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.notes}</p>}
+                {w.notes && (
+                  <p className="whitespace-pre-wrap text-[10px] leading-relaxed text-muted-foreground">
+                    {w.notes}
+                  </p>
+                )}
               </div>
             ))}
           </>
@@ -179,19 +277,44 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
           <>
             <CategoryHeader icon={Sword} label="Melee Weapons" />
             {equippedMelee.map((w) => (
-              <div key={w.id} className="border-l-2 border-secondary pl-3 py-2 space-y-1.5 bg-muted/20 rounded-r-md">
+              <div
+                key={w.id}
+                className="space-y-1.5 rounded-r-md border-l-2 border-secondary bg-muted/20 py-2 pl-3"
+              >
                 <div className="flex items-baseline gap-2">
-                  <span className="text-sm font-semibold font-display tracking-wide text-foreground">{w.name || "Unnamed"}</span>
-                  {w.subtype && <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 font-mono opacity-60">{w.subtype}</Badge>}
+                  <span className="font-display text-sm font-semibold tracking-wide text-foreground">
+                    {w.name || "Unnamed"}
+                  </span>
+                  {w.subtype && (
+                    <Badge
+                      variant="outline"
+                      className="h-4 px-1.5 py-0 font-mono text-[9px] opacity-60"
+                    >
+                      {w.subtype}
+                    </Badge>
+                  )}
                 </div>
                 <div className="flex flex-wrap gap-1">
                   <StatPill label="DV" value={w.dv || "—"} />
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <StatPill label="Reach" value={w.reach ?? "—"} />
-                  <PoolPill skillName={w.subtype === "Exotic" ? "Exotic Weapons" : "Close Combat"} subtype={w.subtype} weaponAccessories={w.accessories} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
+                  <PoolPill
+                    skillName={w.subtype === "Exotic" ? "Exotic Weapons" : "Close Combat"}
+                    subtype={w.subtype}
+                    weaponAccessories={normalizeAccessories(w.accessories)}
+                    attributes={attributes}
+                    skills={skills}
+                    qualities={qualities}
+                    augmentations={augmentations}
+                    gear={gear}
+                  />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
-                {w.notes && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.notes}</p>}
+                {w.notes && (
+                  <p className="whitespace-pre-wrap text-[10px] leading-relaxed text-muted-foreground">
+                    {w.notes}
+                  </p>
+                )}
               </div>
             ))}
           </>
@@ -201,19 +324,37 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
           <>
             <CategoryHeader icon={Shield} label="Armor" />
             {equippedArmor.map((a) => (
-              <div key={a.id} className="border-l-2 border-[hsl(var(--neon-green))] pl-3 py-2 space-y-1.5 bg-muted/20 rounded-r-md">
+              <div
+                key={a.id}
+                className="space-y-1.5 rounded-r-md border-l-2 border-[hsl(var(--neon-green))] bg-muted/20 py-2 pl-3"
+              >
                 <div className="flex items-baseline gap-2">
-                  <span className="text-sm font-semibold font-display tracking-wide text-foreground">{a.name || "Unnamed"}</span>
-                  {a.subtype && <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 font-mono opacity-60">{a.subtype}</Badge>}
+                  <span className="font-display text-sm font-semibold tracking-wide text-foreground">
+                    {a.name || "Unnamed"}
+                  </span>
+                  {a.subtype && (
+                    <Badge
+                      variant="outline"
+                      className="h-4 px-1.5 py-0 font-mono text-[9px] opacity-60"
+                    >
+                      {a.subtype}
+                    </Badge>
+                  )}
                 </div>
                 <div className="flex flex-wrap gap-1">
                   <StatPill label="DR" value={a.rating ?? "—"} />
                   <StatPill label="Cap" value={a.capacity ?? "—"} />
                 </div>
                 {a.modifications && (
-                  <p className="text-[10px] text-muted-foreground font-mono truncate">{a.modifications}</p>
+                  <p className="truncate font-mono text-[10px] text-muted-foreground">
+                    {a.modifications}
+                  </p>
                 )}
-                {a.notes && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{a.notes}</p>}
+                {a.notes && (
+                  <p className="whitespace-pre-wrap text-[10px] leading-relaxed text-muted-foreground">
+                    {a.notes}
+                  </p>
+                )}
               </div>
             ))}
           </>

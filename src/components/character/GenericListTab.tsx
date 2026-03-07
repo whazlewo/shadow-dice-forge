@@ -19,6 +19,7 @@ import {
   referenceToCharacterAugmentation,
   referenceToCharacterGear,
   referenceToCharacterVehicle,
+  normalizeAccessories,
 } from "@/lib/gear-reference-utils";
 import type { GearCategory } from "@/types/gear-reference";
 import type { WeaponAccessory, DiceModifier } from "@/types/character";
@@ -74,9 +75,9 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
     }
   };
 
-  const update = (index: number, field: string, value: string | boolean) => {
+  const update = (index: number, field: string, value: string | boolean | number | WeaponAccessory[] | DiceModifier[]) => {
     const updated = [...items];
-    let finalValue: string | boolean | number = value;
+    let finalValue: string | boolean | number | WeaponAccessory[] | DiceModifier[] = value;
     if (typeof value === "string" && numericFields?.includes(field)) {
       const parsed = parseFloat(value.replace(/^\+/, ""));
       finalValue = isNaN(parsed) ? 0 : parsed;
@@ -274,8 +275,8 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                 {showAccessories && (
                   <div className="bg-background/30 rounded-md mx-3 mb-2 p-3">
                     <AccessoryList
-                      accessories={(item.accessories as WeaponAccessory[]) || []}
-                      onChange={(accs) => update(index, "accessories", accs as any)}
+                      accessories={normalizeAccessories(item.accessories)}
+                      onChange={(accs) => update(index, "accessories", accs)}
                     />
                   </div>
                 )}
@@ -289,7 +290,7 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                     </div>
                     <EffectsEditor
                       modifiers={(item.dice_modifiers as DiceModifier[]) || []}
-                      onChange={(mods) => update(index, "dice_modifiers", mods as any)}
+                      onChange={(mods) => update(index, "dice_modifiers", mods)}
                     />
                   </div>
                 )}
@@ -303,7 +304,7 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                     </div>
                     <DiceModifierEditor
                       modifiers={(item.dice_modifiers as DiceModifier[]) || []}
-                      onChange={(mods) => update(index, "dice_modifiers", mods as any)}
+                      onChange={(mods) => update(index, "dice_modifiers", mods)}
                     />
                   </div>
                 )}

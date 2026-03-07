@@ -69,7 +69,7 @@
   capacity: 6
   modifications: ""
   source: "Core Rulebook"
-  description: "Designed for couriers, athletes, and freerunners, this is the armored version of \"flats\" but available in a stupid array of styles. Because they're so hip, these jumpsuits include a built-in music player and biomonitor."
+  description: 'Designed for couriers, athletes, and freerunners, this is the armored version of "flats" but available in a stupid array of styles. Because they''re so hip, these jumpsuits include a built-in music player and biomonitor.'
 
 - name: Actioneer Business Clothes
   subtype: body

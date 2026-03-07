@@ -21,7 +21,9 @@ import type {
   ReferenceAugmentation,
   ReferenceVehicle,
   ReferenceMiscGear,
+  ReferenceWeaponAccessory,
 } from "@/types/gear-reference";
+import type { WeaponAccessory } from "@/types/character";
 import type {
   WizardRangedWeapon,
   WizardMeleeWeapon,
@@ -131,6 +133,30 @@ export function referenceToWizardVehicle(r: ReferenceVehicle): WizardVehicle & {
     notes: r.notes,
     description: r.description,
   };
+}
+
+export function referenceToWeaponAccessory(r: ReferenceWeaponAccessory): WeaponAccessory {
+  const notes = [r.notes, r.ar_modifier_wireless ? `Wireless: ${r.ar_modifier_wireless}` : null]
+    .filter(Boolean)
+    .join(". ") || undefined;
+  return {
+    name: r.name,
+    ar_modifier: r.ar_modifier ?? undefined,
+    notes: notes || undefined,
+  };
+}
+
+/** Normalize accessories from string (legacy/wizard) or array to WeaponAccessory[]. */
+export function normalizeAccessories(
+  val: string | WeaponAccessory[] | null | undefined
+): WeaponAccessory[] {
+  if (!val) return [];
+  if (Array.isArray(val)) return val;
+  return val
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((name) => ({ name, ar_modifier: "", notes: "" }));
 }
 
 export function referenceToWizardMisc(r: ReferenceMiscGear): WizardMiscGear & { description?: string } {

@@ -3,22 +3,15 @@
 
 import type { GearReference } from "@/types/gear-reference";
 
-// @ts-expect-error - YAML import via vite-plugin-yaml
 import rangedWeapons from "./gear/ranged-weapons.yaml";
-// @ts-expect-error - YAML import via vite-plugin-yaml
 import meleeWeapons from "./gear/melee-weapons.yaml";
-// @ts-expect-error - YAML import via vite-plugin-yaml
 import armor from "./gear/armor.yaml";
-// @ts-expect-error - YAML import via vite-plugin-yaml
 import electronics from "./gear/electronics.yaml";
-// @ts-expect-error - YAML import via vite-plugin-yaml
 import augmentations from "./gear/augmentations.yaml";
-// @ts-expect-error - YAML import via vite-plugin-yaml
 import vehicles from "./gear/vehicles.yaml";
-// @ts-expect-error - YAML import via vite-plugin-yaml
 import drones from "./gear/drones.yaml";
-// @ts-expect-error - YAML import via vite-plugin-yaml
 import miscellaneous from "./gear/miscellaneous.yaml";
+import weaponAccessories from "./gear/weapon-accessories.yaml";
 
 export const GEAR_REFERENCE: GearReference = {
   rangedWeapons: rangedWeapons as GearReference["rangedWeapons"],
@@ -29,3 +22,6 @@ export const GEAR_REFERENCE: GearReference = {
   vehicles: [...(vehicles as GearReference["vehicles"]), ...(drones as GearReference["vehicles"])],
   miscellaneous: miscellaneous as GearReference["miscellaneous"],
 };
+
+export const WEAPON_ACCESSORIES_REFERENCE =
+  weaponAccessories as import("@/types/gear-reference").ReferenceWeaponAccessory[];

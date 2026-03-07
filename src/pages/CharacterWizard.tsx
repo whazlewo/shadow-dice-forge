@@ -244,7 +244,12 @@ export default function CharacterWizard() {
       // Split gear by category into character columns
       const rangedWeapons = allGear
         .filter((g): g is WizardRangedWeapon => g.category === "ranged_weapon")
-        .map((g) => ({ id: g.id, name: g.name, subtype: g.subtype, dv: g.dv, ar: g.attack_ratings, fire_modes: g.fire_modes, ammo: g.ammo, accessories: g.accessories, notes: (g as { notes?: string }).notes, description: (g as { description?: string }).description }));
+        .map((g) => {
+          const accessories = typeof g.accessories === "string"
+            ? g.accessories.split(",").map((s) => s.trim()).filter(Boolean).map((name) => ({ name, ar_modifier: "" as string | undefined, notes: "" as string | undefined }))
+            : (g.accessories ?? []);
+          return { id: g.id, name: g.name, subtype: g.subtype, dv: g.dv, ar: g.attack_ratings, fire_modes: g.fire_modes, ammo: g.ammo, accessories, notes: (g as { notes?: string }).notes, description: (g as { description?: string }).description };
+        });
 
       const meleeWeapons = allGear
         .filter((g): g is WizardMeleeWeapon => g.category === "melee_weapon")

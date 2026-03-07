@@ -169,7 +169,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
                   <PoolPill skillName="Firearms" subtype={w.subtype} weaponAccessories={w.accessories} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
-                {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}
+                {w.notes && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.notes}</p>}
               </div>
             ))}
           </>
@@ -188,10 +188,10 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
                   <StatPill label="DV" value={w.dv || "—"} />
                   <StatPill label="AR" value={modifiedAR(w)} tooltip={arTooltip(w)} />
                   <StatPill label="Reach" value={w.reach ?? "—"} />
-                  <PoolPill skillName="Close Combat" subtype={w.subtype} weaponAccessories={w.accessories} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
+                  <PoolPill skillName={w.subtype === "Exotic" ? "Exotic Weapons" : "Close Combat"} subtype={w.subtype} weaponAccessories={w.accessories} attributes={attributes} skills={skills} qualities={qualities} augmentations={augmentations} gear={gear} />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
-                {w.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.description}</p>}
+                {w.notes && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{w.notes}</p>}
               </div>
             ))}
           </>
@@ -213,7 +213,7 @@ export function EquippedGearTab({ rangedWeapons, meleeWeapons, armor, skills, at
                 {a.modifications && (
                   <p className="text-[10px] text-muted-foreground font-mono truncate">{a.modifications}</p>
                 )}
-                {a.description && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{a.description}</p>}
+                {a.notes && <p className="text-[10px] text-muted-foreground whitespace-pre-wrap leading-relaxed">{a.notes}</p>}
               </div>
             ))}
           </>

@@ -42,7 +42,7 @@
   description: "This telescoping club can be extended with a wrist flick or a wireless signal. In its retracted form, it's easier to conceal (Concealability threshold 4 when retracted, 2 when extended). Retracting or extending it is a Minor Action. Wireless bonus: You gain a bonus Minor Action on a turn when you retract or extend the baton."
 
 - name: Knucks
-  subtype: Unarmed Combat
+  subtype: Unarmed
   cost: 100
   availability: "1"
   dv: "3P"
@@ -54,27 +54,27 @@
 # Additional Blades
 - name: Combat Axe
   subtype: Blades
-  cost: 200
-  availability: "2"
-  dv: "6P"
-  ar: "8/—/—/—/—"
+  cost: 500
+  availability: "4"
+  dv: "5P"
+  ar: "9/—/—/—/—"
   reach: 1
   source: "Core Rulebook"
   description: "A heavy, single-handed axe designed for combat. Effective against armored targets. Favored by street samurai who prefer up-close and personal encounters."
 
 - name: Forearm Snap Blades
   subtype: Blades
-  cost: 450
-  availability: "4(R)"
-  dv: "4P"
-  ar: "9/—/—/—/—"
+  cost: 185
+  availability: "3"
+  dv: "3P"
+  ar: "6/—/—/—/—"
   reach: 0
   source: "Core Rulebook"
   description: "Concealed blades that extend from forearm housings. Retract with a flick of the wrist or wireless signal. Popular among infiltrators and assassins. Extending or retracting is a Minor Action."
 
 - name: Knife
   subtype: Blades
-  cost: 50
+  cost: 20
   availability: "1"
   dv: "2P"
   ar: "7/—/—/—/—"
@@ -84,9 +84,9 @@
 
 - name: Polearm
   subtype: Blades
-  cost: 180
+  cost: 210
   availability: "2"
-  dv: "3P"
+  dv: "4P"
   ar: "7/—/—/—/—"
   reach: 2
   source: "Core Rulebook"
@@ -94,19 +94,19 @@
 
 - name: Survival Knife
   subtype: Blades
-  cost: 150
-  availability: "1"
-  dv: "3P"
-  ar: "8/—/—/—/—"
+  cost: 250
+  availability: "2"
+  dv: "4P"
+  ar: "8/2*/—/—/—"
   reach: 0
   source: "Core Rulebook"
   description: "A rugged, multi-purpose blade designed for survival situations. Doubles as a tool. Slightly heavier than a combat knife but more versatile."
 
 - name: Sword
   subtype: Blades
-  cost: 300
-  availability: "2"
-  dv: "4P"
+  cost: 320
+  availability: "3"
+  dv: "3P"
   ar: "9/—/—/—/—"
   reach: 1
   source: "Core Rulebook"
@@ -115,7 +115,7 @@
 # Additional Clubs
 - name: Sap
   subtype: Clubs
-  cost: 25
+  cost: 75
   availability: "1"
   dv: "2S"
   ar: "6/—/—/—/—"
@@ -125,71 +125,71 @@
 
 - name: Staff
   subtype: Clubs
-  cost: 80
+  cost: 150
   availability: "1"
-  dv: "3S"
-  ar: "7/—/—/—/—"
+  dv: "4S"
+  ar: "8/—/—/—/—"
   reach: 1
   source: "Core Rulebook"
   description: "A wooden or composite staff. Traditional martial arts weapon. Good reach and leverage. Favored by adepts and those trained in staff combat."
 
 - name: Stun Baton
   subtype: Clubs
-  cost: 350
+  cost: 600
   availability: "2"
-  dv: "4S(e)"
-  ar: "8/—/—/—/—"
+  dv: "5S(e)"
+  ar: "6/—/—/—/—"
   reach: 0
   source: "Core Rulebook"
   description: "An electrified baton that delivers a stunning shock on contact. Non-lethal option favored by security forces. Wireless bonus: Can be set to different intensity levels."
 
 - name: Telescoping Staff
   subtype: Clubs
-  cost: 120
+  cost: 250
   availability: "2"
-  dv: "2S"
-  ar: "6/—/—/—/—"
+  dv: "4S"
+  ar: "8/—/—/—/—"
   reach: 1
   source: "Core Rulebook"
   description: "A collapsible staff that extends with a wrist flick or wireless signal. Easier to conceal when retracted. Extending or retracting is a Minor Action."
 
-# Other Melee
+# Other Melee (Unarmed / Exotic per PDF)
 - name: Bike Chain
-  subtype: Other
-  cost: 30
+  subtype: Unarmed
+  cost: 15
   availability: "1"
-  dv: "3P"
-  ar: "6/—/—/—/—"
+  dv: "2S"
+  ar: "5/—/—/—/—"
   reach: 0
   source: "Core Rulebook"
   description: "A length of chain, often from a bicycle. Classic street weapon. Wrapped around the fist or swung. Cheap, effective, and deniable."
 
 - name: Bullwhip
-  subtype: Other
-  cost: 75
-  availability: "2"
-  dv: "2P"
+  subtype: Exotic
+  cost: 255
+  availability: "4"
+  dv: "1P"
   ar: "6/—/—/—/—"
   reach: 1
   source: "Core Rulebook"
   description: "A leather or synthetic whip. Unusual but effective. Can be used to disarm or entangle. Requires specialized training to use effectively."
 
 - name: Monofilament Whip
-  subtype: Other
-  cost: 1200
-  availability: "6(R)"
-  dv: "4P"
-  ar: "9/—/—/—/—"
+  subtype: Exotic
+  cost: 1300
+  availability: "6(I)"
+  dv: "6P"
+  ar: "14/—/—/—/—"
   reach: 2
   source: "Core Rulebook"
   description: "A monofilament line that can cut through almost anything. Extremely dangerous. Illegal in most jurisdictions. Requires a specialized skill to use without injuring oneself."
 
 - name: Shock Gloves
-  subtype: Unarmed Combat
-  cost: 250
-  availability: "2"
-  dv: "3S(e)"
-  ar: "7/—/—/—/—"
+  subtype: Unarmed
+  cost: 790
+  availability: "4"
+  dv: "4S(e)"
+  ar: "5/—/—/—/—"
   reach: 0
   source: "Core Rulebook"
   description: "Gloves with built-in electrical contacts. Deliver a stunning shock on impact. Non-lethal alternative to knucks. Wireless bonus: Can be set to different intensity levels."

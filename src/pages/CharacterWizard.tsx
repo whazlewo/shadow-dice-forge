@@ -244,23 +244,23 @@ export default function CharacterWizard() {
       // Split gear by category into character columns
       const rangedWeapons = allGear
         .filter((g): g is WizardRangedWeapon => g.category === "ranged_weapon")
-        .map((g) => ({ id: g.id, name: g.name, dv: g.dv, ar: g.attack_ratings, fire_modes: g.fire_modes, ammo: g.ammo, accessories: g.accessories, description: (g as { description?: string }).description }));
+        .map((g) => ({ id: g.id, name: g.name, subtype: g.subtype, dv: g.dv, ar: g.attack_ratings, fire_modes: g.fire_modes, ammo: g.ammo, accessories: g.accessories, notes: (g as { notes?: string }).notes, description: (g as { description?: string }).description }));
 
       const meleeWeapons = allGear
         .filter((g): g is WizardMeleeWeapon => g.category === "melee_weapon")
-        .map((g) => ({ id: g.id, name: g.name, dv: g.dv, ar: g.attack_ratings, reach: g.reach, description: (g as { description?: string }).description }));
+        .map((g) => ({ id: g.id, name: g.name, subtype: g.subtype, dv: g.dv, ar: g.attack_ratings, reach: g.reach, notes: (g as { notes?: string }).notes, description: (g as { description?: string }).description }));
 
       const armorItems = allGear
         .filter((g): g is WizardArmorType => g.category === "armor")
-        .map((g) => ({ id: g.id, name: g.name, rating: g.defense_rating, capacity: g.capacity, modifications: g.modifications, subtype: g.subtype, description: (g as { description?: string }).description }));
+        .map((g) => ({ id: g.id, name: g.name, rating: g.defense_rating, capacity: g.capacity, modifications: g.modifications, subtype: g.subtype, notes: (g as { notes?: string }).notes, description: (g as { description?: string }).description }));
 
       const augmentationItems = allGear
         .filter((g): g is WizardAugmentation => g.category === "augmentation")
-        .map((g) => ({ id: g.id, name: g.name, type: g.aug_type, essence_cost: g.essence_cost, rating: g.rating, effects: g.effects, dice_modifiers: g.dice_modifiers, description: (g as { description?: string }).description }));
+        .map((g) => ({ id: g.id, name: g.name, type: g.aug_type, essence_cost: g.essence_cost, rating: g.rating, effects: g.effects, notes: (g as { notes?: string }).notes, dice_modifiers: g.dice_modifiers, description: (g as { description?: string }).description }));
 
       const vehicleItems = allGear
         .filter((g): g is WizardVehicle => g.category === "vehicle")
-        .map((g) => ({ id: g.id, name: g.name, handling: g.handling, speed: g.speed, body: g.veh_body, armor: g.veh_armor, sensor: g.sensor, pilot: g.pilot, seats: g.seats, description: (g as { description?: string }).description }));
+        .map((g) => ({ id: g.id, name: g.name, handling: g.handling, speed: g.speed, body: g.veh_body, armor: g.veh_armor, sensor: g.sensor, pilot: g.pilot, seats: g.seats, notes: (g as { notes?: string }).notes, description: (g as { description?: string }).description }));
 
       const miscGear = allGear
         .filter((g): g is WizardElectronics | WizardMiscGear => g.category === "electronics" || g.category === "miscellaneous")

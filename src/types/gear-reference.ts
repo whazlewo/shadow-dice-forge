@@ -14,6 +14,7 @@ export interface ReferenceRangedWeapon {
   ammo: string;
   accessories?: { name: string; ar_modifier?: string; notes?: string }[];
   source?: string;
+  notes?: string;
   description?: string;
 }
 
@@ -26,6 +27,7 @@ export interface ReferenceMeleeWeapon {
   ar: string;
   reach: number;
   source?: string;
+  notes?: string;
   description?: string;
 }
 
@@ -38,6 +40,7 @@ export interface ReferenceArmor {
   capacity: number;
   modifications: string;
   source?: string;
+  notes?: string;
   description?: string;
 }
 
@@ -62,6 +65,7 @@ export interface ReferenceAugmentation {
   effects: string;
   dice_modifiers: DiceModifier[];
   source?: string;
+  notes?: string;
   description?: string;
 }
 
@@ -77,6 +81,7 @@ export interface ReferenceVehicle {
   pilot: number;
   seats: number;
   source?: string;
+  notes?: string;
   description?: string;
 }
 

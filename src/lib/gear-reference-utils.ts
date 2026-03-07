@@ -43,11 +43,12 @@ function baseItem(cost: number, availability: string) {
   };
 }
 
-export function referenceToWizardRanged(r: ReferenceRangedWeapon): WizardRangedWeapon & { description?: string } {
+export function referenceToWizardRanged(r: ReferenceRangedWeapon): WizardRangedWeapon & { notes?: string; description?: string } {
   return {
     ...baseItem(r.cost, r.availability),
     name: r.name,
     category: "ranged_weapon",
+    subtype: r.subtype,
     dv: r.dv,
     attack_ratings: r.ar,
     fire_modes: r.fire_modes,
@@ -55,23 +56,26 @@ export function referenceToWizardRanged(r: ReferenceRangedWeapon): WizardRangedW
     accessories: Array.isArray(r.accessories)
       ? r.accessories.map((a) => (typeof a === "string" ? a : a.name)).filter(Boolean).join(", ")
       : "",
+    notes: r.notes,
     description: r.description,
   };
 }
 
-export function referenceToWizardMelee(r: ReferenceMeleeWeapon): WizardMeleeWeapon & { description?: string } {
+export function referenceToWizardMelee(r: ReferenceMeleeWeapon): WizardMeleeWeapon & { notes?: string; description?: string } {
   return {
     ...baseItem(r.cost, r.availability),
     name: r.name,
     category: "melee_weapon",
+    subtype: r.subtype,
     dv: r.dv,
     attack_ratings: r.ar,
     reach: r.reach ?? 0,
+    notes: r.notes,
     description: r.description,
   };
 }
 
-export function referenceToWizardArmor(r: ReferenceArmor): WizardArmor & { description?: string } {
+export function referenceToWizardArmor(r: ReferenceArmor): WizardArmor & { notes?: string; description?: string } {
   return {
     ...baseItem(r.cost, r.availability),
     name: r.name,
@@ -80,6 +84,7 @@ export function referenceToWizardArmor(r: ReferenceArmor): WizardArmor & { descr
     capacity: r.capacity,
     modifications: r.modifications ?? "",
     subtype: r.subtype ?? "body",
+    notes: r.notes,
     description: r.description,
   };
 }
@@ -96,7 +101,7 @@ export function referenceToWizardElectronics(r: ReferenceElectronics): WizardEle
   };
 }
 
-export function referenceToWizardAugmentation(r: ReferenceAugmentation): WizardAugmentation & { description?: string } {
+export function referenceToWizardAugmentation(r: ReferenceAugmentation): WizardAugmentation & { notes?: string; description?: string } {
   return {
     ...baseItem(r.cost, r.availability),
     name: r.name,
@@ -106,11 +111,12 @@ export function referenceToWizardAugmentation(r: ReferenceAugmentation): WizardA
     rating: r.rating,
     effects: r.effects ?? "",
     dice_modifiers: r.dice_modifiers ?? [],
+    notes: r.notes,
     description: r.description,
   };
 }
 
-export function referenceToWizardVehicle(r: ReferenceVehicle): WizardVehicle & { description?: string } {
+export function referenceToWizardVehicle(r: ReferenceVehicle): WizardVehicle & { notes?: string; description?: string } {
   return {
     ...baseItem(r.cost, r.availability),
     name: r.name,
@@ -122,6 +128,7 @@ export function referenceToWizardVehicle(r: ReferenceVehicle): WizardVehicle & {
     sensor: r.sensor ?? 0,
     pilot: r.pilot ?? 0,
     seats: r.seats ?? 1,
+    notes: r.notes,
     description: r.description,
   };
 }
@@ -171,6 +178,7 @@ export function referenceToCharacterRanged(r: ReferenceRangedWeapon) {
     ar: r.ar,
     fire_modes: r.fire_modes,
     ammo: r.ammo,
+    notes: r.notes,
     description: r.description,
     equipped: true,
     accessories: r.accessories ?? [],
@@ -185,6 +193,7 @@ export function referenceToCharacterMelee(r: ReferenceMeleeWeapon) {
     dv: r.dv,
     ar: r.ar,
     reach: r.reach ?? 0,
+    notes: r.notes,
     description: r.description,
     equipped: true,
     accessories: [],
@@ -199,6 +208,7 @@ export function referenceToCharacterArmor(r: ReferenceArmor) {
     rating: r.rating,
     capacity: r.capacity,
     modifications: r.modifications ?? "",
+    notes: r.notes,
     description: r.description,
     equipped: true,
   };
@@ -212,6 +222,7 @@ export function referenceToCharacterAugmentation(r: ReferenceAugmentation) {
     essence_cost: r.essence_cost,
     rating: r.rating,
     effects: r.effects,
+    notes: r.notes,
     dice_modifiers: r.dice_modifiers ?? [],
     description: r.description,
   };
@@ -240,6 +251,7 @@ export function referenceToCharacterVehicle(r: ReferenceVehicle) {
     sensor: r.sensor,
     pilot: r.pilot,
     seats: r.seats,
+    notes: r.notes,
     description: r.description,
   };
 }

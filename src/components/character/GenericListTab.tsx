@@ -9,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Plus, Trash2, Info, Pencil, Check, Zap, Dice5 } from "lucide-react";
 import { AccessoryList } from "./AccessoryList";
-import { FireModeCheckboxes } from "./FireModes";
 import { DiceModifierEditor } from "./DiceModifierEditor";
 import { EffectsEditor } from "./EffectsEditor";
 import { GearReferenceSelect } from "@/components/GearReferenceSelect";
@@ -27,6 +26,7 @@ import type { WeaponAccessory, DiceModifier } from "@/types/character";
 const FIELD_TOOLTIPS: Record<string, string> = {
   ar: "Point Blank / Short / Medium / Long / Extreme",
   attack_ratings: "Point Blank / Short / Medium / Long / Extreme",
+  fire_modes: "SS, SA, BF, FA (slash or comma separated)",
 };
 
 interface Props {
@@ -43,6 +43,7 @@ interface Props {
   showDiceModifiers?: boolean;
   showEffects?: boolean;
   readOnlyToggle?: boolean;
+  itemEditMode?: boolean;
   referenceCategory?: GearCategory;
   onUpdate: (items: Record<string, any>[]) => void;
 }
@@ -59,13 +60,18 @@ const REFERENCE_CONVERTERS: Record<GearCategory, (ref: RefItem) => Record<string
   miscellaneous: referenceToCharacterGear,
 };
 
-export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, fieldWidths, numericFields, showEquipped, showAccessories, showDiceModifiers, showEffects, readOnlyToggle, referenceCategory, onUpdate }: Props) {
+export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, fieldWidths, numericFields, showEquipped, showAccessories, showDiceModifiers, showEffects, readOnlyToggle, itemEditMode, referenceCategory, onUpdate }: Props) {
   const [editing, setEditing] = useState(!readOnlyToggle);
+  const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
   const add = () => {
     const newItem: Record<string, any> = { id: crypto.randomUUID(), equipped: true };
     fields.forEach((f) => (newItem[f] = fieldDefaults?.[f] ?? ""));
-    onUpdate([...items, newItem]);
+    const updated = [...items, newItem];
+    onUpdate(updated);
+    if (itemEditMode) {
+      setEditingItemId(newItem.id);
+    }
   };
 
   const update = (index: number, field: string, value: string | boolean) => {
@@ -79,12 +85,27 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
     onUpdate(updated);
   };
 
-  const remove = (index: number) => onUpdate(items.filter((_, i) => i !== index));
+  const remove = (index: number) => {
+    const removedId = items[index]?.id;
+    onUpdate(items.filter((_, i) => i !== index));
+    if (itemEditMode && removedId === editingItemId) {
+      setEditingItemId(null);
+    }
+  };
 
   const formatLabel = (field: string) =>
     field.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
-  const showEditUI = readOnlyToggle ? editing : true;
+  const showEditUI = itemEditMode || (readOnlyToggle ? editing : true);
+
+  const getItemId = (item: Record<string, any>, index: number) =>
+    item.id ?? `legacy-${index}`;
+
+  const isItemEditing = (item: Record<string, any>, index: number) =>
+    itemEditMode && editingItemId === getItemId(item, index);
+
+  const isItemReadOnly = (item: Record<string, any>, index: number) =>
+    itemEditMode ? !isItemEditing(item, index) : !showEditUI;
 
   return (
     <Card className="border-border/50 bg-card/80">
@@ -97,8 +118,11 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
               onSelect={(item, cat) => {
                 const converter = REFERENCE_CONVERTERS[cat];
                 if (converter) {
-                  const newItem = converter(item);
+                  const newItem = converter(item) as Record<string, any>;
                   onUpdate([...items, newItem]);
+                  if (itemEditMode && newItem.id) {
+                    setEditingItemId(newItem.id);
+                  }
                 }
               }}
               triggerLabel="Add from reference"
@@ -121,17 +145,44 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
           <p className="text-muted-foreground text-sm text-center py-6">No items yet.</p>
         )}
 
-        {!showEditUI
-          ? items.map((item, index) => (
-              <div key={item.id || index} className="flex items-center gap-2 px-2 py-1.5 rounded-md bg-muted/30">
-                <span className="font-mono text-sm">
-                  {fields.map((f) => item[f] || "—").join(" | ")}
+        {items.map((item, index) =>
+          isItemReadOnly(item, index) ? (
+            <div
+              key={getItemId(item, index)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-md bg-muted/30 ${showEquipped && item.equipped === false ? "opacity-50" : ""}`}
+            >
+              {showEquipped && (
+                <Checkbox
+                  checked={item.equipped !== false}
+                  onCheckedChange={(checked) => update(index, "equipped", !!checked)}
+                  aria-label="Equipped"
+                />
+              )}
+              <div className="flex flex-col gap-0.5 flex-1 min-w-0">
+                <span className="font-display tracking-wider text-xs truncate">
+                  {item[fields[0]] || "—"}
                 </span>
+                {fields.length > 1 && (
+                  <span className="font-mono text-[11px] text-muted-foreground">
+                    {fields.slice(1).map((f) => item[f] ?? "—").join(" · ")}
+                  </span>
+                )}
               </div>
-            ))
-          : items.map((item, index) => (
+              {itemEditMode && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 shrink-0"
+                  onClick={() => setEditingItemId(getItemId(item, index))}
+                  aria-label="Edit"
+                >
+                  <Pencil className="h-3.5 w-3.5" />
+                </Button>
+              )}
+            </div>
+          ) : (
               <div
-                key={item.id || index}
+                key={getItemId(item, index)}
                 className={`rounded-lg border border-border/60 border-l-[3px] border-l-primary/40 bg-muted/20 overflow-hidden pb-1 ${showEquipped && item.equipped === false ? "opacity-50" : ""}`}
               >
                 {/* === Core Fields === */}
@@ -160,12 +211,7 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                           </TooltipProvider>
                         )}
                       </Label>
-                      {field === "fire_modes" ? (
-                        <FireModeCheckboxes
-                          value={item[field] ?? ""}
-                          onChange={(v) => update(index, field, v)}
-                        />
-                      ) : fieldOptions?.[field] ? (
+                      {fieldOptions?.[field] ? (
                         <Select value={item[field] || fieldDefaults?.[field] || ""} onValueChange={(v) => update(index, field, v)}>
                           <SelectTrigger className="h-8 text-xs font-mono bg-muted/50">
                             <SelectValue />
@@ -186,13 +232,35 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                       )}
                     </div>
                   ))}
+                  {itemEditMode && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6 mt-4"
+                      onClick={() => setEditingItemId(null)}
+                      aria-label="Done editing"
+                    >
+                      <Check className="h-3 w-3" />
+                    </Button>
+                  )}
                   <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive mt-4" onClick={() => remove(index)}>
                     <Trash2 className="h-3 w-3" />
                   </Button>
                 </div>
 
-                {/* === Description === */}
+                {/* === Notes (shown in Equipped Weapons & Armor) === */}
                 <div className="bg-background/30 rounded-md mx-3 mt-3 mb-2 p-3">
+                  <Label className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Notes</Label>
+                  <Input
+                    value={item.notes ?? ""}
+                    onChange={(e) => update(index, "notes", e.target.value)}
+                    placeholder="Short notes shown in Equipped Weapons & Armor…"
+                    className="text-xs font-mono bg-muted/50 mt-1"
+                  />
+                </div>
+
+                {/* === Description === */}
+                <div className="bg-background/30 rounded-md mx-3 mb-2 p-3">
                   <Label className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Description</Label>
                   <Textarea
                     value={item.description ?? ""}

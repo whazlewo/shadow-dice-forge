@@ -370,6 +370,7 @@ export default function CharacterSheet() {
               showEquipped
               showAccessories
               referenceCategory="rangedWeapons"
+              itemEditMode
               onUpdate={(w) => updateField("ranged_weapons", w)}
             />
             <GenericListTab
@@ -377,11 +378,12 @@ export default function CharacterSheet() {
               items={(character.melee_weapons || []) as any[]}
               fields={["name", "subtype", "dv", "ar", "reach"]}
               fieldLabels={{ subtype: "Category" }}
-              fieldOptions={{ subtype: ["Blades", "Clubs", "Unarmed Combat"] }}
+              fieldOptions={{ subtype: ["Blades", "Clubs", "Unarmed", "Exotic"] }}
               numericFields={["reach"]}
               showEquipped
               showAccessories
               referenceCategory="meleeWeapons"
+              itemEditMode
               onUpdate={(w) => updateField("melee_weapons", w)}
             />
             <GenericListTab
@@ -394,6 +396,7 @@ export default function CharacterSheet() {
               numericFields={["rating", "capacity"]}
               showEquipped
               referenceCategory="armor"
+              itemEditMode
               onUpdate={(a) => updateField("armor", a)}
             />
             <GenericListTab
@@ -406,6 +409,7 @@ export default function CharacterSheet() {
               showDiceModifiers
               showEffects
               referenceCategory="augmentations"
+              itemEditMode
               onUpdate={(a) => updateField("augmentations", a)}
             />
             <GenericListTab
@@ -416,12 +420,14 @@ export default function CharacterSheet() {
               showDiceModifiers
               showEffects
               referenceCategory="miscellaneous"
+              itemEditMode
               onUpdate={(g) => updateField("gear", g)}
             />
             <GenericListTab
               title="Matrix Stats"
-              items={[character.matrix_stats || {}] as any[]}
+              items={[{ ...(typeof character.matrix_stats === "object" && character.matrix_stats ? character.matrix_stats : {}), id: (character.matrix_stats as any)?.id || "matrix" }] as any[]}
               fields={["device_rating", "attack", "sleaze", "data_processing", "firewall"]}
+              itemEditMode
               onUpdate={(m) => updateField("matrix_stats", m[0] || {})}
             />
           </TabsContent>
@@ -432,6 +438,7 @@ export default function CharacterSheet() {
               items={(character.vehicles || []) as any[]}
               fields={["name", "handling", "speed", "body", "armor", "sensor", "pilot", "seats"]}
               referenceCategory="vehicles"
+              itemEditMode
               onUpdate={(v) => updateField("vehicles", v)}
             />
           </TabsContent>
@@ -441,6 +448,7 @@ export default function CharacterSheet() {
               title="Spells / Preparations / Rituals / Complex Forms"
               items={(character.spells || []) as any[]}
               fields={["name", "category", "type", "drain", "duration", "range", "effects"]}
+              itemEditMode
               onUpdate={(s) => updateField("spells", s)}
             />
           </TabsContent>
@@ -450,6 +458,7 @@ export default function CharacterSheet() {
               title="Adept Powers"
               items={(character.adept_powers || []) as any[]}
               fields={["name", "pp_cost", "effects"]}
+              itemEditMode
               onUpdate={(a) => updateField("adept_powers", a)}
             />
           </TabsContent>
@@ -459,6 +468,7 @@ export default function CharacterSheet() {
               title="Other Abilities"
               items={(character.other_abilities || []) as any[]}
               fields={["name", "description"]}
+              itemEditMode
               onUpdate={(o) => updateField("other_abilities", o)}
             />
           </TabsContent>

@@ -92,6 +92,7 @@ export interface SR6RangedWeapon {
   fire_modes: string;
   ammo: string;
   subtype?: string;
+  notes?: string;
   description?: string;
   equipped?: boolean;
   accessories?: WeaponAccessory[];
@@ -104,6 +105,7 @@ export interface SR6MeleeWeapon {
   ar: string;
   reach: number;
   subtype?: string;
+  notes?: string;
   description?: string;
   equipped?: boolean;
   accessories?: WeaponAccessory[];
@@ -116,6 +118,7 @@ export interface SR6Armor {
   capacity: number;
   modifications: string;
   subtype?: "body" | "helmet" | "shield";
+  notes?: string;
   description?: string;
   equipped?: boolean;
 }
@@ -136,6 +139,7 @@ export interface SR6Augmentation {
   essence_cost: number;
   rating: number;
   effects: string;
+  notes?: string;
   dice_modifiers?: DiceModifier[];
 }
 
@@ -158,6 +162,8 @@ export interface SR6Vehicle {
   sensor: number;
   pilot: number;
   seats: number;
+  notes?: string;
+  description?: string;
 }
 
 export interface SR6Spell {
@@ -201,10 +207,12 @@ interface WizardGearBase {
   quantity: number;
   availability: string;
   equipped?: boolean;
+  notes?: string;
 }
 
 export interface WizardRangedWeapon extends WizardGearBase {
   category: "ranged_weapon";
+  subtype?: string;
   dv: string;
   attack_ratings: string;
   fire_modes: string;
@@ -214,6 +222,7 @@ export interface WizardRangedWeapon extends WizardGearBase {
 
 export interface WizardMeleeWeapon extends WizardGearBase {
   category: "melee_weapon";
+  subtype?: string;
   dv: string;
   attack_ratings: string;
   reach: number;
@@ -234,9 +243,11 @@ export interface WizardElectronics extends WizardGearBase {
   notes: string;
 }
 
+export type AugmentationType = "cyberware" | "bioware" | "cultured bioware" | "nanotechnology" | "geneware";
+
 export interface WizardAugmentation extends WizardGearBase {
   category: "augmentation";
-  aug_type: "cyberware" | "bioware";
+  aug_type: AugmentationType;
   essence_cost: number;
   rating: number;
   effects: string;
@@ -314,7 +325,7 @@ export const SR6_CORE_SKILLS: {
   { name: "Astral", attribute: "intuition", specializations: ["Astral Combat", "Astral Signatures", "Emotional States", "Spirit Types"] },
   { name: "Athletics", attribute: "agility", specializations: ["Archery", "Climbing", "Flying", "Gymnastics", "Sprinting", "Swimming", "Throwing"] },
   { name: "Biotech", attribute: "logic", specializations: ["Biotechnology", "Cybertechnology", "First Aid", "Medicine"] },
-  { name: "Close Combat", attribute: "agility", specializations: ["Blades", "Clubs", "Unarmed Combat"] },
+  { name: "Close Combat", attribute: "agility", specializations: ["Blades", "Clubs", "Unarmed"] },
   { name: "Con", attribute: "charisma", specializations: ["Acting", "Disguise", "Impersonation", "Performance"] },
   { name: "Conjuring", attribute: "magic", specializations: ["Banishing", "Summoning"] },
   { name: "Cracking", attribute: "logic", specializations: ["Cybercombat", "Electronic Warfare", "Hacking"] },

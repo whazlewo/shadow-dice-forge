@@ -6,7 +6,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Plus, Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { FireModeCheckboxes } from "@/components/character/FireModes";
 import { PRIORITY_TABLE, formatNuyen, type PriorityLevel } from "@/data/sr6-reference";
 import { GearReferenceSelect } from "@/components/GearReferenceSelect";
 import { referenceToWizardItem } from "@/lib/gear-reference-utils";
@@ -43,9 +42,9 @@ function createItem(category: GearCategory): WizardGearItem {
   const base = { id: crypto.randomUUID(), name: "", cost: 0, quantity: 1, availability: "", equipped: true };
   switch (category) {
     case "ranged_weapon":
-      return { ...base, category, dv: "", attack_ratings: "", fire_modes: "", ammo: "", accessories: "" };
+      return { ...base, category, subtype: "Pistols (Light)", dv: "", attack_ratings: "", fire_modes: "", ammo: "", accessories: "" };
     case "melee_weapon":
-      return { ...base, category, dv: "", attack_ratings: "", reach: 0 };
+      return { ...base, category, subtype: "Blades", dv: "", attack_ratings: "", reach: 0 };
     case "armor":
       return { ...base, category, defense_rating: 0, capacity: 0, modifications: "", subtype: "body" as const };
     case "electronics":
@@ -64,15 +63,28 @@ import { DiceModifierEditor } from "@/components/character/DiceModifierEditor";
 
 // ----- Category-specific field renderers -----
 
+const RANGED_SUBTYPES = ["Automatics", "Hold-Outs", "Longarms", "Machine Pistols", "Pistols (Heavy)", "Pistols (Light)", "Shotguns", "Sniper Rifles", "Submachine Guns", "Tasers"];
+const MELEE_SUBTYPES = ["Blades", "Clubs", "Unarmed", "Exotic"];
+
 function RangedFields({ item, onUpdate }: { item: WizardRangedWeapon; onUpdate: (u: Partial<WizardRangedWeapon>) => void }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+      <div>
+        <Label className="text-xs font-display tracking-wide">Category</Label>
+        <Select value={item.subtype || "Pistols (Light)"} onValueChange={(v) => onUpdate({ subtype: v })}>
+          <SelectTrigger className="h-8 text-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {RANGED_SUBTYPES.map((opt) => (
+              <SelectItem key={opt} value={opt} className="text-xs">{opt}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       <Field label="DV" value={item.dv} onChange={(v) => onUpdate({ dv: v })} />
       <Field label="Attack Ratings" value={item.attack_ratings} onChange={(v) => onUpdate({ attack_ratings: v })} />
-      <div className="space-y-1">
-        <Label className="text-xs font-display tracking-wide">Fire Modes</Label>
-        <FireModeCheckboxes value={item.fire_modes} onChange={(v) => onUpdate({ fire_modes: v })} />
-      </div>
+      <Field label="Fire Modes" value={item.fire_modes} onChange={(v) => onUpdate({ fire_modes: v })} placeholder="e.g. SA/BF" />
       <Field label="Ammo" value={item.ammo} onChange={(v) => onUpdate({ ammo: v })} />
       <Field label="Accessories" value={item.accessories} onChange={(v) => onUpdate({ accessories: v })} className="col-span-2" />
     </div>
@@ -81,7 +93,20 @@ function RangedFields({ item, onUpdate }: { item: WizardRangedWeapon; onUpdate: 
 
 function MeleeFields({ item, onUpdate }: { item: WizardMeleeWeapon; onUpdate: (u: Partial<WizardMeleeWeapon>) => void }) {
   return (
-    <div className="grid grid-cols-3 gap-2">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div>
+        <Label className="text-xs font-display tracking-wide">Category</Label>
+        <Select value={item.subtype || "Blades"} onValueChange={(v) => onUpdate({ subtype: v })}>
+          <SelectTrigger className="h-8 text-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {MELEE_SUBTYPES.map((opt) => (
+              <SelectItem key={opt} value={opt} className="text-xs">{opt}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       <Field label="DV" value={item.dv} onChange={(v) => onUpdate({ dv: v })} />
       <Field label="Attack Ratings" value={item.attack_ratings} onChange={(v) => onUpdate({ attack_ratings: v })} />
       <NumField label="Reach" value={item.reach} onChange={(v) => onUpdate({ reach: v })} />
@@ -122,17 +147,20 @@ function ElectronicsFields({ item, onUpdate }: { item: WizardElectronics; onUpda
   );
 }
 
+const AUGMENTATION_TYPES = ["cyberware", "bioware", "cultured bioware", "nanotechnology", "geneware"] as const;
+
 function AugmentationFields({ item, onUpdate }: { item: WizardAugmentation; onUpdate: (u: Partial<WizardAugmentation>) => void }) {
   return (
     <div className="space-y-2">
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         <div className="space-y-1">
           <Label className="text-xs font-display tracking-wide">Type</Label>
-          <Select value={item.aug_type} onValueChange={(v) => onUpdate({ aug_type: v as "cyberware" | "bioware" })}>
+          <Select value={item.aug_type} onValueChange={(v) => onUpdate({ aug_type: v as WizardAugmentation["aug_type"] })}>
             <SelectTrigger className="font-mono text-xs h-8"><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="cyberware">Cyberware</SelectItem>
-              <SelectItem value="bioware">Bioware</SelectItem>
+              {AUGMENTATION_TYPES.map((opt) => (
+                <SelectItem key={opt} value={opt} className="text-xs capitalize">{opt}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -169,11 +197,11 @@ function MiscFields({ item, onUpdate }: { item: WizardMiscGear; onUpdate: (u: Pa
 }
 
 // ----- Helpers -----
-function Field({ label, value, onChange, className }: { label: string; value: string; onChange: (v: string) => void; className?: string }) {
+function Field({ label, value, onChange, className, placeholder }: { label: string; value: string; onChange: (v: string) => void; className?: string; placeholder?: string }) {
   return (
     <div className={`space-y-1 ${className || ""}`}>
       <Label className="text-xs font-display tracking-wide">{label}</Label>
-      <Input value={value} onChange={(e) => onChange(e.target.value)} className="font-mono text-xs h-8" placeholder={label} />
+      <Input value={value} onChange={(e) => onChange(e.target.value)} className="font-mono text-xs h-8" placeholder={placeholder ?? label} />
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -9,36 +8,9 @@ export const FIRE_MODES = [
   { code: "FA", full: "Full Auto", tip: "10 rounds fired. DV +3 and AR −6. Absolute devastation, but massive AR penalty." },
 ] as const;
 
-/** Editable checkboxes for selecting fire modes (used in edit forms) */
-export function FireModeCheckboxes({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  const active = new Set(value.split(",").map((s) => s.trim()).filter(Boolean));
-  const toggle = (code: string) => {
-    const next = new Set(active);
-    if (next.has(code)) next.delete(code); else next.add(code);
-    onChange(FIRE_MODES.map((m) => m.code).filter((c) => next.has(c)).join(","));
-  };
-  return (
-    <TooltipProvider delayDuration={200}>
-      <div className="flex items-center gap-3">
-        {FIRE_MODES.map((m) => (
-          <Tooltip key={m.code}>
-            <TooltipTrigger asChild>
-              <label className="flex items-center gap-1 cursor-pointer">
-                <Checkbox checked={active.has(m.code)} onCheckedChange={() => toggle(m.code)} className="h-3.5 w-3.5" />
-                <span className="font-mono text-xs">{m.code}</span>
-              </label>
-            </TooltipTrigger>
-            <TooltipContent side="top" className="max-w-[220px] text-xs">{m.tip}</TooltipContent>
-          </Tooltip>
-        ))}
-      </div>
-    </TooltipProvider>
-  );
-}
-
 /** Read-only badge display of fire modes (used in equipped gear view) */
 export function FireModeBadges({ modes }: { modes: string }) {
-  const codes = modes.split(",").map((s) => s.trim()).filter(Boolean);
+  const codes = modes.split(/[\/,]/).map((s) => s.trim()).filter(Boolean);
   if (codes.length === 0) return null;
   return (
     <div className="flex flex-col items-center bg-muted/50 rounded px-2 py-1 min-w-[48px]">

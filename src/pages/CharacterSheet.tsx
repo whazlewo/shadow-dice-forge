@@ -270,7 +270,7 @@ export default function CharacterSheet() {
   const augmentations = (character.augmentations || []) as unknown as SR6Augmentation[];
   const gear = (character.gear || []) as unknown as SR6Gear[];
 
-  const magicType = inferMagicType(character);
+  const magicType = inferMagicType(character as any);
   const baseTabs = ["core", "notes", "weapons-gear", "vehicles"];
   const magicTabs: string[] = [];
   if (["full", "aspected", "mystic_adept"].includes(magicType)) magicTabs.push("spellcasting");

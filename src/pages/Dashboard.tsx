@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, Trash2, Copy, LogOut, User } from "lucide-react";
+import { Plus, Trash2, Copy, LogOut, User, FlaskConical } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 import { computeKarmaSummary } from "@/lib/karma";
@@ -17,6 +17,21 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
+  const [seeding, setSeeding] = useState(false);
+
+  const seedCharacters = async () => {
+    setSeeding(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("seed-characters");
+      if (error) throw error;
+      toast.success(data?.message || "Sample characters loaded!");
+      fetchCharacters();
+    } catch (err: any) {
+      toast.error("Failed to seed: " + (err.message || err));
+    } finally {
+      setSeeding(false);
+    }
+  };
 
   const fetchCharacters = async () => {
     const { data, error } = await supabase
@@ -94,9 +109,20 @@ export default function Dashboard() {
       <main className="container py-8">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="font-display text-2xl font-semibold tracking-wide">Your Runners</h2>
-          <Button onClick={createCharacter} className="font-display tracking-wider">
-            <Plus className="mr-1 h-4 w-4" /> New Character
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={createCharacter} className="font-display tracking-wider">
+              <Plus className="mr-1 h-4 w-4" /> New Character
+            </Button>
+            <Button
+              variant="outline"
+              onClick={seedCharacters}
+              disabled={seeding}
+              className="font-display tracking-wider"
+            >
+              <FlaskConical className="mr-1 h-4 w-4" />
+              {seeding ? "Seeding..." : "Load Samples"}
+            </Button>
+          </div>
         </div>
 
         {loading ? (

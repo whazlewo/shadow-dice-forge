@@ -87,7 +87,7 @@ export function RichTextEditor({
   const tb = (action: () => boolean, active: string, attrs?: Record<string, number>) => ({
     onMouseDown: (e: React.MouseEvent) => e.preventDefault(),
     onClick: () => action(),
-    variant: (editor.isActive(active, attrs) ? "secondary" : "ghost") as const,
+    variant: (editor.isActive(active, attrs) ? "secondary" : "ghost") as "secondary" | "ghost",
     size: "icon" as const,
     className: "h-7 w-7",
     type: "button" as const,

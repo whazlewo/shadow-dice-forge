@@ -131,7 +131,7 @@ export default function CharacterWizard() {
           .maybeSingle();
 
         if (data && !error) {
-          const loaded: (WizardState & { _wizardStepName?: string }) | null = data.wizard_state as any;
+          const loaded = data.wizard_state as unknown as (WizardState & { _wizardStepName?: string }) | null;
           if (loaded) {
             if (!("karmaSpendSpecializations" in loaded)) loaded.karmaSpendSpecializations = {};
             if (!("karmaSpendNuyen" in loaded)) loaded.karmaSpendNuyen = 0;

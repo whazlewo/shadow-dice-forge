@@ -131,12 +131,12 @@ export default function CharacterWizard() {
           .maybeSingle();
 
         if (data && !error) {
-          const loaded = data.wizard_state as unknown as (WizardState & { _wizardStepName?: string }) | null;
+          const loaded = data.wizard_state as any as WizardState & { _wizardStepName?: string };
           if (loaded) {
-            if (!("karmaSpendSpecializations" in loaded)) loaded.karmaSpendSpecializations = {};
-            if (!("karmaSpendNuyen" in loaded)) loaded.karmaSpendNuyen = 0;
-            if (!("knowledgeSkillsFree" in loaded)) loaded.knowledgeSkillsFree = [];
-            if (!("karmaSpendKnowledgeSkills" in loaded)) loaded.karmaSpendKnowledgeSkills = [];
+            if (!loaded.karmaSpendSpecializations) loaded.karmaSpendSpecializations = {};
+            if (!loaded.karmaSpendNuyen) loaded.karmaSpendNuyen = 0;
+            if (!loaded.knowledgeSkillsFree) loaded.knowledgeSkillsFree = [];
+            if (!loaded.karmaSpendKnowledgeSkills) loaded.karmaSpendKnowledgeSkills = [];
           }
           const steps = getSteps(loaded.magicChoice);
           const stepName = loaded._wizardStepName;

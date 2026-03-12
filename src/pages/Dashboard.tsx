@@ -17,6 +17,21 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
+  const [seeding, setSeeding] = useState(false);
+
+  const seedCharacters = async () => {
+    setSeeding(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("seed-characters");
+      if (error) throw error;
+      toast.success(data?.message || "Sample characters loaded!");
+      fetchCharacters();
+    } catch (err: any) {
+      toast.error("Failed to seed: " + (err.message || err));
+    } finally {
+      setSeeding(false);
+    }
+  };
 
   const fetchCharacters = async () => {
     const { data, error } = await supabase

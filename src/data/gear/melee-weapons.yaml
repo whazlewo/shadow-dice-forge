@@ -92,16 +92,6 @@
   source: "Core Rulebook"
   description: "A long-bladed weapon on a pole. The extended reach keeps opponents at bay. Includes spears, halberds, and similar pole weapons."
 
-- name: Survival Knife
-  subtype: Blades
-  cost: 250
-  availability: "2"
-  dv: "4P"
-  ar: "8/2*/—/—/—"
-  reach: 0
-  source: "Core Rulebook"
-  description: "A rugged, multi-purpose blade designed for survival situations. Doubles as a tool. Slightly heavier than a combat knife but more versatile."
-
 - name: Sword
   subtype: Blades
   cost: 320
@@ -172,7 +162,7 @@
   ar: "6/—/—/—/—"
   reach: 1
   source: "Core Rulebook"
-  description: "A leather or synthetic whip. Unusual but effective. Can be used to disarm or entangle. Requires specialized training to use effectively."
+  description: "A leather or synthetic whip. Unusual but effective. Attack Rating uses Reaction instead of Strength (errata Feb 2020). Can be used to disarm or entangle. Requires specialized training to use effectively."
 
 - name: Monofilament Whip
   subtype: Exotic
@@ -182,7 +172,7 @@
   ar: "14/—/—/—/—"
   reach: 2
   source: "Core Rulebook"
-  description: "A monofilament line that can cut through almost anything. Extremely dangerous. Illegal in most jurisdictions. Requires a specialized skill to use without injuring oneself."
+  description: "A monofilament line that can cut through almost anything. Attack Rating uses Reaction instead of Strength (errata Feb 2020). Extremely dangerous. Illegal in most jurisdictions. Requires a specialized skill to use without injuring oneself."
 
 - name: Shock Gloves
   subtype: Unarmed

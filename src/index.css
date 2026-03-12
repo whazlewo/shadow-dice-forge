@@ -66,8 +66,9 @@
   }
 }
 
-/* Tiptap Placeholder - Notion-style notes editor */
-.notes-editor .tiptap p.is-editor-empty:first-child::before {
+/* Tiptap Placeholder - Notion-style notes editor and rich text fields */
+.notes-editor .tiptap p.is-editor-empty:first-child::before,
+.rich-text-editor .tiptap p.is-editor-empty:first-child::before {
   color: hsl(var(--muted-foreground) / 0.6);
   content: attr(data-placeholder);
   float: left;
@@ -75,7 +76,8 @@
   pointer-events: none;
 }
 
-.notes-editor .tiptap p.is-empty::before {
+.notes-editor .tiptap p.is-empty::before,
+.rich-text-editor .tiptap p.is-empty::before {
   color: hsl(var(--muted-foreground) / 0.5);
   content: attr(data-placeholder);
   float: left;

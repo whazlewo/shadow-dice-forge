@@ -1,0 +1,617 @@
+SHADOWRUN,
+SIXTH WORLD
+   ERRATA
+  AUGUST 2019
+                                          Game                                         p. 41, Dodge
+
+                                        Concepts
+                                                                                          Dodge penalties are as follows:
+2
+                               p. 36, Extended Tests,                                    dodge penalty
+
+
+
+
+SHADOWRUN: SIXTH WORLD
+                                                                                                   RANGE                   MODIFIER
+                               paragraph 1                                                       Ground Zero                 –6
+                                                                                                    Close                     –4
+                                  For clarity, make the following parenthetical
+                                                                                                    Near                      –2
+                               addition:
+                                  The player can make multiple rolls of the dice
+                               pool, progressively making the dice pool 1 die
+                               smaller each time they roll, until they have accu-
+                               mulated enough hits to meet or beat the threshold       p. 44, Edge, paragraph 3
+                               (or run out of dice and fail).
+                                                                                          Change the sentence reading, “Characters can
+                                                                                       only have one expenditure of Edge per round”
+                               p. 36, Extended Test Intervals                          to “Characters can only have one expenditure of
+                                  The table for Extended test intervals is as fol-     Edge per round action.”
+                               lows:
+
+                                                                                       p. 46, Spending Edge
+                                 interval scale                                        clarification
+                                            TASK                  INTERVAL
+                                                                                         Note that nothing can ever reduce the cost of
+                                             Fast               1 Combat Turn
+                                            Quick                 1 minute
+                                                                                       and Edge Action to 0 Edge.
+                                            Short                10 minutes
+                                          Average                30 minutes            p. 47, Edge Actions, Fire from
+                                            Long
+                                         Consuming
+                                                                   1 hour
+                                                                    1 day
+                                                                                       Cover action, second sentence
+                                         Exhausting                1 week                 Change: “Attacks from full cover may be made
+                                          Mammoth                 1 month              without the –2 dice pool penalty” to “Attacks from
+                                                                                       cover may be made without spending a Minor Ac-
+                                                                                       tion.”
+
+                               p. 38, Essence, paragraph 1                             p. 48, Shank Edge Action
+                                   The following changes are made to this para-           Change “Called Shot penalty” to “Call a Shot
+                               graph for clarity:                                      penalty.”
+                                   All characters have this attribute. It functions
+                               as a capacity rating for how much cyberware,
+                               bioware, and other augmentations characters can
+                                                                                       p. 48, Tactical Roll Edge Action
+                               hold. The metahuman body can only contain so               Add the Hit the Dirt Action (p. 41) as another
+                               much ’ware before it loses the small spark that sep-    penalty that can be avoided with this action.
+                               arates a living being from a machine. This attribute
+                               primarily exists due to the degrees of difference be-   p. 48, Edge Actions
+                               tween biology and technology—it simply does not
+                               flow well through technology and becomes limited        by Cost table
+                               as your Essence declines (specifically, anytime your      Add “Knockout Blow (Melee Attack)” to the 2
+                               Essence goes below any whole integer, you lose a        Edge section.
+                               corresponding point of Magic or Resonance for
+                               each integer passed). Also, some magic, particular-     p. 52, Cover I, II, III, IV
+                               ly healing magic, has less of an effect on you as you
+                               gain more augmentations.                                   Replace the paragraph in the book and replace
+                                                                                       with the following:
+                                                                                          Whether you hide behind a wall, a dumpster, or a
+                                                                                       body, Cover is protection from hostile fire. It comes
+                                                                                       at four levels, indicating how much of a character’s
+                                                                                       body is protected (one-quarter, one-half, three quar-
+                                                                                       ters, or all). A character in Cover gets a +1 bonus per
+                                                                                       Cover level to their Defense Rating and dice pool to
+
+
+                    ERRATA // AUGUST 2019
+                Defense tests. Attacking from Cover requires an ex-     p. 77, In Debt, Game Effect
+                tra Minor Action in order to get clear enough to take
+                                                                           Add the following sentences after the second
+                a shot, imposes a –2 dice pool penalty to your attack
+                                                                        sentence:
+                at Cover IV, and you cannot gain Edge while attack-
+                                                                           You must pay a monthly interest rate of 500                    3
+                ing from Cover (you can gain it from defending).
+                                                                        nuyen per Karma spent, in addition to any pay-
+
+
+
+
+                                                                                                                                      SHADOWRUN: SIXTH WORLD
+                                                                        ment to the principal. If the interest is not paid, the
+                p. 53, Silent #, last sentence                          lenders come searching for you.
+                   Change “visibility detection” to “audio detec-
+                tion.”                                                  p. 81, Adept
+                                                                            Change the character’s Body to 5 and Willpow-
+                p. 56, Trolls (Homo Sapiens                             er to 4.
+                Ingentis), Racial Qualities
+                                                                        p. 84, Decker, Qualities
+                   Change Built Tough (1) to Built Tough (2).
+                                                                           Change the quality “Resistance to Pathogens”
+                                                                        to “Toxin Resistance”
+                p. 69, attribute and Skill
+                Advancement table                                       p. 87, Street Samurai,
+                   Change values in last column as follows:             Defense Rating
+                                                                           Change to 16
+nt
+Desired Rank                                                            p. 88, Street Shaman, Spells
+5          6          7         8         9        10                      Change “Chaotic World” to “Chaos”
+5         105        140       180       225       275
+0
+0
+          100
+           90
+                     135
+                     125
+                               175
+                               165
+                                         220
+                                         210
+                                                   270
+                                                   260
+                                                                        p. 89, Technomancer
+5          75        110       150       195       245                     Change actions to 1 Major, 2, Minor, change
+5          55         90       130       175       225                  “Resistance to Pathogens” to “Toxin Resistance”,
+—          30         65       105       150       200                  remove Puppeteer complex form
+—          —          35        75       120       170
+—
+—
+           —
+           —
+                      —
+                      —
+                               40
+                                —
+                                         85
+                                         45
+                                                   135
+                                                   95
+                                                                        p. 90, Weapon
+—          —          —         —         —        50                   Specialist, skills
+                                                                          Change Close Combat 6 to Close Combat (Un-
+                                                                        armed Comat) 5
+                p. 70, New Spells, sentence 3
+                   Change “After a week of study” to “After about       p. 93, Athletics, specialization
+                a week of study, (see p. 131).”                         and description
+                                                                           Add Archery as a specialization.
+                p. 71, Exceptional                                         In the description, change Full Defense Actions
+                (Attribute), Game Effect                                to Dodge Actions.
+                  Add this at the end of the Game Effect entry:
+                This quality can only be purchased once.                p. 94, Close Combat, descrip-
+                                                                        tion
+                p. 74, Allergy,                                            Change reference to Full Defense to Dodge.
+                bonus paragraph
+                   Change “common deadly allergy” to “common            p. 94, Conjuring, specializa-
+                extreme allergy.”                                       tions
+                                                                           Remove Binding as a specialization
+                Game effect paragraph
+                    Change sentence reading “At severity levels be-     p. 95, Engineering, specializa-
+                yond Mild, you also suffer secondary effects, as
+                listed” to “You also suffer secondary effects, which
+                                                                        tions
+                are listed below.”                                         Add Armorer
+
+
+                                                                                                                  AUGUST 2019 // ERRATA
+                               p. 96, Perception                                                      p. 114, Blast Attacks
+                                 Add the           following       table    for      Perception       and Scatter
+                               Thresholds
+4                                                                                                        In the second paragraph, first sentence, chance
+                                                                                                      “extra hits” to “each hit.” In the third paragraph,
+
+
+
+
+SHADOWRUN: SIXTH WORLD
+                                                                                                      change “Drop Prone” to “Hit the Dirt.”
+                                 interval scale
+                                   ITEM/EVENT IS:       THRESHOLD               EXAMPLES              p. 115, Scatter at Range table
+                                                                             Neon sign, running
+                                  Obvious/Large/Loud           1
+                                                                           crowd, yelling, gunfire       Add the following footnote:
+                                                                           Street sign, pedestrian,      † Thrown grenades use the attackers unarmed
+                                        Normal                 2           conversation, silenced     Attack Rating for Close range. Reduce the Attack
+                                                                                    gunfire
+                                                                                                      Rating by 1 for Near and by 6 for Medium. Attack
+                                                                            Item dropped under
+                                   Obscured/Small/
+                                                               3             table, contact lens,     Rating is 0 for Far and Extreme ranges.
+                                       Muffled
+                                                                                 whispering
+
+                                  Hidden/Micro/Silent          4
+                                                                             Secret door, needle
+                                                                            in haystack, subvocal
+                                                                                                      p. 115, Grenades Example
+                                                                                   speech                Change the first sentence of Step Two to read
+                                                                                                      as follows: “We compare Oda’s unarmed Attack
+                                                                                                      Rating of 12 for thrown grenades,”
+                                                                                                         In Step Three, change the distance at the end of
+                                                                                                      the example to 6 meters.
+                               p. 97, Stealth, specializations                                           In Step Four, have the motorcycles roll Body 4
+                                  Add Camouflage                                                      instead of Body 4 x 2.
+
+                               p. 106, Firearms Example                                               p. 116, Grenade Launcher
+                                  Alter as follows:                                                   Example
+                                                                                                         Change Step Two and Step Four to read as fol-
+                               Step Two: Distribute Edge                                              lows:
+                                 Here we compare the Attack Rating of the
+                               Ares Predator VI (8) to the Defense Rating of the                      Step Two: Distribute Edge
+                               Eye-Fiver (4; Body 3, + 1 for leathers) and see that                      We compare the Attack Rating of the MGL-6
+                               Oda has a difference of 4 or more greater, giving                      grenade launcher, which is 8, to the Defense Rating
+                               Oda one bonus Edge.                                                    of the bikes (7; Body 4 + Armor 3), the gangers (4;
+                                                                                                      Body 3 + leathers 1), and Oda (10; Body 6 + armor
+                               p. 109, Melee Close Combat and                                         jacket 4). When dealing with groups or Area Effect
+                               Grunts Example, Step Three                                             attacks, compare the Attack Rating to the highest
+                                                                                                      Defense Rating among all the targets for the Edge
+                                  Change Trip Edge Action to Tumble Action                            bonus. Since Carson Aims does not have an advan-
+                                                                                                      tage greater than 4 over everyone, he does not get
+                               p. 112, Breaking Through,                                              a bonus Edge.
+                               paragraph 1
+                                                                                                      Step Four: Soak Some Damage
+                                  Change “Damage Value that exceeds one half”
+                               to “Damage Value that meets or exceeds one half.”                         Here it gets ugly. The damage codes for a frag-
+                                                                                                      mentation grenade are 16P/12P/8P. Nothing is at
+                                                                                                      Ground Zero. A bike is in the Close range (12P),
+                               p. 113                                                                 with the remaining 4 gangers, two bikes, and the
+                                  Add the following text for Falling Damage:                          gang leader all in Near range (8P). Rolling (Body
+                                                                                                      4) for the bikes gets 1 hit.
+                               Falling Damage
+                                                                                                      p. 116, Gas Ranges,
+                                  When a character falls more than three meters,
+                               they take Physical damage with a Damage Value                          Effect, and Duration
+                               equal to half of the meters fallen, resisted by Body.                    Change the Rounds with Half Effect in the
+                               The gamemaster should feel free to adjust the                          Range x 3 row from 1–3 to 1–4.
+                               damage based on relevant circumstances.
+
+
+
+
+                    ERRATA // AUGUST 2019
+p. 117, Building a Bigger Boom,                                              duration of the spell, and for nonliving objects, it
+paragraph 4                                                                  also determines how much material is affected.
+                                                                             Many Manipulation spells have limited durations
+  In the last sentence, change Near Range DV to                              and last for a number of minutes equal to the net                5
+Ground Zero DV.                                                              hits on the Spellcasting test. The default amount of
+
+
+
+
+                                                                                                                                         SHADOWRUN: SIXTH WORLD
+                                                                             nonliving material affected is one-half cubic me-
+p. 118, Environment                                                          ter per net hit. See the Volume Reference table for
+                                                                             information on how to translate cubic meters of
+and Visibility                                                               material into common objects.
+  Add the following table
+                                                                             p. 139, Animate Wood Example,
+light levels                                                                 paragraph 4
+   LIGHT LEVEL                         EFFECT                                   Change the amount of Drain she has to deal
+     Darkness     Deep caverns, dark basement, stuffed in a dumpster         with from 5 to 4 and the hits she gets on her test
+  Near Darkness     Moonless night, dark interior, city underground          from 4 to 3.
+    Low Light
+                       Moonlit night, equipment indicator lights,               Kumiho has to deal with 4 Drain from the spell;
+                                   city alley at night                       rolling Charisma 6 + Willpower 5 gives her 11 dice
+    Dim Light     Twilight, interiors without primary lighting, city alley
+                                                                             and 3 hits. She’ll gladly take the 1S damage if the
+    Full Light           Cloudy day, interior lighting, city street
+                                                                             table keeps hindering the opposition.
+   Bright Light       Beach at noon, industrial lighting, open field
+
+                                                                             p. 141, Mystic Armor spell
+                                                                                Change the spell type from P to M.
+p. 119, First Aid, paragraph 3
+   Add this sentence at the end: Drain cannot be                             p. 142, Vehicle Armor spell
+healed with First Aid.
+                                                                                Change the spell type from M to P
+p. 120, Healing Example,
+                                                                             p. 144, Seal the Ritual,
+paragraph 2
+                                                                             paragraph 2
+  Change the threshold from 3 to 2.
+                                                                                Change the paragraph to read as follows:
+                                                                                After the spell effect goes off, each participant
+Paragraph 8                                                                  must deal with drain equal to the number of hits
+  Change the end of the example to say that the 7                            on a Ritual Threshold x 2 test (minimum 2) as de-
+boxes of damage are reduced to 3.                                            scribed on page 131.
+
+p. 121, Natural Recovery/                                                    p. 145, Curse, paragraph 2,
+Medical Assistance,                                                          last sentence
+paragraph 2                                                                     Change the last sentence to read as follows: The
+   Add a note that wound modifiers do not apply                              spell is cast normally (using teamwork, if applica-
+to natural recovery tests.                                                   ble) with all the tests and appropriate Drain.
+
+                                                                             p. 146, Watcher, last sentence
+
+                   Magic                                                        Change the last sentence to read as follows: A
+                                                                             watcher’s attributes and skills start at 2. For each
+                                                                             additional hour spent on the ritual, these increase
+p. 135, Antidote spell,                                                      by one, as does the ritual’s threshold.
+paragraph 2
+                                                                             p. 146, Summoning,
+  Change “Each net hit” to “Each hit”.
+                                                                             paragraph 1, sentence 4
+p. 139, Manipulation Spells,                                                    Change the sentence to read as follows: Char-
+                                                                             acters must then resist drain as if they cast a spell
+paragraph 3                                                                  against a Drain Value equal to the number of hits
+  Change the paragraph to read as follows:                                   (not net hits) the spirit rolled.
+  Net hits on the Spellcasting test determine the
+
+
+                                                                                                                     AUGUST 2019 // ERRATA
+                               p. 147, Banishing, paragraph 2
+                                  Change the second sentence to read as follows:
+                                                                                                       Matrix
+                               As with summoning, if the final drain is higher
+6                              than the banisher’s Magic, the drain damage is            p. 174, Personas and Attributes
+                               Physical; otherwise it’s Stun.                               Change the Data Processing entry to read as
+
+
+
+
+SHADOWRUN: SIXTH WORLD
+                                                                                         follows:
+                               p. 147-148, Types of Spirits                                 • Data Processing is the raw computing pow-
+                                                                                                er of a device. Data Processing governs how
+                                  For spirits of air, change “Defense” to “Defense              quickly a device can operate and contrib-
+                               Rating”.                                                         utes to running programs concurrently. The
+                                  For spirits of beasts, add Astral Initiative of (F x          Data Processing attribute is the limit of
+                               2) + 3D6, change Defense Rating to F + 2                         many devices you can slave to it.
+                                  For spirits of earth, fire, kin, and water, add As-
+                               tral Initiative of (F x 2) + 3D6
+                                                                                         p. 175, Matrix Edge Actions, Hog
+                               p. 151, Making a Preparation                                 Change the entry to read as follows:
+                                                                                            • Hog (2 Edge): Blast a host or persona with
+                               Example, paragraph 5                                            recursive requests, eating up valuable re-
+                                  In sentence 2, change 5 drain to 4 drain. In sen-            sources and lowering its Data Processing by
+                               tence 4, change 4 hits to 3 hits.                               2 and active program slots by 1 for (Attack
+                                                                                               Rating) rounds.
+                               p. 155, Enchanting Foci,
+                               Alchemical focus                                          p. 176, Overwatch Score
+                                   Change “Alchemy skill tests” to “Enchanting           and Convergence
+                               skill tests to create preparations”.                          Change this section as follows:
+                                   Alchemical focus: An alchemical focus adds                Convergence is GOD zeroing in on your loca-
+                               its Force in dice to Enchanting skill tests to create     tion. When this occurs, the device used to perform
+                               preparations.                                             the last illegal test is bricked (its Condition Moni-
+                                                                                         tor is filled), and the user is dumped from the Ma-
+                               p. 156, Adepts, paragraph 2                               trix, with associated dumpshock (p. 176). Addi-
+                                   Change the sentence to read as follows:               tionally, the user’s physical location is reported to
+                                   Drain is Stun unless the damage after the re-         the authorities so they might send people to track
+                               sistance test is higher than the caster’s Magic, in       you down.
+                               which case the damage is Physical.                            Things that increase the Overwatch Score are
+                                                                                         as follows:
+                                                                                             • Using hacking programs: OS increases by 1
+                               p. 158, Spell Resistance, cost                                     for each Matrix action modified by a hack-
+                                  Change 0.5 PP per level to 0.5 PP                               ing program. Simply having the program
+                                                                                                  loaded without actively using it doesn’t in-
+                               p. 158, Wall Running, sentence 3                                   crease your OS.)
+                                  Change the word “spell” to “power”.
+                                                                                         p. 177, Cyberdecks
+                               p. 158, Mystic Adepts                                        The prices of the MCT 360 and the Renraku
+                                                                                         Kitsune should be switched.
+                                  Delete paragraph 3 of this section.
+                                                                                         p. 179, Matrix Damage
+                               p. 159, Aspected Magicians,
+                                                                                            Add a third paragraph to this section that reads
+                               paragraph 3, sentence 1                                   as follows:
+                                 Change the sentence to read as follows: Aspected           By default, Matrix damage is resisted with Fire-
+                               magicians can astrally perceive and astrally project.     wall and Biofeedback damage is resisted with Will-
+                                                                                         power.
+                               p. 159, The Astral Plane
+                                  Add the following as the fourth paragraph of           p. 179, Matrix Actions
+                               the section: While magicians and adepts use Astral           Adjust paragraph two to read as follows:
+                               Perception, they become dual-natured and suffer a            Where two different dice pools are listed, such
+                               –2 dice pool penalty to all non-Magic actions.            as “Intuition + Firewall or Sleaze + Firewall,” per-
+
+
+                    ERRATA // AUGUST 2019
+sonas with Mental attributes use the pool with          p. 189, The Living Persona,
+those attributes. Drones use their Pilot Rating in      paragraph 2
+place of the Mental Attribute. A persona actively
+defending for a device or host can use the other           Adjust the opening of the second paragraph as                  7
+pool with the device or host attributes.                follows:
+                                                           The living persona has an Initiative rank of
+
+
+
+
+                                                                                                                      SHADOWRUN: SIXTH WORLD
+                                                        Logic + Intuition and Initiative Dice of 1D6 plus
+p. 180, Control Device                                  whatever adjustments from their current Matrix
+   Change this Action to Legal.                         mode. Use their Stun Condition Monitor in place
+                                                        of a Matrix Condition Monitor.
+
+p. 181, Data Spike                                      p. 190, Puppeteer
+   Add the following second paragraph:                     Remove the requirement for being on the same
+   This action is linked to the Attack attribute.       grid from the last sentence.
+                                                           You may take the Control Device action on a
+p. 182, Hash Check                                      device even if you do not have the proper access
+                                                        level. You must still be able to detect the device and
+   Add that this item requires User access.             be on the same grid.
+
+p. 183, Matrix Perception                               p. 190, Resonance Spike
+(cont.), paragraph 2                                        Change “Matrix damage” to “unresisted Ma-
+   Remove the words “with a Sleaze attribute.”          trix damage”.
+
+p. 184, Tarpit                                          p. 191, Stiches
+   Add the following second paragraph:                     Add the words “on a sprite” to the end of the
+   This action is linked to the Attack attribute.       second sentence.
+
+p. 184, Programs                                        p. 191, Transcend Grid
+   Add the following at the end of the list of Basic       Remove this complex form.
+programs.
+   • Virtual Machine: 2 extra program slots;            p. 191, Sprites
+      take 1 extra box of unresisted Matrix dam-            Change the paragraph to read as follows:
+      age when attacked.                                    Along with their considerable hacking powers,
+                                                        technomancers can enlist the help of Matrix be-
+p. 186, IC                                              ings called sprites. Just like spirits, there is signif-
+                                                        icant debate about the nature of sprites. Are they
+    Replace the second sentence with the following:     living beings waiting for a technomancer to serve?
+    All IC use (Host Rating x 2) for Attack Rating,     Or are they born when a technomancer compiles
+Condition Monitor, and most rolls. Their Initiative     them? You can argue your favorite theory late at
+is (Data Processing x 2) + 3D6. Defensive rolls and     night over a nice round of synthahol, but out in
+effects vary by IC type.                                the streets, the only thing that matters is that they
+                                                        work. Technomancers know how to compile them
+p. 188, Technomancer Functions                          and make them follow instructions. They can get
+                                                        the results they need, and as long as that’s the case,
+   Change the last sentence of this paragraph to
+                                                        their exact nature is irrelevant. A sprite’s Matrix
+read as follows:
+                                                        Condition Monitor is (L /2) + 8.
+   Technomancers can experience AR, VR, and
+hot-sim with no extra gear, and they are difficult to
+spot in the Matrix, typically requiring a successful    p. 191, Compiling a Sprite
+Matrix Perception test (p. 178) with a minimum of          Change the fourth sentence of the first para-
+5 hits to be seen.                                      graph to read as follows:
+                                                           They then resist fading equal to the number of
+                                                        hits the sprite received on its defense test, resisted
+                                                        with Willpower + Charisma.
+
+                                                          In next-to-last paragraph, remove the words
+                                                        “or grid” from the second sentence.
+
+
+                                                                                                  AUGUST 2019 // ERRATA
+                               p. 193, Types of Sprites
+                                  Add the following before the first sentence:
+                                                                                                          Gear
+                                  Sprite skill ratings equal their Level.
+8                                                                                        p. 249, Blades table
+                                                                                            Remove the entry for the survival knife.
+                               p. 195, Submersion Example
+
+
+
+
+SHADOWRUN: SIXTH WORLD
+                                  Change the Karma cost listed in the last sen-          p. 255, Heavy Pistols
+                               tence from 16 to 12.
+                                                                                            Change the Ares Viper Slivergun damage code
+                                                                                         from 4P(f) to 4P(fl)
+
+                                             Rigging                                     p. 257, Ingram Valiant
+                                                                                            Note that this is a light machinegun.
+                               p. 196, The Basics, item 4
+                                  Change the cold-sim VR Initiative Dice to 2D6,         p. 258, Rifles
+                               hot-sim to 3D6.                                              Change firing mode of Ares Desert Strike to SA.
+                                                                                            Change firing mode of Remington 990 to SS.
+                               p. 199, Ford Americar
+                                  Change the handling to 4/5 and the Accel to 9.         p. 298, Parashield Dart Series
+                                                                                             Add a note that both the rifle and pistol only
+                               p. 200, Using the Vehicle as a                            fire darts.
+                               Weapon, sentence 4
+                                                                                         p. 260, Gyromount (cont.)
+                                  Change “Vehicles” to “Vehicles (and drones)”
+                                                                                            Clarification: The Attack Rating increase adds
+                                                                                         +3 to the Attack Rating for Full Auto, stacking
+                                                                                         with other bonuses and penalties.
+
+                                          Wild Life                                         Change the Strength requirement for medium
+                                                                                         machine guns from 3+ to 2+.
+
+                               p. 222, Concealment,                                      p. 260, Periscope
+                               paragraph 2                                                  Note that the periscope has a capacity of 3.
+                                  In the first sentence, change the parenthetical
+                               note from “(Body less than 5; Body over 5 counts          p. 261, Speed loader
+                               as 2 targets)” to (Body up to 5; Body over 5 counts
+                                                                                            Remove the wireless bonus for this item.
+                               as 2 targets)”
+
+                               p. 222, Confusion, sentence 2                             p. 262, Flechette Ammo
+                                                                                            Note that (fl) is the abbreviation for this type
+                                  Change the sentence to read as follows:                of ammo.
+                                  If the critter scores any net hits, the target char-
+                               acter gains the Dazed status and the Confused sta-
+                               tus at a rating equal to the net hits.                    p. 262, Ammo Costs
+                                                                                         by Weapon Type
+                               p. 226, Mist Form, sentence 8                                Machine gun ammo has Avail 2(L), Cost 15¥
+                                  Change the word “Allergy” to “moderate Allergy”        per 10.
+                                                                                            DMSO ammo has Avail 1, Cost 10¥ per 10.
+                               p. 226, Movement                                          p. 263, Grenades, paragraph 3
+                                  Add the following as a new second paragraph:              Change “Exotic Weapons (Launcher) + Logic”
+                                  For unwilling targets, the critter makes an op-        to “Exotic Weapons (Launcher) + Agility”
+                               posed test using its Magic + Willpower against the
+                               target’s Logic + Willpower. The critter can multiply
+                               or divide the target’s movement by up to its net          p. 263, Rockets and Missiles
+                               hits or Magic attribute, whichever is lower.                 Change the second sentence to read as follows:
+                                                                                                Missiles are rockets that carry internal
+
+
+                    ERRATA // AUGUST 2019
+guidance systems, with sensor packages adding             p. 282, Biotech
+their rating to the attack roll, since they can adjust
+                                                            Super-platinum DocWagon contracts have
+their trajectory in flight (also reflected in their At-
+                                                          Avail 1, Cost 10,000¥/month or 100,000¥/year
+tack Rating).                                                                                                            9
+                                                             p. 282, Slap Patches, Trauma Patch
+
+
+
+
+                                                                                                                     SHADOWRUN: SIXTH WORLD
+p. 264, Anti-Vehicle                                         Replace the first sentence with this sentence:
+   At the end of the paragraph, add:                         When applied, the patient heals 1d6 + 1 Over-
+   +2 Attack Rating against vehicles.                     flow Damage immediately.
+
+p. 266, Chemical Seal,                                    p. 286, Bone Lacing, sentence 3
+sentence 3                                                    Change the sentence to read as follows:
+   Change the sentence to read as follows:                    It gives you extra Body when resisting physical
+   It also neutralizes the Corrosive status six times     damage, changes your unarmed combat damage to
+before it’s built in chemical protection is worn          Physical, and adds a few useful bonuses, all listed
+away and the armor no longer has chemical seal            in the Bone Lacing table.
+protection.
+                                                          p. 286, Bone Lacing,
+p. 267, Helmets and Shields                               Damage Values
+   Change Ballistic Shield and Riot Shield weapon            Change the Unarmed DVs of bone lacing from
+types to Close Combat.                                    3P, 4P, and 4P to +1, +1, and +2.
+
+p. 267, Cyberdecks                                        p. 291, Specialized
+   The prices of the MCT 360 and the Renraku              Weapons, Cyberjaw
+Kitsune should be switched. Change the Avail rat-            Remove the requirement of this being for cyber-
+ing of the Fairlight Excalibur to 6(I).                   skulls only.
+                                                             For a cyberskull only, This adds extra biting
+p. 268, Accessories                                       power for those who like a special, close-in form
+  Sim modules have an Avail of — and a cost of            of violence.
++100¥
+  Sim modules for hot sim have an Avail of 2(I)           p. 291, Bone Density
+and a cost of +250¥                                       Augmentation
+                                                             Alter the paragraph to read as follows:
+p. 271, Software                                             The molecular structure of your bones is altered
+   Remove the paragraph about Agents.                     to increase density and tensile strength. Ligaments
+                                                          are strengthened, and the greater bone density in-
+p. 272, Software table                                    creases your weight by fifteen percent. You gain its
+                                                          rating as extra Body when resisting physical dam-
+   Remove the entry for agents; change hacking            age. Your unarmed combat damage becomes Phys-
+program Avail to 4(I)                                     ical and your Damage Value and Attack Rating
+                                                          increase per the table below. Bone density augmen-
+p. 279, Breaking                                          tation is incompatible with other augmentations to
+and Entering Gear                                         bones, including bone lacing cyberware.
+  Stats for autopicker: Rating n/a, Avail 4(L),
+Cost 500¥                                                 p. 291, Bone Density Ratings
+  Stats for keycard copier: Rating n/a, Avail 4(I),          Change the DVs from 3P, 3P, 4P, and 4P to +1,
+Cost 600¥                                                 +1, +2, +2.
+
+                                                          p. 302, Vehicles
+                                                             Change the Body of the Ares Dragon from 12
+                                                          to 22.
+
+
+
+
+                                                                                                 AUGUST 2019 // ERRATA
+                               Toxin Costs
+                                  Here are toxin and drug availability and costs:
+10
+                                 toxin availability and cost
+
+
+
+
+SHADOWRUN: SIXTH WORLD
+                                       TOXIN          AVAILABILITY   COST (PER DOSE)
+                                     CS/Tear Gas          2(L)             20¥
+                                  Gamma-Scopolamine       7(I)            200¥
+                                      Narcoject           4(L)            50¥
+                                     Nausea Gas           3(L)            25¥
+                                    Neuro-Stun VIII       5(L)            60¥
+                                    Neuro-Stun IX         6(L)            60¥
+                                     Neuro-Stun X         7(L)            100¥
+                                    Pepper Punch                           5¥
+                                       Seven-7            10(I)          1,000¥
+
+
+
+
+                                 drug availability and cost
+                                       DRUG           AVAILABILITY   COST (PER DOSE)
+                                       Alcohol                          5¥–500¥
+                                         Bliss            2(I)             15¥
+                                        Cram              2(L)            10¥
+                                      Deepweed            4(I)            400¥
+                                         Jazz             2(L)            75¥
+                                      Kamikaze            3(L)            100¥
+                                      Long Haul                           50¥
+                                         Nitro            2(L)            50¥
+                                      Novacoke            2(L)            10¥
+                                        Psyche                            200¥
+                                         Zen              3(L)             5¥
+
+
+
+
+                    ERRATA // AUGUST 2019
+

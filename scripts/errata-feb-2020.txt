@@ -1,0 +1,331 @@
+SHADOWRUN,
+SIXTH WORLD
+ errata // february 2020
+                               p. 38, Essence                                           Magic between spells and adept powers. They first
+                                                                                        purchase adept powers up to a maximum of their
+                                  Change the first sentence of the paragraph to
+                                                                                        Magic attribute then multiply the remaining Mag-
+                               read:
+2                                                                                       ic by 2 to determine their starting number of spell
+                                                                                        choices. This uses the Magic value in the Priority
+                                  All characters have this attribute, starting at 6
+
+
+
+
+SHADOWRUN: SIXTH WORLD
+                                                                                        table, not as adjusted with Karma or adjustment
+                                                                                        points (but it is reduced by Essence loss).
+                               p. 41, Hit the Dirt (A) action
+                                  Change the text to read as follows:                   p. 71, Exceptional (Attribute),
+                                  A character can quickly drop to the ground in         Game effect listing,
+                               a defensive manner, gaining +2 dice on the Defense
+                               test of an incoming attack. They gain the Prone sta-     last sentence
+                               tus (p. 53), but due to the awkwardness of their fall,      Add the following sentence:
+                               they suffer a –2 dice pool penalty on any subsequent        • Game Effect: Select a Physical or Mental attri-
+                               tests using active skills until the end of their next    bute. That attribute’s maximum (but not current)
+                               turn, unless they use the Stand Up action.               rank increases by 1. This quality can only be pur-
+                                                                                        chased once per attribute.
+                               p. 42, Trip (I)
+                                  This action focuses more on bringing the target       p. 71, Dermal Deposits,
+                               to the ground than on doing damage. It can only          Game Effect
+                               be done with a melee attack and must be combined           Change the entry as follows:
+                               with an Attack Major Action. Decrease the base             • Game Effect: You gain 1 level of natural Ar-
+                               damage of the attack by 2P; if it hits, target rolls     mor. Your Unarmed Melee attacks inflict Physical
+                               Athletics + Agility with a threshold of the adjusted     damage.
+                               DV of the attack. If the target fails, they gain the
+                               Prone status.
+                                                                                        p. 77, In Debt,
+                               p. 48, Edge Actions by Cost                              Game effect listing
+                               sidebar, 2 Edge entries                                     Remove the fourth sentence, which reads:
+                                                                                           You must repay interest at a rate of 200 nuyen
+                                  Remove text so Knockout Blow entry reads:             per level of this quality, which addresses interest
+                                                                                        only, not principal. If the payment is not made, the
+                                  Knockout Blow (Melee Attack)                          lenders come searching for you.
+
+                               pp. 65-66, Magic/Resonance,                              Archetypes
+                               Para. 8-9
+                                                                                        p. 89, Technomancer
+                                   Make the following changes in these paragraphs
+                                   Adepts focus all of their magic inward, fueling      archetype, Complex Forms
+                               their talents with their innate ability to pull mana        Remove Skinlink, add Stitches.
+                               in rather than channel it outward. Due to this
+                               physical connection to their magic, they cannot as-      p. 94, Close Combat,
+                               trally project and only gain the ability to astrally
+                               perceive through training. Adepts have a pool of         paragraph 2
+                               points equal to their Magic (as listed in the Prior-       Add the following to the stat of the paragraph.
+                               ity table, before any adjustments) that they use to        Base Unarmed damage is 2S. Full details on
+                               purchase adept powers. For more information on           Combat are in the Combat chapter (p. 104).
+                               adepts, see p. 156.
+                                   Mystic adepts are a blend of inward and out-         p. 95, Firearms
+                               ward magic. They are capable of casting spells,
+                               summoning spirits, and enchanting items, but they        Specialization list
+                               also channel a portion of their magic inward to fuel       Make the list read as follows:
+                               adept talents. They are not able to astrally project       Specialization: Tasers, Hold-Outs, Light Pistols,
+                               due to the anchoring effect of their adept powers,       Machine Pistols, Heavy Pistols, Submachine Guns,
+                               but they can astrally perceive. They must split their    Shotguns, Rifles, Machine Guns, Assault Cannons
+
+
+
+
+                    ERRATA // FEBRUARY 2020 // ﻿
+p. 97, Stealth                                           their roll. Again, Like First Aid, this fixes biological
+Specialization list                                      material, not machinery.
+   Remove Disguise from the list.
+                                                         p. 123, CS/Tear Gas,                                           3
+                                                            Alter description to read as follows:
+
+
+
+
+                                                                                                                    SHADOWRUN: SIXTH WORLD
+Combat                                                      CS gas is an irritant that affects the mucous mem-
+p. 105, Step 3: Roll Dice and                            branes in the eyes, nose, mouth, and lungs. The real
+                                                         danger is when the gas is inhaled, stimulating a phys-
+Spend Edge, paragraph 2,                                 iological panic response: increased heart rate, short-
+sentences 3-4                                            ness of breath, and so forth. Washing thoroughly
+   Adjust as indicated.                                  with soap and water can flush the toxin, thus ending
+   Set aside any hits for now. Compare the num-          the duration of the nausea prematurely. CS gas be-
+ber of hits between the attacker and defender to         comes inert after two minutes of contact with the air.
+see if it is a hit or a miss. Ties go to the attacker.
+                                                         Magic
+p. 105, Step 3: Roll Dice and
+                                                         p. 135, Antidote
+Spend Edge, paragraph 4,
+                                                            Alter the description as follows:
+sentences 1-2                                               This spell sends mana coursing through the
+   Adjust as indicated.                                  body to find and purge toxins. Roll a Sorcery +
+   Now, tally the hits. If the attacker has at least     Magic (toxin power) Extended test. Each hit re-
+one hit and the defender does not have more hits         duces the toxin power by one. The mage may
+than the attacker, the attack is a success. Add the      spend consecutive major actions to roll again with-
+net hits (meaning attacker hits minus defender           out recasting. If the power hits zero, any ongoing
+hits) to the base Damage Value of the weapon in          effects of the toxin are eliminated.
+use and move on to the next step.
+                                                         p. 136, Decrease Attribute,
+p. 109, Melee Close Combat and
+                                                         description, sentence 1
+Grunts Example
+                                                            Adjust the sentence as follows:
+   Change the Attack Rating of the bike chain to            The touch of the mage weakens, slows, or stu-
+11 and the listed Strength of the ganger to 2.           pefies the target, temporarily lowering one of their
+                                                         attributes (to a minimum of 1).
+p. 114, Grunt Group Example,
+sentences 2 and 3                                        p. 141, Overclock, description,
+    Change the base Attack Rating listed in the          paragraph 2, sentence 2
+second sentence to 11 and the new Attack Rating            Adjust the sentence as follows:
+listed in the third sentence to 14 (also changing the      After the spell is dropped, the device takes Matrix
+base listed after that to 11).                           Damage equal to the net hits used, resisted by Firewall.
+
+p. 116, Grenade Launcher                                 p. 142, Vehicle Armor spell
+Example, Step Three: Roll Dice                              Change spell type to P.
+and Spec Edge
+   We take the 10 meters of scatter, subtract 4 me-      p. 143, Spend Reagents,
+ters (2 x net hits) and get 6 meters. Another 2D6
+comes up as 7, and the grenade travels a little extra
+                                                         paragraphs 1 and 2
+distance into the alley before detonating                   Adjust the text as follows:
+                                                            The leader must expend the number of reagents
+p. 120, Medkit, paragraph 3,                             specified for the ritual, or an amount equal to the
+                                                         threshold if none are specified. The leader may ex-
+sentences 1-3                                            pend more reagents to reduce Drain when sealing
+   Alter the paragraph to read as follows:               the ritual (step 6). For every dram of pure reagents
+   Make a Biotech + Logic test or medkit rating          spent (after the initial offering), the Drain Value is
++ Logic test against a threshold of 5 – target’s Es-     reduced by 1, to a minimum of 2.
+sence. If the target is one-hundred-percent natural,        These reagents are used to seal the foundation
+the healer actually gets an automatic hit added to       for the ritual.
+
+
+                                                                                        ﻿ // ERRATA // FEBRUARY 2020
+                               p. 145, Ward, paragraph 1                               Matrix
+                                  Adjust the paragraph as follows:                     p. 174, Personas and Attributes,
+                                  Ward is a ritual taught to many magicians. It
+4                              creates a mana barrier (p. 161) with a rating equal     paragraph 7, sentence 3
+                               to the leader’s magic plus net hits on the Sorcery         Adjust the sentence as follows:
+
+
+
+
+SHADOWRUN: SIXTH WORLD
+                               test in Step 6 of the ritual. The ward may encom-          You can rotate any non-zero attributes through
+                               pass a volume of up to fifty cubic meters times the     your persona, even if they originated from differ-
+                               sum of the participants’ Magic ratings.                 ent devices.
+
+                               p. 149, Alchemy, paragraph 2,                           p. 180, Brute Force, paragraph 2
+                               sentence 1                                                 Adjust the paragraph as follows:
+                                  Adjust the paragraph as follows:                        If the hacker is attempting to gain User or Ad-
+                                  Preparations have three key elements: The spell      min access, the opposed roll is Willpower + Fire-
+                               embedded in the preparation, the trigger that will      wall. If the hacker is When attempting to gain Ad-
+                               make that spell go off, the Force of the prepara-       min access without first having gained User access,
+                               tion, and its Potency, which measures how its pow-      the opposed roll is Willpower + (Firewall + 2), and
+                               er declines over time.                                  the target is granted a +4 bonus to their Defense
+                                                                                       Rating for that Test.
+                               p. 151, Using a Preparation,
+                               paragraph 6                                             p. 183, Matrix Perception,
+                                                                                       paragraph 2
+                                  Adjust the paragraph as follows:
+                                  Targets of the spell resist its effects as normal.      Adjust the paragraph as follows:
+                               Sustained spells remain in effect for one minute per       This test can also be used to attempt to spot any
+                               remaining potency upon trigger.                         icons in the vicinity that are running silent.
+
+                               p. 152, Craft the Focus,                                p. 183, Reboot Device
+                               paragraph 2, sentence 4                                    Adjust the description of the action as follows:
+                                                                                          The target device shuts down and immediately
+                                  Adjust the sentence to read as follows:              reboots, coming back online at the end of the fol-
+                                  If you succeed, the net hits from this test (up to   lowing combat round. The device disappears from
+                               the focus formula force) become the actual Force        the Matrix until its reboot time is over and any
+                               of the focus.                                           Overwatch Score, exploits, or backdoors are reset.
+
+                               p. 156, Power Points,                                   p. 183, Reconfigure Matrix
+                               paragraph 1, sentence 3                                 Attribute, sentence 1
+                                  Adjust the sentence as follows:                         Adjust this sentence as follows:
+                                  Whenever adept characters gain or lose a point          Swap the base ratings of two non-zero attri-
+                               of Magic, they also gain or lose a power point.         butes of your Matrix Persona, even if the numbers
+                                                                                       are rooted in different devices.
+                               p. 158, Mystic Adepts,
+                               paragraph 2                                             p. 186, IC
+                                  Add the following sentence at the end of the            Adjust this paragraph as follows:
+                               paragraph:                                                 These are the types of IC a host may throw at
+                                  If a mystic adept loses a point of Magic, they       unwary intruders. All IC use Host Attack Rating
+                               also lose a corresponding power point as well, pro-     and (Host Rating x 2) for Condition Monitor and
+                               vided they have any.                                    most rolls. Their Initiative is (Data Processing x 2)
+                                                                                       + 3D6. Defensive rolls and effects vary by IC type.
+                               p. 167, Initiation, paragraph 6,                        Defensive rolls and effects vary by IC type.
+                               sentence 2
+                                                                                       p. 189, The Living Persona,
+                                 Adjust the sentence as follows:
+                                 Your maximum Magic rank increases. Your               paragraph 2
+                               maximum Magic rank is 6 + Initiate Grade (re-             Adjust the paragraph as follows:
+                               duced by one for every full point of Essence lost).       The living persona has an Initiative rank of
+                                                                                       Logic + Intuition and Initiative Dice of 1D6 plus
+
+
+                    ERRATA // FEBRUARY 2020 // ﻿
+whatever adjustments from their current Matrix          hits the maximum acceleration rate of 9, so the car
+mode. Use their Stun Condition Monitor in place         jumps from 16 to 25. It travels 16 + ½(9) meters,
+of a Matrix Condition Monitor.Their Matrix Con-         or 21 meters.
+dition Monitor is (Logic / 2, rounded up) + 8              She’s still not moving fast, but she also is not           5
+                                                        in a machine built for chases, so it’s going to resist
+
+
+
+
+                                                                                                                 SHADOWRUN: SIXTH WORLD
+p. 195, Increased Maximum                               her aggressive style of driving. When a pedestrian
+                                                        unexpectedly enters the street ahead of her, she has
+Resonance                                               to make a Handling test to avoid them. She’s on
+    Adjust the paragraph as follows:                    road, so the test will be Piloting + Reaction (4).
+    The natural maximum for your Resonance at-          Her speed is 25, one step over the first Speed Inter-
+tribute is 6 + your Submersion grade (reduced by        val, so she takes a –1 dice pool penalty to the test.
+one for every full point of Essence lost). Increasing   She keeps up the maximum acceleration of 9 for
+your maximum does not automatically increase            two turns, getting her up to 44 meters per combat
+your Resonance attribute—you still have to spend        round (about 53 kph, or 33 mph). That hits the
+Karma to increase your Resonance attribute.             second Speed Interval, so if she has to make Pilot-
+                                                        ing tests next turn, she’ll lose two dice, all while
+                                                        cursing her poor overburdened Americar.
+p. 195, Echoes,
+first bullet point
+   Adjust the text as follows:                          p. 201, Using the Vehicle as
+   • Living Network: Your living persona can            a Weapon paragraph 2,
+     participate function as the master device in a
+     PAN. This Echo is only selected once.              sentences 1-3
+                                                            Adjust the sentences as follows:
+                                                            The Attack Rating of a vehicle is Piloting of the
+Rigging                                                 driver + Sensor. Individuals use their normal Defense
+p. 196, The Basics                                      Rating; the Defense Rating for vehicles is Piloting of
+                                                        the driver + Armor. Damage is (Body / 2, rounded
+   Add a new point 7:                                   up, +1 for each current Speed Interval) Physical dam-
+   7. With the exception of electricity damage          age. Target vehicles do the same, or (target’s Body /
+      (see pg. 109), vehicles are immune to stun        4, rounded up) for soft targets, back to the attacker.
+      damage with a DV equal to or lower than           Individuals and vehicles alike resist the damage with
+      their Body.                                       their Body. Vehicles (and drones) have a single Con-
+                                                        dition Monitor that is (Body / 2) + 8.
+p. 197, Control Rigs and You,
+paragraph 1, sentence 2                                 p. 201, Drone Rigging, paragraph
+  Change the sentence to read as follows:               2, sentence 2
+  A control rig awards numerous mechanical                 Change commanding a drone from a Major Ac-
+advantages to piloting a jumped-in device (see p.       tion to a Minor Action
+283).
+                                                        Wild Life
+p. 197, Rigger Command Console                          p. 207-9, Sample Grunts
+   Change issuing a single command to slaved               Change the movement of the Yakuza Blade-
+drones from a Major Action to a Minor Action.           master, Seraphim Avenging Angel, Tír Ghost, and
+                                                        Sioux Wildcat Combat Specialist to 10/15/+1.
+p. 199, Vehicle Movement
+Example, paragraphs 2-3                                 p. 226, Paralyzing Howl,
+   Several changes to the example need to be made       last sentence
+based on other errata changes, as noted below.             Change “Paralyzed status” to “Stilled status.”
+   Unfortunately for her, Turbo Bunny is a little
+behind on payments to her BTL dealer, and he’s
+sent some goons to shake some nuyen out of her.         p. 237, Pay a Bribe, sentence 4
+She spots them in the rearview and slams the ac-           Adjust the nuyen amount as follows:
+celerator. Her current speed of 16 is under the            Each 1,000 nuyen bribe only affects the Heat
+Speed Interval of 20, so no penalties on Piloting       rating of a single person, but multiples of 1,000
+tests for the vehicle, but there will be soon. She      can be spent to spread the reductions around.
+
+
+                                                                                     ﻿ // ERRATA // FEBRUARY 2020
+                               Gear                                                     be a wild die. Glitches in overdrive cause the affected
+                                                                                        system to cramp up and shut down for a number of
+                               p. 250, Other Melee Weapons                              combat rounds equal to the rating. Critical glitches
+6                              table, Bullwhip and                                      seize the muscle and reduce the affected attribute to
+                                                                                        0 for a number of combat rounds equal to the rating.
+                               Monofilament Whip
+
+
+
+
+SHADOWRUN: SIXTH WORLD
+                                  Add an asterisk after those two weapon names,         p. 283, Control Rig, paragraph 2
+                               then add this note at the end of the table
+                                  * Whips add the attackers Reaction instead of             Adjust the paragraph to read as follows:
+                               Strength to the Attack Rating.                               When you’re jumped in it provides its rating as
+                                                                                        a dice pool bonus on and reduction in threshold to
+                               p. 257, Barret Model 122,                                all tests involving the operation of vehicle, and a
+                                                                                        bonus point of Edge.
+                               last sentence
+                                  Change “sound suppressor” to “silencer.”              p. 284, Cyberjacks, Rating 3 line
+                                                                                           Adjust the Matrix Init to be +1.
+                               p. 258, Rifles table, Colt M23
+                                  Change the final Attack Rating (Extreme range)        p. 286, Bone Lacing table
+                               from 4 to 1 and change the cost to 2,100¥.
+                                                                                           Adjust Unarmed DV to be as follows: Plastic
+                                                                                        3P, Aluminum 4P, Titanium 4P.
+                               p. 259, Airburst Link,
+                               paragraph 3                                              p. 287, Wired Reflexes,
+                                  Change “Hit the Deck” to “Hit the Dirt.”              sentence 3
+                                                                                            Adjust the sentence to read as follows:
+                               p. 262, Ammo Costs                                           When activated, each rating point of wired re-
+                               by Weapon Type                                           flexes gives you +1 Reaction (with accompanying
+                                  Additional Availability and Costs: Shotgun            bonus to your Initiative Score) and 1 additional
+                               2(L), 15¥; Machine Gun 2(L), 15¥; DMSO 1, 10¥            Initiative Die (with accompanying Minor Action).
+                                                                                        Wired reflexes are incompatible with augmenta-
+                                                                                        tions that affect Reaction or Initiative.
+                               p. 267, Cyberdeck table
+                                  Change the Availabiltiy of the Shiawase Cy-           p. 288, Cyberlimb, paragraph 4
+                               ber-6 to 5(I) and the Fairlight Excalibur to 6(I).
+                                                                                           Adjust the paragraph to read as follows:
+                                                                                           Basic limbs are installed with Agility and
+                               p. 268, Accessories table                                Strength at 2. Each cyberlimb adds one box to the
+                                 Sim Modules have Availability —, cost +100¥;           character’s Physical Condition Monitor.
+                               Hot Sim has Availability 2(I), cost +250¥.
+                                                                                        p. 289, Cyberlimb
+                               p. 272, Software table                                   Accessories table
+                                  After the word Autosoft, add “(Rating 1–9”) to
+                                                                                          Add a line for Armor with Capcity [Rating],
+                               provide a range for Autosoft ratings.
+                                                                                        Availability Rating(L), and Cost Rating x 5,000¥
+                               p. 282, Augmentation Overdrive                           p.293, Synaptic
+                                  Adjust the paragraph to read as follows:
+                                  Cyberware can be boosted, but there’s always a
+                                                                                        Booster, sentence 3
+                               potential for problems when they do. Spend a Minor          Adjust the sentence to read as follows:
+                               Action to set a single system to overdrive, increasing      The booster confers a bonus of +1 Reaction
+                               the bonus of any attribute-boosting cyberware by         (with accompanying bonus to your Initiative
+                               two for a single action. This bonus may exceed the       Score) and 1 additional Initiative Die (with accom-
+                               augmented maximum. One of the bonus dice must            panying Minor Action).
+
+
+
+
+                    ERRATA // FEBRUARY 2020 // ﻿
+

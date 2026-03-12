@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { Button } from "@/components/ui/button";
 import { Pencil, Check, Camera } from "lucide-react";
 import type { SR6PersonalInfo } from "@/types/character";
@@ -127,6 +128,28 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
               </div>
               <div className="grid grid-cols-1 gap-4">
                 <Field label="Public Awareness" value={info.public_awareness} type="number" readOnly={ro} onChange={(v) => set("public_awareness", v, true)} />
+              </div>
+              <div className="grid grid-cols-1 gap-4">
+                <div className="space-y-1">
+                  <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Description</Label>
+                  <RichTextEditor
+                    value={info.description ?? ""}
+                    onChange={(v) => set("description", v)}
+                    placeholder="Describe your runner—role, motivations, personality..."
+                    readOnly={ro}
+                    minHeight="min-h-[80px]"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Backstory</Label>
+                  <RichTextEditor
+                    value={info.backstory ?? ""}
+                    onChange={(v) => set("backstory", v)}
+                    placeholder="A few lines about your runner's history..."
+                    readOnly={ro}
+                    minHeight="min-h-[80px]"
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ import { AccessoryList } from "./AccessoryList";
 import { DiceModifierEditor } from "./DiceModifierEditor";
 import { EffectsEditor } from "./EffectsEditor";
 import { GearReferenceSelect } from "@/components/GearReferenceSelect";
+import { MagicReferenceSelect, type MagicReferenceCategory } from "@/components/MagicReferenceSelect";
 import {
   referenceToCharacterRanged,
   referenceToCharacterMelee,
@@ -46,6 +47,8 @@ interface Props {
   readOnlyToggle?: boolean;
   itemEditMode?: boolean;
   referenceCategory?: GearCategory;
+  magicReferenceCategory?: MagicReferenceCategory;
+  magicReferenceCategories?: MagicReferenceCategory[];
   onUpdate: (items: Record<string, any>[]) => void;
 }
 
@@ -61,7 +64,7 @@ const REFERENCE_CONVERTERS: Record<GearCategory, (ref: RefItem) => Record<string
   miscellaneous: referenceToCharacterGear,
 };
 
-export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, fieldWidths, numericFields, showEquipped, showAccessories, showDiceModifiers, showEffects, readOnlyToggle, itemEditMode, referenceCategory, onUpdate }: Props) {
+export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions, fieldDefaults, fieldWidths, numericFields, showEquipped, showAccessories, showDiceModifiers, showEffects, readOnlyToggle, itemEditMode, referenceCategory, magicReferenceCategory, magicReferenceCategories, onUpdate }: Props) {
   const [editing, setEditing] = useState(!readOnlyToggle);
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
@@ -128,6 +131,24 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
               }}
               triggerLabel="Add from reference"
             />
+          )}
+          {showEditUI && (magicReferenceCategory || magicReferenceCategories) && (
+            <>
+              {(magicReferenceCategories ?? (magicReferenceCategory ? [magicReferenceCategory] : [])).map((cat) => (
+                <MagicReferenceSelect
+                  key={cat}
+                  category={cat}
+                  onSelect={(item) => {
+                    const newItem = { ...item } as Record<string, any>;
+                    onUpdate([...items, newItem]);
+                    if (itemEditMode && newItem.id) {
+                      setEditingItemId(newItem.id);
+                    }
+                  }}
+                  triggerLabel={cat === "spells" ? "Add spell" : cat === "adeptPowers" ? "Add adept power" : "Add complex form"}
+                />
+              ))}
+            </>
           )}
           {showEditUI && (
             <Button variant="outline" size="sm" onClick={add}>

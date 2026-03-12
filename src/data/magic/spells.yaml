@@ -1,0 +1,819 @@
+# Shadowrun 6e Spells - Core Rulebook
+# category: spell | preparation | ritual
+# type: Combat | Detection | Health | Illusion | Manipulation
+
+# === COMBAT SPELLS ===
+- name: Acid Stream
+  category: spell
+  type: Combat
+  drain: "F/2 + 1"
+  duration: Instant
+  range: LOS
+  effects: "Chemical damage, Corroded status. Indirect combat spell."
+  source: "Core Rulebook"
+  description: "These spells shoot acid at targets, doing immediate damage while also doing Chemical damage (p. 109) and giving hit targets the Corroded status (p. 52) with a rating equal to net hits on the Spellcasting test. Acid Stream is a single-target spell, Toxic Wave is area effect."
+
+- name: Toxic Wave
+  category: spell
+  type: Combat
+  drain: "F/2 + 2"
+  duration: Instant
+  range: LOS (A)
+  effects: "Chemical damage, Corroded status. Indirect combat, area effect."
+  source: "Core Rulebook"
+  description: "These spells shoot acid at targets, doing immediate damage while also doing Chemical damage (p. 109) and giving hit targets the Corroded status (p. 52) with a rating equal to net hits on the Spellcasting test. Acid Stream is a single-target spell, Toxic Wave is area effect."
+
+- name: Clout
+  category: spell
+  type: Combat
+  drain: "F/2"
+  duration: Instant
+  range: LOS
+  effects: "Stun damage. Indirect combat, shapes air to strike."
+  source: "Core Rulebook"
+  description: "A tricky little spell—the magic doesn't hit the target, but it shapes the air to make the blow. The power of wind to shape rock formations is demonstrated solidly on the head of the target. Clout targets individuals, Blast is area effect."
+
+- name: Blast
+  category: spell
+  type: Combat
+  drain: "F/2 + 1"
+  duration: Instant
+  range: LOS (A)
+  effects: "Stun damage, area effect. Indirect combat."
+  source: "Core Rulebook"
+  description: "A tricky little spell—the magic doesn't hit the target, but it shapes the air to make the blow. The power of wind to shape rock formations is demonstrated solidly on the head of the target. Clout targets individuals, Blast is area effect."
+
+- name: Flamestrike
+  category: spell
+  type: Combat
+  drain: "F/2 + 1"
+  duration: Instant
+  range: LOS
+  effects: "Fire elemental damage, Burning status. Indirect combat."
+  source: "Core Rulebook"
+  description: "A classic. When you think of hurting people with magic, the first thing that comes to mind is making fire explode in their faces. These are the spells that'll get that done. Flamestrike hits individuals, Fireball is area effect. Both spells do Fire elemental damage (p. 110) and impose the Burning status (p. 51) with a rating equal to net hits on the Spellcasting test."
+
+- name: Fireball
+  category: spell
+  type: Combat
+  drain: "F/2 + 2"
+  duration: Instant
+  range: LOS (A)
+  effects: "Fire elemental damage, Burning status. Indirect combat, area effect."
+  source: "Core Rulebook"
+  description: "A classic. When you think of hurting people with magic, the first thing that comes to mind is making fire explode in their faces. These are the spells that'll get that done. Flamestrike hits individuals, Fireball is area effect. Both spells do Fire elemental damage (p. 110) and impose the Burning status (p. 51) with a rating equal to net hits on the Spellcasting test."
+
+- name: Ice Spear
+  category: spell
+  type: Combat
+  drain: "F/2 + 1"
+  duration: Instant
+  range: LOS
+  effects: "Cold elemental damage, Chilled status. Indirect combat."
+  source: "Core Rulebook"
+  description: "These spells blast targets with freezing cold, doing Cold elemental damage (p. 110) along with the normal damage and imposing the Chilled status (p. 51) for a number of combat rounds equal to net hits on the Spellcasting test. Ice Spear targets individuals, while Ice Storm is an area spell."
+
+- name: Ice Storm
+  category: spell
+  type: Combat
+  drain: "F/2 + 2"
+  duration: Instant
+  range: LOS (A)
+  effects: "Cold elemental damage, Chilled status. Indirect combat, area effect."
+  source: "Core Rulebook"
+  description: "These spells blast targets with freezing cold, doing Cold elemental damage (p. 110) along with the normal damage and imposing the Chilled status (p. 51) for a number of combat rounds equal to net hits on the Spellcasting test. Ice Spear targets individuals, while Ice Storm is an area spell."
+
+- name: Lightning Bolt
+  category: spell
+  type: Combat
+  drain: "F/2 + 1"
+  duration: Instant
+  range: LOS
+  effects: "Electricity elemental damage, Zapped status. Indirect combat."
+  source: "Core Rulebook"
+  description: "It's what deities from Zeus to Thor use to smite those who have it coming, which means it should be good enough for you, too. Lightning Bolt hits a single target with electricity, while Lightning Ball is area effect. Both spells do Electricity elemental damage (p. 109), imposing the Zapped status (p. 53) for a number of turns equal to net hits."
+
+- name: Lightning Ball
+  category: spell
+  type: Combat
+  drain: "F/2 + 2"
+  duration: Instant
+  range: LOS (A)
+  effects: "Electricity elemental damage, Zapped status. Indirect combat, area effect."
+  source: "Core Rulebook"
+  description: "It's what deities from Zeus to Thor use to smite those who have it coming, which means it should be good enough for you, too. Lightning Bolt hits a single target with electricity, while Lightning Ball is area effect. Both spells do Electricity elemental damage (p. 109), imposing the Zapped status (p. 53) for a number of turns equal to net hits."
+
+- name: Manabolt
+  category: spell
+  type: Combat
+  drain: "F/2"
+  duration: Instant
+  range: LOS
+  effects: "Direct mana combat spell. Resisted by Willpower."
+  source: "Core Rulebook"
+  description: "Essential spellcasting, shaping mana to crack skulls. Who can argue with this purity? Manabolt targets individuals, while Manaball is area effect."
+
+- name: Manaball
+  category: spell
+  type: Combat
+  drain: "F/2 + 1"
+  duration: Instant
+  range: LOS (A)
+  effects: "Direct mana combat spell, area effect. Resisted by Willpower."
+  source: "Core Rulebook"
+  description: "Essential spellcasting, shaping mana to crack skulls. Who can argue with this purity? Manabolt targets individuals, while Manaball is area effect."
+
+- name: Powerbolt
+  category: spell
+  type: Combat
+  drain: "F/2"
+  duration: Instant
+  range: LOS
+  effects: "Physical damage. Direct combat spell."
+  source: "Core Rulebook"
+  description: "The harsher version of Clout, Powerbolt smacks targets with Physical damage; Powerball does the same as an area effect."
+
+- name: Powerball
+  category: spell
+  type: Combat
+  drain: "F/2 + 1"
+  duration: Instant
+  range: LOS (A)
+  effects: "Physical damage, area effect. Direct combat spell."
+  source: "Core Rulebook"
+  description: "The harsher version of Clout, Powerbolt smacks targets with Physical damage; Powerball does the same as an area effect."
+
+- name: Stunbolt
+  category: spell
+  type: Combat
+  drain: "F/2"
+  duration: Instant
+  range: LOS
+  effects: "Stun damage. Direct combat spell."
+  source: "Core Rulebook"
+  description: "Sometimes you take a little off the heater to catch the other guy off-balance. These spells channel mana in a way that hurts, but only to stun. Stunbolt hits individuals, Stunball is area effect."
+
+- name: Stunball
+  category: spell
+  type: Combat
+  drain: "F/2 + 1"
+  duration: Instant
+  range: LOS (A)
+  effects: "Stun damage, area effect. Direct combat spell."
+  source: "Core Rulebook"
+  description: "Sometimes you take a little off the heater to catch the other guy off-balance. These spells channel mana in a way that hurts, but only to stun. Stunbolt hits individuals, Stunball is area effect."
+
+# === DETECTION SPELLS ===
+- name: Analyze Device
+  category: spell
+  type: Detection
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Provides information about unknown devices. Object Resistance opposes."
+  source: "Core Rulebook"
+  description: "Sure, you know what a commlink looks like, but that doesn't mean you can identify the function of the weird black box with a single input jack. And Ghost help you with a machine from the '50s or something. Analyze Device provides information about the unknown device, based on the number of net hits (the device's Object Resistance is used in the Opposed Test). The first time a character tries to use a device while sustaining this spell on it, they receive Edge equal to their net hits on this test (though the customary limit of gaining no more than 2 Edge in a combat round applies)."
+
+- name: Analyze Magic
+  category: spell
+  type: Detection
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Assensing without going astral. Opposed by 2 x original test hits."
+  source: "Core Rulebook"
+  description: "Sometimes you want to know what magic does without going astral. Treat this spell as if you are assensing (see p. 159). The Opposed test uses 2 x total hits on the original skill test (Conjuring, Enchanting, or Sorcery) that created the magical effect being analyzed."
+
+- name: Analyze Truth
+  category: spell
+  type: Detection
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Subject gains sense if target is telling the truth."
+  source: "Core Rulebook"
+  description: "The subject of the spell gains some sense if the target is telling the truth—or at least, if they believe they are. With at least 1 net hit, you gain this understanding. Note that the subject of the spell has to directly hear the statement being uttered to evaluate it—written statements, recordings, or audio/video transmissions cannot be used. Because mana, that's why."
+
+- name: Clairaudience
+  category: spell
+  type: Detection
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Subject hears distant sounds. Area can be selected and moved."
+  source: "Core Rulebook"
+  description: "The person on whom this is cast gains the ability to hear distant sounds. The subject may select and move the spot; the size of the spot is determined by normal area-of-effect rules and can be adjusted with Increase Area and moved with Shift Area. The subject can only hear sounds in the target area while this spell is in effect (as opposed to sounds near them), and any hearing augmentations they have do not have any effect."
+
+- name: Clairvoyance
+  category: spell
+  type: Detection
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Subject sees distant sights. Area can be selected and moved."
+  source: "Core Rulebook"
+  description: "Like Clairaudience, but with visuals instead of sound. The person on whom this is cast gains the ability to see distant sights. The subject may select and move the spot; the size of the spot is determined by normal area-of-effect rules and can be adjusted with Increase Area and can be moved with Shift Area. The subject can only see visuals in the target area while this spell is in effect (as opposed to sights near them), and any visual augmentations they have do not have any effect."
+
+- name: Combat Sense
+  category: spell
+  type: Detection
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Heightened awareness of danger. Net hits add to Defense Rating and Surprise tests."
+  source: "Core Rulebook"
+  description: "The subject gets a heightened awareness of possible dangers and the ability to react to them faster. Net hits on the Spellcasting test are added to the subject's Defense Rating and dice pool for Surprise tests (see p. 108) as long as the spell is sustained."
+
+- name: Detect Enemies
+  category: spell
+  type: Detection
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Reveals if anyone in range has hostile intentions toward subject."
+  source: "Core Rulebook"
+  description: "This spell lets the subject know if anyone within the sense's range has hostile intentions toward them. It only works on people—not things, and it only detects people who have hostility specifically to the subject, not generalized anger at all metahumanity (if it did, everyone in the barrens would light up). Great for detecting ambushes!"
+
+- name: Detect Life
+  category: spell
+  type: Detection
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Points out sentient beings in the area."
+  source: "Core Rulebook"
+  description: "Are there people hiding in that pile of rubble? Or in the forest? This spell will point them out for you. Despite its broad-sounding name, it does not detect every living thing, but rather focuses on sentient beings."
+
+- name: Detect Magic
+  category: spell
+  type: Detection
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: Touch
+  effects: "Alerts caster to active magic within sense range."
+  source: "Core Rulebook"
+  description: "No one wants to sort through an entire landfill to find the magic ring sitting amid all the trash, but sometimes that's the job. Which is why an enterprising mage developed this spell, which alerts the caster to any forms of active magic within the sense's range. This includes foci, reagents, active spells, wards, alchemical preparations, spirits, and active rituals, but does not include Awakened people, critters, astral signatures, alchemical preparations that have been triggered or lost their potency, or the effects of permanent spells once they have become permanent."
+
+- name: Mindlink
+  category: spell
+  type: Detection
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Mental communication link between caster and subject."
+  source: "Core Rulebook"
+  description: "Commlinks and text messaging? So passé. Just throw your thoughts into someone else's mind for the ultimate in rapid communication! As long as you get a hit on the Sorcery + Magic test, you have a link, and you can share mental communication in whatever form makes sense to you and subject of this spell. The caster and the subject must remain within range of each other for the link to continue functioning; if they move out of sense range and then come back into it, they can pick up the communication again, as long as the spell was continuously sustained."
+
+- name: Mind Probe
+  category: spell
+  type: Detection
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: Touch
+  effects: "Dig into target's mind. Sorcery + Magic vs Willpower + Logic."
+  source: "Core Rulebook"
+  description: "The subject of this spell can dig into a target's mind, seeing how many of their thoughts they can discern—while also attempting to sort what is true from the lies they tell themselves. Roll Sorcery + Magic vs. Willpower + Logic; net hits determine how much information the subject pulls out of the target's head. The Mind Probe Results table shows the type of information this spell delivers."
+
+# === HEALTH SPELLS ===
+- name: Antidote
+  category: spell
+  type: Health
+  drain: "F/2 + 1"
+  duration: Permanent
+  range: Touch
+  effects: "Purges toxins. Extended test vs toxin power. Each hit reduces toxin power by 1."
+  source: "Core Rulebook"
+  description: "This spell sends mana coursing through the body to find and purge toxins. Roll a Sorcery + Magic (toxin power) Extended test. Each hit reduces the toxin power by one. The mage may spend consecutive major actions to roll again without recasting. If the power hits zero, any ongoing effects of the toxin are eliminated. (Errata Feb 2020)"
+
+- name: Cleansing Heal
+  category: spell
+  type: Health
+  drain: "F/2 + 1"
+  duration: Permanent
+  range: Touch
+  effects: "Heals damage and eliminates Corroded status."
+  source: "Core Rulebook"
+  description: "This spell has the same healing effect as the Heal spell (roll Sorcery + Magic [5 – Essence], heal 1 box of Stun, Physical, or Overflow damage per net hit). In addition, this variant of the spell adds a cleansing element that eliminates the Corroded status on the targeted individual. Injuries can only be affected once by any healing spell."
+
+- name: Cooling Heal
+  category: spell
+  type: Health
+  drain: "F/2 + 1"
+  duration: Permanent
+  range: Touch
+  effects: "Heals damage and eliminates Burning status."
+  source: "Core Rulebook"
+  description: "This spell has the same healing effect as the Heal spell (roll Sorcery + Magic [5 – Essence], heal 1 box of Stun, Physical, or Overflow damage per net hit). In addition, this variant of the spell adds a cooling element that eliminates the Burning status on the targeted individual. Injuries can only be affected once by any healing spell."
+
+- name: Decrease Attribute
+  category: spell
+  type: Health
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Temporarily lowers one attribute (min 1). +1 DV per net hit beyond first."
+  source: "Core Rulebook"
+  description: "The touch of the mage weakens, slows, or stupefies the target, temporarily lowering one of their attributes (to a minimum of 1). The caster decides which attribute to target before casting the spell. The caster rolls a Sorcery + Magic vs. Willpower + targeted attribute. They can select how many net hits they actually apply to the target at a rate of 1 point of decrease per net hit; for each net hit applied beyond the first, the Drain Value of the spell increases by 1. The spell cannot affect Edge, Essence, Magic, or Resonance. (Errata Feb 2020)"
+
+- name: Heal
+  category: spell
+  type: Health
+  drain: "F/2"
+  duration: Permanent
+  range: Touch
+  effects: "Heals 1 box per net hit. Threshold (5 – Essence)."
+  source: "Core Rulebook"
+  description: "Shadowrunning comes with bumps, bruises, and bullet wounds, and magic is perhaps the quickest and most effective way to repair it. When casting this spell, roll Sorcery + Magic with a threshold of (5 – Essence). Heal 1 box of Stun, Physical, or Overflow damage per net hit. Injuries can only be affected once by any Heal spell (including Cleansing Heal, Cooling Heal, and Warming Heal)."
+
+- name: Increase Attribute
+  category: spell
+  type: Health
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Temporarily raises one attribute. Max +4. +1 DV per net hit beyond first."
+  source: "Core Rulebook"
+  description: "The touch of the mage strengthens, speeds, or enlightens the target, temporarily raising one of their attributes. The caster decides which attribute to target before casting the spell. The caster rolls a Sorcery + Magic (5 – Essence) test. They can select how many net hits they actually apply to the target to increase the selected attribute, at a rate of 1 point of increase per net hit (maximum bonus +4); for each net hit applied beyond the first, the Drain Value of the spell increases by 1. The spell cannot affect Edge, Essence, Magic, or Resonance."
+
+- name: Increase Reflexes
+  category: spell
+  type: Health
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: Touch
+  effects: "Increases Reaction and Initiative Dice. +1 DV per net hit beyond first."
+  source: "Core Rulebook"
+  description: "The reaction time and speed of the target increase, making them better able to anticipate and respond to others. The caster rolls a Sorcery + Magic (5 – Essence) test. They can select how many net hits they actually apply to the target to increase both their Reaction score and the number of Initiative Dice, at a rate of 1 point of increase and 1 Initiative Die per net hit; for each net hit applied beyond the first, the Drain Value of the spell increases by 1."
+
+- name: Resist Pain
+  category: spell
+  type: Health
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Target ignores damage modifiers. Net hits reduce dice-pool modifiers from damage."
+  source: "Core Rulebook"
+  description: "While not providing healing, this spell allows the target to ignore the effects of damage, moving forward as if they did not have that pain. Roll Sorcery + Magic (5 – Essence); for each net hit, the target can reduce dice-pool modifiers from damage by 1."
+
+- name: Stabilize
+  category: spell
+  type: Health
+  drain: "F/2"
+  duration: Permanent
+  range: Touch
+  effects: "Stabilizes Overflow damage. Threshold = Overflow boxes."
+  source: "Core Rulebook"
+  description: "This is the spell to use when someone is in Overflow damage and is sustaining an ongoing damaging effect or status. Roll Sorcery + Magic, with a threshold of the number of Overflow boxes of damage the target has. Meeting the threshold means the target is stabilized, and all Overflow damage is removed. The net hits can only affect Overflow damage and cannot heal regular damage."
+
+- name: Warming Heal
+  category: spell
+  type: Health
+  drain: "F/2 + 1"
+  duration: Permanent
+  range: Touch
+  effects: "Heals damage and eliminates Chilled status."
+  source: "Core Rulebook"
+  description: "This spell has the same healing effect as the Heal spell (roll Sorcery + Magic [5 – Essence], heal 1 box of Stun, Physical, or Overflow damage per net hit). In addition, this variant of the spell adds a warming element that eliminates the Chilled status on the targeted individual. Injuries can only be affected once by any healing spell."
+
+# === ILLUSION SPELLS ===
+- name: Agony
+  category: spell
+  type: Illusion
+  drain: "F/2"
+  duration: Sustained
+  range: LOS
+  effects: "Pain without damage. Net hits act like damage for Condition Monitor penalties."
+  source: "Core Rulebook"
+  description: "This spell brings pain but not actual damage. Roll Sorcery + Magic vs. Willpower + Logic; each net hit acts like an additional box of damage in both the Physical and Stun Condition Monitors for the purposes of determining penalties due to injuries. If one or both Condition Monitors are completely filled, the targeted individual stays conscious but is so wracked with pain that they cannot act. Once the spell is dropped, there is no ongoing effect from the pain. The base spell affects only an individual, but the Increase Area effect can be applied to make it an area spell (starting at 2m radius for +1 DV)."
+
+- name: Chaos
+  category: spell
+  type: Illusion
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: LOS
+  effects: "Confusion affecting tech. Confused status, affects cameras and technology."
+  source: "Core Rulebook"
+  description: "Chaos has the same effect as Confusion, except it also affects cameras, microphones, and other forms of technology. The base spell affects only an individual, but the Increase Area effect can be applied to make it an area spell (starting with a 2m radius). When it is an area spell, the Shift Area effect can be used."
+
+- name: Confusion
+  category: spell
+  type: Illusion
+  drain: "F/2"
+  duration: Sustained
+  range: LOS
+  effects: "Confused status. Net hits = status rating and dice pool penalty."
+  source: "Core Rulebook"
+  description: "Confusion hits the target with a swirl of images and emotions that leave them disoriented and, well, confused. Roll Sorcery + Magic vs. Willpower + Logic; the target gains the Confused (#) status, with the number equaling the net hits on the test. The target experiences a dice pool penalty equal to that number on all tests besides Damage Resistance tests."
+
+- name: Hush
+  category: spell
+  type: Illusion
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Silent (#) status. Mana-based, affects living beings."
+  source: "Core Rulebook"
+  description: "Hush gives targets the Silent (#) status (see p. 53), with the number equaling the net hits on the Sorcery + Magic test. That number acts as a threshold for any attempts to hear the character. Silence acts the same, but it gives the Silent (Improved) (#) status, so that microphones and other technology also will not hear the targeted character."
+
+- name: Silence
+  category: spell
+  type: Illusion
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: Touch
+  effects: "Silent (Improved) (#) status. Physical, affects tech too."
+  source: "Core Rulebook"
+  description: "Silence descends on that target, making them unable to make a noise even if they tried. This can be great for people trying to sneak by a target, or a good way to throw disruption among people depending on vocal communication. Hush gives targets the Silent (#) status; Silence gives the Silent (Improved) (#) status, so that microphones and other technology also will not hear the targeted character."
+
+- name: Invisibility
+  category: spell
+  type: Illusion
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Invisible (#) status. Mana-based."
+  source: "Core Rulebook"
+  description: "The target fades from view, becoming transparent so that they can move unnoticed. Invisibility gives the targeted character the Invisible (#) status (p. 52), where the number after the status becomes the threshold on any tests to see the character."
+
+- name: Improved Invisibility
+  category: spell
+  type: Illusion
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: Touch
+  effects: "Improved Invisibility (#) status. Physical, works against tech."
+  source: "Core Rulebook"
+  description: "The Improved Invisibility spell gives the Improved Invisibility (#) status, which is essentially the same as Invisibility but works against cameras and other technology as well as against living entities."
+
+- name: Mask
+  category: spell
+  type: Illusion
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Changes appearance. Willpower + Intuition to see through. Mana, living only."
+  source: "Core Rulebook"
+  description: "Sometimes you don't want to be seen; other times, you want to be seen as someone you are not. Mask is for the latter. The spell changes the critical characteristics of the person—their appearance, their sound, their scent, and so forth. Roll Sorcery + Magic and record the number of hits; those hits are used as a threshold when people try to see through the illusion, which requires a Willpower + Intuition test. Mask affects only living, sentient beings; Physical Mask affects cameras, microphones, and other technology."
+
+- name: Physical Mask
+  category: spell
+  type: Illusion
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: Touch
+  effects: "Changes appearance for tech. Physical, affects cameras and devices."
+  source: "Core Rulebook"
+  description: "Sometimes you don't want to be seen; other times, you want to be seen as someone you are not. Mask is for the latter. The spell changes the critical characteristics of the person—their appearance, their sound, their scent, and so forth. Mask affects only living, sentient beings; Physical Mask affects cameras, microphones, and other technology."
+
+- name: Phantasm
+  category: spell
+  type: Illusion
+  drain: "F/2"
+  duration: Sustained
+  range: LOS (A)
+  effects: "Projects image into area. Mana, affects living beings."
+  source: "Core Rulebook"
+  description: "With this spell, the caster projects a particular image into the area of effect (along with accompanying sounds and smells). Maybe it's the image of an attacking dragon, or a peaceful garden, or of a specific individual—whatever it is, it has to be something the caster has seen before, and the phantasm must stay in their line of sight. The spellcaster rolls Sorcery + Magic; the net hits form the threshold of any Willpower + Intuition tests viewers must make to see through the illusion. Phantasm affects every living being that sees the effect; Trid Phantasm affects cameras, microphones, and other technology."
+
+- name: Trid Phantasm
+  category: spell
+  type: Illusion
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: LOS (A)
+  effects: "Projects image for tech. Physical, affects cameras and devices."
+  source: "Core Rulebook"
+  description: "With this spell, the caster projects a particular image into the area of effect (along with accompanying sounds and smells). Phantasm affects every living being that sees the effect; Trid Phantasm affects cameras, microphones, and other technology."
+
+- name: Sensor Sneak
+  category: spell
+  type: Illusion
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Invisible (Improved) vs technology only. No effect on living beings."
+  source: "Core Rulebook"
+  description: "Improved Invisibility and Physical Mask and the like are great when you want to hide from both prying eyes and technology, but what about when there are no living beings around, only cameras, sensors, and the like? Sensor Sneak is the spell for that. It gives the target a version of the Invisible (Improved) (#) status, but it has no effect on living and sentient beings, only technology-based sensors."
+
+# === MANIPULATION SPELLS ===
+- name: Animate Metal
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 2"
+  duration: Limited
+  range: LOS
+  effects: "Animates metal. Sorcery + Magic vs Object Resistance."
+  source: "Core Rulebook"
+  description: "A chunk of material of the affected type comes to life, moving as commanded by the spellcaster. Roll Sorcery + Magic vs. Object Resistance of the item/material being animated. Use the Volume Reference table to determine how much material is animated. The material can move according to its form, but generally it should not be faster than 5 meters per combat round unless it is a wheeled vehicle or something else with innate speed. Attacks from animated objects do 4P damage if metal, 3P if stone, 2S if wood, 1S if plastic."
+
+- name: Animate Plastic
+  category: spell
+  type: Manipulation
+  drain: "F/2"
+  duration: Limited
+  range: LOS
+  effects: "Animates plastic. Sorcery + Magic vs Object Resistance."
+  source: "Core Rulebook"
+  description: "A chunk of material of the affected type comes to life, moving as commanded by the spellcaster. Roll Sorcery + Magic vs. Object Resistance. Animate Metal, Animate Plastic, Animate Stone, and Animate Wood each affect different materials."
+
+- name: Animate Stone
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Limited
+  range: LOS
+  effects: "Animates stone. Sorcery + Magic vs Object Resistance."
+  source: "Core Rulebook"
+  description: "A chunk of material of the affected type comes to life, moving as commanded by the spellcaster. Roll Sorcery + Magic vs. Object Resistance. Attacks from animated objects do 4P damage if metal, 3P if stone, 2S if wood, 1S if plastic."
+
+- name: Animate Wood
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Limited
+  range: LOS
+  effects: "Animates wood. Sorcery + Magic vs Object Resistance."
+  source: "Core Rulebook"
+  description: "A chunk of material of the affected type comes to life, moving as commanded by the spellcaster. Roll Sorcery + Magic vs. Object Resistance. Attacks from animated objects do 4P damage if metal, 3P if stone, 2S if wood, 1S if plastic."
+
+- name: Armor
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: Touch
+  effects: "Adds net hits to Defense Rating."
+  source: "Core Rulebook"
+  description: "Your magic fills the body of the target, hardening it and making it better able to absorb damage. Roll Sorcery + Magic and add net hits to the target's Defense Rating."
+
+- name: Darkness
+  category: spell
+  type: Manipulation
+  drain: "F/2"
+  duration: Sustained
+  range: LOS (A)
+  effects: "Lowers light level. Net hits affect Environment/Visibility Edge."
+  source: "Core Rulebook"
+  description: "These spells are two sides of the same coin, changing the light level of your environment to suit you. For each net hit, you can raise (using Light) or lower (using Darkness) the light level of the surrounding area, which may help when it comes to determining Edge based on Environment and Visibility (p. 118). These are area spells, and they can be adjusted using Increase Area and Shift Area."
+
+- name: Light
+  category: spell
+  type: Manipulation
+  drain: "F/2"
+  duration: Sustained
+  range: LOS (A)
+  effects: "Raises light level. Net hits affect Environment/Visibility Edge."
+  source: "Core Rulebook"
+  description: "These spells are two sides of the same coin, changing the light level of your environment to suit you. For each net hit, you can raise (using Light) or lower (using Darkness) the light level of the surrounding area, which may help when it comes to determining Edge based on Environment and Visibility (p. 118). These are area spells, and they can be adjusted using Increase Area and Shift Area."
+
+- name: Elemental Armor
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: Touch
+  effects: "Armor plus elemental protection. Prevents certain statuses."
+  source: "Core Rulebook"
+  description: "This works the same as the Armor spell (above), though it provides an added bonus. When casting the spell, you choose one element to protect the target from. Depending on the choice, the target cannot acquire certain statuses, as listed in the Elemental Protection table. They still may be damaged by a weapon or spell that does the type of damage from which you are protected—for example, if you have cooling armor, you still may be damaged by a Fireball blast if the initial attack roll is successful and you do not soak all the damage, but you would not gain the Burning status afterward."
+
+- name: Control Actions
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Limited
+  range: LOS
+  effects: "Puppeteer control. Sorcery + Magic vs Willpower + Logic. Net hits = duration in minutes."
+  source: "Core Rulebook"
+  description: "The spellcaster acts as master puppeteer, taking control of another person and making them dance to their tune. Roll Sorcery + Magic vs. Willpower + Logic; net hits give the maximum duration of the spell in minutes. The target is aware of what is happening to them but can little about it. The caster uses the same actions to command the individual as the action they are telling them to take. This spell can be made into an area spell using the Increase Area adjustment."
+
+- name: Control Thoughts
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Limited
+  range: LOS
+  effects: "Insidious mind control. Sorcery + Magic vs Willpower + Logic."
+  source: "Core Rulebook"
+  description: "Similar to Control Actions but more insidious, this puts the spellcaster inside the head of the target, making them think what the spellcaster wants them to. Roll Sorcery + Magic vs. Willpower + Logic; net hits give the maximum duration of the spell in minutes. Unlike Control Actions, the target's awareness of Control Thoughts being used on them is uncertain. Certain instincts are very difficult to override."
+
+- name: Focus Burst
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 3"
+  duration: Limited
+  range: Touch
+  effects: "Increases focus rating. Critical glitch reduces Force by 2."
+  source: "Core Rulebook"
+  description: "Foci can be powerful aids for magicians, but who hasn't found themselves wanting to eke out a little more power from them every now and then? With Focus Burst, you can get a little more out of your focus or give someone else a boost. Roll Sorcery + Magic vs. focus Force x 2. If you get any net hits, increase the effective rating of the focus by 1 for (net hits) minutes. A critical glitch on the Spellcasting test permanently reduces the Force of the focus by 2."
+
+- name: Fling
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Instant
+  range: LOS
+  effects: "Fling objects. 0.5 kg per net hit. Reaction + Intuition to avoid."
+  source: "Core Rulebook"
+  description: "If you ever thought, 'If I had magic powers, I definitely would catapult objects into the sky, only without a catapult,' then this spell is for you. Roll Sorcery + Magic vs. Object Resistance. For each net hit, you can fling half a kilogram of material into the air, and net hits also act as a threshold for a Reaction + Intuition test for targets to avoid the object. The flung object does Stun damage equal to kilograms of weight, rounded up."
+
+- name: Levitate
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 2"
+  duration: Sustained
+  range: LOS
+  effects: "Levitate 50 kg per hit. Unwilling: Body + Strength opposes."
+  source: "Core Rulebook"
+  description: "It may not be exactly the same as flight, but hey, it's defying gravity, and it's a blast. Roll Sorcery + Magic; for each hit, you can levitate 50 kilos worth of material or people. If it's the latter and the person is not particularly interested in being levitated, they can make a Body + Strength test, with each hit reducing your effective hits by 1. The target has to stay in sight if you want them to stay in the air. The target can be moved by the caster at a rate of (caster's Magic rating) meters per turn. Moving them requires a Minor Action."
+
+- name: Mana Barrier
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: LOS (A)
+  effects: "Astral wall. Blocks spirits, foci, dual-natured, preparations, spells."
+  source: "Core Rulebook"
+  description: "Want a spirit-free room? Want a way to enforce your bar's 'no foci' policy? Then a mana barrier is the way to go. This invisible wall (visible only on the astral) will let people and non-magical objects through with no noticeable effect, but spirits, foci, dual-natured beings, alchemical preparations, reagents, and spells can't get through. (Net hits + caster's Magic) is the Structure rating of the astral wall you create. For more information on mana barriers, see p. 161."
+
+- name: Mystic Armor
+  category: spell
+  type: Manipulation
+  drain: "F/2"
+  duration: Sustained
+  range: Touch
+  effects: "Astral Defense Rating. Drain type M. For astral combat and mana Combat spells."
+  source: "Core Rulebook"
+  description: "Your magic fills the astral form of the target, hardening it and making it better able to absorb damage. Roll Sorcery + Magic and add net hits to target's Defense Rating when in astral combat or against mana-based Combat spells. Drain type: Mental (errata Aug 2019)."
+
+- name: Overclock
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: LOS
+  effects: "Increases device attribute. Device takes Matrix damage when dropped (resisted by Firewall)."
+  source: "Core Rulebook"
+  description: "Magic does not always get along with tech, but sometimes they find a way to combine forces. With this spell, a mage can briefly amp up an electronic device's power, making it run better and faster. Roll Sorcery + Magic vs. Object Resistance. For each net hit, you can increase an attribute of the device (Device Rating, Attack, Data Processing, Firewall, or Sleaze) by 1. This use of magic strains the device. After the spell is dropped, the device takes Matrix Damage equal to the net hits used, resisted by Firewall. (Errata Feb 2020)"
+
+- name: Physical Barrier
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 2"
+  duration: Sustained
+  range: LOS (A)
+  effects: "Structure = Magic + hits. Base 2m x 2m. Increase Area adds size."
+  source: "Core Rulebook"
+  description: "Sometimes you want to keep magic away from you, and other times you want to keep absolutely everything you can away. Physical Barrier builds a wall where you want it to be, with a Structure rating equal to (Magic + hits on a Sorcery + Magic test). The base spell casts a barrier that is two meters by two meters, two centimeters thick. The Increase Area effect can be applied to add up to two meters in length and width (but not depth) for each time the effect is chosen."
+
+- name: Shape Metal
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: LOS
+  effects: "Shape metal. 1 cubic meter per net hit. Retains form when dropped."
+  source: "Core Rulebook"
+  description: "These spells give you the ability to make the selected material malleable—putty in your (mental) hands, essentially. You can shape the material as long as the spell is sustained; when the spell is dropped, the material retains whatever form you gave it. Roll Sorcery + Magic vs. Object Resistance; the amount of material you can shape is determined by net hits on that test. You can shape 1 cubic meter of material per net hit."
+
+- name: Shape Plastic
+  category: spell
+  type: Manipulation
+  drain: "F/2"
+  duration: Sustained
+  range: LOS
+  effects: "Shape plastic. 1 cubic meter per net hit."
+  source: "Core Rulebook"
+  description: "These spells give you the ability to make the selected material malleable. You can shape the material as long as the spell is sustained; when the spell is dropped, the material retains whatever form you gave it. Roll Sorcery + Magic vs. Object Resistance; you can shape 1 cubic meter of material per net hit."
+
+- name: Shape Stone
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: LOS
+  effects: "Shape stone. 1 cubic meter per net hit."
+  source: "Core Rulebook"
+  description: "These spells give you the ability to make the selected material malleable. You can shape the material as long as the spell is sustained; when the spell is dropped, the material retains whatever form you gave it. Roll Sorcery + Magic vs. Object Resistance; you can shape 1 cubic meter of material per net hit."
+
+- name: Shape Wood
+  category: spell
+  type: Manipulation
+  drain: "F/2"
+  duration: Sustained
+  range: LOS
+  effects: "Shape wood. 1 cubic meter per net hit."
+  source: "Core Rulebook"
+  description: "These spells give you the ability to make the selected material malleable. You can shape the material as long as the spell is sustained; when the spell is dropped, the material retains whatever form you gave it. Roll Sorcery + Magic vs. Object Resistance; you can shape 1 cubic meter of material per net hit."
+
+- name: Strengthen Wall
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 1"
+  duration: Sustained
+  range: LOS (A)
+  effects: "Increases Structure by 1 per net hit. 4 square meters base."
+  source: "Core Rulebook"
+  description: "Whether you're trying to solidify a wall that your opponents are trying to breach or cut down the noise from the people roller skating in the apartment above yours, making an existing wall a little stronger can be useful. Roll Sorcery + Magic vs. Object Resistance for the wall you are trying to affect; net hits increase the Structure rating by 1 per net hit. You can affect four square meters of wall with the base version of this spell; using the Increase Area effect increases this by four square meters per point of DV added. The Shift Area effect can be used for this spell."
+
+- name: Thunder
+  category: spell
+  type: Manipulation
+  drain: "F/2"
+  duration: Sustained
+  range: LOS (A)
+  effects: "Loud noise. Net hits = negative modifier to hear other noises."
+  source: "Core Rulebook"
+  description: "A big, loud distraction can be useful, and that's what this spell offers. By casting it, the magician shapes sound waves into a noise of their choice—it might sound like the spell's namesake, or the roar of rush-hour traffic, or the distant babble of shouted voices. The basic area affected by the spell is a two-meter-radius sphere; this can be expanded with the Increase Area effect. For each hit on the Sorcery + Magic test, the noise continues for 1 combat round after the spell is dropped by the caster. Net hits serve as a negative dice pool modifier on those trying to hear other noises in the area."
+
+- name: Vehicle Armor
+  category: spell
+  type: Manipulation
+  drain: "F/2 + 2"
+  duration: Sustained
+  range: Touch
+  effects: "Increases vehicle Armor by 1 per net hit. Drain type P."
+  source: "Core Rulebook"
+  description: "Many shadowrunners learn only too late that car doors are not impenetrable shields against bullets. But with this spell, they can be! Roll Sorcery + Magic vs. Object Resistance of the vehicle; increase the vehicle's effective Armor by 1 per net hit. Drain type: Physical (errata Feb 2020)."
+
+# === RITUALS ===
+- name: Watcher
+  category: ritual
+  type: Manipulation
+  drain: "Varies"
+  duration: "1 hour"
+  range: "Minion"
+  effects: "Creates watcher spirit. Cannot be banished or counterspelled."
+  source: "Core Rulebook"
+  description: "Watchers are like spirits, but in actuality are entities created by this ritual. They perform one task and then dissipate. Watchers cannot be banished or counterspelled. This ritual takes one hour to perform."
+
+- name: Ward
+  category: ritual
+  type: Manipulation
+  drain: "Varies"
+  duration: "Varies"
+  range: "Anchored"
+  effects: "Magical ward. Up to 50 cubic meters per sum of participants' Magic."
+  source: "Core Rulebook"
+  description: "For the duration of the ritual, a link is present between the target and the ritual group while the ritual is performed. The ward may encompass a volume of up to fifty cubic meters times the sum of participants' Magic ratings. See p. 145 for full details."
+
+- name: Renascence
+  category: ritual
+  type: Manipulation
+  drain: "Threshold 6"
+  duration: "Anchored, Spell"
+  range: "Sustained area"
+  effects: "Sustains and maintains an area Manipulation spell."
+  source: "Core Rulebook"
+  description: "This ritual sustains and maintains an area Manipulation spell. Threshold 6 to seal. See p. 145 for full details."
+
+- name: Remote Sensing
+  category: ritual
+  type: Detection
+  drain: "Varies"
+  duration: "Spell, Spotter"
+  range: "Varies"
+  effects: "Cast Detection spell at range through spotter."
+  source: "Core Rulebook"
+  description: "This ritual allows a Detection spell to be cast on a subject at range through a spotter. Material link may be required. See p. 145 for full details."
+
+- name: Prodigal Spell
+  category: ritual
+  type: Combat
+  drain: "Varies"
+  duration: "Spell"
+  range: "Varies"
+  effects: "Incorporates a Combat spell into the ritual."
+  source: "Core Rulebook"
+  description: "This ritual allows a Combat spell to be incorporated into the ritual. The spell does not cost additional Karma to learn separately. See p. 145 for full details."
+
+- name: Curse
+  category: ritual
+  type: Illusion
+  drain: "Threshold 5"
+  duration: "Material Link, Spell"
+  range: "Varies"
+  effects: "Cast Illusion spell through material link."
+  source: "Core Rulebook"
+  description: "A Curse allows an Illusion spell to be cast on a subject through a material link rather than a mystic link from observing the subject. A Curse can be used on any target, whether within visual range or not. Threshold 5. See p. 145 for full details."
+
+- name: Circle of Protection
+  category: ritual
+  type: Manipulation
+  drain: "Varies"
+  duration: "Varies"
+  range: "Anchored"
+  effects: "Protective circle. See p. 145."
+  source: "Core Rulebook"
+  description: "Creates a protective circle. See p. 145 for full ritual details."
+
+- name: Circle of Healing
+  category: ritual
+  type: Health
+  drain: "Varies"
+  duration: "Varies"
+  range: "Anchored"
+  effects: "Healing circle. See p. 145."
+  source: "Core Rulebook"
+  description: "Creates a circle that aids healing. See p. 145 for full ritual details."

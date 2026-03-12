@@ -69,10 +69,10 @@
 - name: Gas Grenade (CS/Tear Gas)
   cost: 80
   availability: "2(L)"
-  notes: "Nausea, -2 dice, 4m radius"
+  notes: "Nausea, -2 dice, 4m radius. Wash with soap/water to flush; inert after 2 min."
   dice_modifiers: []
   source: "Core Rulebook"
-  description: "Tear gas or CS gas. Causes nausea and impairs vision. Area denial. Restricted in some jurisdictions."
+  description: "CS gas is an irritant that affects the mucous membranes in the eyes, nose, mouth, and lungs. The real danger is when the gas is inhaled, stimulating a physiological panic response. Washing thoroughly with soap and water can flush the toxin, ending the nausea prematurely. CS gas becomes inert after two minutes of contact with the air (errata Feb 2020). Restricted in some jurisdictions."
 # Stimulants & Medical
 
 - name: Stim Patch (Rating 1)
@@ -94,10 +94,10 @@
 - name: Trauma Patch
   cost: 100
   availability: "2"
-  notes: "Stabilizes dying character, +2 to First Aid"
+  notes: "Heals 1d6+1 Overflow Damage immediately when applied"
   dice_modifiers: []
   source: "Core Rulebook"
-  description: "Emergency medical patch. Stabilizes a dying character. Provides +2 dice to First Aid tests when used. Essential for combat teams. One use."
+  description: "When applied, the patient heals 1d6 + 1 Overflow Damage immediately (errata Aug 2019). Emergency medical patch. Essential for combat teams. One use."
 
 - name: Medkit (Rating 6)
   cost: 600

@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "audit:magic": "node scripts/audit-magic-refs.mjs"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.6",

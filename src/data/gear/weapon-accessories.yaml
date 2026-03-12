@@ -5,9 +5,9 @@
   cost: 600
   availability: "3"
   mount: other
-  notes: "Smartgun accessory for grenade/rocket launchers. Reduces scatter by 2m per net hit. Prevents defender from using Hit the Deck. Requires wireless."
+  notes: "Smartgun accessory for grenade/rocket launchers. Reduces scatter by 2m per net hit. Prevents defender from using Hit the Dirt. Requires wireless."
   source: "Core Rulebook"
-  description: "A smartgun accessory for grenade and rocket launchers that uses a rangefinder to air-burst the explosive projectile in close proximity to the target. Reduces scatter distance by two meters per net hit instead of one. Prevents defender from using Hit the Deck Action. Wireless bonus: Requires wireless functionality."
+  description: "A smartgun accessory for grenade and rocket launchers that uses a rangefinder to air-burst the explosive projectile in close proximity to the target. Reduces scatter distance by two meters per net hit instead of one. Prevents defender from using Hit the Dirt Action (errata Feb 2020). Wireless bonus: Requires wireless functionality."
 
 - name: Bipod
   cost: 200
@@ -40,9 +40,9 @@
   availability: "3"
   mount: underbarrel
   ar_modifier: "+3/+3/+3/+3/+3"
-  notes: "Heavy harness for rifle/machine gun. Negates SA/BF penalties, +3 Full-Auto. Shifts Strength req to 3+/4+ for medium/heavy MG."
+  notes: "Heavy harness for rifle/machine gun. Negates SA/BF penalties, +3 Full-Auto. Shifts Strength req to 2+/4+ for medium/heavy MG."
   source: "Core Rulebook"
-  description: "Heavy harness with gyro-stabilized arm. Holds rifle or machine gun. Negates SA/BF Attack Rating adjustments, +3 for Full-Auto. Shifts Strength requirements for medium/heavy MG to 3+ and 4+. Attach/remove weapon: Minor Action."
+  description: "Heavy harness with gyro-stabilized arm. Holds rifle or machine gun. Negates SA/BF Attack Rating adjustments, +3 for Full-Auto. Shifts Strength requirements for medium/heavy MG to 2+ and 4+ (errata Aug 2019). Attach/remove weapon: Minor Action."
 
 - name: Hidden arm slide
   cost: 350
@@ -74,9 +74,9 @@
   cost: 70
   availability: "2"
   mount: top
-  notes: "Target around corners. Reduces Cover penalty to -1. Can upgrade with vision enhancements."
+  notes: "Target around corners. Capacity 3. Reduces Cover penalty to -1. Can upgrade with vision enhancements."
   source: "Core Rulebook"
-  description: "Adjustable viewer for top mount. Target weapon around corners. Reduces Cover IV dice pool penalty to -1 when using Take Cover. Upgradable with vision enhancements (p. 275). Wireless: Penalty reduced to 0."
+  description: "Adjustable viewer for top mount. Capacity 3 (errata Aug 2019). Target weapon around corners. Reduces Cover IV dice pool penalty to -1 when using Take Cover. Upgradable with vision enhancements (p. 275). Wireless: Penalty reduced to 0."
 
 - name: Quick-draw holster
   cost: 175

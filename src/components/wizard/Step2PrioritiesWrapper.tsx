@@ -3,9 +3,11 @@ import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import Step1Priorities from "./Step1Priorities";
 import Step2Metatype from "./Step2Metatype";
+import Step2AdjustmentPoints from "./Step2AdjustmentPoints";
 import Step3Attributes from "./Step3Attributes";
 import Step4Skills from "./Step4Skills";
 import Step5Magic from "./Step5Magic";
+import Step6KnowledgeSkills from "./Step6KnowledgeSkills";
 import type { WizardState } from "@/pages/CharacterWizard";
 
 interface Props {
@@ -16,18 +18,22 @@ interface Props {
 const SECTIONS = [
   { key: "priorities", label: "Priority Table", Component: Step1Priorities },
   { key: "metatype", label: "Metatype", Component: Step2Metatype },
+  { key: "magic", label: "Magic / Resonance", Component: Step5Magic },
+  { key: "adjustmentPoints", label: "Adjustment Points", Component: Step2AdjustmentPoints },
   { key: "attributes", label: "Attributes", Component: Step3Attributes },
   { key: "skills", label: "Skills", Component: Step4Skills },
-  { key: "magic", label: "Magic / Resonance", Component: Step5Magic },
+  { key: "knowledgeSkills", label: "Knowledge Skills", Component: Step6KnowledgeSkills },
 ] as const;
 
 export default function Step2PrioritiesWrapper({ state, onChange }: Props) {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     priorities: true,
     metatype: true,
+    magic: true,
+    adjustmentPoints: true,
     attributes: true,
     skills: true,
-    magic: true,
+    knowledgeSkills: true,
   });
 
   const toggle = (key: string) =>

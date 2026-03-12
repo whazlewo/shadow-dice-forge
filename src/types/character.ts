@@ -175,6 +175,7 @@ export interface SR6Spell {
   duration: string;
   range: string;
   effects: string;
+  description?: string;
 }
 
 export interface SR6AdeptPower {
@@ -183,6 +184,7 @@ export interface SR6AdeptPower {
   pp_cost: number;
   effects: string;
   dice_modifiers?: DiceModifier[];
+  description?: string;
 }
 
 export interface SR6OtherAbility {
@@ -297,6 +299,8 @@ export interface SR6PersonalInfo {
   street_cred?: number;
   notoriety?: number;
   public_awareness?: number;
+  description?: string;
+  backstory?: string;
 }
 
 export interface SR6IdsLifestyles {
@@ -304,6 +308,7 @@ export interface SR6IdsLifestyles {
   licenses: { id: string; name: string; rating: number; sin_id: string }[];
   lifestyles: { id: string; name: string; tier: string; months_paid: number }[];
   nuyen: number;
+  knowledge_skills?: string[];
 }
 
 // Dice pool breakdown for display
@@ -331,9 +336,9 @@ export const SR6_CORE_SKILLS: {
   { name: "Cracking", attribute: "logic", specializations: ["Cybercombat", "Electronic Warfare", "Hacking"] },
   { name: "Electronics", attribute: "logic", specializations: ["Computer", "Hardware", "Software"] },
   { name: "Enchanting", attribute: "magic", specializations: ["Alchemy", "Artificing", "Disenchanting"] },
-  { name: "Engineering", attribute: "logic", specializations: ["Aeronautics Mechanic", "Automotive Mechanic", "Demolitions", "Gunnery", "Industrial Mechanic", "Lockpicking", "Nautical Mechanic"] },
+  { name: "Engineering", attribute: "logic", specializations: ["Aeronautics Mechanic", "Armorer", "Automotive Mechanic", "Demolitions", "Gunnery", "Industrial Mechanic", "Lockpicking", "Nautical Mechanic"] },
   { name: "Exotic Weapons", attribute: "agility", specializations: [] },
-  { name: "Firearms", attribute: "agility", specializations: ["Automatics", "Hold-Outs", "Longarms", "Machine Pistols", "Pistols (Heavy)", "Pistols (Light)", "Shotguns", "Sniper Rifles", "Submachine Guns", "Tasers"] },
+  { name: "Firearms", attribute: "agility", specializations: ["Tasers", "Hold-Outs", "Light Pistols", "Machine Pistols", "Heavy Pistols", "Submachine Guns", "Shotguns", "Rifles", "Machine Guns", "Assault Cannons"] },
   { name: "Influence", attribute: "charisma", specializations: ["Etiquette", "Instruction", "Intimidation", "Leadership", "Negotiation"] },
   { name: "Outdoors", attribute: "intuition", specializations: ["Navigation", "Survival", "Tracking"] },
   { name: "Perception", attribute: "intuition", specializations: ["Auditory", "Environmental", "Olfactory", "Tactile", "Visual"] },

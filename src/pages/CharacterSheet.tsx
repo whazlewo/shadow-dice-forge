@@ -11,7 +11,9 @@ import type { Tables } from "@/integrations/supabase/types";
 import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Augmentation, SR6Gear, SR6PersonalInfo, AttributeSources } from "@/types/character";
 import type { KarmaTransaction } from "@/types/karma";
 import { computeKarmaSummary, attributeKarmaCost } from "@/lib/karma";
+import { inferMagicType } from "@/lib/character-utils";
 
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AttributesTab } from "@/components/character/AttributesTab";
 import { SkillsTab } from "@/components/character/SkillsTab";
 import { PersonalInfoTab } from "@/components/character/PersonalInfoTab";
@@ -268,6 +270,25 @@ export default function CharacterSheet() {
   const augmentations = (character.augmentations || []) as unknown as SR6Augmentation[];
   const gear = (character.gear || []) as unknown as SR6Gear[];
 
+  const magicType = inferMagicType(character);
+  const baseTabs = ["core", "notes", "weapons-gear", "vehicles"];
+  const magicTabs: string[] = [];
+  if (["full", "aspected", "mystic_adept"].includes(magicType)) magicTabs.push("spellcasting");
+  if (["adept", "mystic_adept"].includes(magicType)) magicTabs.push("adept");
+  if (magicType === "technomancer") magicTabs.push("complex-forms");
+  const allTabs = [...baseTabs, ...magicTabs, "other"];
+
+  const spells = (character.spells || []) as Array<{ id?: string; category?: string; [k: string]: unknown }>;
+  const spellcastingItems = spells.filter((s) => s.category !== "complex_form");
+  const complexFormItems = spells.filter((s) => s.category === "complex_form");
+
+  const TAB_LABELS: Record<string, string> = {
+    "weapons-gear": "Gear",
+    spellcasting: "Spellcasting",
+    adept: "Adept",
+    "complex-forms": "Complex Forms",
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <KarmaConfirmDialog request={karmaConfirm} />
@@ -289,9 +310,9 @@ export default function CharacterSheet() {
             </div>
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <TabsList className="flex h-auto gap-0 bg-transparent p-0 pointer-events-auto">
-                {["core", "notes", "weapons-gear", "vehicles", "spells", "adept", "other"].map((tab) => (
+                {allTabs.map((tab) => (
                   <TabsTrigger key={tab} value={tab} className="font-display text-[10px] tracking-wider uppercase px-2.5 py-1 h-auto data-[state=active]:bg-primary/10 data-[state=active]:text-primary rounded-sm data-[state=inactive]:text-muted-foreground">
-                    {tab === "weapons-gear" ? "Gear" : tab}
+                    {TAB_LABELS[tab] ?? tab.replace(/-/g, " ")}
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -324,14 +345,40 @@ export default function CharacterSheet() {
               <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={handleAttributeChange} />
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <SkillsTab
-                skills={skills}
-                attributes={attributes}
-                qualities={qualities}
-                augmentations={augmentations}
-                gear={gear}
-                onUpdate={handleSkillsChange}
-              />
+              <div className="space-y-4">
+                <SkillsTab
+                  skills={skills}
+                  attributes={attributes}
+                  qualities={qualities}
+                  augmentations={augmentations}
+                  gear={gear}
+                  onUpdate={handleSkillsChange}
+                />
+                {(() => {
+                  const idsLifestyles = (character as any).ids_lifestyles as { knowledge_skills?: string[] } | null;
+                  const knowledgeSkills = idsLifestyles?.knowledge_skills ?? [];
+                  if (knowledgeSkills.length === 0) return null;
+                  return (
+                    <Card className="border-border/50 bg-card/80">
+                      <CardHeader className="pb-2">
+                        <CardTitle className="font-display text-sm tracking-wide">Knowledge Skills</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap gap-2">
+                          {knowledgeSkills.map((name, i) => (
+                            <span
+                              key={i}
+                              className="inline-flex items-center rounded-md bg-muted/50 px-2 py-1 text-xs font-mono"
+                            >
+                              {name || "—"}
+                            </span>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })()}
+              </div>
               <EquippedGearTab
                 rangedWeapons={(character.ranged_weapons || []) as unknown as SR6RangedWeapon[]}
                 meleeWeapons={(character.melee_weapons || []) as unknown as SR6MeleeWeapon[]}
@@ -443,13 +490,40 @@ export default function CharacterSheet() {
             />
           </TabsContent>
 
-          <TabsContent value="spells">
+          <TabsContent value="spellcasting">
             <GenericListTab
-              title="Spells / Preparations / Rituals / Complex Forms"
-              items={(character.spells || []) as any[]}
+              title="Spells / Preparations / Rituals"
+              items={spellcastingItems}
               fields={["name", "category", "type", "drain", "duration", "range", "effects"]}
+              fieldOptions={{
+                category: ["spell", "preparation", "ritual"],
+                type: ["Combat", "Detection", "Health", "Illusion", "Manipulation"],
+              }}
+              fieldDefaults={{ category: "spell" }}
+              magicReferenceCategories={["spells"]}
               itemEditMode
-              onUpdate={(s) => updateField("spells", s)}
+              onUpdate={(newSpells) =>
+                updateField("spells", [...newSpells, ...complexFormItems])
+              }
+            />
+          </TabsContent>
+
+          <TabsContent value="complex-forms">
+            <GenericListTab
+              title="Complex Forms"
+              items={complexFormItems}
+              fields={["name", "category", "type", "drain", "duration", "range", "effects"]}
+              fieldLabels={{ drain: "Fade" }}
+              fieldOptions={{
+                category: ["complex_form"],
+                type: ["Complex Form"],
+              }}
+              fieldDefaults={{ category: "complex_form", type: "Complex Form" }}
+              magicReferenceCategories={["complexForms"]}
+              itemEditMode
+              onUpdate={(newCF) =>
+                updateField("spells", [...spellcastingItems, ...newCF])
+              }
             />
           </TabsContent>
 
@@ -458,6 +532,9 @@ export default function CharacterSheet() {
               title="Adept Powers"
               items={(character.adept_powers || []) as any[]}
               fields={["name", "pp_cost", "effects"]}
+              numericFields={["pp_cost"]}
+              magicReferenceCategory="adeptPowers"
+              showDiceModifiers
               itemEditMode
               onUpdate={(a) => updateField("adept_powers", a)}
             />

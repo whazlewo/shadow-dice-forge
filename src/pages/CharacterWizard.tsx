@@ -22,8 +22,10 @@ import Step2PrioritiesWrapper from "@/components/wizard/Step2PrioritiesWrapper";
 import Step3Qualities from "@/components/wizard/Step3Qualities";
 import Step4Karma from "@/components/wizard/Step4Karma";
 import Step5Gear from "@/components/wizard/Step5Gear";
+import Step6Magic from "@/components/wizard/Step6Magic";
 import { PRIORITY_TABLE, type PriorityLevel } from "@/data/sr6-reference";
-import { SR6_CORE_SKILLS, type SR6Attributes, type SR6Skill, type WizardQuality, type WizardGearItem, type WizardRangedWeapon, type WizardMeleeWeapon, type WizardArmor as WizardArmorType, type WizardAugmentation, type WizardVehicle, type WizardElectronics, type WizardMiscGear, type AttributeSources, type SR6CoreAttributes } from "@/types/character";
+import { getMysticAdeptSpellSlots } from "@/lib/magic-reference-utils";
+import { SR6_CORE_SKILLS, type SR6Attributes, type SR6Skill, type SR6Spell, type SR6AdeptPower, type WizardQuality, type WizardGearItem, type WizardRangedWeapon, type WizardMeleeWeapon, type WizardArmor as WizardArmorType, type WizardAugmentation, type WizardVehicle, type WizardElectronics, type WizardMiscGear, type AttributeSources, type SR6CoreAttributes } from "@/types/character";
 
 
 export interface WizardSkill {
@@ -36,7 +38,7 @@ export interface WizardSkill {
 
 export interface WizardState {
   characterName: string;
-  role: string;
+  description: string;
   backstory: string;
   priorities: Partial<Record<import("@/data/sr6-reference").PriorityColumn, PriorityLevel>>;
   metatype: string | null;
@@ -44,18 +46,34 @@ export interface WizardState {
   attributes: Record<string, number>;
   skills: WizardSkill[];
   magicChoice: string | null;
+  mysticAdeptPowerPoints?: number;
+  selectedSpells: SR6Spell[];
+  selectedAdeptPowers: SR6AdeptPower[];
+  selectedComplexForms: SR6Spell[];
   wizardQualities: WizardQuality[];
   karmaSpend: Record<string, number>;
+  karmaSpendSpecializations: Record<string, string>;
+  karmaSpendNuyen: number;
+  knowledgeSkillsFree: string[];
+  karmaSpendKnowledgeSkills: string[];
   purchasedGear: WizardGearItem[];
+  karmaSpendSpells: SR6Spell[];
+  karmaSpendPowerPoints: number;
 }
 
-const STEPS = ["Concept", "Priorities", "Qualities", "Karma", "Gear"];
+const BASE_STEPS_MUNDANE = ["Concept", "Priorities", "Qualities", "Karma", "Gear"];
+const BASE_STEPS_MAGIC = ["Concept", "Priorities", "Magic", "Qualities", "Karma", "Gear"];
 const DEBOUNCE_MS = 1000;
+
+function getSteps(magicChoice: string | null): string[] {
+  const isMagicUser = magicChoice && magicChoice !== "mundane";
+  return isMagicUser ? BASE_STEPS_MAGIC : BASE_STEPS_MUNDANE;
+}
 
 function createInitialState(): WizardState {
   return {
     characterName: "",
-    role: "",
+    description: "",
     backstory: "",
     priorities: {},
     metatype: null,
@@ -72,9 +90,19 @@ function createInitialState(): WizardState {
       expertise: "",
     })),
     magicChoice: null,
+    mysticAdeptPowerPoints: 0,
+    selectedSpells: [],
+    selectedAdeptPowers: [],
+    selectedComplexForms: [],
     wizardQualities: [],
     karmaSpend: {},
+    karmaSpendSpecializations: {},
+    karmaSpendNuyen: 0,
+    knowledgeSkillsFree: [],
+    karmaSpendKnowledgeSkills: [],
     purchasedGear: [],
+    karmaSpendSpells: [],
+    karmaSpendPowerPoints: 0,
   };
 }
 
@@ -103,8 +131,21 @@ export default function CharacterWizard() {
           .maybeSingle();
 
         if (data && !error) {
-          setStep(data.wizard_step);
-          setState(data.wizard_state as unknown as WizardState);
+          const loaded = data.wizard_state as unknown as WizardState & { _wizardStepName?: string };
+          if (loaded) {
+            if (!("karmaSpendSpecializations" in loaded)) loaded.karmaSpendSpecializations = {};
+            if (!("karmaSpendNuyen" in loaded)) loaded.karmaSpendNuyen = 0;
+            if (!("knowledgeSkillsFree" in loaded)) loaded.knowledgeSkillsFree = [];
+            if (!("karmaSpendKnowledgeSkills" in loaded)) loaded.karmaSpendKnowledgeSkills = [];
+          }
+          const steps = getSteps(loaded.magicChoice);
+          const stepName = loaded._wizardStepName;
+          const stepIndex = stepName && steps.includes(stepName)
+            ? steps.indexOf(stepName)
+            : Math.min(data.wizard_step ?? 0, steps.length - 1);
+          const { _wizardStepName, ...cleanState } = loaded;
+          setStep(stepIndex);
+          setState(cleanState as WizardState);
           toast.info("Draft restored");
         }
       } catch {
@@ -120,13 +161,16 @@ export default function CharacterWizard() {
   useEffect(() => {
     if (!user || !draftLoaded.current) return;
 
+    const steps = getSteps(state.magicChoice);
+    const wizardStateToSave = { ...state, _wizardStepName: steps[step] };
+
     if (debounceTimer.current) clearTimeout(debounceTimer.current);
     debounceTimer.current = setTimeout(async () => {
       await supabase.from("character_drafts").upsert(
         {
           user_id: user.id,
           wizard_step: step,
-          wizard_state: state as any,
+          wizard_state: wizardStateToSave as any,
         },
         { onConflict: "user_id" }
       );
@@ -146,19 +190,54 @@ export default function CharacterWizard() {
     setState((prev) => ({ ...prev, ...updates }));
   };
 
+  const steps = getSteps(state.magicChoice);
+  const isMagicStep = steps[step] === "Magic";
+
   const canProceed = (): boolean => {
     switch (step) {
       case 0:
         return state.characterName.trim().length > 0;
       case 1: {
         const vals = Object.values(state.priorities).filter(Boolean);
-        return vals.length === 5 && !!state.metatype;
+        const magicPriority = state.priorities.magic_resonance as PriorityLevel | undefined;
+        const magicOptions = magicPriority ? PRIORITY_TABLE[magicPriority]?.magic_resonance ?? [] : [];
+        const magicChoiceValid = magicOptions.some((o) => o.type === state.magicChoice);
+        return vals.length === 5 && !!state.metatype && magicChoiceValid;
       }
       case 2:
       case 3:
       case 4:
         return true;
       default:
+        if (isMagicStep) {
+          const magicPriority = state.priorities.magic_resonance as PriorityLevel;
+          const magicOptions = PRIORITY_TABLE[magicPriority]?.magic_resonance ?? [];
+          const selected = magicOptions.find((o) => o.type === state.magicChoice);
+          const magic = selected?.magicOrResonance ?? 0;
+          const mysticPP = state.mysticAdeptPowerPoints ?? 0;
+          const karmaSpendPowerPoints = state.karmaSpendPowerPoints ?? 0;
+          const spellSlots = getMysticAdeptSpellSlots(magic, mysticPP);
+          const adeptPPBudget =
+            state.magicChoice === "mystic_adept"
+              ? mysticPP + karmaSpendPowerPoints
+              : state.magicChoice === "adept"
+                ? magic
+                : 0;
+          const adeptPPSpent = (state.selectedAdeptPowers ?? []).reduce((s, p) => s + p.pp_cost, 0);
+
+          if (state.magicChoice === "full" || state.magicChoice === "aspected") {
+            return (state.selectedSpells ?? []).length === magic * 2;
+          }
+          if (state.magicChoice === "mystic_adept") {
+            return adeptPPSpent <= adeptPPBudget && (state.selectedSpells ?? []).length === spellSlots;
+          }
+          if (state.magicChoice === "adept") {
+            return adeptPPSpent <= adeptPPBudget;
+          }
+          if (state.magicChoice === "technomancer") {
+            return (state.selectedComplexForms ?? []).length === magic * 2;
+          }
+        }
         return true;
     }
   };
@@ -215,7 +294,7 @@ export default function CharacterWizard() {
       }
 
       const skills: SR6Skill[] = state.skills
-        .filter((s) => s.rating > 0)
+        .filter((s) => s.rating > 0 || (karmaSpend[`skill_${s.name}`] || 0) > 0)
         .map((s) => {
           const karmaRaises = Math.floor((karmaSpend[`skill_${s.name}`] || 0) / KARMA_PER_POINT);
           return {
@@ -223,7 +302,7 @@ export default function CharacterWizard() {
             name: s.name,
             attribute: s.attribute,
             rating: s.rating + karmaRaises,
-            specialization: s.specialization || undefined,
+            specialization: s.specialization || (state.karmaSpendSpecializations ?? {})[s.name] || undefined,
             expertise: s.expertise || undefined,
           };
         });
@@ -237,7 +316,8 @@ export default function CharacterWizard() {
       }));
 
       const resPriority = state.priorities.resources as PriorityLevel;
-      const startingNuyen = PRIORITY_TABLE[resPriority].resources;
+      const karmaNuyen = (state.karmaSpendNuyen ?? 0) * 2000;
+      const startingNuyen = PRIORITY_TABLE[resPriority].resources + karmaNuyen;
       const allGear = state.purchasedGear || [];
       const gearCost = allGear.reduce((sum, g) => sum + g.cost * g.quantity, 0);
 
@@ -274,13 +354,24 @@ export default function CharacterWizard() {
       // Update essence based on augmentations
       const totalEssenceLost = augmentationItems.reduce((sum, a) => sum + a.essence_cost, 0);
 
+      const spells = [
+        ...(state.selectedSpells ?? []),
+        ...(state.selectedComplexForms ?? []),
+        ...(state.karmaSpendSpells ?? []),
+      ];
+
+      const logicAttr = (state.attributes.logic || 1) + (state.adjustmentPoints?.logic || 0) + Math.floor((karmaSpend.attr_logic || 0) / KARMA_PER_POINT);
+      const freeKnowledge = (state.knowledgeSkillsFree ?? []).slice(0, logicAttr).filter(Boolean);
+      const karmaKnowledge = (state.karmaSpendKnowledgeSkills ?? []).filter(Boolean);
+      const knowledgeSkills = [...freeKnowledge, ...karmaKnowledge];
+
       const { data, error } = await supabase
         .from("characters")
         .insert({
           user_id: user.id,
           name: state.characterName || "New Runner",
           metatype: state.metatype,
-          priorities: state.priorities as any,
+          priorities: { ...state.priorities, magic_type: state.magicChoice } as any,
           attributes: { ...attrs, essence: 6 - totalEssenceLost } as any,
           attribute_sources: attributeSources as any,
           skills: skills as any,
@@ -291,8 +382,10 @@ export default function CharacterWizard() {
           augmentations: augmentationItems as any,
           vehicles: vehicleItems as any,
           gear: miscGear as any,
-          ids_lifestyles: { sins: [], licenses: [], lifestyles: [], nuyen: startingNuyen - gearCost } as any,
-          personal_info: { role: state.role, backstory: state.backstory } as any,
+          spells: spells as any,
+          adept_powers: (state.selectedAdeptPowers ?? []) as any,
+          ids_lifestyles: { sins: [], licenses: [], lifestyles: [], nuyen: startingNuyen - gearCost, knowledge_skills: knowledgeSkills } as any,
+          personal_info: { description: state.description, backstory: state.backstory } as any,
         })
         .select()
         .single();
@@ -352,14 +445,15 @@ export default function CharacterWizard() {
       </header>
 
       <main className="container py-6 max-w-3xl space-y-6">
-        <WizardStepper steps={STEPS} currentStep={step} />
+        <WizardStepper steps={steps} currentStep={step} />
 
         <div className="min-h-[400px]">
-          {step === 0 && <Step1Concept state={state} onChange={update} />}
-          {step === 1 && <Step2PrioritiesWrapper state={state} onChange={update} />}
-          {step === 2 && <Step3Qualities state={state} onChange={update} />}
-          {step === 3 && <Step4Karma state={state} onChange={update} />}
-          {step === 4 && <Step5Gear state={state} onChange={update} />}
+          {steps[step] === "Concept" && <Step1Concept state={state} onChange={update} />}
+          {steps[step] === "Priorities" && <Step2PrioritiesWrapper state={state} onChange={update} />}
+          {steps[step] === "Magic" && <Step6Magic state={state} onChange={update} />}
+          {steps[step] === "Qualities" && <Step3Qualities state={state} onChange={update} />}
+          {steps[step] === "Karma" && <Step4Karma state={state} onChange={update} />}
+          {steps[step] === "Gear" && <Step5Gear state={state} onChange={update} />}
         </div>
 
         <div className="flex items-center justify-between pt-4 border-t border-border/30">
@@ -372,7 +466,7 @@ export default function CharacterWizard() {
             <ArrowLeft className="h-4 w-4 mr-1" /> Back
           </Button>
 
-          {step < STEPS.length - 1 ? (
+          {step < steps.length - 1 ? (
             <Button
               onClick={() => setStep((s) => s + 1)}
               disabled={!canProceed()}

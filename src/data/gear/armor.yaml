@@ -109,7 +109,7 @@
   capacity: 2
   modifications: ""
   source: "Core Rulebook"
-  description: "The impressive black shield used by SWAT teams and in urban combat. It features a clear plasteel window and a built-in ladder frame along the inside so that it can be used to climb over short obstacles. Can be used as a weapon (Exotic, DV 2S, AR 4/—/—/—/—)."
+  description: "The impressive black shield used by SWAT teams and in urban combat. It features a clear plasteel window and a built-in ladder frame along the inside so that it can be used to climb over short obstacles. Can be used as a weapon (Close Combat, DV 2S, AR 4/—/—/—/—) (errata Aug 2019)."
 
 - name: Riot Shield
   subtype: shield

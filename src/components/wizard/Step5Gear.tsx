@@ -237,7 +237,8 @@ function CategoryFields({ item, onUpdate }: { item: WizardGearItem; onUpdate: (u
 export default function Step5Gear({ state, onChange }: Props) {
   const gear = state.purchasedGear || [];
   const resPriority = state.priorities.resources as PriorityLevel | undefined;
-  const startingNuyen = resPriority ? PRIORITY_TABLE[resPriority].resources : 0;
+  const karmaNuyen = (state.karmaSpendNuyen ?? 0) * 2000;
+  const startingNuyen = (resPriority ? PRIORITY_TABLE[resPriority].resources : 0) + karmaNuyen;
 
   const totalSpent = gear.reduce((sum, g) => sum + g.cost * g.quantity, 0);
   const remaining = startingNuyen - totalSpent;

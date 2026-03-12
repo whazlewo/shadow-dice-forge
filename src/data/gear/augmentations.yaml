@@ -81,16 +81,38 @@
   source: "Core Rulebook"
   description: "Neural accelerator. Boosts reaction time and initiative. Each rating adds +1 Reaction and +1d6 Initiative Dice. The classic street samurai upgrade. Restricted."
 
+- name: Bone Lacing (Plastic)
+  cost: 6000
+  availability: "2"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 1
+  effects: "+1 Physical condition monitor box, Unarmed DV 3P"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Reinforces bones with plastic polymer. Lightest option. Adds a Physical condition monitor box. Unarmed attacks inflict 3P damage (errata Feb 2020)."
+
 - name: Bone Lacing (Aluminum)
   cost: 8000
   availability: "3"
   aug_type: cyberware
   essence_cost: 0.3
   rating: 1
-  effects: "+1 Physical condition monitor box, +1 damage resistance"
+  effects: "+1 Physical condition monitor box, Unarmed DV 4P"
   dice_modifiers: []
   source: "Core Rulebook"
-  description: "Reinforces bones with metal. Aluminum is the lightest option. Adds a Physical condition monitor box and damage resistance. Titanium and plastisteel variants available."
+  description: "Reinforces bones with metal. Aluminum is the lightest metal option. Adds a Physical condition monitor box. Unarmed attacks inflict 4P damage (errata Feb 2020)."
+
+- name: Bone Lacing (Titanium)
+  cost: 12000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.4
+  rating: 1
+  effects: "+1 Physical condition monitor box, Unarmed DV 4P"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Reinforces bones with titanium. Heaviest option. Adds a Physical condition monitor box. Unarmed attacks inflict 4P damage (errata Feb 2020)."
 
 - name: Dermal Plating (Rating 1)
   cost: 6000

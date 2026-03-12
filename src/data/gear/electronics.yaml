@@ -76,7 +76,7 @@
   description: "Step up from the MCD-6. Four program slots. Better attack and sleaze for serious decking. Popular with aspiring deckers. Illegal for private ownership."
 
 - name: MCT 360
-  cost: 107000
+  cost: 95000
   availability: "3(I)"
   device_rating: 3
   programs: "6"
@@ -85,7 +85,7 @@
   description: "Mitsubishi Computer Technologies mid-range deck. Six program slots. Solid performance for professional hackers. Illegal for private ownership."
 
 - name: Renraku Kitsune
-  cost: 95000
+  cost: 107000
   availability: "4(I)"
   device_rating: 4
   programs: "8"

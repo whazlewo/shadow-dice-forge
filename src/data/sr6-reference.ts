@@ -152,6 +152,11 @@ export const METATYPE_DATA: Record<string, MetatypeData> = {
   },
 };
 
+/** Errata-corrected descriptions for racial qualities (Feb 2020) */
+export const RACIAL_QUALITY_EFFECTS: Record<string, string> = {
+  "Dermal Deposits": "You gain 1 level of natural Armor. Your Unarmed Melee attacks inflict Physical damage.",
+};
+
 // All base attributes that start at 1 and use attribute points
 export const BASE_ATTRIBUTES: (keyof Omit<SR6Attributes, "edge" | "essence" | "magic" | "resonance">)[] = [
   "body", "agility", "reaction", "strength", "willpower", "logic", "intuition", "charisma",

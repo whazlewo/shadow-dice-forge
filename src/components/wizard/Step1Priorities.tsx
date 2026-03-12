@@ -31,7 +31,19 @@ export default function Step1Priorities({ state, onChange }: Props) {
   const hasDuplicates = duplicates.length > 0;
 
   const setPriority = (col: PriorityColumn, level: PriorityLevel) => {
-    onChange({ priorities: { ...priorities, [col]: level } });
+    const nextPriorities = { ...priorities, [col]: level };
+    const updates: Partial<WizardState> = { priorities: nextPriorities };
+
+    if (col === "magic_resonance") {
+      const prevLevel = priorities.magic_resonance;
+      if (level === "E") {
+        updates.magicChoice = "mundane";
+      } else if (prevLevel === "E") {
+        updates.magicChoice = null;
+      }
+    }
+
+    onChange(updates);
   };
 
   return (

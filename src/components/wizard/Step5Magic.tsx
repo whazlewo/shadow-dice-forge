@@ -21,7 +21,23 @@ export default function Step5Magic({ state, onChange }: Props) {
   const selected = options.find((o) => o.type === magicChoice);
 
   const handleSelect = (entry: PriorityMagicEntry) => {
-    onChange({ magicChoice: entry.type });
+    const updates: Partial<WizardState> = { magicChoice: entry.type };
+    const adjustmentPoints = state.adjustmentPoints ?? {};
+
+    if (entry.type === "technomancer" && (adjustmentPoints.magic ?? 0) > 0) {
+      const cleared = { ...adjustmentPoints };
+      delete cleared.magic;
+      updates.adjustmentPoints = cleared;
+    } else if (
+      (entry.type === "full" || entry.type === "aspected" || entry.type === "mystic_adept" || entry.type === "adept") &&
+      (adjustmentPoints.resonance ?? 0) > 0
+    ) {
+      const cleared = { ...adjustmentPoints };
+      delete cleared.resonance;
+      updates.adjustmentPoints = cleared;
+    }
+
+    onChange(updates);
   };
 
   const isMundane = magicChoice === "mundane";
@@ -96,7 +112,7 @@ export default function Step5Magic({ state, onChange }: Props) {
               )}
             </div>
             <p className="text-xs text-muted-foreground mt-3">
-              You can select specific spells, powers, and complex forms on the character sheet after creation.
+              You will select your spells, adept powers, or complex forms in the Magic step after Gear.
             </p>
           </CardContent>
         </Card>

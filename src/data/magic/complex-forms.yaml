@@ -1,0 +1,122 @@
+# Shadowrun 6e Complex Forms - Technomancer
+# Fade replaces drain for complex forms
+
+- name: Cleaner
+  fade: "2"
+  duration: Permanent
+  range: Touch
+  effects: "Each hit reduces your Overwatch Score by 1."
+  source: "Core Rulebook"
+  description: "Make an Electronics + Resonance test. Each hit reduces your Overwatch Score by 1."
+
+- name: Diffusion (Matrix Attribute)
+  fade: "4"
+  duration: Sustained
+  range: LOS
+  effects: "Each net hit reduces target attribute by 1 (min 1). Purchase multiple times for different attributes."
+  source: "Core Rulebook"
+  description: "Make an Electronics + Resonance vs. Willpower + Firewall opposed test. Each net hit reduces (attribute) by 1, to a minimum of 1. Can be purchased multiple times, with each time targeting a different attribute."
+
+- name: Editor
+  fade: "3"
+  duration: Permanent
+  range: LOS
+  effects: "Edit File action without proper access level."
+  source: "Core Rulebook"
+  description: "You can take the Edit File action on a file even if you do not have the proper access level. You must still be able to detect the file."
+
+- name: Emulate (Program)
+  fade: "—"
+  duration: Sustained
+  range: LOS
+  effects: "Run 1 program. Purchase multiple times for different programs. Includes autosofts."
+  source: "Core Rulebook"
+  description: "This form can be purchased multiple times; each time you can choose 1 program to run. Includes autosofts, whose rating equals the technomancer's current Data Processing rating."
+
+- name: Infusion (Matrix Attribute)
+  fade: "4"
+  duration: Sustained
+  range: LOS
+  effects: "Each net hit increases attribute by 1, up to 2x normal. Purchase multiple times for different attributes."
+  source: "Core Rulebook"
+  description: "Make a simple Electronics + Resonance (4) test, each net hit increases (attribute) by 1 up to twice the target's normal rating. Can be purchased multiple times, each time for a different attribute."
+
+- name: Mirrored Persona
+  fade: "3"
+  duration: Instant
+  range: LOS
+  effects: "Create proxy persona. Hits = rating. Opponents need Matrix Perception (threshold) to differentiate."
+  source: "Core Rulebook"
+  description: "You can create a proxy persona that looks and acts identical to you in the Matrix. When launching this form, roll Electronics + Resonance; the number of hits serves as the rating of the duplicate persona you create. To differentiate between the technomancer and the proxy, opponents must succeed on a Matrix Perception test with a threshold of that rating. If they fail on that test, opponents target the proxy with their Matrix Actions."
+
+- name: Pulse Storm
+  fade: "3"
+  duration: Instant
+  range: LOS
+  effects: "Each net hit increases target's noise rating by 1."
+  source: "Core Rulebook"
+  description: "Make an Electronics + Resonance vs. Logic + Data Processing test. Each net hit increases the target's noise rating by 1."
+
+- name: Puppeteer
+  fade: "5"
+  duration: Sustained
+  range: LOS
+  effects: "Control Device action without proper access. Must detect device."
+  source: "Core Rulebook"
+  description: "You may take the Control Device action on a device even if you do not have the proper access level. You must still be able to detect the device. (Errata Aug 2019: same-grid requirement removed)"
+
+- name: Resonance Channel
+  fade: "2"
+  duration: Sustained
+  range: LOS
+  effects: "Each hit reduces your noise level by 1."
+  source: "Core Rulebook"
+  description: "Make an Electronics + Resonance test. Each hit reduces your noise level by 1."
+
+- name: Resonance Spike
+  fade: "4"
+  duration: Instant
+  range: LOS
+  effects: "Each net hit causes 1 box of unresisted Matrix damage. Cracking + Resonance vs. Willpower + Firewall."
+  source: "Core Rulebook"
+  description: "Make a Cracking + Resonance vs. Willpower + Firewall test; each net hit causes 1 box of unresisted Matrix damage. (Errata Aug 2019)"
+
+- name: Resonance Veil
+  fade: "4"
+  duration: Sustained
+  range: LOS
+  effects: "Matrix illusion. Electronics + Resonance vs. Intuition + Data Processing. Target needs Matrix Perception (net hits) to see through."
+  source: "Core Rulebook"
+  description: "Create an illusion of Matrix activity that has the sights, sounds, and other sensory inputs of a genuine Matrix occurrence. Make an Electronics + Resonance vs. Intuition + Data Processing test. Even if the target has reason to believe what it's seeing is fake, they must make a Matrix Perception test with a threshold equal to your net hits to see through the illusion."
+
+- name: Static Bomb
+  fade: "6"
+  duration: Instant
+  range: LOS
+  effects: "Targets that don't roll net hits lose perception of you. Must Matrix Perception to locate before further action."
+  source: "Core Rulebook"
+  description: "Make an Electronics + Resonance vs. Intuition + Data Processing test against all targets that can detect you. Any target that doesn't roll any net hits loses perception of you and must perform a Matrix Perception test to locate you once more before they may take any further action against you."
+
+- name: Static Veil
+  fade: "3"
+  duration: Sustained
+  range: LOS
+  effects: "Target doesn't accumulate Overwatch Score from maintaining illegal access. OS still increases from illegal actions."
+  source: "Core Rulebook"
+  description: "Make an Electronics + Resonance vs. Willpower/Firewall + Firewall test. While this form is sustained, the target will not accumulate Overwatch Score from maintaining illegal access to a host. OS will still increase due to illegal actions, though."
+
+- name: Stitches
+  fade: "4"
+  duration: Permanent
+  range: LOS
+  effects: "Each net hit repairs 1 box of Matrix damage on a sprite."
+  source: "Core Rulebook"
+  description: "Make an Electronics + Resonance test. Each net hit repairs 1 box of Matrix damage on a sprite."
+
+- name: Tattletale
+  fade: "3"
+  duration: Permanent
+  range: LOS
+  effects: "Each hit increases target's Overwatch Score by 1."
+  source: "Core Rulebook"
+  description: "Make an Electronics + Resonance test. Each hit increases the target's Overwatch Score by 1."

@@ -37,6 +37,8 @@ export interface RichTextEditorProps {
   readOnly?: boolean;
   minHeight?: string;
   className?: string;
+  /** Use smaller, muted text (matches backstory preview styling) */
+  muted?: boolean;
 }
 
 export function RichTextEditor({
@@ -46,6 +48,7 @@ export function RichTextEditor({
   readOnly = false,
   minHeight = "min-h-[120px]",
   className,
+  muted = false,
 }: RichTextEditorProps) {
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
   const initialContent = toEditorContent(value);
@@ -136,7 +139,8 @@ export function RichTextEditor({
           minHeight,
           TIPTAP_PROSE_CLASSES,
           "[&_.tiptap]:outline-none",
-          "[&_.tiptap]:min-h-[80px]",
+          muted ? "[&_.tiptap]:min-h-[2.5rem]" : "[&_.tiptap]:min-h-[80px]",
+          muted && "[&_.tiptap]:text-sm [&_.tiptap]:text-muted-foreground",
         )}
       />
     </div>

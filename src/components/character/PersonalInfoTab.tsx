@@ -145,15 +145,20 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
 
           {/* Description and Backstory - full width, backstory fills remaining space */}
           <div className="w-full flex-1 min-h-0 flex flex-col mt-4 gap-0">
-            <div className="space-y-1 shrink-0">
-              <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Description</Label>
-              <RichTextEditor
-                value={info.description ?? ""}
-                onChange={(v) => set("description", v)}
-                placeholder="Describe your runner—role, motivations, personality..."
-                readOnly={ro}
-                minHeight="min-h-[80px]"
-              />
+            <div className="shrink-0 rounded-md -mx-1 px-1">
+              <div className="flex items-center justify-between shrink-0">
+                <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Description</Label>
+              </div>
+              <div className="pt-1">
+                <RichTextEditor
+                  value={info.description ?? ""}
+                  onChange={(v) => set("description", v)}
+                  placeholder="Describe your runner—role, motivations, personality..."
+                  readOnly={ro}
+                  minHeight="min-h-0"
+                  muted
+                />
+              </div>
             </div>
             <button
               type="button"

@@ -45,6 +45,7 @@ export type Database = {
           attribute_sources: Json | null
           attributes: Json | null
           augmentations: Json | null
+          condition_monitor: Json | null
           contacts: Json | null
           created_at: string
           gear: Json | null
@@ -74,6 +75,7 @@ export type Database = {
           attribute_sources?: Json | null
           attributes?: Json | null
           augmentations?: Json | null
+          condition_monitor?: Json | null
           contacts?: Json | null
           created_at?: string
           gear?: Json | null
@@ -103,6 +105,7 @@ export type Database = {
           attribute_sources?: Json | null
           attributes?: Json | null
           augmentations?: Json | null
+          condition_monitor?: Json | null
           contacts?: Json | null
           created_at?: string
           gear?: Json | null

@@ -26,6 +26,7 @@ interface Props {
   qualities: SR6Quality[];
   augmentations: SR6Augmentation[];
   gear: SR6Gear[];
+  woundModifier?: number;
 }
 
 function StatPill({
@@ -154,6 +155,7 @@ function PoolPill({
   qualities,
   augmentations,
   gear,
+  woundModifier,
 }: {
   skillName: string;
   subtype?: string;
@@ -163,6 +165,7 @@ function PoolPill({
   qualities: SR6Quality[];
   augmentations: SR6Augmentation[];
   gear: SR6Gear[];
+  woundModifier?: number;
 }) {
   const pool = calculateWeaponPool(
     skillName,
@@ -172,7 +175,8 @@ function PoolPill({
     qualities,
     augmentations,
     gear,
-    weaponAccessories
+    weaponAccessories,
+    woundModifier
   );
   const lines = [
     `${pool.attribute_name.charAt(0).toUpperCase() + pool.attribute_name.slice(1).padEnd(14)} ${pool.attribute_value}`,
@@ -205,6 +209,7 @@ export function EquippedGearTab({
   qualities,
   augmentations,
   gear,
+  woundModifier,
 }: Props) {
   const equippedRanged = rangedWeapons.filter((w) => w.equipped !== false);
   const equippedMelee = meleeWeapons.filter((w) => w.equipped !== false);
@@ -260,6 +265,7 @@ export function EquippedGearTab({
                     qualities={qualities}
                     augmentations={augmentations}
                     gear={gear}
+                    woundModifier={woundModifier}
                   />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />
@@ -307,6 +313,7 @@ export function EquippedGearTab({
                     qualities={qualities}
                     augmentations={augmentations}
                     gear={gear}
+                    woundModifier={woundModifier}
                   />
                 </div>
                 <AccessoryBadges accessories={w.accessories} />

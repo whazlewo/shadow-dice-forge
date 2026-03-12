@@ -17,6 +17,7 @@ interface Props {
   qualities: SR6Quality[];
   augmentations: SR6Augmentation[];
   gear: SR6Gear[];
+  woundModifier?: number;
   onUpdate: (skills: SR6Skill[], karmaInfo?: { description: string; cost: number; field: string }) => void;
 }
 
@@ -50,7 +51,7 @@ function ReadOnlySkillRow({ skill, pool }: { skill: SR6Skill; pool: DicePoolBrea
   );
 }
 
-export function SkillsTab({ skills, attributes, qualities, augmentations, gear, onUpdate }: Props) {
+export function SkillsTab({ skills, attributes, qualities, augmentations, gear, woundModifier, onUpdate }: Props) {
   const [expandedSkill, setExpandedSkill] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
 
@@ -131,11 +132,11 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
 
         {!editing
           ? skills.map((skill) => {
-              const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear);
+              const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier);
               return <ReadOnlySkillRow key={skill.id} skill={skill} pool={pool} />;
             })
           : skills.map((skill, index) => {
-              const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear);
+              const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier);
               const isExpanded = expandedSkill === skill.id;
 
               return (

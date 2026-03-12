@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
-import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Augmentation, SR6Gear, SR6PersonalInfo, AttributeSources } from "@/types/character";
+import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Augmentation, SR6Gear, SR6PersonalInfo, AttributeSources, ConditionMonitor } from "@/types/character";
 import type { KarmaTransaction } from "@/types/karma";
 import { computeKarmaSummary, attributeKarmaCost } from "@/lib/karma";
 import { inferMagicType } from "@/lib/character-utils";
@@ -22,6 +22,8 @@ import { GenericListTab } from "@/components/character/GenericListTab";
 import { EquippedGearTab } from "@/components/character/EquippedGearTab";
 import { KarmaConfirmDialog, type KarmaConfirmRequest } from "@/components/character/KarmaConfirmDialog";
 import { NotesTab } from "@/components/character/NotesTab";
+import { ConditionMonitorTab } from "@/components/character/ConditionMonitorTab";
+import { computeWoundModifier } from "@/lib/condition-monitor";
 
 type Character = Tables<"characters">;
 
@@ -271,6 +273,11 @@ export default function CharacterSheet() {
   const gear = (character.gear || []) as unknown as SR6Gear[];
 
   const magicType = inferMagicType(character as any);
+  const conditionMonitor = character.condition_monitor as ConditionMonitor | undefined;
+  const woundModifier =
+    conditionMonitor?.physical_damage !== undefined && conditionMonitor?.stun_damage !== undefined
+      ? computeWoundModifier(conditionMonitor.physical_damage, conditionMonitor.stun_damage)
+      : undefined;
   const baseTabs = ["core", "notes", "weapons-gear", "vehicles"];
   const magicTabs: string[] = [];
   if (["full", "aspected", "mystic_adept"].includes(magicType)) magicTabs.push("spellcasting");
@@ -344,6 +351,13 @@ export default function CharacterSheet() {
               />
               <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={handleAttributeChange} />
             </div>
+            <ConditionMonitorTab
+              conditionMonitor={character.condition_monitor as ConditionMonitor | undefined}
+              attributes={attributes}
+              qualities={qualities}
+              metatype={character.metatype || undefined}
+              onUpdate={(cm) => updateField("condition_monitor", cm)}
+            />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <SkillsTab
@@ -352,6 +366,7 @@ export default function CharacterSheet() {
                   qualities={qualities}
                   augmentations={augmentations}
                   gear={gear}
+                  woundModifier={woundModifier}
                   onUpdate={handleSkillsChange}
                 />
                 {(() => {
@@ -388,6 +403,7 @@ export default function CharacterSheet() {
                 qualities={qualities}
                 augmentations={augmentations}
                 gear={gear}
+                woundModifier={woundModifier}
               />
             </div>
             <GenericListTab

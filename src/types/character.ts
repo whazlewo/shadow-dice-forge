@@ -57,6 +57,13 @@ export interface SR6Quality {
   dice_modifiers?: DiceModifier[];
 }
 
+/** Condition Monitor tracks Physical, Stun, and Overflow damage */
+export interface ConditionMonitor {
+  physical_damage: number;
+  stun_damage: number;
+  overflow_damage: number;
+}
+
 export interface DiceModifier {
   skill?: string;
   attribute?: string;

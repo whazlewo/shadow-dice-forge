@@ -11,16 +11,26 @@ function modifierApplies(mod: { requires_accessory?: string }, weaponAccessories
   return weaponAccessories.some((acc) => acc.name.toLowerCase().includes(needle));
 }
 
+/**
+ * Calculate dice pool for a skill test.
+ * @param woundModifier - Optional penalty from Condition Monitor damage (–1 per 3 boxes filled).
+ *   Does not apply to Damage Resistance tests (GM discretion).
+ */
 export function calculateDicePool(
   skill: SR6Skill,
   attributes: SR6Attributes,
   qualities: SR6Quality[],
   augmentations: SR6Augmentation[],
   gear: SR6Gear[],
-  weaponAccessories?: { name: string }[]
+  weaponAccessories?: { name: string }[],
+  woundModifier?: number
 ): DicePoolBreakdown {
   const attrValue = Number(attributes[skill.attribute]) || 0;
   const modifiers: { source: string; value: number }[] = [];
+
+  if (woundModifier !== undefined && woundModifier !== 0) {
+    modifiers.push({ source: "Wound penalty", value: woundModifier });
+  }
 
   qualities.forEach((q) => {
     q.dice_modifiers?.forEach((mod) => {
@@ -60,6 +70,7 @@ export function calculateDicePool(
 
 /**
  * Calculate the weapon dice pool including specialization/expertise bonuses.
+ * @param woundModifier - Optional penalty from Condition Monitor damage.
  */
 export function calculateWeaponPool(
   skillName: string,
@@ -69,7 +80,8 @@ export function calculateWeaponPool(
   qualities: SR6Quality[],
   augmentations: SR6Augmentation[],
   gear: SR6Gear[],
-  weaponAccessories?: { name: string }[]
+  weaponAccessories?: { name: string }[],
+  woundModifier?: number
 ): DicePoolBreakdown {
   const skill = skills.find((s) => s.name === skillName);
   const effectiveSkill: SR6Skill = skill || {
@@ -79,7 +91,7 @@ export function calculateWeaponPool(
     rating: 0,
   };
 
-  const base = calculateDicePool(effectiveSkill, attributes, qualities, augmentations, gear, weaponAccessories);
+  const base = calculateDicePool(effectiveSkill, attributes, qualities, augmentations, gear, weaponAccessories, woundModifier);
 
   // Check specialization / expertise match
   if (weaponSubtype && skill) {

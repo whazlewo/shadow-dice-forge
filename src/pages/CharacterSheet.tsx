@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
-import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Augmentation, SR6Gear, SR6PersonalInfo, SR6IdsLifestyles, AttributeSources, ConditionMonitor } from "@/types/character";
+import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Augmentation, SR6Gear, SR6AdeptPower, SR6PersonalInfo, SR6IdsLifestyles, AttributeSources, ConditionMonitor } from "@/types/character";
 import type { KarmaTransaction } from "@/types/karma";
 import { computeKarmaSummary, attributeKarmaCost } from "@/lib/karma";
 import { inferMagicType } from "@/lib/character-utils";
@@ -273,6 +273,7 @@ export default function CharacterSheet() {
   const idsLifestyles = (character.ids_lifestyles || null) as SR6IdsLifestyles | null;
   const augmentations = (character.augmentations || []) as unknown as SR6Augmentation[];
   const gear = (character.gear || []) as unknown as SR6Gear[];
+  const adeptPowers = (character.adept_powers || []) as unknown as SR6AdeptPower[];
 
   const magicType = inferMagicType(character as any);
   const conditionMonitor = character.condition_monitor as ConditionMonitor | undefined;
@@ -335,7 +336,7 @@ export default function CharacterSheet() {
       <main className="container py-4">
 
           <TabsContent value="core" className="space-y-6">
-            {/* Row 1: Personal Data | Attributes (same height); Row 2: Contacts | Condition Monitor (same height) */}
+            {/* Row 1: Personal Data | Attributes */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
               <div className="h-full min-h-0 flex flex-col [&>*]:flex-1 [&>*]:min-h-0 [&>*]:flex [&>*]:flex-col">
                 <PersonalInfoTab
@@ -352,8 +353,67 @@ export default function CharacterSheet() {
                 />
               </div>
               <div className="h-full min-h-0 flex flex-col [&>*]:flex-1 [&>*]:min-h-0 [&>*]:flex [&>*]:flex-col">
-                <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={handleAttributeChange} />
+                <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} adeptPowers={adeptPowers} onUpdate={handleAttributeChange} />
               </div>
+            </div>
+
+            {/* Row 2: Skills | Readied Equipment */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+              <div className="flex flex-col h-full min-h-0">
+                <div className="flex-1 min-h-0 flex flex-col">
+                  <SkillsTab
+                  skills={skills}
+                  attributes={attributes}
+                  qualities={qualities}
+                  augmentations={augmentations}
+                  gear={gear}
+                  adeptPowers={adeptPowers}
+                  woundModifier={woundModifier}
+                  onUpdate={handleSkillsChange}
+                />
+                </div>
+                {(() => {
+                  const knowledgeSkills = idsLifestyles?.knowledge_skills ?? [];
+                  if (knowledgeSkills.length === 0) return null;
+                  return (
+                    <Card className="border-border/50 bg-card/80 shrink-0 mt-4">
+                      <CardHeader className="pb-2">
+                        <CardTitle className="font-display tracking-wider text-sm sm:text-base">Knowledge Skills</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap gap-2">
+                          {knowledgeSkills.map((name, i) => (
+                            <span
+                              key={i}
+                              className="inline-flex items-center rounded-md bg-muted/50 px-2 py-1 text-xs font-mono"
+                            >
+                              {name || "—"}
+                            </span>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })()}
+              </div>
+              <div className="h-full min-h-0 flex flex-col">
+                <PrimaryEquipmentBlock
+                rangedWeapons={(character.ranged_weapons || []) as unknown as SR6RangedWeapon[]}
+                meleeWeapons={(character.melee_weapons || []) as unknown as SR6MeleeWeapon[]}
+                armor={(character.armor || []) as unknown as SR6Armor[]}
+                skills={skills}
+                attributes={attributes}
+                qualities={qualities}
+                augmentations={augmentations}
+                gear={gear}
+                adeptPowers={adeptPowers}
+                woundModifier={woundModifier}
+              />
+              </div>
+            </div>
+
+            {/* Row 3: Contacts | Condition Monitor */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
               <div className="h-full min-h-0 flex flex-col [&>*]:flex-1 [&>*]:min-h-0 [&>*]:flex [&>*]:flex-col">
                 <GenericListTab
                   title="Contacts"
@@ -375,56 +435,7 @@ export default function CharacterSheet() {
               </div>
             </div>
 
-            {/* Row 2: Skills | Primary Equipment */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <SkillsTab
-                  skills={skills}
-                  attributes={attributes}
-                  qualities={qualities}
-                  augmentations={augmentations}
-                  gear={gear}
-                  woundModifier={woundModifier}
-                  onUpdate={handleSkillsChange}
-                />
-                {(() => {
-                  const knowledgeSkills = idsLifestyles?.knowledge_skills ?? [];
-                  if (knowledgeSkills.length === 0) return null;
-                  return (
-                    <Card className="border-border/50 bg-card/80">
-                      <CardHeader className="pb-2">
-                        <CardTitle className="font-display text-sm tracking-wide">Knowledge Skills</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex flex-wrap gap-2">
-                          {knowledgeSkills.map((name, i) => (
-                            <span
-                              key={i}
-                              className="inline-flex items-center rounded-md bg-muted/50 px-2 py-1 text-xs font-mono"
-                            >
-                              {name || "—"}
-                            </span>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })()}
-              </div>
-              <PrimaryEquipmentBlock
-                rangedWeapons={(character.ranged_weapons || []) as unknown as SR6RangedWeapon[]}
-                meleeWeapons={(character.melee_weapons || []) as unknown as SR6MeleeWeapon[]}
-                armor={(character.armor || []) as unknown as SR6Armor[]}
-                skills={skills}
-                attributes={attributes}
-                qualities={qualities}
-                augmentations={augmentations}
-                gear={gear}
-                woundModifier={woundModifier}
-              />
-            </div>
-
-            {/* Row 3: IDs/Lifestyles/Currency | Qualities */}
+            {/* Row 4: IDs/Lifestyles/Currency | Qualities */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <IdsLifestylesCurrencyTab
                 idsLifestyles={idsLifestyles}
@@ -435,7 +446,7 @@ export default function CharacterSheet() {
                 onUpdateIdsLifestyles={(d) => updateField("ids_lifestyles", d)}
                 onUpdatePersonalInfo={(i) => updateField("personal_info", i)}
               />
-              <QualitiesTab qualities={qualities} />
+              <QualitiesTab qualities={qualities} onUpdate={(q) => handleQualitiesChange(q)} />
             </div>
           </TabsContent>
 

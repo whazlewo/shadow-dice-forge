@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Shield, Crosshair, Sword } from "lucide-react";
 import type {
   SR6RangedWeapon,
   SR6MeleeWeapon,
@@ -9,10 +10,12 @@ import type {
   SR6Quality,
   SR6Augmentation,
   SR6Gear,
+  SR6AdeptPower,
 } from "@/types/character";
 import { calculateModifiedAR } from "@/lib/ar-utils";
 import { normalizeAccessories } from "@/lib/gear-reference-utils";
 import { calculateWeaponPool } from "@/lib/dice-pool";
+import { DicePoolDisplay } from "./DicePoolTooltip";
 
 function accessoriesToARModifiers(weapon: {
   accessories?: string | { name: string; ar_modifier?: string }[];
@@ -23,13 +26,78 @@ function accessoriesToARModifiers(weapon: {
     .map((a) => ({ source: a.name || "Accessory", values: a.ar_modifier! }));
 }
 
-function modifiedAR(weapon: {
+function arWithBreakdown(weapon: {
   ar: string;
   accessories?: string | { name: string; ar_modifier?: string }[];
-}): string {
+}): { modified: string; breakdown: { label: string; values: string }[] } {
   const mods = accessoriesToARModifiers(weapon);
-  if (mods.length === 0) return weapon.ar || "—";
-  return calculateModifiedAR(weapon.ar, mods).modified;
+  if (mods.length === 0) {
+    return { modified: weapon.ar || "—", breakdown: [{ label: "Base", values: weapon.ar || "—" }] };
+  }
+  return calculateModifiedAR(weapon.ar, mods);
+}
+
+const RANGE_BANDS = ["PB", "S", "M", "L", "E"];
+
+function CategoryHeader({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
+  return (
+    <div className="flex items-center gap-2 pb-1 pt-2">
+      <Icon className="h-3.5 w-3.5 text-muted-foreground" />
+      <span className="font-display text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+        {label}
+      </span>
+      <div className="h-px flex-1 bg-border" />
+    </div>
+  );
+}
+
+function ARDisplay({ weapon }: { weapon: { ar: string; accessories?: string | { name: string; ar_modifier?: string }[] } }) {
+  const { modified, breakdown } = arWithBreakdown(weapon);
+  const hasModifiers = breakdown.length > 1;
+
+  if (!hasModifiers) {
+    return <span>AR {modified}</span>;
+  }
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span className="cursor-help underline decoration-dotted underline-offset-2">AR {modified}</span>
+      </TooltipTrigger>
+      <TooltipContent side="top" className="p-2">
+        <div className="space-y-0.5 text-xs font-mono min-w-[200px]">
+          <div className="flex gap-2 text-[10px] text-muted-foreground/60 uppercase tracking-wider mb-1">
+            <span className="flex-1" />
+            {RANGE_BANDS.map((b) => (
+              <span key={b} className="w-6 text-center">{b}</span>
+            ))}
+          </div>
+          {breakdown.map((row, i) => {
+            const isTotal = i === breakdown.length - 1 && breakdown.length > 2;
+            const values = row.values.split("/").map((v) => v.trim());
+            return (
+              <div
+                key={i}
+                className={`flex items-center gap-2 ${isTotal ? "border-t border-border pt-1 mt-1 font-bold" : ""}`}
+              >
+                <span className={`flex-1 truncate ${isTotal ? "" : "text-muted-foreground"}`}>{row.label}</span>
+                {values.map((v, vi) => (
+                  <span
+                    key={vi}
+                    className={`w-6 text-center ${
+                      isTotal ? "text-primary neon-glow-cyan" : v.startsWith("+") || v.startsWith("-") ? "text-neon-green" : ""
+                    }`}
+                  >
+                    {v}
+                  </span>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      </TooltipContent>
+    </Tooltip>
+  );
 }
 
 interface Props {
@@ -41,6 +109,7 @@ interface Props {
   qualities?: SR6Quality[];
   augmentations?: SR6Augmentation[];
   gear?: SR6Gear[];
+  adeptPowers?: SR6AdeptPower[];
   woundModifier?: number;
 }
 
@@ -53,119 +122,113 @@ export function PrimaryEquipmentBlock({
   qualities = [],
   augmentations = [],
   gear = [],
+  adeptPowers = [],
   woundModifier,
 }: Props) {
   const equippedRanged = rangedWeapons.filter((w) => w.equipped !== false);
   const equippedMelee = meleeWeapons.filter((w) => w.equipped !== false);
   const equippedArmor = armor.filter((a) => a.equipped !== false);
 
-  const primaryRanged = equippedRanged[0];
-  const primaryMelee = equippedMelee[0];
-  const primaryBodyArmor = equippedArmor.find((a) => (a.subtype || "body") === "body") ?? equippedArmor[0];
-
-  const hasNothing = !primaryRanged && !primaryMelee && !primaryBodyArmor;
+  const hasNothing = equippedRanged.length === 0 && equippedMelee.length === 0 && equippedArmor.length === 0;
 
   if (hasNothing) {
     return (
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader>
-          <CardTitle className="font-display tracking-wider">PRIMARY EQUIPMENT</CardTitle>
+      <Card className="border-border/50 bg-card/80 flex-1 min-h-0 flex flex-col">
+        <CardHeader className="shrink-0">
+          <CardTitle className="font-display tracking-wider text-sm sm:text-base">READIED EQUIPMENT</CardTitle>
         </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground text-sm py-4 text-center">No primary equipment.</p>
+        <CardContent className="flex-1 min-h-0 flex items-center justify-center">
+          <p className="text-muted-foreground text-sm py-4 text-center">No readied equipment.</p>
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card className="border-border/50 bg-card/80">
-      <CardHeader>
-        <CardTitle className="font-display tracking-wider">PRIMARY EQUIPMENT</CardTitle>
+    <Card className="border-border/50 bg-card/80 flex-1 min-h-0 flex flex-col">
+      <CardHeader className="shrink-0">
+        <CardTitle className="font-display tracking-wider text-sm sm:text-base">READIED EQUIPMENT</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3">
-        {primaryBodyArmor && (
-          <div className="space-y-1">
-            <span className="font-display text-[10px] uppercase tracking-wider text-muted-foreground">
-              Primary Armor
-            </span>
-            <p className="font-mono text-sm">
-              {primaryBodyArmor.name} — DR {primaryBodyArmor.rating ?? "—"}
-            </p>
-          </div>
+      <CardContent className="flex-1 min-h-0 overflow-auto space-y-3">
+        {equippedArmor.length > 0 && (
+          <>
+            <CategoryHeader icon={Shield} label="Armor" />
+            {equippedArmor.map((a) => (
+              <div key={a.id ?? a.name} className="space-y-1 p-2 rounded-md bg-muted/30">
+                <p className="font-mono text-sm">
+                  {a.name}{a.subtype && a.subtype !== "body" ? ` (${a.subtype})` : ""} — DR {a.rating ?? "—"}
+                </p>
+              </div>
+            ))}
+          </>
         )}
 
-        {primaryRanged && (
-          <div className="space-y-1">
-            <span className="font-display text-[10px] uppercase tracking-wider text-muted-foreground">
-              Primary Ranged Weapon
-            </span>
-            <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
-              <span className="font-semibold">{primaryRanged.name}</span>
-              <span>DV {primaryRanged.dv || "—"}</span>
-              <span>AR {modifiedAR(primaryRanged)}</span>
-              {primaryRanged.fire_modes && (
-                <span className="text-muted-foreground">{primaryRanged.fire_modes}</span>
-              )}
-              <span>Ammo {primaryRanged.ammo || "—"}</span>
-              {skills.length > 0 && attributes && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="text-primary">
-                      {calculateWeaponPool(
+        {equippedRanged.length > 0 && (
+          <>
+            <CategoryHeader icon={Crosshair} label="Ranged Weapons" />
+            {equippedRanged.map((weapon) => (
+              <div key={weapon.id ?? weapon.name} className="space-y-1 p-2 rounded-md bg-muted/30">
+                <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+                  <span className="font-semibold">{weapon.name}</span>
+                  <span>DV {weapon.dv || "—"}</span>
+                  <ARDisplay weapon={weapon} />
+                  {weapon.fire_modes && (
+                    <span className="text-muted-foreground">{weapon.fire_modes}</span>
+                  )}
+                  <span>Ammo {weapon.ammo || "—"}</span>
+                  {skills.length > 0 && attributes && (
+                    <DicePoolDisplay
+                      pool={calculateWeaponPool(
                         "Firearms",
-                        primaryRanged.subtype,
+                        weapon.subtype,
                         attributes,
                         skills,
                         qualities,
                         augmentations,
                         gear,
-                        normalizeAccessories(primaryRanged.accessories),
-                        woundModifier
-                      ).total}d6
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent side="top" className="font-mono text-xs">
-                    Dice pool
-                  </TooltipContent>
-                </Tooltip>
-              )}
-            </div>
-          </div>
+                        normalizeAccessories(weapon.accessories),
+                        woundModifier,
+                        adeptPowers
+                      )}
+                      className="text-primary cursor-help"
+                    />
+                  )}
+                </div>
+              </div>
+            ))}
+          </>
         )}
 
-        {primaryMelee && (
-          <div className="space-y-1">
-            <span className="font-display text-[10px] uppercase tracking-wider text-muted-foreground">
-              Primary Melee Weapon
-            </span>
-            <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
-              <span className="font-semibold">{primaryMelee.name}</span>
-              <span>DV {primaryMelee.dv || "—"}</span>
-              {skills.length > 0 && attributes && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="text-primary">
-                      {calculateWeaponPool(
-                        primaryMelee.subtype === "Exotic" ? "Exotic Weapons" : "Close Combat",
-                        primaryMelee.subtype,
+        {equippedMelee.length > 0 && (
+          <>
+            <CategoryHeader icon={Sword} label="Melee Weapons" />
+            {equippedMelee.map((weapon) => (
+              <div key={weapon.id ?? weapon.name} className="space-y-1 p-2 rounded-md bg-muted/30">
+                <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
+                  <span className="font-semibold">{weapon.name}</span>
+                  <span>DV {weapon.dv || "—"}</span>
+                  <ARDisplay weapon={weapon} />
+                  {skills.length > 0 && attributes && (
+                    <DicePoolDisplay
+                      pool={calculateWeaponPool(
+                        weapon.subtype === "Exotic" ? "Exotic Weapons" : "Close Combat",
+                        weapon.subtype,
                         attributes,
                         skills,
                         qualities,
                         augmentations,
                         gear,
-                        normalizeAccessories(primaryMelee.accessories),
-                        woundModifier
-                      ).total}d6
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent side="top" className="font-mono text-xs">
-                    Dice pool
-                  </TooltipContent>
-                </Tooltip>
-              )}
-            </div>
-          </div>
+                        normalizeAccessories(weapon.accessories),
+                        woundModifier,
+                        adeptPowers
+                      )}
+                      className="text-primary cursor-help"
+                    />
+                  )}
+                </div>
+              </div>
+            ))}
+          </>
         )}
       </CardContent>
     </Card>

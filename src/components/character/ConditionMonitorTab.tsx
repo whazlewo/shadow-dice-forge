@@ -117,7 +117,7 @@ export function ConditionMonitorTab({ conditionMonitor, attributes, qualities, m
     <Card className="border-border/50 bg-card/80">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
-          <CardTitle className="font-display text-sm tracking-wider">CONDITION MONITOR</CardTitle>
+          <CardTitle className="font-display tracking-wider text-sm sm:text-base">CONDITION MONITOR</CardTitle>
           <Tooltip>
             <TooltipTrigger asChild>
               <Info className="h-3.5 w-3.5 text-muted-foreground/60 cursor-help" />

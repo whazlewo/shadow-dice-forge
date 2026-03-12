@@ -6,11 +6,12 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Trash2, ChevronDown, ChevronRight, Pencil, Check, Info } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import type { SR6Skill, SR6Attributes, SR6Quality, SR6Augmentation, SR6Gear, DicePoolBreakdown } from "@/types/character";
+import type { SR6Skill, SR6Attributes, SR6Quality, SR6Augmentation, SR6Gear, SR6AdeptPower, DicePoolBreakdown } from "@/types/character";
 import { SR6_CORE_SKILLS } from "@/types/character";
 import { SKILL_DESCRIPTIONS } from "@/data/sr6-reference";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { calculateDicePool } from "@/lib/dice-pool";
+import { DicePoolDisplay } from "./DicePoolTooltip";
 import { skillKarmaCost, SPECIALIZATION_KARMA_COST, EXPERTISE_KARMA_COST } from "@/lib/karma";
 
 interface Props {
@@ -19,6 +20,7 @@ interface Props {
   qualities: SR6Quality[];
   augmentations: SR6Augmentation[];
   gear: SR6Gear[];
+  adeptPowers?: SR6AdeptPower[];
   woundModifier?: number;
   onUpdate: (skills: SR6Skill[], karmaInfo?: { description: string; cost: number; field: string }) => void;
 }
@@ -67,12 +69,12 @@ function ReadOnlySkillRow({ skill, pool }: { skill: SR6Skill; pool: DicePoolBrea
       <td className="py-1.5 px-2 font-mono text-xs text-center w-12">{pool.skill_rating}</td>
       <td className="py-1.5 px-2 font-mono text-xs text-center w-12">{pool.attribute_value}</td>
       <td className="py-1.5 px-2 font-mono text-[10px] text-muted-foreground uppercase w-10">{attrType}</td>
-      <td className="py-1.5 pl-2 font-mono text-sm font-bold text-primary neon-glow-cyan">{pool.total}d6</td>
+      <td className="py-1.5 pl-2"><DicePoolDisplay pool={pool} /></td>
     </tr>
   );
 }
 
-export function SkillsTab({ skills, attributes, qualities, augmentations, gear, woundModifier, onUpdate }: Props) {
+export function SkillsTab({ skills, attributes, qualities, augmentations, gear, adeptPowers, woundModifier, onUpdate }: Props) {
   const [expandedSkill, setExpandedSkill] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
 
@@ -132,9 +134,9 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
   };
 
   return (
-    <Card className="border-border/50 bg-card/80">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="font-display tracking-wider">SKILLS</CardTitle>
+    <Card className="border-border/50 bg-card/80 flex-1 min-h-0 flex flex-col">
+      <CardHeader className="flex flex-row items-center justify-between shrink-0">
+        <CardTitle className="font-display tracking-wider text-sm sm:text-base">SKILLS</CardTitle>
         <div className="flex items-center gap-1">
           {editing && (
             <Button variant="outline" size="sm" onClick={addSkill}>
@@ -146,7 +148,7 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
           </Button>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-1 min-h-0 overflow-auto">
         {skills.length === 0 && (
           <p className="text-muted-foreground text-sm text-center py-6">No skills added yet.</p>
         )}
@@ -165,7 +167,7 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
               </thead>
               <tbody>
                 {skills.map((skill) => {
-                  const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier);
+                  const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier, adeptPowers);
                   return <ReadOnlySkillRow key={skill.id} skill={skill} pool={pool} />;
                 })}
               </tbody>
@@ -176,7 +178,7 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
         {editing && (
           <div className="space-y-2">
             {skills.map((skill, index) => {
-              const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier);
+              const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier, adeptPowers);
               const isExpanded = expandedSkill === skill.id;
 
               return (
@@ -226,9 +228,7 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
                     />
 
                     <div className="ml-auto flex items-center gap-2">
-                      <span className="font-mono text-sm font-bold text-primary neon-glow-cyan">
-                        {pool.total}d6
-                      </span>
+                      <DicePoolDisplay pool={pool} />
                       <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => removeSkill(index)}>
                         <Trash2 className="h-3 w-3" />
                       </Button>

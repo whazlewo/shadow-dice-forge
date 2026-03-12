@@ -212,23 +212,23 @@
 - name: Colt M23
   subtype: Automatics
   cost: 2100
-  availability: "3(L)"
+  availability: "2(L)"
   dv: "4P"
-  ar: "3/11/10/6/1"
+  ar: "5/8/8/8/1"
   fire_modes: "SA/BF/FA"
-  ammo: "35(c)"
+  ammo: "40(c)"
   accessories: []
   source: "Core Rulebook"
   description: "Cheap, mass-produced, infinitely adaptable. Finds its way to everyone from gangbangers to pirates to delta-level government operators. Can accept two additional underbarrel accessories."
 
 - name: FN HAR
   subtype: Automatics
-  cost: 5100
-  availability: "2(L)"
+  cost: 2100
+  availability: "3(L)"
   dv: "5P"
-  ar: "5/8/8/8/4"
+  ar: "3/11/10/6/1"
   fire_modes: "SA/BF/FA"
-  ammo: "40(c)"
+  ammo: "35(c)"
   accessories: []
   source: "Core Rulebook"
   description: "The name to fear when facing private security and corporate high-threat-response teams. Features laser sight and gas-vent system."
@@ -551,7 +551,7 @@
   ammo: "10(c)"
   accessories: []
   source: "Core Rulebook"
-  description: "Shoot through the side of an APC. Excels at tearing through metal. Sound suppressor, smartgun system, folding bipod."
+  description: "Shoot through the side of an APC. Excels at tearing through metal. Silencer, smartgun system, folding bipod."
 
 # Machine Guns
 - name: Ingram Valiant

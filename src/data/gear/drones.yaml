@@ -242,4 +242,19 @@
   pilot: 2
   seats: "2/16"
   source: "Core Rulebook"
-  description: "Most commonly identifiable cargo helicopter in the world. Double-rotor design for heavy lifting. Handles Firewatch strike teams, heavy cargo, or ordnance. Body 22 per errata Feb 2020."
+  description: "Most commonly identifiable cargo helicopter in the world. Double-rotor design for heavy lifting. Handles Firewatch strike teams, heavy cargo, or ordnance. Body 22."
+
+# Seattle Gear (City Edition: Seattle, p. 336)
+
+- name: Horizon MapMaster Drone
+  cost: 3500
+  availability: "5"
+  handling: "4/3"
+  speed: "4"
+  body: 1
+  armor: 1
+  sensor: 3
+  pilot: 3
+  seats: 0
+  source: "Core Rulebook (City Edition)"
+  description: "A Horizon Flying Eye variant packed with LIDAR and ultrasound sensors for underground mapping. Creates custom maps (1 x map rating combat rounds per 10m cube). Map rating limits fob bonus dice. Multiple drones can collaborate for faster or higher-rating maps."

@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Pencil, Check, Camera, Info, ExternalLink } from "lucide-react";
+import { Pencil, Check, Camera, Info, ExternalLink, FileText, BookOpen } from "lucide-react";
 import type { SR6PersonalInfo } from "@/types/character";
 import type { KarmaTransaction } from "@/types/karma";
 import { KarmaTracker } from "./KarmaTracker";
@@ -26,6 +26,18 @@ interface Props {
   onAddKarmaTransaction?: (tx: Omit<KarmaTransaction, "id" | "timestamp">) => void;
   portraitUrl?: string | null;
   onPortraitUpload?: (blob: Blob) => Promise<void>;
+}
+
+function CategoryHeader({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
+  return (
+    <div className="flex items-center gap-2 pb-1 pt-2">
+      <Icon className="h-3.5 w-3.5 text-muted-foreground" />
+      <span className="font-display text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+        {label}
+      </span>
+      <div className="h-px flex-1 bg-border" />
+    </div>
+  );
 }
 
 function Field({ label, value, type, onChange, onBlur, readOnly, tooltip }: { label: string; value: any; type?: string; onChange?: (val: string) => void; onBlur?: () => void; readOnly?: boolean; tooltip?: string }) {
@@ -99,7 +111,7 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
     <div className="flex flex-col h-full gap-4">
       <Card className="border-border/50 bg-card/80 flex-1 min-h-0 flex flex-col">
         <CardHeader className="flex flex-row items-center justify-between shrink-0">
-          <CardTitle className="font-display tracking-wider">PERSONAL DATA</CardTitle>
+          <CardTitle className="font-display tracking-wider text-sm sm:text-base">PERSONAL DATA</CardTitle>
           <Button variant="ghost" size="icon" className="h-7 w-7" onClick={toggleEdit}>
             {editing ? <Check className="h-4 w-4" /> : <Pencil className="h-4 w-4" />}
           </Button>
@@ -144,12 +156,10 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
           </div>
 
           {/* Description and Backstory - full width, backstory fills remaining space */}
-          <div className="w-full flex-1 min-h-0 flex flex-col mt-4 gap-0">
-            <div className="shrink-0 rounded-md -mx-1 px-1">
-              <div className="flex items-center justify-between shrink-0">
-                <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Description</Label>
-              </div>
-              <div className="pt-1">
+          <div className="w-full flex-1 min-h-0 flex flex-col mt-4 space-y-3">
+            <div className="shrink-0">
+              <CategoryHeader icon={FileText} label="Description" />
+              <div className="p-2 rounded-md bg-muted/30">
                 <RichTextEditor
                   value={info.description ?? ""}
                   onChange={(v) => set("description", v)}
@@ -163,16 +173,12 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
             <button
               type="button"
               onClick={() => setBackstoryModalOpen(true)}
-              className="flex-1 min-h-0 flex flex-col text-left hover:bg-muted/20 rounded-md transition-colors -mx-1 px-1"
+              className="flex-1 min-h-0 flex flex-col text-left"
             >
-              <div className="flex items-center justify-between shrink-0">
-                <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide cursor-pointer">
-                  Backstory
-                </Label>
-                <ExternalLink className="h-3 w-3 text-muted-foreground/60 shrink-0" />
-              </div>
-              <div className="flex-1 min-h-0 overflow-hidden py-1">
-                <p className="text-sm text-muted-foreground line-clamp-[10] break-words">
+              <CategoryHeader icon={BookOpen} label="Backstory" />
+              <div className="relative flex-1 min-h-0 p-2 rounded-md bg-muted/30 hover:bg-muted/50 transition-colors">
+                <ExternalLink className="absolute top-2 right-2 h-3 w-3 text-muted-foreground/60" />
+                <p className="text-sm text-muted-foreground line-clamp-[10] break-words pr-6">
                   {stripHtml(info.backstory) || "No backstory yet."}
                 </p>
               </div>

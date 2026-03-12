@@ -116,6 +116,7 @@
   availability: "1(L)"
   mount: other
   ar_modifier: "+2/+2/+2/+2/+2"
+  dice_modifiers: [{ value: 1, source: "Smartgun System (Wireless)" }]
   notes: "Integral to weapon. Adds 500¥ to weapon price. DNI for mode switch, eject clip, fire."
   source: "Core Rulebook"
   description: "Firearm side of smartlink system. Camera and rangefinder. +2 Attack Rating. DNI allows switching modes, ejecting clip, firing without trigger. Fire from cover with no penalties. Internal adds 500¥ to weapon price. Wireless: +1 dice pool bonus; bonus Minor Action for Reload Smartgun or Change Device Mode."
@@ -125,6 +126,7 @@
   availability: "2(L)"
   mount: top
   ar_modifier: "+2/+2/+2/+2/+2"
+  dice_modifiers: [{ value: 1, source: "Smartgun System (Wireless)" }]
   notes: "Top or underbarrel. Engineering + Logic (4, 1 hour) to attach. Capacity 1 for vision enhancements."
   source: "Core Rulebook"
   description: "External smartgun module for top or underbarrel mount. +2 Attack Rating. Engineering + Logic (4, 1 hour) Extended Test to attach. Camera has Capacity 1 for vision enhancements (p. 275). Wireless: +1 dice pool bonus; bonus Minor Action for Reload Smartgun or Change Device Mode."

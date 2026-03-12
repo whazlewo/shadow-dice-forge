@@ -64,6 +64,7 @@ export interface ReferenceAugmentation {
   rating: number;
   effects: string;
   dice_modifiers: DiceModifier[];
+  exclusion_group?: string;
   source?: string;
   notes?: string;
   description?: string;
@@ -104,6 +105,7 @@ export interface ReferenceWeaponAccessory {
   mount: WeaponAccessoryMount;
   ar_modifier?: string;
   ar_modifier_wireless?: string;
+  dice_modifiers?: DiceModifier[];
   notes?: string;
   description?: string;
   source?: string;

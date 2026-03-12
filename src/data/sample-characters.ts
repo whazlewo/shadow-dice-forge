@@ -36,7 +36,7 @@ export function getSampleCharacters() {
           name: "Firearms",
           attribute: "agility",
           rating: 6,
-          specialization: "Assault Rifles",
+          specialization: "Rifles",
         },
         {
           id: "s2",
@@ -56,21 +56,30 @@ export function getSampleCharacters() {
           name: "Toughness",
           type: "positive",
           karma_cost: 12,
-          effects: "+1 Body for damage resistance",
+          effects:
+            "You gain a bonus point of Edge when making Damage Resistance tests. If you do not use it on the test, it goes away.",
+          description:
+            "Whether it's mental training, a physical regimen of self-inflicted injury, or you're just one tough bastard, you can take a bit more of a beating and shrug off the injuries better than most.",
         },
         {
           id: "q2",
           name: "Guts",
           type: "positive",
           karma_cost: 12,
-          effects: "+2 dice to resist Intimidation",
+          effects:
+            "You gain an Edge when resisting Intimidation or effects that cause the Frightened status.",
+          description:
+            "It's not a lack of fear, just a lack of cowardice! You can stand up to the most intimidating opponents and hold your tongue under the toughest interrogations.",
         },
         {
           id: "q3",
           name: "Bad Rep",
           type: "negative",
           karma_cost: -8,
-          effects: "+1 Notoriety",
+          effects:
+            "You cannot spend Edge on Social tests. If you engage in a Teamwork test to assist a Social test, no one can spend Edge, and the opposing individual gains a point of Edge.",
+          description:
+            "Word on the street does not speak favorably of you. Maybe you lost a team or got kicked from a team for breaking during interrogation. Whatever it is, your reputation precedes you, and never in the way you want it to.",
         },
       ],
       augmentations: [
@@ -85,7 +94,9 @@ export function getSampleCharacters() {
             "Neural accelerator. Boosts reaction time and initiative. Each rating adds +1 Reaction and +1d6 Initiative Dice. The classic street samurai upgrade. Restricted.",
           dice_modifiers: [
             { attribute: "reaction", value: 2, source: "Wired Reflexes" },
+            { attribute: "initiative_dice", value: 2, source: "Wired Reflexes" },
           ],
+          exclusion_group: "initiative_boost",
         },
         {
           id: "a2",
@@ -94,16 +105,10 @@ export function getSampleCharacters() {
           essence_cost: 0.2,
           rating: 0,
           effects:
-            "+2 dice to attacks with smartgun, eliminates visibility penalties",
+            "Enables smartgun +2 AR bonus. Wireless: smartgun also provides +1 dice pool.",
           description:
-            "Neural link to smartgun systems. Must be installed in eyes (cyber or natural). +2 dice when using smartgun-enabled weapons. Eliminates some visibility penalties. Essential for combat-focused characters.",
-          dice_modifiers: [
-            {
-              value: 2,
-              source: "Smartlink",
-              requires_accessory: "Smartgun",
-            },
-          ],
+            "Neural interface for smartgun systems. Installed in imaging devices (cybereyes, glasses, goggles, contacts). When connected to a smartgun-equipped weapon, enables the smartgun's +2 Attack Rating bonus. In wireless mode, the smartgun also provides +1 dice pool bonus and a bonus Minor Action.",
+          dice_modifiers: [],
         },
         {
           id: "a3",
@@ -130,6 +135,7 @@ export function getSampleCharacters() {
             {
               name: "Smartgun System (Internal)",
               ar_modifier: "+2/+2/+2/+2/+2",
+              dice_modifiers: [{ value: 1, source: "Smartgun System (Wireless)" }],
             },
           ],
           description:
@@ -148,6 +154,7 @@ export function getSampleCharacters() {
             {
               name: "Smartgun System (Internal)",
               ar_modifier: "+2/+2/+2/+2/+2",
+              dice_modifiers: [{ value: 1, source: "Smartgun System (Wireless)" }],
             },
           ],
           description:
@@ -218,6 +225,8 @@ export function getSampleCharacters() {
           loyalty: 3,
           connection: 4,
           notes: "Downtown Seattle",
+          description:
+            "Middle-aged human who runs a pawn shop in Renton as a front. Knows everyone who matters south of the Tacoma line. Never asks questions, always takes his cut. Smokes actual tobacco cigarettes—the real stuff, not synth.",
         },
         {
           id: "c2",
@@ -225,6 +234,8 @@ export function getSampleCharacters() {
           loyalty: 2,
           connection: 3,
           notes: "Patched me up more than once",
+          description:
+            "A dwarf paramedic named Gretchen who moonlights patching up runners off the books. Works the graveyard shift out of the Redmond clinic. Doesn't care what you did as long as you pay up front and don't bleed on her car seats.",
         },
       ],
       ids_lifestyles: {
@@ -243,9 +254,7 @@ export function getSampleCharacters() {
         sex: "Male",
         height: "195cm",
         weight: "120kg",
-        street_cred: 4,
-        notoriety: 2,
-        public_awareness: 0,
+        reputation: 2,
         description:
           "A heavily augmented ork street samurai with a no-nonsense attitude.",
         backstory:
@@ -331,14 +340,19 @@ export function getSampleCharacters() {
           type: "positive",
           karma_cost: 3,
           effects:
-            "+2 to Logic tests involving pattern recognition",
+            "You gain a bonus Edge when you make any Logic-based test.",
+          description:
+            "You are a master problem solver. You can analyze information to help deduce solutions, while separating useful bits from the distractions and noise.",
         },
         {
           id: "q2",
           name: "Social Stress",
           type: "negative",
           karma_cost: -8,
-          effects: "Difficulty in large social situations",
+          effects:
+            "Select a specific social stressor. When encountering it, you must make a Charisma (2) test as a Minor Action. Failure means you cannot earn or spend Edge until you succeed. You can choose not to test, but then any tests made against you gain a bonus Edge.",
+          description:
+            "There is a social situation that simply does not work for you, like being in large groups, talking to new people, being the center of attention, being out of the spotlight, or a myriad of other situations that some folks find totally normal but you find ridiculously stressful.",
         },
       ],
       ranged_weapons: [
@@ -397,6 +411,8 @@ export function getSampleCharacters() {
           loyalty: 4,
           connection: 5,
           notes: "Runs a private host",
+          description:
+            "Goes by 'Null' online—no one knows their real name or even their metatype. Operates a heavily encrypted data haven out of somewhere in the Pacific Northwest. Pixel earned their trust by patching a zero-day exploit before it went public. Communicates exclusively via dead drops in a private host shaped like an endless library.",
         },
       ],
       ids_lifestyles: {
@@ -413,9 +429,7 @@ export function getSampleCharacters() {
         sex: "Non-binary",
         height: "165cm",
         weight: "55kg",
-        street_cred: 2,
-        notoriety: 0,
-        public_awareness: 0,
+        reputation: 2,
         description:
           "Slight, pale, always distracted by data streams only they can see.",
         backstory:
@@ -499,21 +513,30 @@ export function getSampleCharacters() {
           name: "Focused Concentration 3",
           type: "positive",
           karma_cost: 36,
-          effects: "Sustain 3 spells without penalty",
+          effects:
+            "For each level, you can sustain 1 additional spell or complex form without suffering the associated penalty. The spell cannot have a modified Drain Value of 7 or greater. Cost is 12 Karma per level.",
+          description:
+            "You know how to compartmentalize your mind and keep hold of arcane and emergent manipulations without straining yourself.",
         },
         {
           id: "q2",
           name: "Spirit Affinity (Fire)",
           type: "positive",
           karma_cost: 14,
-          effects: "+2 dice for summoning/binding fire spirits",
+          effects:
+            "Choose a type of spirit or sprite. You gain a bonus point of Edge when making a Conjuring or Tasking test for your chosen class of spirits/sprites. This quality can be taken multiple times, selecting a new class each time.",
+          description:
+            "You have earned respect among a particular group of spirits/sprites. Through actions and favors, you've gained a positive reputation that makes them treat you with extra consideration.",
         },
         {
           id: "q3",
           name: "Allergy (Silver, Moderate)",
           type: "negative",
           karma_cost: -12,
-          effects: "Take damage from prolonged silver contact",
+          effects:
+            "Select an allergen and severity to determine Karma value (2 to 20). You cannot spend or earn Edge while exposed to your allergen. Severity effects range from -2 dice pool modifier (Mild) to -6 modifier plus Physical Damage every 30 seconds (Extreme).",
+          description:
+            "Maybe it's a runny nose and poorly timed sneezes from pollen, or a full-blown anaphylactic reaction from some of those rare natural peanuts. Whatever it is, you suffer some level of discomfort from a substance found in the Sixth World.",
         },
       ],
       spells: [
@@ -647,6 +670,8 @@ export function getSampleCharacters() {
           loyalty: 3,
           connection: 3,
           notes: "Supplies magical goods",
+          description:
+            "An elderly ork woman named Mama Kree who runs a cluttered shop called 'The Burning Branch' in Puyallup. Sells reagents, foci components, and the occasional pre-Awakening occult artifact of dubious provenance. Brews her own teas from Awakened herbs and insists every customer have a cup before doing business.",
         },
         {
           id: "c2",
@@ -654,6 +679,8 @@ export function getSampleCharacters() {
           loyalty: 2,
           connection: 2,
           notes: "Understands magical injuries",
+          description:
+            "Dr. Kalani, a young human mage who washed out of a Lone Star forensics program. Runs a one-room clinic behind a noodle shop in Touristville. Specializes in treating drain backlash, spirit-inflicted wounds, and the kinds of injuries that make mundane doctors ask too many questions.",
         },
       ],
       ids_lifestyles: {
@@ -672,9 +699,7 @@ export function getSampleCharacters() {
         sex: "Female",
         height: "178cm",
         weight: "58kg",
-        street_cred: 3,
-        notoriety: 1,
-        public_awareness: 1,
+        reputation: 2,
         description:
           "Ethereal presence, silver-white hair, eyes that shift color with the astral.",
         backstory:
@@ -764,21 +789,30 @@ export function getSampleCharacters() {
           name: "First Impression",
           type: "positive",
           karma_cost: 12,
-          effects: "+2 dice on social tests on first meeting",
+          effects:
+            "You gain 2 Edge for Social Tests during your first meeting with anyone, and both your Heat and Reputation are ignored for this first encounter.",
+          description:
+            "You know how to make an entrance and make that first meeting the best meeting. Your wit, charm, and subtle flattery put everyone you meet off their guard and let you make the most of a first encounter.",
         },
         {
           id: "q2",
           name: "Blandness",
           type: "positive",
           karma_cost: 8,
-          effects: "Hard to describe or remember",
+          effects:
+            "Characters take a -2 penalty on Memory tests to remember if they have seen you before, and the threshold on tests to notice if you are following or observing them is increased by 1. If the character acquires something permanent and distinctive, they lose this quality.",
+          description:
+            "You are the least interesting person in the world. You're average height, average weight, average build, average everything. Nothing at all about you tends to stand out, and that can be extremely useful.",
         },
         {
           id: "q3",
           name: "Distinctive Style",
           type: "negative",
-          karma_cost: -5,
-          effects: "When not in disguise, +2 to being identified",
+          karma_cost: -6,
+          effects:
+            "You cannot gain or spend Edge when you're not rocking your distinctive look. Others get a +2 dice pool bonus when conducting a Memory test to recall your appearance or remember if they have seen you before.",
+          description:
+            "You only fit in when you're in places where no one fits in. The way you dress and look are unique to you. A distinctive style is more than just what you choose to put on each day\u2014it's a way of life.",
         },
       ],
       ranged_weapons: [
@@ -847,6 +881,8 @@ export function getSampleCharacters() {
           loyalty: 3,
           connection: 5,
           notes: "Access to meeting schedules",
+          description:
+            "Vanessa Liu, executive assistant to a Renraku VP. Impeccably dressed, ruthlessly organized, and quietly furious about being passed over for promotion three years running. Feeds Silk scheduling intel and building access codes in exchange for dirt she can use to climb the corporate ladder.",
         },
         {
           id: "c2",
@@ -854,6 +890,8 @@ export function getSampleCharacters() {
           loyalty: 4,
           connection: 4,
           notes: "Neutral ground for meets",
+          description:
+            "A flamboyant troll named Gorgeous who owns 'The Velvet Hammer,' an upscale nightclub in downtown Seattle. The back rooms are soundproofed and swept for bugs twice daily. Gorgeous considers Silk a personal friend and keeps a private booth reserved for her meets, no questions asked.",
         },
         {
           id: "c3",
@@ -861,6 +899,8 @@ export function getSampleCharacters() {
           loyalty: 2,
           connection: 4,
           notes: "Owes me a favor",
+          description:
+            "Detective Ray Kowalski, a grizzled human cop with thirty years on the force and a gambling problem Silk helped keep quiet. He's not corrupt exactly—he just knows the system is broken and sometimes looks the other way. Will run a plate or lose a file, but won't cross the line into active obstruction.",
         },
       ],
       ids_lifestyles: {
@@ -880,9 +920,7 @@ export function getSampleCharacters() {
         sex: "Female",
         height: "170cm",
         weight: "62kg",
-        street_cred: 5,
-        notoriety: 0,
-        public_awareness: 0,
+        reputation: 5,
         description:
           "Could be anyone. Forgettable face, perfect posture, designer clothes.",
         backstory:

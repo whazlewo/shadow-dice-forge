@@ -613,9 +613,9 @@
   drain: "F/2 + 1"
   duration: Instant
   range: LOS
-  effects: "Fling objects. 0.5 kg per net hit. Reaction + Intuition to avoid."
+  effects: "Fling objects. 0.5 kg per net hit. Reaction + Intuition to avoid. AR: Close (Magic), Near (Magic+2), Medium (Magic+1), Far (Magic-2), Extreme: —"
   source: "Core Rulebook"
-  description: "If you ever thought, 'If I had magic powers, I definitely would catapult objects into the sky, only without a catapult,' then this spell is for you. Roll Sorcery + Magic vs. Object Resistance. For each net hit, you can fling half a kilogram of material into the air, and net hits also act as a threshold for a Reaction + Intuition test for targets to avoid the object. The flung object does Stun damage equal to kilograms of weight, rounded up."
+  description: "Roll Sorcery + Magic vs. Object Resistance. For each net hit, fling 0.5 kg of material. Net hits act as threshold for Reaction + Intuition to avoid. Stun damage equal to kilograms (rounded up). Attack Ratings: Close (Magic), Near (Magic+2), Medium (Magic+1), Far (Magic-2), Extreme: —."
 
 - name: Levitate
   category: spell
@@ -733,9 +733,9 @@
   drain: "F/2 + 2"
   duration: Sustained
   range: Touch
-  effects: "Increases vehicle Armor by 1 per net hit. Drain type P."
+  effects: "Increases vehicle Hardened Armor by 1 per net hit. Drain type P."
   source: "Core Rulebook"
-  description: "Many shadowrunners learn only too late that car doors are not impenetrable shields against bullets. But with this spell, they can be! Roll Sorcery + Magic vs. Object Resistance of the vehicle; increase the vehicle's effective Armor by 1 per net hit. Drain type: Physical (errata Feb 2020)."
+  description: "Roll Sorcery + Magic vs. Object Resistance of the vehicle; increase the vehicle's effective Hardened Armor by 1 per net hit. Drain type: Physical."
 
 # === RITUALS ===
 - name: Watcher

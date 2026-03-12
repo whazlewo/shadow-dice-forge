@@ -1,5 +1,5 @@
-# Shadowrun 6e Armor - Core Rulebook
-# From p. 265-266
+# Shadowrun 6e Armor - Core Rulebook (City Edition: Seattle)
+# From p. 265-266, plus Seattle rain gear p. 335
 
 - name: Synthleather Jacket
   subtype: body
@@ -120,3 +120,45 @@
   modifications: ""
   source: "Core Rulebook"
   description: "The clear plasteel cousin of the ballistic shield, this one adds an electricity attack option. Use the Close Combat skill for the attack and characteristics of a Stun Baton (DV 4S(e)). The taser shield holds 10 charges; when attached to a power point, it regains one charge per 10 seconds. Wireless bonus: Recharges by induction, one charge per hour."
+
+# Seattle Rain Gear (City Edition: Seattle, p. 335)
+
+- name: Ballistic Hood
+  subtype: helmet
+  cost: 0
+  availability: "2"
+  rating: 1
+  capacity: 0
+  modifications: "Armor cost increased 5%"
+  source: "Core Rulebook (City Edition)"
+  description: "An armored hood integrated into any piece of armor. Adds +1 DR. Cost is 5% of the armor it is attached to, including all modifications."
+
+- name: Disposable Cloak
+  subtype: body
+  cost: 5
+  availability: "1"
+  rating: 0
+  capacity: 0
+  modifications: ""
+  source: "Core Rulebook (City Edition)"
+  description: "A cheap, throwaway cloak with water-repellent coating. No armor protection. Ubiquitous on Seattle streets."
+
+- name: Armorweave Cloak
+  subtype: body
+  cost: 200
+  availability: "2"
+  rating: 1
+  capacity: 4
+  modifications: ""
+  source: "Core Rulebook (City Edition)"
+  description: "Armorweave cloak with +1 DR. Not cumulative with worn armor other than headgear. Capacity 4, accepts any armor modifications. Includes water-repellent coating."
+
+- name: Tres Chic Cloak
+  subtype: body
+  cost: 5000
+  availability: "4"
+  rating: 1
+  capacity: 5
+  modifications: ""
+  source: "Core Rulebook (City Edition)"
+  description: "High-end armorweave cloak with +1 DR. Not cumulative with worn armor other than headgear. Capacity 5, accepts any armor modifications. Water-repellent coating standard."

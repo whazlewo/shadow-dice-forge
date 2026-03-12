@@ -191,7 +191,7 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                   </span>
                 )}
                 {item.description && (
-                  <span className="text-[10px] text-muted-foreground/70 italic line-clamp-1">
+                  <span className="text-[10px] text-muted-foreground/70 italic">
                     {item.description}
                   </span>
                 )}
@@ -224,7 +224,7 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                       />
                     </div>
                   )}
-                  {fields.map((field) => (
+                  {fields.filter((f) => f !== "notes").map((field) => (
                     <div key={field} className="min-w-[100px]" style={fieldWidths?.[field] ? { flex: fieldWidths[field] } : { flex: '1' }}>
                       <Label className="text-[10px] text-muted-foreground uppercase tracking-widest flex items-center gap-0.5">
                         {fieldLabels?.[field] || formatLabel(field)}

@@ -1,29 +1,152 @@
 # Shadowrun 6e Miscellaneous Gear - Core Rulebook
 # Add items from the rulebook; include full description for each.
 
+# ── Fake SIN (Rating 1-6) ──
 - name: Fake SIN (Rating 1)
   cost: 2500
-  availability: "1"
+  availability: "4(I)"
   notes: "Basic fake identity"
   dice_modifiers: []
   source: "Core Rulebook"
-  description: "A fake System Identification Number. Rating indicates quality—how well it holds up to scrutiny. Rating 1 is cheap and won't survive serious checks. Essential for any runner operating in civilized areas. Higher ratings cost more but stand up better to Matrix and authority checks."
+  description: "A fake System Identification Number. Rating indicates quality—how well it holds up to scrutiny. Higher ratings cost more but stand up better to Matrix and authority checks. Essential for any runner operating in civilized areas."
+
+- name: Fake SIN (Rating 2)
+  cost: 5000
+  availability: "4(I)"
+  notes: "Low quality fake identity"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A fake System Identification Number. Rating indicates quality—how well it holds up to scrutiny. Higher ratings cost more but stand up better to Matrix and authority checks. Essential for any runner operating in civilized areas."
+
+- name: Fake SIN (Rating 3)
+  cost: 7500
+  availability: "4(I)"
+  notes: "Average quality fake identity"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A fake System Identification Number. Rating indicates quality—how well it holds up to scrutiny. Higher ratings cost more but stand up better to Matrix and authority checks. Essential for any runner operating in civilized areas."
 
 - name: Fake SIN (Rating 4)
   cost: 10000
-  availability: "4"
+  availability: "4(I)"
   notes: "Quality fake identity"
   dice_modifiers: []
   source: "Core Rulebook"
   description: "A quality fake SIN that can pass most routine checks. Good enough for crossing borders and dealing with corporate security. Still vulnerable to deep background checks by dedicated investigators."
 
-- name: Medkit (Rating 3)
-  cost: 300
-  availability: "2"
-  notes: "First aid and basic medical care"
+- name: Fake SIN (Rating 5)
+  cost: 12500
+  availability: "4(I)"
+  notes: "High quality fake identity"
   dice_modifiers: []
   source: "Core Rulebook"
-  description: "Portable medical kit for field first aid. Rating indicates capability. A Rating 3 medkit provides +3 dice to First Aid tests. Essential for any team. Wireless bonus: Displays patient condition and provides guided instructions for treatment."
+  description: "A fake System Identification Number. Rating indicates quality—how well it holds up to scrutiny. Higher ratings cost more but stand up better to Matrix and authority checks. Essential for any runner operating in civilized areas."
+
+- name: Fake SIN (Rating 6)
+  cost: 15000
+  availability: "4(I)"
+  notes: "Premium fake identity"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A fake System Identification Number. Rating indicates quality—how well it holds up to scrutiny. Higher ratings cost more but stand up better to Matrix and authority checks. Essential for any runner operating in civilized areas."
+
+# ── Fake license (Rating 1-6) ──
+- name: Fake license (Rating 1)
+  cost: 200
+  availability: "4(I)"
+  notes: "Rating 1 fake permit for restricted items; rating vs verification"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Fake license for restricted items and activities. Must be assigned to a fake SIN. Rating used against verification systems. Cannot exceed attached SIN's rating."
+
+- name: Fake license (Rating 2)
+  cost: 400
+  availability: "4(I)"
+  notes: "Rating 2 fake permit for restricted items; rating vs verification"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Fake license for restricted items and activities. Must be assigned to a fake SIN. Rating used against verification systems. Cannot exceed attached SIN's rating."
+
+- name: Fake license (Rating 3)
+  cost: 600
+  availability: "4(I)"
+  notes: "Rating 3 fake permit for restricted items; rating vs verification"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Fake license for restricted items and activities. Must be assigned to a fake SIN. Rating used against verification systems. Cannot exceed attached SIN's rating."
+
+- name: Fake license (Rating 4)
+  cost: 800
+  availability: "4(I)"
+  notes: "Rating 4 fake permit for restricted items; rating vs verification"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Fake license for restricted items and activities. Must be assigned to a fake SIN. Rating used against verification systems. Cannot exceed attached SIN's rating."
+
+- name: Fake license (Rating 5)
+  cost: 1000
+  availability: "4(I)"
+  notes: "Rating 5 fake permit for restricted items; rating vs verification"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Fake license for restricted items and activities. Must be assigned to a fake SIN. Rating used against verification systems. Cannot exceed attached SIN's rating."
+
+- name: Fake license (Rating 6)
+  cost: 1200
+  availability: "4(I)"
+  notes: "Rating 6 fake permit for restricted items; rating vs verification"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Fake license for restricted items and activities. Must be assigned to a fake SIN. Rating used against verification systems. Cannot exceed attached SIN's rating."
+
+# ── Medkit (Rating 1-6) ──
+- name: Medkit (Rating 1)
+  cost: 250
+  availability: "2"
+  notes: "+1 dice to First Aid tests"
+  dice_modifiers: [{ skill: "Biotech", value: 1, source: "Medkit" }]
+  source: "Core Rulebook"
+  description: "Portable medical kit for field first aid. Rating indicates capability. Wireless bonus: Displays patient condition and provides guided instructions for treatment."
+
+- name: Medkit (Rating 2)
+  cost: 500
+  availability: "2"
+  notes: "+2 dice to First Aid tests"
+  dice_modifiers: [{ skill: "Biotech", value: 2, source: "Medkit" }]
+  source: "Core Rulebook"
+  description: "Portable medical kit for field first aid. Rating indicates capability. Wireless bonus: Displays patient condition and provides guided instructions for treatment."
+
+- name: Medkit (Rating 3)
+  cost: 750
+  availability: "2"
+  notes: "+3 dice to First Aid tests"
+  dice_modifiers: [{ skill: "Biotech", value: 3, source: "Medkit" }]
+  source: "Core Rulebook"
+  description: "Portable medical kit for field first aid. Rating indicates capability. Wireless bonus: Displays patient condition and provides guided instructions for treatment."
+
+- name: Medkit (Rating 4)
+  cost: 1000
+  availability: "3"
+  notes: "+4 dice to First Aid tests"
+  dice_modifiers: [{ skill: "Biotech", value: 4, source: "Medkit" }]
+  source: "Core Rulebook"
+  description: "Portable medical kit for field first aid. Rating indicates capability. Wireless bonus: Displays patient condition and provides guided instructions for treatment."
+
+- name: Medkit (Rating 5)
+  cost: 1250
+  availability: "3"
+  notes: "+5 dice to First Aid tests"
+  dice_modifiers: [{ skill: "Biotech", value: 5, source: "Medkit" }]
+  source: "Core Rulebook"
+  description: "Portable medical kit for field first aid. Rating indicates capability. Wireless bonus: Displays patient condition and provides guided instructions for treatment."
+
+- name: Medkit (Rating 6)
+  cost: 1500
+  availability: "3"
+  notes: "+6 dice to First Aid tests"
+  dice_modifiers: [{ skill: "Biotech", value: 6, source: "Medkit" }]
+  source: "Core Rulebook"
+  description: "Portable medical kit for field first aid. Rating indicates capability. Wireless bonus: Displays patient condition and provides guided instructions for treatment."
 
 - name: Grapple Gun
   cost: 500
@@ -73,23 +196,152 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "CS gas is an irritant that affects the mucous membranes in the eyes, nose, mouth, and lungs. The real danger is when the gas is inhaled, stimulating a physiological panic response. Washing thoroughly with soap and water can flush the toxin, ending the nausea prematurely. CS gas becomes inert after two minutes of contact with the air (errata Feb 2020). Restricted in some jurisdictions."
-# Stimulants & Medical
 
+# ── Stim Patch (Rating 1-6) ──
 - name: Stim Patch (Rating 1)
   cost: 50
-  availability: "1"
-  notes: "+1 dice to one Physical attribute for (Rating) hours"
+  availability: "3"
+  notes: "Removes 1 Stun damage and cancels Dazed for 10 min; then take 2S unresisted"
   dice_modifiers: []
   source: "Core Rulebook"
-  description: "Transdermal stimulant patch. Boosts physical performance. Rating 1 gives +1 dice to one Physical attribute for 1 hour. Crash when it wears off. Wireless: Can be triggered remotely or on a delay."
+  description: "Transdermal stimulant patch. Removes Stun damage equal to rating and cancels the Dazed Status. Effect lasts (rating x 10) minutes, then patient takes (rating+1) unresisted Stun damage."
+
+- name: Stim Patch (Rating 2)
+  cost: 100
+  availability: "3"
+  notes: "Removes 2 Stun damage and cancels Dazed for 20 min; then take 3S unresisted"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal stimulant patch. Removes Stun damage equal to rating and cancels the Dazed Status. Effect lasts (rating x 10) minutes, then patient takes (rating+1) unresisted Stun damage."
 
 - name: Stim Patch (Rating 3)
   cost: 150
-  availability: "2"
-  notes: "+3 dice to one Physical attribute for (Rating) hours"
+  availability: "3"
+  notes: "Removes 3 Stun damage and cancels Dazed for 30 min; then take 4S unresisted"
   dice_modifiers: []
   source: "Core Rulebook"
-  description: "Stronger stim patch. +3 dice to one Physical attribute for 3 hours. Bigger crash. Use with caution."
+  description: "Transdermal stimulant patch. Removes Stun damage equal to rating and cancels the Dazed Status. Effect lasts (rating x 10) minutes, then patient takes (rating+1) unresisted Stun damage."
+
+- name: Stim Patch (Rating 4)
+  cost: 200
+  availability: "3"
+  notes: "Removes 4 Stun damage and cancels Dazed for 40 min; then take 5S unresisted"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal stimulant patch. Removes Stun damage equal to rating and cancels the Dazed Status. Effect lasts (rating x 10) minutes, then patient takes (rating+1) unresisted Stun damage."
+
+- name: Stim Patch (Rating 5)
+  cost: 250
+  availability: "3"
+  notes: "Removes 5 Stun damage and cancels Dazed for 50 min; then take 6S unresisted"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal stimulant patch. Removes Stun damage equal to rating and cancels the Dazed Status. Effect lasts (rating x 10) minutes, then patient takes (rating+1) unresisted Stun damage."
+
+- name: Stim Patch (Rating 6)
+  cost: 300
+  availability: "3"
+  notes: "Removes 6 Stun damage and cancels Dazed for 60 min; then take 7S unresisted"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal stimulant patch. Removes Stun damage equal to rating and cancels the Dazed Status. Effect lasts (rating x 10) minutes, then patient takes (rating+1) unresisted Stun damage."
+
+# ── Tranq Patch (Rating 1-12) — NEW ──
+- name: Tranq Patch (Rating 1)
+  cost: 10
+  availability: "3"
+  notes: "Rating 1 tranquilizer patch; Stun 1S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 2)
+  cost: 40
+  availability: "3"
+  notes: "Rating 2 tranquilizer patch; Stun 2S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 3)
+  cost: 90
+  availability: "3"
+  notes: "Rating 3 tranquilizer patch; Stun 3S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 4)
+  cost: 160
+  availability: "3"
+  notes: "Rating 4 tranquilizer patch; Stun 4S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 5)
+  cost: 250
+  availability: "3"
+  notes: "Rating 5 tranquilizer patch; Stun 5S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 6)
+  cost: 360
+  availability: "3"
+  notes: "Rating 6 tranquilizer patch; Stun 6S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 7)
+  cost: 490
+  availability: "3"
+  notes: "Rating 7 tranquilizer patch; Stun 7S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 8)
+  cost: 640
+  availability: "3"
+  notes: "Rating 8 tranquilizer patch; Stun 8S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 9)
+  cost: 810
+  availability: "3"
+  notes: "Rating 9 tranquilizer patch; Stun 9S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 10)
+  cost: 1000
+  availability: "3"
+  notes: "Rating 10 tranquilizer patch; Stun 10S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 11)
+  cost: 1210
+  availability: "3"
+  notes: "Rating 11 tranquilizer patch; Stun 11S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
+
+- name: Tranq Patch (Rating 12)
+  cost: 1440
+  availability: "3"
+  notes: "Rating 12 tranquilizer patch; Stun 12S(e) vs Body + Willpower"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Transdermal tranquilizer. Apply to deliver a dose. Effects depend on target's Body + Willpower resistance. Higher ratings are increasingly expensive."
 
 - name: Trauma Patch
   cost: 100
@@ -99,15 +351,23 @@
   source: "Core Rulebook"
   description: "When applied, the patient heals 1d6 + 1 Overflow Damage immediately (errata Aug 2019). Emergency medical patch. Essential for combat teams. One use."
 
-- name: Medkit (Rating 6)
-  cost: 600
-  availability: "4"
-  notes: "Advanced first aid, +6 dice to First Aid"
+# Electronics & Countermeasures
+- name: Bug scanner
+  cost: 200
+  availability: "3"
+  notes: "Detects surveillance devices"
   dice_modifiers: []
   source: "Core Rulebook"
-  description: "High-end portable medkit. +6 dice to First Aid tests. For serious runners who expect serious injuries. Wireless bonus: Full diagnostic suite and guided treatment."
+  description: "Scans for and detects bugs, wiretaps, and other surveillance devices. Essential for secure meetings."
 
-# Electronics & Countermeasures
+- name: Data tap
+  cost: 300
+  availability: "2"
+  notes: "Physical access to wired data"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Device for physically tapping into wired data connections. Used to intercept or inject data on hardlines."
+
 - name: Tag Eraser
   cost: 250
   availability: "2"
@@ -116,13 +376,209 @@
   source: "Core Rulebook"
   description: "Handheld device that erases or disables RFID tags and similar tracking devices. Essential for runners who need to disappear. Scans and neutralizes tags on objects and clothing."
 
-- name: White Noise Generator
-  cost: 200
-  availability: "2"
-  notes: "Jams audio surveillance, 5m radius"
+- name: Micro-transceiver
+  cost: 100
+  availability: "1"
+  notes: "Short-range communicator"
   dice_modifiers: []
   source: "Core Rulebook"
-  description: "Generates white noise to defeat audio surveillance. Creates a 5-meter zone where bugs and directional microphones cannot pick up conversation. Wireless models can be tuned to specific frequencies."
+  description: "Short-range communicator for team comms. Doesn't connect to the Matrix. Essential for runners operating in wireless-dead zones."
+
+# ── Headjammer (Rating 1-6) ──
+- name: Headjammer (Rating 1)
+  cost: 150
+  availability: "5(I)"
+  notes: "Rating 1 jammer for implanted devices"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neutralizes implanted commlinks and cyberdecks. Attaches to the location of the device and jams wireless signals. Removing without the key requires an Extended test."
+
+- name: Headjammer (Rating 2)
+  cost: 300
+  availability: "5(I)"
+  notes: "Rating 2 jammer for implanted devices"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neutralizes implanted commlinks and cyberdecks. Attaches to the location of the device and jams wireless signals. Removing without the key requires an Extended test."
+
+- name: Headjammer (Rating 3)
+  cost: 450
+  availability: "5(I)"
+  notes: "Rating 3 jammer for implanted devices"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neutralizes implanted commlinks and cyberdecks. Attaches to the location of the device and jams wireless signals. Removing without the key requires an Extended test."
+
+- name: Headjammer (Rating 4)
+  cost: 600
+  availability: "5(I)"
+  notes: "Rating 4 jammer for implanted devices"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neutralizes implanted commlinks and cyberdecks. Attaches to the location of the device and jams wireless signals. Removing without the key requires an Extended test."
+
+- name: Headjammer (Rating 5)
+  cost: 750
+  availability: "5(I)"
+  notes: "Rating 5 jammer for implanted devices"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neutralizes implanted commlinks and cyberdecks. Attaches to the location of the device and jams wireless signals. Removing without the key requires an Extended test."
+
+- name: Headjammer (Rating 6)
+  cost: 900
+  availability: "5(I)"
+  notes: "Rating 6 jammer for implanted devices"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neutralizes implanted commlinks and cyberdecks. Attaches to the location of the device and jams wireless signals. Removing without the key requires an Extended test."
+
+# ── Jammer, area (Rating 1-6) ──
+- name: Jammer, area (Rating 1)
+  cost: 200
+  availability: "4(L)"
+  notes: "Rating 1 area wireless jammer; -1 per 10m from center"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Floods airwaves with jamming signals. Generates noise equal to Device Rating. Rating reduced by 1 for every 10 meters from center. Affects all devices in area."
+
+- name: Jammer, area (Rating 2)
+  cost: 400
+  availability: "4(L)"
+  notes: "Rating 2 area wireless jammer; -1 per 10m from center"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Floods airwaves with jamming signals. Generates noise equal to Device Rating. Rating reduced by 1 for every 10 meters from center. Affects all devices in area."
+
+- name: Jammer, area (Rating 3)
+  cost: 600
+  availability: "4(L)"
+  notes: "Rating 3 area wireless jammer; -1 per 10m from center"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Floods airwaves with jamming signals. Generates noise equal to Device Rating. Rating reduced by 1 for every 10 meters from center. Affects all devices in area."
+
+- name: Jammer, area (Rating 4)
+  cost: 800
+  availability: "4(L)"
+  notes: "Rating 4 area wireless jammer; -1 per 10m from center"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Floods airwaves with jamming signals. Generates noise equal to Device Rating. Rating reduced by 1 for every 10 meters from center. Affects all devices in area."
+
+- name: Jammer, area (Rating 5)
+  cost: 1000
+  availability: "4(L)"
+  notes: "Rating 5 area wireless jammer; -1 per 10m from center"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Floods airwaves with jamming signals. Generates noise equal to Device Rating. Rating reduced by 1 for every 10 meters from center. Affects all devices in area."
+
+- name: Jammer, area (Rating 6)
+  cost: 1200
+  availability: "4(L)"
+  notes: "Rating 6 area wireless jammer; -1 per 10m from center"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Floods airwaves with jamming signals. Generates noise equal to Device Rating. Rating reduced by 1 for every 10 meters from center. Affects all devices in area."
+
+# ── Jammer, directional (Rating 1-6) ──
+- name: Jammer, directional (Rating 1)
+  cost: 200
+  availability: "4(L)"
+  notes: "Rating 1 directional jammer; 30-degree spread, -1 per 30m"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Directional jammer with 30-degree spread. Rating reduced by 1 for every 30 meters from center. More focused than area jammer."
+
+- name: Jammer, directional (Rating 2)
+  cost: 400
+  availability: "4(L)"
+  notes: "Rating 2 directional jammer; 30-degree spread, -1 per 30m"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Directional jammer with 30-degree spread. Rating reduced by 1 for every 30 meters from center. More focused than area jammer."
+
+- name: Jammer, directional (Rating 3)
+  cost: 600
+  availability: "4(L)"
+  notes: "Rating 3 directional jammer; 30-degree spread, -1 per 30m"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Directional jammer with 30-degree spread. Rating reduced by 1 for every 30 meters from center. More focused than area jammer."
+
+- name: Jammer, directional (Rating 4)
+  cost: 800
+  availability: "4(L)"
+  notes: "Rating 4 directional jammer; 30-degree spread, -1 per 30m"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Directional jammer with 30-degree spread. Rating reduced by 1 for every 30 meters from center. More focused than area jammer."
+
+- name: Jammer, directional (Rating 5)
+  cost: 1000
+  availability: "4(L)"
+  notes: "Rating 5 directional jammer; 30-degree spread, -1 per 30m"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Directional jammer with 30-degree spread. Rating reduced by 1 for every 30 meters from center. More focused than area jammer."
+
+- name: Jammer, directional (Rating 6)
+  cost: 1200
+  availability: "4(L)"
+  notes: "Rating 6 directional jammer; 30-degree spread, -1 per 30m"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Directional jammer with 30-degree spread. Rating reduced by 1 for every 30 meters from center. More focused than area jammer."
+
+# ── White Noise Generator (Rating 1-6) ──
+- name: White Noise Generator (Rating 1)
+  cost: 50
+  availability: "3"
+  notes: "Jams audio surveillance, 1m radius; -1 to eavesdropping Perception"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Creates a field of random noise that inhibits audio surveillance. All Perception tests to overhear a conversation within (rating) meters receive a negative dice pool modifier equal to rating. Wireless: effective radius tripled."
+
+- name: White Noise Generator (Rating 2)
+  cost: 100
+  availability: "3"
+  notes: "Jams audio surveillance, 2m radius; -2 to eavesdropping Perception"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Creates a field of random noise that inhibits audio surveillance. All Perception tests to overhear a conversation within (rating) meters receive a negative dice pool modifier equal to rating. Wireless: effective radius tripled."
+
+- name: White Noise Generator (Rating 3)
+  cost: 150
+  availability: "3"
+  notes: "Jams audio surveillance, 3m radius; -3 to eavesdropping Perception"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Creates a field of random noise that inhibits audio surveillance. All Perception tests to overhear a conversation within (rating) meters receive a negative dice pool modifier equal to rating. Wireless: effective radius tripled."
+
+- name: White Noise Generator (Rating 4)
+  cost: 200
+  availability: "3"
+  notes: "Jams audio surveillance, 4m radius; -4 to eavesdropping Perception"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Creates a field of random noise that inhibits audio surveillance. All Perception tests to overhear a conversation within (rating) meters receive a negative dice pool modifier equal to rating. Wireless: effective radius tripled."
+
+- name: White Noise Generator (Rating 5)
+  cost: 250
+  availability: "3"
+  notes: "Jams audio surveillance, 5m radius; -5 to eavesdropping Perception"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Creates a field of random noise that inhibits audio surveillance. All Perception tests to overhear a conversation within (rating) meters receive a negative dice pool modifier equal to rating. Wireless: effective radius tripled."
+
+- name: White Noise Generator (Rating 6)
+  cost: 300
+  availability: "3"
+  notes: "Jams audio surveillance, 6m radius; -6 to eavesdropping Perception"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Creates a field of random noise that inhibits audio surveillance. All Perception tests to overhear a conversation within (rating) meters receive a negative dice pool modifier equal to rating. Wireless: effective radius tripled."
 
 # Explosives
 - name: Plastic Explosives (Rating 3)
@@ -148,64 +604,6 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Wireless detonator. Trigger remotely via commlink. More convenient but creates a Matrix signature. Can be jammed or hacked."
-
-# ID and Licenses
-- name: Fake license (Rating 1)
-  cost: 200
-  availability: "4(I)"
-  notes: "Fake permit for restricted items; rating vs verification"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Fake license for restricted items and activities. Must be assigned to a fake SIN. Rating used against verification systems. Ratings 1-6, cannot exceed attached SIN's rating."
-
-# Communications & Countermeasures
-- name: Bug scanner
-  cost: 200
-  availability: "3"
-  notes: "Detects surveillance devices"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Scans for and detects bugs, wiretaps, and other surveillance devices. Essential for secure meetings."
-
-- name: Data tap
-  cost: 300
-  availability: "2"
-  notes: "Physical access to wired data"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Device for physically tapping into wired data connections. Used to intercept or inject data on hardlines."
-
-- name: Headjammer (Rating 1)
-  cost: 150
-  availability: "5(I)"
-  notes: "Jams wireless in radius"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Illegal device that jams wireless signals within its rating in meters. Disrupts commlinks, drones, and other wireless devices."
-
-- name: Jammer, area (Rating 1)
-  cost: 200
-  availability: "4(L)"
-  notes: "Area wireless jammer"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Jams wireless communications in an area. Rating determines radius and effectiveness. Restricted."
-
-- name: Jammer, directional (Rating 1)
-  cost: 200
-  availability: "4(L)"
-  notes: "Directional wireless jammer"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Directional jammer that targets a specific area or direction. More focused than area jammer. Restricted."
-
-- name: Micro-transceiver
-  cost: 100
-  availability: "1"
-  notes: "Short-range communicator"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Short-range communicator for team comms. Doesn't connect to the Matrix. Essential for runners operating in wireless-dead zones."
 
 # Credsticks
 - name: Credstick (Standard)
@@ -257,7 +655,9 @@
   source: "Core Rulebook"
   description: "Building with bulky machines. Immobile. Same bonus as shop plus bonus Edge. Edge can be used for Extended tests within the facility."
 
-# Optical and Imaging Devices
+# ── Optical and Imaging Devices ──
+
+# ── Contacts (Rating 1-3) ──
 - name: Contacts (Rating 1)
   cost: 200
   availability: "2"
@@ -266,6 +666,23 @@
   source: "Core Rulebook"
   description: "Worn on eyes, nearly undetectable. Capacity for vision enhancements. Must be wireless. Capacity x 200¥."
 
+- name: Contacts (Rating 2)
+  cost: 400
+  availability: "2"
+  notes: "Capacity 2 for vision enhancements; nearly undetectable"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Worn on eyes, nearly undetectable. Capacity for vision enhancements. Must be wireless. Capacity x 200¥."
+
+- name: Contacts (Rating 3)
+  cost: 600
+  availability: "2"
+  notes: "Capacity 3 for vision enhancements; nearly undetectable"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Worn on eyes, nearly undetectable. Capacity for vision enhancements. Must be wireless. Capacity x 200¥."
+
+# ── Glasses (Rating 1-4) ──
 - name: Glasses (Rating 1)
   cost: 100
   availability: "1"
@@ -274,10 +691,75 @@
   source: "Core Rulebook"
   description: "Lightweight frames. Hard to distinguish from prescription or sunglasses. Capacity for vision enhancements. Capacity x 100¥."
 
+- name: Glasses (Rating 2)
+  cost: 200
+  availability: "1"
+  notes: "Capacity 2 for vision enhancements"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Lightweight frames. Hard to distinguish from prescription or sunglasses. Capacity for vision enhancements. Capacity x 100¥."
+
+- name: Glasses (Rating 3)
+  cost: 300
+  availability: "1"
+  notes: "Capacity 3 for vision enhancements"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Lightweight frames. Hard to distinguish from prescription or sunglasses. Capacity for vision enhancements. Capacity x 100¥."
+
+- name: Glasses (Rating 4)
+  cost: 400
+  availability: "1"
+  notes: "Capacity 4 for vision enhancements"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Lightweight frames. Hard to distinguish from prescription or sunglasses. Capacity for vision enhancements. Capacity x 100¥."
+
+# ── Goggles (Rating 1-6) ──
 - name: Goggles (Rating 1)
   cost: 50
   availability: "1"
   notes: "Capacity 1; bulky, hard to dislodge"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Strapped to head, difficult to dislodge. Wide array of vision enhancements. Capacity x 50¥."
+
+- name: Goggles (Rating 2)
+  cost: 100
+  availability: "1"
+  notes: "Capacity 2; bulky, hard to dislodge"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Strapped to head, difficult to dislodge. Wide array of vision enhancements. Capacity x 50¥."
+
+- name: Goggles (Rating 3)
+  cost: 150
+  availability: "1"
+  notes: "Capacity 3; bulky, hard to dislodge"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Strapped to head, difficult to dislodge. Wide array of vision enhancements. Capacity x 50¥."
+
+- name: Goggles (Rating 4)
+  cost: 200
+  availability: "1"
+  notes: "Capacity 4; bulky, hard to dislodge"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Strapped to head, difficult to dislodge. Wide array of vision enhancements. Capacity x 50¥."
+
+- name: Goggles (Rating 5)
+  cost: 250
+  availability: "1"
+  notes: "Capacity 5; bulky, hard to dislodge"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Strapped to head, difficult to dislodge. Wide array of vision enhancements. Capacity x 50¥."
+
+- name: Goggles (Rating 6)
+  cost: 300
+  availability: "1"
+  notes: "Capacity 6; bulky, hard to dislodge"
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Strapped to head, difficult to dislodge. Wide array of vision enhancements. Capacity x 50¥."
@@ -298,3 +780,54 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Naturally occurring items that channel mana. Used in spellcasting to reduce Drain, in rituals, and in alchemical preparations. Sold per dram."
+
+# ── Seattle Gear (City Edition: Seattle, p. 335-336) ──
+
+# ── MapMaster Sensor Fob (Rating 1-6) ──
+- name: MapMaster Sensor Fob (Rating 1)
+  cost: 300
+  availability: "3"
+  notes: "Rating 1. Yearly subscription. +1 dice to Outdoors navigation in mapped areas."
+  dice_modifiers: []
+  source: "Core Rulebook (City Edition)"
+  description: "Horizon handheld LIDAR/ultrasound sensor that scans underground locations and matches against its MapMaster topological database. Adds rating as dice pool bonus to Outdoors tests involving navigation in mapped areas. Bonus halved in unmapped/newly excavated areas. Cost is rating x 300 nuyen per year."
+
+- name: MapMaster Sensor Fob (Rating 2)
+  cost: 600
+  availability: "3"
+  notes: "Rating 2. Yearly subscription. +2 dice to Outdoors navigation in mapped areas."
+  dice_modifiers: []
+  source: "Core Rulebook (City Edition)"
+  description: "Horizon handheld LIDAR/ultrasound sensor that scans underground locations and matches against its MapMaster topological database. Adds rating as dice pool bonus to Outdoors tests involving navigation in mapped areas. Bonus halved in unmapped/newly excavated areas. Cost is rating x 300 nuyen per year."
+
+- name: MapMaster Sensor Fob (Rating 3)
+  cost: 900
+  availability: "3"
+  notes: "Rating 3. Yearly subscription. +3 dice to Outdoors navigation in mapped areas."
+  dice_modifiers: []
+  source: "Core Rulebook (City Edition)"
+  description: "Horizon handheld LIDAR/ultrasound sensor that scans underground locations and matches against its MapMaster topological database. Adds rating as dice pool bonus to Outdoors tests involving navigation in mapped areas. Bonus halved in unmapped/newly excavated areas. Cost is rating x 300 nuyen per year."
+
+- name: MapMaster Sensor Fob (Rating 4)
+  cost: 1200
+  availability: "3"
+  notes: "Rating 4. Yearly subscription. +4 dice to Outdoors navigation in mapped areas."
+  dice_modifiers: []
+  source: "Core Rulebook (City Edition)"
+  description: "Horizon handheld LIDAR/ultrasound sensor that scans underground locations and matches against its MapMaster topological database. Adds rating as dice pool bonus to Outdoors tests involving navigation in mapped areas. Bonus halved in unmapped/newly excavated areas. Cost is rating x 300 nuyen per year."
+
+- name: MapMaster Sensor Fob (Rating 5)
+  cost: 1500
+  availability: "3"
+  notes: "Rating 5. Yearly subscription. +5 dice to Outdoors navigation in mapped areas."
+  dice_modifiers: []
+  source: "Core Rulebook (City Edition)"
+  description: "Horizon handheld LIDAR/ultrasound sensor that scans underground locations and matches against its MapMaster topological database. Adds rating as dice pool bonus to Outdoors tests involving navigation in mapped areas. Bonus halved in unmapped/newly excavated areas. Cost is rating x 300 nuyen per year."
+
+- name: MapMaster Sensor Fob (Rating 6)
+  cost: 1800
+  availability: "3"
+  notes: "Rating 6. Yearly subscription. +6 dice to Outdoors navigation in mapped areas."
+  dice_modifiers: []
+  source: "Core Rulebook (City Edition)"
+  description: "Horizon handheld LIDAR/ultrasound sensor that scans underground locations and matches against its MapMaster topological database. Adds rating as dice pool bonus to Outdoors tests involving navigation in mapped areas. Bonus halved in unmapped/newly excavated areas. Cost is rating x 300 nuyen per year."

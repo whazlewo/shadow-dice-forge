@@ -13,8 +13,7 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 
-// Canonical rulebook items (Core Rulebook p. 244-303, errata applied)
-// Survival knife removed per Aug 2019 errata
+// Canonical rulebook items (Core Rulebook City Edition: Seattle, p. 244-303 + Seattle p. 335-336)
 const RULEBOOK_GEAR = {
   melee: [
     "Combat Axe",
@@ -128,6 +127,10 @@ const RULEBOOK_GEAR = {
     "Helmet",
     "Ballistic Shield",
     "Riot Shield",
+    "Ballistic Hood",
+    "Disposable Cloak",
+    "Armorweave Cloak",
+    "Tres Chic Cloak",
   ],
   vehicles: [
     "Dodge Scoot",
@@ -163,6 +166,7 @@ const RULEBOOK_GEAR = {
     "Ares Packmule",
     "Ares Black Sky",
     "Ares Dragon",
+    "Horizon MapMaster Drone",
   ],
 };
 
@@ -234,6 +238,13 @@ const RULEBOOK_AUGMENTATIONS = [
   "Smartlink",
   "Reaction Enhancers",
   "Internal Router",
+  "Internal Air Tank",
+  "Skillwires",
+  "Symbiotes",
+  "Synthacardium",
+  "Toxin Extractor",
+  "Tracheal Filter",
+  "Damage Compensator",
 ];
 
 // Miscellaneous (Core Rulebook p. 263-280)
@@ -267,6 +278,9 @@ const RULEBOOK_MISCELLANEOUS = [
   "Plastic Explosives",
   "Detonator",
   "Reagents",
+  "Tranq Patch",
+  "White noise generator",
+  "MapMaster Sensor Fob",
 ];
 
 // Weapon Accessories (Core Rulebook p. 259-261)

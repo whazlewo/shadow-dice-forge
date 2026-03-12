@@ -1,0 +1,451 @@
+# === POSITIVE QUALITIES ===
+
+- name: Ambidextrous
+  type: positive
+  karma_cost: 4
+  effects: "No penalty for off-hand weapon use."
+  description: "You are equally adept at using either your right or left side. Whether shooting a gun, throwing a grenade, or kicking a ball, you can switch it up with the best of them."
+  source: "Core Rulebook"
+
+- name: Analytical Mind
+  type: positive
+  karma_cost: 3
+  effects: "You gain a bonus Edge when you make any Logic-based test."
+  description: "You are a master problem solver. You can analyze information to help deduce solutions, while separating useful bits from the distractions and noise."
+  source: "Core Rulebook"
+
+- name: "Aptitude (Skill)"
+  type: positive
+  karma_cost: 12
+  effects: "Your skill maximum for the selected skill is 10, instead of 9, and your maximum starting rank is 7, instead of 6."
+  description: "The best look up to you. You have the natural potential to be even better than the best in a particular skill."
+  source: "Core Rulebook"
+
+- name: Astral Chameleon
+  type: positive
+  karma_cost: 9
+  effects: "Characters receive -2 dice on tests to recognize your aura or astral signature. Your astral signature fades in half the normal time."
+  description: "Your aura never seems to stabilize for very long. You have the ability to blend in with the astral environment around you and make it harder to identify and read your aura and astral signature."
+  source: "Core Rulebook"
+
+- name: Blandness
+  type: positive
+  karma_cost: 8
+  effects: "Characters take a -2 penalty on Memory tests to remember if they have seen you before, and the threshold on tests to notice if you are following or observing them is increased by 1. If the character acquires something permanent and distinctive, they lose this quality."
+  description: "You are the least interesting person in the world. You're average height, average weight, average build, average everything. Nothing at all about you tends to stand out, and that can be extremely useful."
+  source: "Core Rulebook"
+
+- name: "Built Tough (1 to 4)"
+  type: positive
+  karma_cost: 4
+  effects: "You have a number of additional boxes on your Physical Condition Monitor equal to the rank of this quality. Cost is 4 Karma per level."
+  description: "You're built like a brick drekhouse. You're pretty good at taking a few extra hits before the lights go out."
+  source: "Core Rulebook"
+
+- name: Catlike
+  type: positive
+  karma_cost: 12
+  effects: "You gain a bonus Edge on all tests for balance, falling, and landing safely."
+  description: "You have an innate grace usually seen only in the genus Felis that translates into smooth movements and a propensity for always landing on your feet—literally, if not figuratively."
+  source: "Core Rulebook"
+
+- name: Dermal Deposits
+  type: positive
+  karma_cost: 7
+  effects: "You gain 1 level of natural Armor. Your Unarmed Melee attacks inflict Physical damage."
+  description: "You have calciferous deposits growing on or through your flesh, making you tougher and a little rough around the edges. Literally."
+  source: "Core Rulebook"
+
+- name: Double-Jointed
+  type: positive
+  karma_cost: 12
+  effects: "You gain a bonus Edge on all tests involving grappling, escaping bonds, flexibility, or fitting into tight spaces."
+  description: "Through practice or genetics, you've managed to make most of the joints in your body bend beyond normal metahuman ranges. Your hands narrow to as small as your wrists, your shoulders rotate and bend in every direction, your body folds neatly in half both forward and backward, and you can rotate your head to look behind you without turning your shoulders."
+  source: "Core Rulebook"
+
+- name: "Elemental Resistance (select element)"
+  type: positive
+  karma_cost: 12
+  effects: "Select an elemental form of damage. When attacked with a weapon or spell that does this form of damage, gain a point of Edge before making your Defense test."
+  description: "Through genetics or training, you have developed a powerful resistance and tolerance for certain forms of damaging energy (or lack of energy, in the case of cold)."
+  source: "Core Rulebook"
+
+- name: "Exceptional (Attribute)"
+  type: positive
+  karma_cost: 12
+  effects: "Select a Physical or Mental attribute. That attribute's maximum (but not current) rank increases by 1. This quality can only be purchased once per attribute."
+  description: "Whether it's being a powerhouse, taking a hit from a troll, holding your synthahol, ducking a fast right, holding that inside turn, selling coal in Newcastle, or making a cat look clumsy, you're just naturally built to be better."
+  source: "Core Rulebook"
+
+- name: First Impression
+  type: positive
+  karma_cost: 12
+  effects: "You gain 2 Edge for Social Tests during your first meeting with anyone, and both your Heat and Reputation are ignored for this first encounter."
+  description: "You know how to make an entrance and make that first meeting the best meeting. Your wit, charm, and subtle flattery put everyone you meet off their guard and let you make the most of a first encounter."
+  source: "Core Rulebook"
+
+- name: "Focused Concentration (1 to 3)"
+  type: positive
+  karma_cost: 12
+  effects: "For each level, you can sustain 1 additional spell or complex form without suffering the associated penalty. The spell cannot have a modified Drain Value of 7 or greater. Cost is 12 Karma per level."
+  description: "You know how to compartmentalize your mind and keep hold of arcane and emergent manipulations without straining yourself."
+  source: "Core Rulebook"
+
+- name: Gearhead
+  type: positive
+  karma_cost: 10
+  effects: "You gain an Edge on Repair tests for any vehicle and can spend Edge during downtime to make Extended Repair tests."
+  description: "If it's meant to move but currently isn't moving so well, you know how to get it back into tip-top shape in a jiffy."
+  source: "Core Rulebook"
+
+- name: Guts
+  type: positive
+  karma_cost: 12
+  effects: "You gain an Edge when resisting Intimidation or effects that cause the Frightened status."
+  description: "It's not a lack of fear, just a lack of cowardice! You can stand up to the most intimidating opponents and hold your tongue under the toughest interrogations."
+  source: "Core Rulebook"
+
+- name: Hardening
+  type: positive
+  karma_cost: 10
+  effects: "You gain a bonus Edge when making Matrix Damage Resistance tests. If you do not use that point of Edge immediately, it goes away. When struck by any damage in the Matrix, you can convert up to two boxes to Stun Damage rather than Matrix damage."
+  description: "Get clipped by IC and other personas enough times in the Matrix, and you can start to build defenses against it. Your physical form actually helps absorb some of the injuries coming at your Matrix persona."
+  source: "Core Rulebook"
+
+- name: High Pain Tolerance
+  type: positive
+  karma_cost: 7
+  effects: "When wounded, reduce your wound penalty by one (to a minimum of 0)."
+  description: "Pain is but an illusion of the mind. Either that, or you were born with congenital analgesia. Either way, you don't suffer the ill effects of injury and pain like others."
+  source: "Core Rulebook"
+
+- name: Home Ground
+  type: positive
+  karma_cost: 10
+  effects: "Select a neighborhood or Matrix host. Outdoors and Perception tests made in your Home Ground gain an Edge for use on that test; if you do not use the Edge on that test, it goes away."
+  description: "Spend enough time somewhere, and you get to know it like the back of your hand. In the local neighborhood, you know every turn, every back alley, every shop on the block, the local rivalries and romances, and you can use all of it to your advantage."
+  source: "Core Rulebook"
+
+- name: Human-Looking
+  type: positive
+  karma_cost: 8
+  effects: "You generally appear human at first glance and gain +2 dice on Disguise tests to hide your metatype and appear more human."
+  description: "Small orks, tall dwarfs, and ugly elves do exist. Whether through genetics or modifications, you do not look like your birth metatype; you appear human. You can pass for human, which might help with humans or cause obstacles with non-humans."
+  source: "Core Rulebook"
+
+- name: Indomitable
+  type: positive
+  karma_cost: 12
+  effects: "Edge Boost costs are reduced by 1 on tests involving Willpower."
+  description: "Whether through deep studies, natural selection, or intense training, your mind is hard to break. You can hold out longer under interrogation, shrug off mild injuries with ease, and hold your mind against the onslaught of incoming mana."
+  source: "Core Rulebook"
+
+- name: Juryrigger
+  type: positive
+  karma_cost: 12
+  effects: "When performing a Juryrigging test, you gain a point of Edge that must be spent on that test, or it goes away."
+  description: "When you don't have the time or the parts to do it right, you can still get it done. Whether it's slapping on duct tape, twisting together wires that maybe shouldn't be connected, or just giving the thing a swift kick, you find a creative way to get a machine working, even if only briefly."
+  source: "Core Rulebook"
+
+- name: Long Reach
+  type: positive
+  karma_cost: 12
+  effects: "When using a melee weapon, Close range is extended to 5 meters instead of 3."
+  description: "Whether it's because of long arms, long legs, or some exceptional physical grace, you are able to reach people with melee weapons easier than others."
+  source: "Core Rulebook"
+
+- name: Low-Light Vision
+  type: positive
+  karma_cost: 6
+  effects: "You can see clearly in any light level that is not total darkness."
+  description: "Thanks to an increase in the number of rod cells in your natural eyes, an implanted increase of said rod cells, or an augmentation that enhances the light level of incoming data, you are capable of operating in light levels that would leave others essentially blind."
+  source: "Core Rulebook"
+
+- name: Magic Resistance
+  type: positive
+  karma_cost: 8
+  effects: "You gain a bonus Edge for use on any Magic Resistance test; if you do not use it on that test, it goes away. When a Health spell is cast on you, treat your Essence as if it were 2 points lower than it actually is."
+  description: "For good or ill, mana just doesn't seem to want to connect with you. Whether it's a manabolt trying to melt your brain, a fireball trying to cook you alive, or a healing spell trying to mend your wounds, it's just harder to get magic to work on you."
+  source: "Core Rulebook"
+
+- name: Mentor Spirit
+  type: positive
+  karma_cost: 10
+  effects: "You gain the benefits listed with the description of your mentor spirit. If you fail to keep aligned with one of those tenets, you lose your faith and connection to your mentor and all associated bonuses."
+  description: "You believe in something other than yourself to help guide and channel your magic, and that something believes in you. Whether it be the totem of Wolf, the Norse god Loki, or the Christian God, you utilize your beliefs to shape and focus your arcane abilities more easily."
+  source: "Core Rulebook"
+
+- name: Photographic Memory
+  type: positive
+  karma_cost: 12
+  effects: "You gain a bonus Edge point when making a Memory test. If you do not use this point of Edge on the test, it goes away."
+  description: "Most people store life in clips, but you keep the recording running all the time. It's a ton of information to deal with at times, but it has made you great for trivia night and remembering the favorite color of your childhood friend."
+  source: "Core Rulebook"
+
+- name: Quick Healer
+  type: positive
+  karma_cost: 8
+  effects: "Cut the interval for any natural healing test in half, meaning you can heal Stun Damage after half an hour and Physical Damage after half a day."
+  description: "You tend to heal from injury quicker than your peers, which is incredibly valuable in a profession that is all about putting your body on the line."
+  source: "Core Rulebook"
+
+- name: Resistance to Pathogens
+  type: positive
+  karma_cost: 12
+  effects: "You gain a bonus point of Edge when you make a Pathogen Resistance test. If you do not use it on that test, it goes away."
+  description: "When you claim, \"I've never been sick a day in my life,\" there's a good chance it may be true. You have a very healthy immune system that has mastered the art of fighting off any and all comers that try to slip into your body and make you sick."
+  source: "Core Rulebook"
+
+- name: "Spirit/Sprite Affinity (select classification)"
+  type: positive
+  karma_cost: 14
+  effects: "Choose a type of spirit or sprite. You gain a bonus point of Edge when making a Conjuring or Tasking test for your chosen class of spirits/sprites. This quality can be taken multiple times, selecting a new class each time."
+  description: "You have earned respect among a particular group of spirits/sprites. Through actions and favors, you've gained a positive reputation that makes them treat you with extra consideration."
+  source: "Core Rulebook"
+
+- name: Thermographic Vision
+  type: positive
+  karma_cost: 8
+  effects: "You can see the heat of objects in total darkness (assuming they are warmer or colder than the ambient temperature), allowing you to operate in such conditions."
+  description: "Thanks to enhancements or just genetics, your vision allows you to see differences in temperature on and around objects and people, though most of the time ambient regular light overrides the heat signature."
+  source: "Core Rulebook"
+
+- name: Toughness
+  type: positive
+  karma_cost: 12
+  effects: "You gain a bonus point of Edge when making Damage Resistance tests. If you do not use it on the test, it goes away."
+  description: "Whether it's mental training, a physical regimen of self-inflicted injury, or you're just one tough bastard, you can take a bit more of a beating and shrug off the injuries better than most."
+  source: "Core Rulebook"
+
+- name: Toxin Resistance
+  type: positive
+  karma_cost: 12
+  effects: "You gain a bonus point of Edge when you make a Toxin Resistance test. If you do not use it on that test, it goes away."
+  description: "Whether through naturally superior organs or because you think getting bit by a snake on a daily basis is a fun way to pass the time, you're able to better resist the effects of toxins in the Sixth World."
+  source: "Core Rulebook"
+
+- name: "Will to Live (1 to 3)"
+  type: positive
+  karma_cost: 8
+  effects: "For every rank of this quality you possess, you gain two additional Damage Overflow boxes. Cost is 8 Karma per level."
+  description: "No matter how hard the hit, you have the tenacity to hold on to the bitter end. You are quite capable of taking a .50-cal round to the chest and waking up in the hospital, rather than never waking up at all."
+  source: "Core Rulebook"
+
+# === NEGATIVE QUALITIES ===
+
+- name: "Addiction (Substance, 1 to 6)"
+  type: negative
+  karma_cost: -2
+  effects: "You cannot earn Edge or spend Edge in any form while suffering withdrawal. When in withdrawal, take a -2 dice-pool penalty on all tests; increase that penalty by 1 each time you pass another Withdrawal time period. Bonus is 2 Karma per level."
+  description: "Some habits just can't be kicked. It might be as simple as a need for a drag off that nic-stick to cool your nerves, or as life-twisting as a need for something better-than-life, but whatever it is, it's got a firm grip on you."
+  source: "Core Rulebook"
+
+- name: "Allergy (Substance, Severity)"
+  type: negative
+  karma_cost: -11
+  effects: "Select an allergen and severity to determine Karma value (2 to 20). You cannot spend or earn Edge while exposed to your allergen. Severity effects range from -2 dice pool modifier (Mild) to -6 modifier plus Physical Damage every 30 seconds (Extreme)."
+  description: "Maybe it's a runny nose and poorly timed sneezes from pollen, or a full-blown anaphylactic reaction from some of those rare natural peanuts. Whatever it is, you suffer some level of discomfort from a substance found in the Sixth World."
+  source: "Core Rulebook"
+
+- name: AR Vertigo
+  type: negative
+  karma_cost: -10
+  effects: "You cannot gain or spend Edge while utilizing AR of any sort. You also gain the Nauseated status while using AR and for one hour after you exit it."
+  description: "Whether it's just too much information, a focal issue in your visual field, or just an inability to focus when there's so much to look at, you get dizzy and nauseated when utilizing AR."
+  source: "Core Rulebook"
+
+- name: Astral Beacon
+  type: negative
+  karma_cost: -10
+  effects: "You are considered Untrained for all Stealth tests in the astral plane. You can never take the masking metamagic. Assensing tests made against you get a free Edge and all thresholds are reduced by 1. Astral Tracking tests against you gain 2 Edge and all thresholds are reduced by half."
+  description: "Whenever people talk about someone having a \"bright soul,\" they make it sound like a good thing. You know it's not. Your bright aura makes you stick out like a sore thumb on the astral."
+  source: "Core Rulebook"
+
+- name: Bad Luck
+  type: negative
+  karma_cost: -10
+  effects: "Glitches occur more frequently. Count dice showing both 1 and 2 for determining a glitch. This does not affect critical glitches, only regular glitches."
+  description: "You were born under a bad sign, broke a mirror, spilled some salt, got the evil eye laid on you, or just can't catch a break. No matter the reason, things just go wrong around you. Often."
+  source: "Core Rulebook"
+
+- name: Bad Rep
+  type: negative
+  karma_cost: -8
+  effects: "You cannot spend Edge on Social tests. If you engage in a Teamwork test to assist a Social test, no one can spend Edge, and the opposing individual gains a point of Edge."
+  description: "Word on the street does not speak favorably of you. Maybe you lost a team or got kicked from a team for breaking during interrogation. Whatever it is, your reputation precedes you, and never in the way you want it to."
+  source: "Core Rulebook"
+
+- name: Combat Paralysis
+  type: negative
+  karma_cost: -8
+  effects: "Your Initiative Score is divided in half at the start of combat. You cannot take a Move or Sprint action in the first round, and you act last in that round. Movement is restored after the first round, but your Initiative Score is unchanged."
+  description: "No matter how many times the street sam takes you to the range, you just can't help but jump and freeze that first time they start shooting. Sure, you recover, but you always feel a half step behind in the fight."
+  source: "Core Rulebook"
+
+- name: "Dependents (1 to 3)"
+  type: negative
+  karma_cost: -4
+  effects: "Choose a level: Level 1 costs 5% of every score, Level 2 costs 10%, Level 3 costs 25%. Bonus is 4 Karma per level."
+  description: "Children, lovers, or something other, you have people relying on you for financial support. They live in your doss, eat your food, use your trid account, and generally cost you enough nuyen to keep you looking for that next score."
+  source: "Core Rulebook"
+
+- name: Distinctive Style
+  type: negative
+  karma_cost: -6
+  effects: "You cannot gain or spend Edge when you're not rocking your distinctive look. Others get a +2 dice pool bonus when conducting a Memory test to recall your appearance or remember if they have seen you before."
+  description: "You only fit in when you're in places where no one fits in. The way you dress and look are unique to you. A distinctive style is more than just what you choose to put on each day—it's a way of life."
+  source: "Core Rulebook"
+
+- name: Elf Poser
+  type: negative
+  karma_cost: -6
+  effects: "Elves, orks, and trolls gain a point of Edge in Influence (Etiquette) tests made against you."
+  description: "Your blood may be human or ork, but your ears, cheekbones, and hoity-toity attitude are all elf. A surgery here and there, maybe a Sperethiel class on the Matrix, and a lot of time watching footage of the Tir princes has you all set to join those you feel you truly belong with."
+  source: "Core Rulebook"
+
+- name: "Glass Jaw (1+)"
+  type: negative
+  karma_cost: -4
+  effects: "You have 1 less Stun Box for each level of this quality, down to a minimum of 2. Bonus is 4 Karma per level."
+  description: "Doesn't take much to lay you on your hoop. You just never could take a punch."
+  source: "Core Rulebook"
+
+- name: Gremlins
+  type: negative
+  karma_cost: -6
+  effects: "Whenever you use any device, roll 2D6. If you get a 1 on either die, the device fails to function (treated as a glitch). Rolling snake eyes means a catastrophic failure (critical glitch)."
+  description: "Commlinks freeze, guns jam, car tires blow, electrical systems short. Any and every thing that could go wrong with some fidgety bit of tech in your hands has gone wrong at one point in your life."
+  source: "Core Rulebook"
+
+- name: Honorbound
+  type: negative
+  karma_cost: -10
+  effects: "You cannot spend or earn Edge for 24 hours after you break a tenet of your code. Repeated infractions add 48 hours each. Breaking a different tenet adds another 24 hours."
+  description: "You have a code. You live by the code. You die by the code. There are many codes, each with a set of tenets that must be obeyed to maintain the balance in your soul, heart, qi, brain chemistry, etc."
+  source: "Core Rulebook"
+
+- name: "Impaired (Attribute)"
+  type: negative
+  karma_cost: -8
+  effects: "For each level, the character's maximum for the chosen attribute decreases by 1, to a minimum of 2. Bonus is 8 Karma per level."
+  description: "Some folks are just not meant to be naturally talented. A bum knee, poor genetics, or an illness as a kid has you lacking the maximum achievement level of your peers."
+  source: "Core Rulebook"
+
+- name: "Incompetent (Skill)"
+  type: negative
+  karma_cost: -10
+  effects: "Select a skill. You are unable to gain ranks in the selected skill. You cannot be Incompetent in skills you have no chance to perform. This skill may only be selected once."
+  description: "No matter how much you practice and try to figure it out, there are some skills you just can't manage to get right."
+  source: "Core Rulebook"
+
+- name: In Debt
+  type: negative
+  karma_cost: 0
+  effects: "When you spend Karma for cash, each point of Karma gets you 5,000 instead of 2,000 nuyen but also puts you 5,000 nuyen in debt. Monthly interest of 500 nuyen per Karma spent. Can only be taken during character creation."
+  description: "Sometimes to get cash you need to owe cash. You've built up a bit of debt trying to get a foothold in the shadows."
+  source: "Core Rulebook"
+
+- name: Insomnia
+  type: negative
+  karma_cost: -4
+  effects: "Each day you must make a Body + Willpower (3) test. On failure, you cannot earn more than 2 Edge from any source that day, and cannot spend more than 2 Edge on any given test."
+  description: "Sleep? What's that? It could be nightmares, brain damage, funky biochemistry, or a psychological disorder, but no matter the reason, you just can't get a good night's rest."
+  source: "Core Rulebook"
+
+- name: Loss of Confidence
+  type: negative
+  karma_cost: -6
+  effects: "During any encounter, you must make a Willpower (2) test as a Minor Action. Failure means you cannot earn or spend Edge for the entire encounter."
+  description: "Imposter syndrome, a single traumatic failure, or just too many rejections or small failures in life have left you doubting yourself at every turn."
+  source: "Core Rulebook"
+
+- name: Low Pain Tolerance
+  type: negative
+  karma_cost: -10
+  effects: "All wound modifiers are doubled."
+  description: "You've got sensitive nerves or a generally sensitive nature. For whatever reason, you are more affected by injuries and discomfort."
+  source: "Core Rulebook"
+
+- name: Ork Poser
+  type: negative
+  karma_cost: -6
+  effects: "Elves, orks, and trolls gain a point of Edge in Influence (Etiquette) tests made against you."
+  description: "Your blood may be human or elf, but your ears, jaw, tusks, and rough attitude are all ork. A surgery here and there, maybe an Or'zet class on the Matrix, and a lot of time watching documentaries on the Seattle Underground has you all set to join those you feel you truly belong with."
+  source: "Core Rulebook"
+
+- name: "Prejudiced (Group)"
+  type: negative
+  karma_cost: -8
+  effects: "Select a specific group or type of people. You are unable to gain or use Edge while the object of your prejudice is present (unless you're directly opposing them)."
+  description: "You have some deep-seated views and beliefs about a certain group, and no matter what anyone says, you know they're no good. Your opinion of them is so negative and distracting you just can't keep focused on other things while they're around."
+  source: "Core Rulebook"
+
+- name: Scorched
+  type: negative
+  karma_cost: -6
+  effects: "You cannot spend Edge while accessing the Matrix. This includes through use of commlinks, smartlinks, and any other source of data coming in from the ether."
+  description: "A Matrix, simsense, or BTL experience has fried your neurons to the point of perpetual frazzle, causing trouble when you're logged on, even when it's just AR."
+  source: "Core Rulebook"
+
+- name: Sensitive System
+  type: negative
+  karma_cost: -8
+  effects: "Essence costs are doubled for all cyberware, bioware, and nanoware. Geneware suffers no ill effects. You cannot have this quality if you have a Magic or Resonance rating."
+  description: "It could be latent unexpressed arcane talent or just a hyperactive immune system, but the result is the same. Your body does not like to have anything grafted or merged with it that isn't part of its natural code."
+  source: "Core Rulebook"
+
+- name: Simsense Vertigo
+  type: negative
+  karma_cost: -6
+  effects: "You cannot gain or spend Edge while accessing the Matrix via VR. You also receive the Nauseated status for one hour after you log off the Matrix."
+  description: "Somewhere inside your brain, you've got some wires crossed. Whenever you log onto the Matrix in VR, your disorientation is nauseating."
+  source: "Core Rulebook"
+
+- name: SINner
+  type: negative
+  karma_cost: -8
+  effects: "You pay taxes to your SIN issuer, increasing lifestyle costs by 10%. Opponents gain a point of Edge every time they attempt a Trace Icon action against you."
+  description: "Unlike a lot of runners, who have either no SIN or a criminal SIN, you have a legitimate SIN that links back to biometric data. You have enough attachment to it that you can't just burn it."
+  source: "Core Rulebook"
+
+- name: Social Stress
+  type: negative
+  karma_cost: -8
+  effects: "Select a specific social stressor. When encountering it, you must make a Charisma (2) test as a Minor Action. Failure means you cannot earn or spend Edge until you succeed. You can choose not to test, but then any tests made against you gain a bonus Edge."
+  description: "There is a social situation that simply does not work for you, like being in large groups, talking to new people, being the center of attention, being out of the spotlight, or a myriad of other situations that some folks find totally normal but you find ridiculously stressful."
+  source: "Core Rulebook"
+
+- name: Spirit/Sprite Bane
+  type: negative
+  karma_cost: -12
+  effects: "Choose a type of spirit or sprite. They gain a bonus point of Edge when you attempt a Conjuring or Tasking test against them. In combat, they will attack you first and relentlessly. Can be taken multiple times."
+  description: "You may have angered them with how you treat their fellows, killed a powerful and respected member of their kind, or been born under a bad sign and marked as an enemy to entities like them."
+  source: "Core Rulebook"
+
+- name: Uncouth
+  type: negative
+  karma_cost: -6
+  effects: "You cannot spend Edge on any test using Charisma."
+  description: "At some point in life, the filter between your thoughts and your mouth disappeared. You consider yourself brutally honest, but others tend to see you as rude and abrasive."
+  source: "Core Rulebook"
+
+- name: Uneducated
+  type: negative
+  karma_cost: -6
+  effects: "You cannot spend Edge on any test using Logic."
+  description: "Maybe book learning just wasn't your thing, or maybe you were never exposed to vast quantities of information solely for the sake of expanding your knowledge base. Either way, you have a definite lack in your basic education."
+  source: "Core Rulebook"
+
+- name: Unsteady Hands
+  type: negative
+  karma_cost: -4
+  effects: "You cannot spend Edge on any test using Agility that directly involves your hands (e.g., sleight-of-hand, weapon attacks held in hands, but not running)."
+  description: "Nervous tics, excessive caffeine intake, or a general clumsiness might be the cause, but the results are all the same: You can't draw a straight line to save your life."
+  source: "Core Rulebook"
+
+- name: Weak Immune System
+  type: negative
+  karma_cost: -8
+  effects: "You cannot spend Edge to resist infections. The threshold for fighting off any infection is increased by 1. While ill, you suffer a -1 dice pool modifier to all tests."
+  description: "Perpetual sniffles are annoying to both you and your team, but a poorly timed sneeze or a sudden need for a bathroom can mean the end of a good run. You're sick almost all the time."
+  source: "Core Rulebook"

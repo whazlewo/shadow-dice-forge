@@ -54,6 +54,7 @@ export interface SR6Quality {
   type: "positive" | "negative";
   karma_cost: number;
   effects: string;
+  description?: string;
   dice_modifiers?: DiceModifier[];
 }
 
@@ -82,6 +83,7 @@ export interface WeaponAccessory {
   ar_modifier?: string;      // e.g. "+2/+2/+2/+2/+2" (optional)
   notes?: string;            // free text for other effects
   description?: string;
+  dice_modifiers?: DiceModifier[];
 }
 
 export interface SR6Contact {
@@ -90,6 +92,7 @@ export interface SR6Contact {
   loyalty: number;
   connection: number;
   notes: string;
+  description?: string;
 }
 
 export interface SR6RangedWeapon {
@@ -150,6 +153,7 @@ export interface SR6Augmentation {
   notes?: string;
   description?: string;
   dice_modifiers?: DiceModifier[];
+  exclusion_group?: string;
 }
 
 export interface SR6Gear {
@@ -195,6 +199,8 @@ export interface SR6AdeptPower {
   effects: string;
   dice_modifiers?: DiceModifier[];
   description?: string;
+  enabled?: boolean;
+  exclusion_group?: string;
 }
 
 export interface SR6OtherAbility {
@@ -209,6 +215,7 @@ export interface WizardQuality {
   type: "positive" | "negative";
   karma_cost: number;
   effects: string;
+  description?: string;
 }
 
 // Shared fields for all wizard gear
@@ -264,6 +271,7 @@ export interface WizardAugmentation extends WizardGearBase {
   rating: number;
   effects: string;
   dice_modifiers: DiceModifier[];
+  exclusion_group?: string;
 }
 
 export interface WizardVehicle extends WizardGearBase {
@@ -307,8 +315,13 @@ export interface SR6PersonalInfo {
   sex?: string;
   height?: string;
   weight?: string;
+  /** SR6: single Reputation value (positive or negative). Replaces SR4/SR5 street_cred/notoriety/public_awareness. */
+  reputation?: number;
+  /** @deprecated SR4/SR5 - use reputation. Kept for backward compat when reading. */
   street_cred?: number;
+  /** @deprecated SR4/SR5 - use reputation. Kept for backward compat when reading. */
   notoriety?: number;
+  /** @deprecated SR4/SR5 - not in SR6. Kept for backward compat when reading. */
   public_awareness?: number;
   description?: string;
   backstory?: string;

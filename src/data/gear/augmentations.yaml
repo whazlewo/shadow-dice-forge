@@ -2,6 +2,8 @@
 # Add items from the rulebook; include full description for each.
 # aug_type: cyberware | bioware
 
+# ═══ HEADWARE (Cyberware) ═══
+
 - name: Datajack
   cost: 500
   availability: "1"
@@ -12,140 +14,6 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "A small cybernetic port that allows direct neural interface with electronic devices. Essential for deckers and technomancers. Enables DNI without trodes. The most common cyberware implant."
-
-- name: Cybereyes (Rating 1)
-  cost: 1000
-  availability: "2"
-  aug_type: cyberware
-  essence_cost: 0.2
-  rating: 1
-  effects: "Replacement eyes with capacity for modifications"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Cybernetic replacement eyes. Rating indicates quality and capacity for add-ons like low-light, thermographic vision, or image link. Higher ratings allow more modifications. Essence cost increases with rating."
-
-- name: Muscle Replacement (Rating 1)
-  cost: 12000
-  availability: "4"
-  aug_type: cyberware
-  essence_cost: 0.5
-  rating: 1
-  effects: "+1 Strength"
-  dice_modifiers: [{ attribute: "strength", value: 1, source: "Muscle Replacement" }]
-  source: "Core Rulebook"
-  description: "Cybernetic muscle augmentation that increases raw physical strength. Each rating adds +1 to Strength. Popular with street samurai and physical adepts. Higher ratings available at greater cost and essence."
-
-# Cyberware
-
-- name: Cyberears (Rating 1)
-  cost: 800
-  availability: "2"
-  aug_type: cyberware
-  essence_cost: 0.2
-  rating: 1
-  effects: "Replacement ears with capacity for audio enhancements"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Cybernetic replacement ears. Rating indicates quality and capacity for add-ons like audio enhancement, spatial recognizer, or damper. Pairs well with cybereyes for full sensory suite."
-
-- name: Cyberarm (Standard)
-  cost: 8500
-  availability: "3"
-  aug_type: cyberware
-  essence_cost: 0.5
-  rating: 3
-  effects: "Replacement arm, Agility/Strength 3, capacity for modifications"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Full cybernetic arm replacement. Has its own Agility and Strength (typically 3). Capacity for built-in weapons, tools, or other modifications. Popular with street samurai."
-
-- name: Cyberleg (Standard)
-  cost: 9000
-  availability: "3"
-  aug_type: cyberware
-  essence_cost: 0.5
-  rating: 3
-  effects: "Replacement leg, Agility 3, capacity for modifications"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Cybernetic leg replacement. Enhances movement and agility. Capacity for skimmers, hydraulic jacks, or other mods. Two legs can share capacity for larger systems."
-
-- name: Wired Reflexes (Rating 1)
-  cost: 32000
-  availability: "4(R)"
-  aug_type: cyberware
-  essence_cost: 0.5
-  rating: 1
-  effects: "+1 Reaction, +1d6 Initiative"
-  dice_modifiers: [{ attribute: "reaction", value: 1, source: "Wired Reflexes" }]
-  source: "Core Rulebook"
-  description: "Neural accelerator. Boosts reaction time and initiative. Each rating adds +1 Reaction and +1d6 Initiative Dice. The classic street samurai upgrade. Restricted."
-
-- name: Bone Lacing (Plastic)
-  cost: 6000
-  availability: "2"
-  aug_type: cyberware
-  essence_cost: 0.2
-  rating: 1
-  effects: "+1 Physical condition monitor box, Unarmed DV 3P"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Reinforces bones with plastic polymer. Lightest option. Adds a Physical condition monitor box. Unarmed attacks inflict 3P damage (errata Feb 2020)."
-
-- name: Bone Lacing (Aluminum)
-  cost: 8000
-  availability: "3"
-  aug_type: cyberware
-  essence_cost: 0.3
-  rating: 1
-  effects: "+1 Physical condition monitor box, Unarmed DV 4P"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Reinforces bones with metal. Aluminum is the lightest metal option. Adds a Physical condition monitor box. Unarmed attacks inflict 4P damage (errata Feb 2020)."
-
-- name: Bone Lacing (Titanium)
-  cost: 12000
-  availability: "4"
-  aug_type: cyberware
-  essence_cost: 0.4
-  rating: 1
-  effects: "+1 Physical condition monitor box, Unarmed DV 4P"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Reinforces bones with titanium. Heaviest option. Adds a Physical condition monitor box. Unarmed attacks inflict 4P damage (errata Feb 2020)."
-
-- name: Dermal Plating (Rating 1)
-  cost: 6000
-  availability: "3"
-  aug_type: cyberware
-  essence_cost: 0.2
-  rating: 1
-  effects: "+1 damage resistance"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Subdermal armor plating. Each rating adds damage resistance. Does not stack with worn armor for the same damage type. Visible under skin in some metatypes."
-
-- name: Smartlink
-  cost: 1500
-  availability: "2"
-  aug_type: cyberware
-  essence_cost: 0.1
-  rating: 0
-  effects: "+2 dice to attacks with smartgun, eliminates visibility penalties"
-  dice_modifiers: [{ value: 2, source: "Smartlink", requires_accessory: "Smartgun" }]
-  source: "Core Rulebook"
-  description: "Neural link to smartgun systems. Must be installed in eyes (cyber or natural). +2 dice when using smartgun-enabled weapons. Eliminates some visibility penalties. Essential for combat-focused characters."
-
-- name: Reaction Enhancers (Rating 1)
-  cost: 18000
-  availability: "4"
-  aug_type: cyberware
-  essence_cost: 0.2
-  rating: 1
-  effects: "+1 Reaction"
-  dice_modifiers: [{ attribute: "reaction", value: 1, source: "Reaction Enhancers" }]
-  source: "Core Rulebook"
-  description: "Neural enhancement for faster reflexes. Adds +1 Reaction per rating. Lighter essence cost than Wired Reflexes but no Initiative bonus. Stacks with Wired Reflexes."
 
 - name: Internal Router
   cost: 2000
@@ -158,172 +26,6 @@
   source: "Core Rulebook"
   description: "Internal network that connects cyberware and provides datajack functionality. Allows internal devices to communicate without external ports. Reduces wireless exposure."
 
-- name: Tailored Pheromones (Rating 1)
-  cost: 8000
-  availability: "3"
-  aug_type: bioware
-  essence_cost: 0.2
-  rating: 1
-  effects: "+1 Charisma"
-  dice_modifiers: [{ attribute: "charisma", value: 1, source: "Tailored Pheromones" }]
-  source: "Core Rulebook"
-  description: "Bio-engineered pheromones. Makes you more likable and persuasive. +1 Charisma per rating. Invisible and undetectable by normal means. Popular with faces and infiltrators."
-
-- name: Orthoskin (Rating 1)
-  cost: 10000
-  availability: "3"
-  aug_type: bioware
-  essence_cost: 0.2
-  rating: 1
-  effects: "+1 damage resistance"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Genetically enhanced skin. Adds damage resistance. Bioware alternative to Dermal Plating. Less essence cost than cyberware armor. Does not stack with worn armor for same damage."
-
-- name: Synthskin
-  cost: 2500
-  availability: "2"
-  aug_type: bioware
-  essence_cost: 0.1
-  rating: 0
-  effects: "Conceals cyberware, +2 to Disguise"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Synthetic skin overlay. Covers cyberlimbs and other visible cyberware. +2 dice to Disguise tests to appear fully organic. Essential for infiltrators with obvious chrome."
-
-- name: Muscle Toner (Rating 1)
-  cost: 8000
-  availability: "3"
-  aug_type: bioware
-  essence_cost: 0.2
-  rating: 1
-  effects: "+1 Agility"
-  dice_modifiers: [{ attribute: "agility", value: 1, source: "Muscle Toner" }]
-  source: "Core Rulebook"
-  description: "Enhanced muscle fibers. +1 Agility per rating. Bioware alternative to muscle replacement. Lighter essence cost. Popular with athletes and street samurai."
-
-- name: Muscle Augmentation (Rating 1)
-  cost: 8000
-  availability: "3"
-  aug_type: bioware
-  essence_cost: 0.2
-  rating: 1
-  effects: "+1 Strength"
-  dice_modifiers: [{ attribute: "strength", value: 1, source: "Muscle Augmentation" }]
-  source: "Core Rulebook"
-  description: "Enhanced muscle mass. +1 Strength per rating. Bioware alternative to muscle replacement. Often paired with Muscle Toner for balanced physical enhancement."
-
-- name: Synaptic Booster (Rating 1)
-  cost: 25000
-  availability: "4"
-  aug_type: bioware
-  essence_cost: 0.2
-  rating: 1
-  effects: "+1d6 Initiative"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Enhanced neural pathways. +1d6 Initiative Dice per rating. Bioware alternative to Wired Reflexes. No Reaction bonus but lighter essence cost. Stacks with other initiative boosters."
-
-- name: Platelet Factory
-  cost: 15000
-  availability: "4"
-  aug_type: bioware
-  essence_cost: 0.2
-  rating: 0
-  effects: "Reduces bleeding, +2 to First Aid when stabilizing"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Produces artificial platelets. Reduces bleeding from wounds. +2 dice to First Aid tests when stabilizing. Helps with recovery. Expensive but valuable for combat-focused characters."
-
-- name: Trauma Damper (Rating 1)
-  cost: 12000
-  availability: "4"
-  aug_type: bioware
-  essence_cost: 0.2
-  rating: 1
-  effects: "Ignore 1 box of Physical damage for Stun conversion"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Neural dampening of pain response. Each rating lets you ignore 1 box of Physical damage when determining if damage converts to Stun. Helps you stay in the fight."
-
-- name: Adrenaline Pump (Rating 1)
-  cost: 28000
-  availability: "4"
-  aug_type: bioware
-  essence_cost: 0.3
-  rating: 1
-  effects: "+1 Reaction, +1d6 Initiative when activated"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Emergency boost system. When activated (Minor Action), provides +1 Reaction and +1d6 Initiative for (Rating) combat turns. Crash afterward. Wireless: Can be triggered by biomonitor when damage is taken."
-
-- name: Bone Density Augmentation (Rating 1)
-  cost: 12000
-  availability: "4"
-  aug_type: bioware
-  essence_cost: 0.2
-  rating: 1
-  effects: "+1 Physical condition monitor box"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Denser bones. Adds a Physical condition monitor box per rating. Bioware alternative to Bone Lacing. No damage resistance bonus but lighter essence cost."
-
-- name: Cerebral Booster (Rating 1)
-  cost: 15000
-  availability: "4"
-  aug_type: bioware
-  essence_cost: 0.2
-  rating: 1
-  effects: "+1 Logic"
-  dice_modifiers: [{ attribute: "logic", value: 1, source: "Cerebral Booster" }]
-  source: "Core Rulebook"
-  description: "Enhanced neural tissue. +1 Logic per rating. Essential for deckers, technomancers, and anyone who relies on mental acuity. Does not affect Resonance."
-
-- name: Mnemonic Enhancer (Rating 1)
-  cost: 10000
-  availability: "3"
-  aug_type: bioware
-  essence_cost: 0.1
-  rating: 1
-  effects: "+1 Memory"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Enhanced memory retention. +1 to Memory attribute per rating. Helps with knowledge skills and recall. Popular with deckers and scholars."
-
-# Additional Headware
-- name: Datalock (Rating 1)
-  cost: 1000
-  availability: "4"
-  aug_type: cyberware
-  essence_cost: 0.1
-  rating: 1
-  effects: "Walking data safe, Device Rating = rating"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
-
-- name: Control Rig (Rating 1)
-  cost: 30000
-  availability: "4(L)"
-  aug_type: cyberware
-  essence_cost: 1
-  rating: 1
-  effects: "+Rating dice and +1 Edge when jumped in"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Harnesses middle brain for direct manipulation of rigged vehicles and drones. Built-in sim module, retractable datajack cable. When jumped in: Rating as dice pool bonus on vehicle tests, +1 Edge."
-
-- name: Olfactory booster (Rating 1)
-  cost: 4000
-  availability: "3"
-  aug_type: cyberware
-  essence_cost: 0.2
-  rating: 1
-  effects: "Bonus Edge on scent Perception; cut-off for intense odors"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Cybersnout enhances, identifies, and records smells. Sense emotions in sweat, propellant, explosives. Cut-off ignores intense odors. Wireless: +rating dice to scent-based Perception."
-
 - name: Simrig
   cost: 4000
   availability: "4(L)"
@@ -334,28 +36,6 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Implanted simrig. Records sensory data for later replay or sale. For those who live interesting lives."
-
-- name: Skilljack (Rating 1)
-  cost: 20000
-  availability: "4"
-  aug_type: cyberware
-  essence_cost: 0.1
-  rating: 1
-  effects: "Run knowsofts/linguasofts as own skills; activesofts as Knowledge only"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Interprets knowsofts and linguasofts for your brain. Activesofts only as Knowledge unless you have skillwires. Total skills ≤ rating x 2. Wireless: limit becomes rating x 4, Edge usable."
-
-- name: Taste booster (Rating 1)
-  cost: 3000
-  availability: "3"
-  aug_type: cyberware
-  essence_cost: 0.2
-  rating: 1
-  effects: "Bonus Edge on taste Perception; taste track in AR/VR"
-  dice_modifiers: []
-  source: "Core Rulebook"
-  description: "Enhances taste buds like olfactory booster. Experience gustatory data in AR/VR. Wireless: +rating dice to taste-based Perception."
 
 - name: Tooth compartment
   cost: 800
@@ -379,6 +59,309 @@
   source: "Core Rulebook"
   description: "Like ultrasound sensor gear. When active, replaces normal vision. Switch active/passive/off with Minor Action."
 
+# ── Control Rig (Rating 1-3) ──
+- name: Control Rig (Rating 1)
+  cost: 30000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 1
+  rating: 1
+  effects: "+1 dice and +1 Edge when jumped in"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Harnesses middle brain for direct manipulation of rigged vehicles and drones. Built-in sim module, retractable datajack cable. When jumped in: Rating as dice pool bonus on vehicle tests, +1 Edge."
+
+- name: Control Rig (Rating 2)
+  cost: 60000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 2
+  rating: 2
+  effects: "+2 dice and +1 Edge when jumped in"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Harnesses middle brain for direct manipulation of rigged vehicles and drones. Built-in sim module, retractable datajack cable. When jumped in: Rating as dice pool bonus on vehicle tests, +1 Edge."
+
+- name: Control Rig (Rating 3)
+  cost: 90000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 3
+  rating: 3
+  effects: "+3 dice and +1 Edge when jumped in"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Harnesses middle brain for direct manipulation of rigged vehicles and drones. Built-in sim module, retractable datajack cable. When jumped in: Rating as dice pool bonus on vehicle tests, +1 Edge."
+
+# ── Datalock (Rating 1-12) ──
+- name: Datalock (Rating 1)
+  cost: 1000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 1
+  effects: "Walking data safe, Device Rating = 1"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 2)
+  cost: 2000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 2
+  effects: "Walking data safe, Device Rating = 2"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 3)
+  cost: 3000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 3
+  effects: "Walking data safe, Device Rating = 3"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 4)
+  cost: 4000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 4
+  effects: "Walking data safe, Device Rating = 4"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 5)
+  cost: 5000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 5
+  effects: "Walking data safe, Device Rating = 5"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 6)
+  cost: 6000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 6
+  effects: "Walking data safe, Device Rating = 6"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 7)
+  cost: 7000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 7
+  effects: "Walking data safe, Device Rating = 7"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 8)
+  cost: 8000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 8
+  effects: "Walking data safe, Device Rating = 8"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 9)
+  cost: 9000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 9
+  effects: "Walking data safe, Device Rating = 9"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 10)
+  cost: 10000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 10
+  effects: "Walking data safe, Device Rating = 10"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 11)
+  cost: 11000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 11
+  effects: "Walking data safe, Device Rating = 11"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Datalock (Rating 12)
+  cost: 12000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 12
+  effects: "Walking data safe, Device Rating = 12"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+# ── Olfactory booster (Rating 1-3) ──
+- name: Olfactory booster (Rating 1)
+  cost: 4000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 1
+  effects: "Bonus Edge on scent Perception; cut-off for intense odors"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybersnout enhances, identifies, and records smells. Sense emotions in sweat, propellant, explosives. Cut-off ignores intense odors. Wireless: +rating dice to scent-based Perception."
+
+- name: Olfactory booster (Rating 2)
+  cost: 8000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 2
+  effects: "Bonus Edge on scent Perception; cut-off for intense odors"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybersnout enhances, identifies, and records smells. Sense emotions in sweat, propellant, explosives. Cut-off ignores intense odors. Wireless: +rating dice to scent-based Perception."
+
+- name: Olfactory booster (Rating 3)
+  cost: 12000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 3
+  effects: "Bonus Edge on scent Perception; cut-off for intense odors"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybersnout enhances, identifies, and records smells. Sense emotions in sweat, propellant, explosives. Cut-off ignores intense odors. Wireless: +rating dice to scent-based Perception."
+
+# ── Skilljack (Rating 1-6) ──
+- name: Skilljack (Rating 1)
+  cost: 20000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 1
+  effects: "Run knowsofts/linguasofts as own skills; activesofts as Knowledge only; max 2 total skill ratings"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Interprets knowsofts and linguasofts for your brain. Activesofts only as Knowledge unless you have skillwires. Total skills ≤ rating x 2. Wireless: limit becomes rating x 4, Edge usable."
+
+- name: Skilljack (Rating 2)
+  cost: 40000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 2
+  effects: "Run knowsofts/linguasofts as own skills; activesofts as Knowledge only; max 4 total skill ratings"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Interprets knowsofts and linguasofts for your brain. Activesofts only as Knowledge unless you have skillwires. Total skills ≤ rating x 2. Wireless: limit becomes rating x 4, Edge usable."
+
+- name: Skilljack (Rating 3)
+  cost: 60000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.3
+  rating: 3
+  effects: "Run knowsofts/linguasofts as own skills; activesofts as Knowledge only; max 6 total skill ratings"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Interprets knowsofts and linguasofts for your brain. Activesofts only as Knowledge unless you have skillwires. Total skills ≤ rating x 2. Wireless: limit becomes rating x 4, Edge usable."
+
+- name: Skilljack (Rating 4)
+  cost: 80000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.4
+  rating: 4
+  effects: "Run knowsofts/linguasofts as own skills; activesofts as Knowledge only; max 8 total skill ratings"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Interprets knowsofts and linguasofts for your brain. Activesofts only as Knowledge unless you have skillwires. Total skills ≤ rating x 2. Wireless: limit becomes rating x 4, Edge usable."
+
+- name: Skilljack (Rating 5)
+  cost: 100000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.5
+  rating: 5
+  effects: "Run knowsofts/linguasofts as own skills; activesofts as Knowledge only; max 10 total skill ratings"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Interprets knowsofts and linguasofts for your brain. Activesofts only as Knowledge unless you have skillwires. Total skills ≤ rating x 2. Wireless: limit becomes rating x 4, Edge usable."
+
+- name: Skilljack (Rating 6)
+  cost: 120000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.6
+  rating: 6
+  effects: "Run knowsofts/linguasofts as own skills; activesofts as Knowledge only; max 12 total skill ratings"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Interprets knowsofts and linguasofts for your brain. Activesofts only as Knowledge unless you have skillwires. Total skills ≤ rating x 2. Wireless: limit becomes rating x 4, Edge usable."
+
+# ── Taste booster (Rating 1-3) ──
+- name: Taste booster (Rating 1)
+  cost: 3000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 1
+  effects: "Bonus Edge on taste Perception; taste track in AR/VR"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Enhances taste buds like olfactory booster. Experience gustatory data in AR/VR. Wireless: +rating dice to taste-based Perception."
+
+- name: Taste booster (Rating 2)
+  cost: 6000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 2
+  effects: "Bonus Edge on taste Perception; taste track in AR/VR"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Enhances taste buds like olfactory booster. Experience gustatory data in AR/VR. Wireless: +rating dice to taste-based Perception."
+
+- name: Taste booster (Rating 3)
+  cost: 9000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 3
+  effects: "Bonus Edge on taste Perception; taste track in AR/VR"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Enhances taste buds like olfactory booster. Experience gustatory data in AR/VR. Wireless: +rating dice to taste-based Perception."
+
+# ── Voice modulator (Rating 1-3) ──
 - name: Voice modulator (Rating 1)
   cost: 5000
   availability: "4(L)"
@@ -390,7 +373,524 @@
   source: "Core Rulebook"
   description: "Perfect pitch, vocal flexibility, volume to 100dB. Play back and imitate recorded voices. Wireless: +rating dice to sound-based Con."
 
-# Cyberjacks
+- name: Voice modulator (Rating 2)
+  cost: 10000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 2
+  effects: "Perfect pitch, volume to 100dB, vocal impressions; Bonus Edge on sound-based Con"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Perfect pitch, vocal flexibility, volume to 100dB. Play back and imitate recorded voices. Wireless: +rating dice to sound-based Con."
+
+- name: Voice modulator (Rating 3)
+  cost: 15000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 3
+  effects: "Perfect pitch, volume to 100dB, vocal impressions; Bonus Edge on sound-based Con"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Perfect pitch, vocal flexibility, volume to 100dB. Play back and imitate recorded voices. Wireless: +rating dice to sound-based Con."
+
+# ═══ EYEWARE (Cyberware) ═══
+
+- name: Smartlink
+  cost: 1500
+  availability: "2"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 0
+  effects: "Enables smartgun +2 AR bonus. Wireless: smartgun also provides +1 dice pool."
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neural interface for smartgun systems. Installed in imaging devices (cybereyes, glasses, goggles, contacts). When connected to a smartgun-equipped weapon, enables the smartgun's +2 Attack Rating bonus. In wireless mode, the smartgun also provides +1 dice pool bonus and a bonus Minor Action."
+
+# ── Cybereyes (Rating 1-5) — Non-linear ──
+- name: Cybereyes (Rating 1)
+  cost: 1000
+  availability: "2"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 1
+  effects: "Replacement eyes with capacity 1 for modifications"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybernetic replacement eyes. Rating indicates quality and capacity for add-ons like low-light, thermographic vision, or image link. Higher ratings allow more modifications. Essence cost increases with rating."
+
+- name: Cybereyes (Rating 2)
+  cost: 4000
+  availability: "2"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 2
+  effects: "Replacement eyes with capacity 4 for modifications"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybernetic replacement eyes. Rating indicates quality and capacity for add-ons like low-light, thermographic vision, or image link. Higher ratings allow more modifications. Essence cost increases with rating."
+
+- name: Cybereyes (Rating 3)
+  cost: 6000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.3
+  rating: 3
+  effects: "Replacement eyes with capacity 8 for modifications"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybernetic replacement eyes. Rating indicates quality and capacity for add-ons like low-light, thermographic vision, or image link. Higher ratings allow more modifications. Essence cost increases with rating."
+
+- name: Cybereyes (Rating 4)
+  cost: 10000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.4
+  rating: 4
+  effects: "Replacement eyes with capacity 12 for modifications"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybernetic replacement eyes. Rating indicates quality and capacity for add-ons like low-light, thermographic vision, or image link. Higher ratings allow more modifications. Essence cost increases with rating."
+
+- name: Cybereyes (Rating 5)
+  cost: 16000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.5
+  rating: 5
+  effects: "Replacement eyes with capacity 16 for modifications"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybernetic replacement eyes. Rating indicates quality and capacity for add-ons like low-light, thermographic vision, or image link. Higher ratings allow more modifications. Essence cost increases with rating."
+
+# ═══ EARWARE (Cyberware) ═══
+
+# ── Cyberears (Rating 1-5) — Non-linear ──
+- name: Cyberears (Rating 1)
+  cost: 1000
+  availability: "2"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 1
+  effects: "Replacement ears with capacity 1 for audio enhancements"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybernetic replacement ears. Rating indicates quality and capacity for add-ons like audio enhancement, spatial recognizer, or damper. Pairs well with cybereyes for full sensory suite."
+
+- name: Cyberears (Rating 2)
+  cost: 3000
+  availability: "2"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 2
+  effects: "Replacement ears with capacity 4 for audio enhancements"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybernetic replacement ears. Rating indicates quality and capacity for add-ons like audio enhancement, spatial recognizer, or damper. Pairs well with cybereyes for full sensory suite."
+
+- name: Cyberears (Rating 3)
+  cost: 4500
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.3
+  rating: 3
+  effects: "Replacement ears with capacity 8 for audio enhancements"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybernetic replacement ears. Rating indicates quality and capacity for add-ons like audio enhancement, spatial recognizer, or damper. Pairs well with cybereyes for full sensory suite."
+
+- name: Cyberears (Rating 4)
+  cost: 7500
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.4
+  rating: 4
+  effects: "Replacement ears with capacity 12 for audio enhancements"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybernetic replacement ears. Rating indicates quality and capacity for add-ons like audio enhancement, spatial recognizer, or damper. Pairs well with cybereyes for full sensory suite."
+
+- name: Cyberears (Rating 5)
+  cost: 11000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.5
+  rating: 5
+  effects: "Replacement ears with capacity 16 for audio enhancements"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybernetic replacement ears. Rating indicates quality and capacity for add-ons like audio enhancement, spatial recognizer, or damper. Pairs well with cybereyes for full sensory suite."
+
+# ═══ BODYWARE (Cyberware) ═══
+
+# ── Cyberlimbs ──
+- name: Cyberarm (Obvious)
+  cost: 15000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 1
+  rating: 2
+  effects: "Replacement arm, Agility/Strength 2, +1 Physical CM, capacity 15"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Full cybernetic arm replacement. Basic limbs installed with Agility and Strength at 2. Each cyberlimb adds one box to the character's Physical Condition Monitor. Obvious variant has more capacity (15) than synthetic (8) but is visibly mechanical."
+
+- name: Cyberleg (Obvious)
+  cost: 15000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 1
+  rating: 2
+  effects: "Replacement leg, Agility/Strength 2, +1 Physical CM, capacity 20"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Full cybernetic leg replacement. Basic limbs installed with Agility and Strength at 2. Each cyberlimb adds one box to the character's Physical Condition Monitor. Obvious variant has more capacity (20) than synthetic (10) but is visibly mechanical."
+
+# ── Bone Lacing (fixed variants) ──
+- name: Bone Lacing (Plastic)
+  cost: 8000
+  availability: "3(L)"
+  aug_type: cyberware
+  essence_cost: 0.5
+  rating: 1
+  effects: "+1 Physical condition monitor box, Unarmed DV 3P"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Reinforces bones with plastic polymer. Lightest option. Adds a Physical condition monitor box. Unarmed attacks inflict 3P damage."
+
+- name: Bone Lacing (Aluminum)
+  cost: 18000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 1
+  rating: 1
+  effects: "+1 Physical condition monitor box, Unarmed DV 4P"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Reinforces bones with aluminum. Middle option. Adds a Physical condition monitor box. Unarmed attacks inflict 4P damage."
+
+- name: Bone Lacing (Titanium)
+  cost: 30000
+  availability: "6(L)"
+  aug_type: cyberware
+  essence_cost: 1.5
+  rating: 1
+  effects: "+1 Physical condition monitor box, Unarmed DV 4P"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Reinforces bones with titanium. Heaviest and most durable option. Adds a Physical condition monitor box. Unarmed attacks inflict 4P damage."
+
+# ── Dermal Plating (Rating 1-4) ──
+- name: Dermal Plating (Rating 1)
+  cost: 4000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 0.3
+  rating: 1
+  effects: "+1 Defense Rating"
+  dice_modifiers: [{ attribute: "defense_rating", value: 1, source: "Dermal Plating" }]
+  source: "Core Rulebook"
+  description: "Subdermal armor plating. Each rating adds +1 to Defense Rating. Visible under skin in some metatypes."
+
+- name: Dermal Plating (Rating 2)
+  cost: 8000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 0.6
+  rating: 2
+  effects: "+2 Defense Rating"
+  dice_modifiers: [{ attribute: "defense_rating", value: 2, source: "Dermal Plating" }]
+  source: "Core Rulebook"
+  description: "Subdermal armor plating. Each rating adds +1 to Defense Rating. Visible under skin in some metatypes."
+
+- name: Dermal Plating (Rating 3)
+  cost: 12000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 0.9
+  rating: 3
+  effects: "+3 Defense Rating"
+  dice_modifiers: [{ attribute: "defense_rating", value: 3, source: "Dermal Plating" }]
+  source: "Core Rulebook"
+  description: "Subdermal armor plating. Each rating adds +1 to Defense Rating. Visible under skin in some metatypes."
+
+- name: Dermal Plating (Rating 4)
+  cost: 16000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 1.2
+  rating: 4
+  effects: "+4 Defense Rating"
+  dice_modifiers: [{ attribute: "defense_rating", value: 4, source: "Dermal Plating" }]
+  source: "Core Rulebook"
+  description: "Subdermal armor plating. Each rating adds +1 to Defense Rating. Visible under skin in some metatypes."
+
+# ── Internal Air Tank (Rating 1-4) — NEW ──
+- name: Internal Air Tank (Rating 1)
+  cost: 4500
+  availability: "2"
+  aug_type: cyberware
+  essence_cost: 0.25
+  rating: 1
+  effects: "Internal air supply, capacity [1]"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "An implanted air tank allows you to hold a supply of breathable air internally. The tank rating determines how many minutes of air it holds. Protects against inhalation-vector toxins while sealed."
+
+- name: Internal Air Tank (Rating 2)
+  cost: 9000
+  availability: "2"
+  aug_type: cyberware
+  essence_cost: 0.25
+  rating: 2
+  effects: "Internal air supply, capacity [2]"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "An implanted air tank allows you to hold a supply of breathable air internally. The tank rating determines how many minutes of air it holds. Protects against inhalation-vector toxins while sealed."
+
+- name: Internal Air Tank (Rating 3)
+  cost: 13500
+  availability: "2"
+  aug_type: cyberware
+  essence_cost: 0.25
+  rating: 3
+  effects: "Internal air supply, capacity [3]"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "An implanted air tank allows you to hold a supply of breathable air internally. The tank rating determines how many minutes of air it holds. Protects against inhalation-vector toxins while sealed."
+
+- name: Internal Air Tank (Rating 4)
+  cost: 18000
+  availability: "2"
+  aug_type: cyberware
+  essence_cost: 0.25
+  rating: 4
+  effects: "Internal air supply, capacity [4]"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "An implanted air tank allows you to hold a supply of breathable air internally. The tank rating determines how many minutes of air it holds. Protects against inhalation-vector toxins while sealed."
+
+# ── Muscle Replacement (Rating 1-4) ──
+- name: Muscle Replacement (Rating 1)
+  cost: 30000
+  availability: "3(L)"
+  aug_type: cyberware
+  essence_cost: 0.7
+  rating: 1
+  effects: "+1 Strength, +1 Agility"
+  dice_modifiers: [{ attribute: "strength", value: 1, source: "Muscle Replacement" }, { attribute: "agility", value: 1, source: "Muscle Replacement" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Vat-grown synthetic muscles replace your own, with calcium treatments and skeletal reinforcement. Increases both Strength and Agility by rating. Cannot combine with muscle augmentation or muscle toner bioware."
+
+- name: Muscle Replacement (Rating 2)
+  cost: 60000
+  availability: "3(L)"
+  aug_type: cyberware
+  essence_cost: 1.4
+  rating: 2
+  effects: "+2 Strength, +2 Agility"
+  dice_modifiers: [{ attribute: "strength", value: 2, source: "Muscle Replacement" }, { attribute: "agility", value: 2, source: "Muscle Replacement" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Vat-grown synthetic muscles replace your own, with calcium treatments and skeletal reinforcement. Increases both Strength and Agility by rating. Cannot combine with muscle augmentation or muscle toner bioware."
+
+- name: Muscle Replacement (Rating 3)
+  cost: 90000
+  availability: "3(L)"
+  aug_type: cyberware
+  essence_cost: 2.1
+  rating: 3
+  effects: "+3 Strength, +3 Agility"
+  dice_modifiers: [{ attribute: "strength", value: 3, source: "Muscle Replacement" }, { attribute: "agility", value: 3, source: "Muscle Replacement" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Vat-grown synthetic muscles replace your own, with calcium treatments and skeletal reinforcement. Increases both Strength and Agility by rating. Cannot combine with muscle augmentation or muscle toner bioware."
+
+- name: Muscle Replacement (Rating 4)
+  cost: 120000
+  availability: "3(L)"
+  aug_type: cyberware
+  essence_cost: 2.8
+  rating: 4
+  effects: "+4 Strength, +4 Agility"
+  dice_modifiers: [{ attribute: "strength", value: 4, source: "Muscle Replacement" }, { attribute: "agility", value: 4, source: "Muscle Replacement" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Vat-grown synthetic muscles replace your own, with calcium treatments and skeletal reinforcement. Increases both Strength and Agility by rating. Cannot combine with muscle augmentation or muscle toner bioware."
+
+# ── Reaction Enhancers (Rating 1-4) ──
+- name: Reaction Enhancers (Rating 1)
+  cost: 15000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 0.3
+  rating: 1
+  effects: "+1 Reaction"
+  dice_modifiers: [{ attribute: "reaction", value: 1, source: "Reaction Enhancers" }]
+  source: "Core Rulebook"
+  description: "Superconducting segments replace isolated vertebrae, boosting spinal signal speed. Adds +1 Reaction per rating. Incompatible with wired reflexes."
+
+- name: Reaction Enhancers (Rating 2)
+  cost: 30000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 0.6
+  rating: 2
+  effects: "+2 Reaction"
+  dice_modifiers: [{ attribute: "reaction", value: 2, source: "Reaction Enhancers" }]
+  source: "Core Rulebook"
+  description: "Superconducting segments replace isolated vertebrae, boosting spinal signal speed. Adds +1 Reaction per rating. Incompatible with wired reflexes."
+
+- name: Reaction Enhancers (Rating 3)
+  cost: 45000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 0.9
+  rating: 3
+  effects: "+3 Reaction"
+  dice_modifiers: [{ attribute: "reaction", value: 3, source: "Reaction Enhancers" }]
+  source: "Core Rulebook"
+  description: "Superconducting segments replace isolated vertebrae, boosting spinal signal speed. Adds +1 Reaction per rating. Incompatible with wired reflexes."
+
+- name: Reaction Enhancers (Rating 4)
+  cost: 60000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 1.2
+  rating: 4
+  effects: "+4 Reaction"
+  dice_modifiers: [{ attribute: "reaction", value: 4, source: "Reaction Enhancers" }]
+  source: "Core Rulebook"
+  description: "Superconducting segments replace isolated vertebrae, boosting spinal signal speed. Adds +1 Reaction per rating. Incompatible with wired reflexes."
+
+# ── Skillwires (Rating 1-6) — NEW ──
+- name: Skillwires (Rating 1)
+  cost: 20000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 1
+  effects: "Run activesofts at rating 1; max rating 1 per skill"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neuromuscular controllers overlay the body's natural nervous system, capable of aiding or completely overriding muscle movements. Required to use activesofts as Active Skills (not just Knowledge). Maximum skill rating equals skillwires rating."
+
+- name: Skillwires (Rating 2)
+  cost: 40000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 2
+  effects: "Run activesofts at rating 2; max rating 2 per skill"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neuromuscular controllers overlay the body's natural nervous system, capable of aiding or completely overriding muscle movements. Required to use activesofts as Active Skills (not just Knowledge). Maximum skill rating equals skillwires rating."
+
+- name: Skillwires (Rating 3)
+  cost: 60000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.3
+  rating: 3
+  effects: "Run activesofts at rating 3; max rating 3 per skill"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neuromuscular controllers overlay the body's natural nervous system, capable of aiding or completely overriding muscle movements. Required to use activesofts as Active Skills (not just Knowledge). Maximum skill rating equals skillwires rating."
+
+- name: Skillwires (Rating 4)
+  cost: 80000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.4
+  rating: 4
+  effects: "Run activesofts at rating 4; max rating 4 per skill"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neuromuscular controllers overlay the body's natural nervous system, capable of aiding or completely overriding muscle movements. Required to use activesofts as Active Skills (not just Knowledge). Maximum skill rating equals skillwires rating."
+
+- name: Skillwires (Rating 5)
+  cost: 100000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.5
+  rating: 5
+  effects: "Run activesofts at rating 5; max rating 5 per skill"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neuromuscular controllers overlay the body's natural nervous system, capable of aiding or completely overriding muscle movements. Required to use activesofts as Active Skills (not just Knowledge). Maximum skill rating equals skillwires rating."
+
+- name: Skillwires (Rating 6)
+  cost: 120000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.6
+  rating: 6
+  effects: "Run activesofts at rating 6; max rating 6 per skill"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neuromuscular controllers overlay the body's natural nervous system, capable of aiding or completely overriding muscle movements. Required to use activesofts as Active Skills (not just Knowledge). Maximum skill rating equals skillwires rating."
+
+# ── Wired Reflexes (Rating 1-4) — Non-linear ──
+- name: Wired Reflexes (Rating 1)
+  cost: 40000
+  availability: "3(L)"
+  aug_type: cyberware
+  essence_cost: 1
+  rating: 1
+  effects: "+1 Reaction, +1d6 Initiative"
+  dice_modifiers:
+    - { attribute: "reaction", value: 1, source: "Wired Reflexes" }
+    - { attribute: "initiative_dice", value: 1, source: "Wired Reflexes" }
+  exclusion_group: initiative_boost
+  source: "Core Rulebook"
+  description: "Neural accelerator. Boosts reaction time and initiative. Each rating adds +1 Reaction and +1 Initiative Die. The classic street samurai upgrade."
+
+- name: Wired Reflexes (Rating 2)
+  cost: 150000
+  availability: "3(L)"
+  aug_type: cyberware
+  essence_cost: 2
+  rating: 2
+  effects: "+2 Reaction, +2d6 Initiative"
+  dice_modifiers:
+    - { attribute: "reaction", value: 2, source: "Wired Reflexes" }
+    - { attribute: "initiative_dice", value: 2, source: "Wired Reflexes" }
+  exclusion_group: initiative_boost
+  source: "Core Rulebook"
+  description: "Neural accelerator. Boosts reaction time and initiative. Each rating adds +1 Reaction and +1 Initiative Die. The classic street samurai upgrade."
+
+- name: Wired Reflexes (Rating 3)
+  cost: 250000
+  availability: "4(I)"
+  aug_type: cyberware
+  essence_cost: 3
+  rating: 3
+  effects: "+3 Reaction, +3d6 Initiative"
+  dice_modifiers:
+    - { attribute: "reaction", value: 3, source: "Wired Reflexes" }
+    - { attribute: "initiative_dice", value: 3, source: "Wired Reflexes" }
+  exclusion_group: initiative_boost
+  source: "Core Rulebook"
+  description: "Neural accelerator. Boosts reaction time and initiative. Each rating adds +1 Reaction and +1 Initiative Die. The classic street samurai upgrade."
+
+- name: Wired Reflexes (Rating 4)
+  cost: 400000
+  availability: "6(I)"
+  aug_type: cyberware
+  essence_cost: 4
+  rating: 4
+  effects: "+4 Reaction, +4d6 Initiative"
+  dice_modifiers:
+    - { attribute: "reaction", value: 4, source: "Wired Reflexes" }
+    - { attribute: "initiative_dice", value: 4, source: "Wired Reflexes" }
+  exclusion_group: initiative_boost
+  source: "Core Rulebook"
+  description: "Neural accelerator. Boosts reaction time and initiative. Each rating adds +1 Reaction and +1 Initiative Die. The classic street samurai upgrade."
+
+# ═══ CYBERJACKS (Cyberware) — Non-linear ═══
+
 - name: Cyberjack (Rating 1)
   cost: 45000
   availability: "3(L)"
@@ -401,3 +901,820 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Harnesses brain for Matrix protocols. Primary defense against hacking. Functions as datajack. Enables special Matrix Edge Actions. Essential for deckers."
+
+- name: Cyberjack (Rating 2)
+  cost: 65000
+  availability: "3(L)"
+  aug_type: cyberware
+  essence_cost: 1.5
+  rating: 2
+  effects: "D/F 5/4, +1 Matrix Initiative; decker defense"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Harnesses brain for Matrix protocols. Primary defense against hacking. Functions as datajack. Enables special Matrix Edge Actions. Essential for deckers."
+
+- name: Cyberjack (Rating 3)
+  cost: 80000
+  availability: "3(L)"
+  aug_type: cyberware
+  essence_cost: 2
+  rating: 3
+  effects: "D/F 6/5, +1 Matrix Initiative; decker defense"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Harnesses brain for Matrix protocols. Primary defense against hacking. Functions as datajack. Enables special Matrix Edge Actions. Essential for deckers."
+
+- name: Cyberjack (Rating 4)
+  cost: 95000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 2.3
+  rating: 4
+  effects: "D/F 7/6, +2 Matrix Initiative; decker defense"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Harnesses brain for Matrix protocols. Primary defense against hacking. Functions as datajack. Enables special Matrix Edge Actions. Essential for deckers."
+
+- name: Cyberjack (Rating 5)
+  cost: 140000
+  availability: "5(L)"
+  aug_type: cyberware
+  essence_cost: 2.6
+  rating: 5
+  effects: "D/F 8/7, +2 Matrix Initiative; decker defense"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Harnesses brain for Matrix protocols. Primary defense against hacking. Functions as datajack. Enables special Matrix Edge Actions. Essential for deckers."
+
+- name: Cyberjack (Rating 6)
+  cost: 210000
+  availability: "6(L)"
+  aug_type: cyberware
+  essence_cost: 3
+  rating: 6
+  effects: "D/F 9/8, +2 Matrix Initiative; decker defense"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Harnesses brain for Matrix protocols. Primary defense against hacking. Functions as datajack. Enables special Matrix Edge Actions. Essential for deckers."
+
+# ═══ BIOWARE ═══
+
+- name: Synthskin
+  cost: 2500
+  availability: "2"
+  aug_type: bioware
+  essence_cost: 0.1
+  rating: 0
+  effects: "Conceals cyberware, +2 to Disguise"
+  dice_modifiers: [{ skill: "Con", value: 2, source: "Synthskin" }]
+  source: "Core Rulebook"
+  description: "Synthetic skin overlay. Covers cyberlimbs and other visible cyberware. +2 dice to Disguise tests to appear fully organic. Essential for infiltrators with obvious chrome."
+
+- name: Platelet Factory
+  cost: 17000
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 0
+  effects: "Reduces bleeding, +2 to First Aid when stabilizing"
+  dice_modifiers: [{ skill: "Biotech", value: 2, source: "Platelet Factory" }]
+  source: "Core Rulebook"
+  description: "Produces artificial platelets. Reduces bleeding from wounds. +2 dice to First Aid tests when stabilizing."
+
+# ── Adrenaline Pump (Rating 1-3) ──
+- name: Adrenaline Pump (Rating 1)
+  cost: 55000
+  availability: "5(I)"
+  aug_type: bioware
+  essence_cost: 0.75
+  rating: 1
+  effects: "+1 Strength, +1 Agility, +1 Reaction, +1 Willpower when activated"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Emergency boost system. Physical and emotional stress can force activation. Each rating adds +1 Strength, Agility, Reaction, Willpower when active. Crash afterward."
+
+- name: Adrenaline Pump (Rating 2)
+  cost: 110000
+  availability: "5(I)"
+  aug_type: bioware
+  essence_cost: 1.5
+  rating: 2
+  effects: "+2 Strength, +2 Agility, +2 Reaction, +2 Willpower when activated"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Emergency boost system. Physical and emotional stress can force activation. Each rating adds +1 Strength, Agility, Reaction, Willpower when active. Crash afterward."
+
+- name: Adrenaline Pump (Rating 3)
+  cost: 165000
+  availability: "5(I)"
+  aug_type: bioware
+  essence_cost: 2.25
+  rating: 3
+  effects: "+3 Strength, +3 Agility, +3 Reaction, +3 Willpower when activated"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Emergency boost system. Physical and emotional stress can force activation. Each rating adds +1 Strength, Agility, Reaction, Willpower when active. Crash afterward."
+
+# ── Bone Density Augmentation (Rating 1-4) ──
+- name: Bone Density Augmentation (Rating 1)
+  cost: 5000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.3
+  rating: 1
+  effects: "+1 Physical condition monitor box"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Denser bones. Adds a Physical condition monitor box per rating. Bioware alternative to Bone Lacing."
+
+- name: Bone Density Augmentation (Rating 2)
+  cost: 10000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.6
+  rating: 2
+  effects: "+2 Physical condition monitor boxes"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Denser bones. Adds a Physical condition monitor box per rating. Bioware alternative to Bone Lacing."
+
+- name: Bone Density Augmentation (Rating 3)
+  cost: 15000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.9
+  rating: 3
+  effects: "+3 Physical condition monitor boxes"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Denser bones. Adds a Physical condition monitor box per rating. Bioware alternative to Bone Lacing."
+
+- name: Bone Density Augmentation (Rating 4)
+  cost: 20000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 1.2
+  rating: 4
+  effects: "+4 Physical condition monitor boxes"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Denser bones. Adds a Physical condition monitor box per rating. Bioware alternative to Bone Lacing."
+
+# ── Muscle Augmentation (Rating 1-4) ──
+- name: Muscle Augmentation (Rating 1)
+  cost: 31000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 1
+  effects: "+1 Strength"
+  dice_modifiers: [{ attribute: "strength", value: 1, source: "Muscle Augmentation" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Enhanced muscle mass. +1 Strength per rating. Cannot combine with muscle replacement cyberware. Often paired with Muscle Toner."
+
+- name: Muscle Augmentation (Rating 2)
+  cost: 62000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.4
+  rating: 2
+  effects: "+2 Strength"
+  dice_modifiers: [{ attribute: "strength", value: 2, source: "Muscle Augmentation" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Enhanced muscle mass. +1 Strength per rating. Cannot combine with muscle replacement cyberware. Often paired with Muscle Toner."
+
+- name: Muscle Augmentation (Rating 3)
+  cost: 93000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.6
+  rating: 3
+  effects: "+3 Strength"
+  dice_modifiers: [{ attribute: "strength", value: 3, source: "Muscle Augmentation" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Enhanced muscle mass. +1 Strength per rating. Cannot combine with muscle replacement cyberware. Often paired with Muscle Toner."
+
+- name: Muscle Augmentation (Rating 4)
+  cost: 124000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.8
+  rating: 4
+  effects: "+4 Strength"
+  dice_modifiers: [{ attribute: "strength", value: 4, source: "Muscle Augmentation" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Enhanced muscle mass. +1 Strength per rating. Cannot combine with muscle replacement cyberware. Often paired with Muscle Toner."
+
+# ── Muscle Toner (Rating 1-4) ──
+- name: Muscle Toner (Rating 1)
+  cost: 32000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 1
+  effects: "+1 Agility"
+  dice_modifiers: [{ attribute: "agility", value: 1, source: "Muscle Toner" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Enhanced muscle fibers. +1 Agility per rating. Cannot combine with muscle replacement cyberware."
+
+- name: Muscle Toner (Rating 2)
+  cost: 64000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.4
+  rating: 2
+  effects: "+2 Agility"
+  dice_modifiers: [{ attribute: "agility", value: 2, source: "Muscle Toner" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Enhanced muscle fibers. +1 Agility per rating. Cannot combine with muscle replacement cyberware."
+
+- name: Muscle Toner (Rating 3)
+  cost: 96000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.6
+  rating: 3
+  effects: "+3 Agility"
+  dice_modifiers: [{ attribute: "agility", value: 3, source: "Muscle Toner" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Enhanced muscle fibers. +1 Agility per rating. Cannot combine with muscle replacement cyberware."
+
+- name: Muscle Toner (Rating 4)
+  cost: 128000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.8
+  rating: 4
+  effects: "+4 Agility"
+  dice_modifiers: [{ attribute: "agility", value: 4, source: "Muscle Toner" }]
+  exclusion_group: strength_augmentation
+  source: "Core Rulebook"
+  description: "Enhanced muscle fibers. +1 Agility per rating. Cannot combine with muscle replacement cyberware."
+
+# ── Orthoskin (Rating 1-4) ──
+- name: Orthoskin (Rating 1)
+  cost: 6000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.25
+  rating: 1
+  effects: "+1 Defense Rating"
+  dice_modifiers: [{ attribute: "defense_rating", value: 1, source: "Orthoskin" }]
+  source: "Core Rulebook"
+  description: "Genetically enhanced skin with a composite of calcium and keratin. Adds +1 Defense Rating per rating. Bioware alternative to Dermal Plating."
+
+- name: Orthoskin (Rating 2)
+  cost: 12000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.5
+  rating: 2
+  effects: "+2 Defense Rating"
+  dice_modifiers: [{ attribute: "defense_rating", value: 2, source: "Orthoskin" }]
+  source: "Core Rulebook"
+  description: "Genetically enhanced skin with a composite of calcium and keratin. Adds +1 Defense Rating per rating. Bioware alternative to Dermal Plating."
+
+- name: Orthoskin (Rating 3)
+  cost: 18000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.75
+  rating: 3
+  effects: "+3 Defense Rating"
+  dice_modifiers: [{ attribute: "defense_rating", value: 3, source: "Orthoskin" }]
+  source: "Core Rulebook"
+  description: "Genetically enhanced skin with a composite of calcium and keratin. Adds +1 Defense Rating per rating. Bioware alternative to Dermal Plating."
+
+- name: Orthoskin (Rating 4)
+  cost: 24000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 1
+  rating: 4
+  effects: "+4 Defense Rating"
+  dice_modifiers: [{ attribute: "defense_rating", value: 4, source: "Orthoskin" }]
+  source: "Core Rulebook"
+  description: "Genetically enhanced skin with a composite of calcium and keratin. Adds +1 Defense Rating per rating. Bioware alternative to Dermal Plating."
+
+# ── Symbiotes (Rating 1-4) — NEW ──
+- name: Symbiotes (Rating 1)
+  cost: 3500
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 1
+  effects: "+1 to natural healing tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Tailored micro-organisms in your bloodstream greatly enhance healing. Add rating as dice pool bonus to natural healing tests. Must increase Lifestyle costs by 25% to keep them fed; if not fed, they die in a month."
+
+- name: Symbiotes (Rating 2)
+  cost: 7000
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.4
+  rating: 2
+  effects: "+2 to natural healing tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Tailored micro-organisms in your bloodstream greatly enhance healing. Add rating as dice pool bonus to natural healing tests. Must increase Lifestyle costs by 25% to keep them fed; if not fed, they die in a month."
+
+- name: Symbiotes (Rating 3)
+  cost: 10500
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.6
+  rating: 3
+  effects: "+3 to natural healing tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Tailored micro-organisms in your bloodstream greatly enhance healing. Add rating as dice pool bonus to natural healing tests. Must increase Lifestyle costs by 25% to keep them fed; if not fed, they die in a month."
+
+- name: Symbiotes (Rating 4)
+  cost: 14000
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.8
+  rating: 4
+  effects: "+4 to natural healing tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Tailored micro-organisms in your bloodstream greatly enhance healing. Add rating as dice pool bonus to natural healing tests. Must increase Lifestyle costs by 25% to keep them fed; if not fed, they die in a month."
+
+# ── Synthacardium (Rating 1-3) — NEW ──
+- name: Synthacardium (Rating 1)
+  cost: 30000
+  availability: "3"
+  aug_type: bioware
+  essence_cost: 0.1
+  rating: 1
+  effects: "+1 to cardiovascular-related Athletics tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Artificially enhanced myocardium allows cardiovascular functions to be performed more efficiently. Add rating as dice pool bonus to Athletics tests involving cardiovascular endurance (running, swimming, etc.)."
+
+- name: Synthacardium (Rating 2)
+  cost: 60000
+  availability: "3"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 2
+  effects: "+2 to cardiovascular-related Athletics tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Artificially enhanced myocardium allows cardiovascular functions to be performed more efficiently. Add rating as dice pool bonus to Athletics tests involving cardiovascular endurance (running, swimming, etc.)."
+
+- name: Synthacardium (Rating 3)
+  cost: 90000
+  availability: "3"
+  aug_type: bioware
+  essence_cost: 0.3
+  rating: 3
+  effects: "+3 to cardiovascular-related Athletics tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Artificially enhanced myocardium allows cardiovascular functions to be performed more efficiently. Add rating as dice pool bonus to Athletics tests involving cardiovascular endurance (running, swimming, etc.)."
+
+# ── Tailored Pheromones (Rating 1-4) ──
+- name: Tailored Pheromones (Rating 1)
+  cost: 31000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 1
+  effects: "+1 Charisma"
+  dice_modifiers: [{ attribute: "charisma", value: 1, source: "Tailored Pheromones" }]
+  source: "Core Rulebook"
+  description: "Bio-engineered pheromones. Makes you more likable and persuasive. +1 Charisma per rating. Invisible and undetectable by normal means. Popular with faces and infiltrators."
+
+- name: Tailored Pheromones (Rating 2)
+  cost: 62000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.4
+  rating: 2
+  effects: "+2 Charisma"
+  dice_modifiers: [{ attribute: "charisma", value: 2, source: "Tailored Pheromones" }]
+  source: "Core Rulebook"
+  description: "Bio-engineered pheromones. Makes you more likable and persuasive. +1 Charisma per rating. Invisible and undetectable by normal means. Popular with faces and infiltrators."
+
+- name: Tailored Pheromones (Rating 3)
+  cost: 93000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.6
+  rating: 3
+  effects: "+3 Charisma"
+  dice_modifiers: [{ attribute: "charisma", value: 3, source: "Tailored Pheromones" }]
+  source: "Core Rulebook"
+  description: "Bio-engineered pheromones. Makes you more likable and persuasive. +1 Charisma per rating. Invisible and undetectable by normal means. Popular with faces and infiltrators."
+
+- name: Tailored Pheromones (Rating 4)
+  cost: 124000
+  availability: "4(L)"
+  aug_type: bioware
+  essence_cost: 0.8
+  rating: 4
+  effects: "+4 Charisma"
+  dice_modifiers: [{ attribute: "charisma", value: 4, source: "Tailored Pheromones" }]
+  source: "Core Rulebook"
+  description: "Bio-engineered pheromones. Makes you more likable and persuasive. +1 Charisma per rating. Invisible and undetectable by normal means. Popular with faces and infiltrators."
+
+# ── Toxin Extractor (Rating 1-6) — NEW ──
+- name: Toxin Extractor (Rating 1)
+  cost: 4800
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 1
+  effects: "+1 dice to Toxin Resistance tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A specially cultivated cluster of cells in your liver improves its filtering capabilities. Add rating as dice pool bonus to Toxin Resistance tests for ingested toxins."
+
+- name: Toxin Extractor (Rating 2)
+  cost: 9600
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.4
+  rating: 2
+  effects: "+2 dice to Toxin Resistance tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A specially cultivated cluster of cells in your liver improves its filtering capabilities. Add rating as dice pool bonus to Toxin Resistance tests for ingested toxins."
+
+- name: Toxin Extractor (Rating 3)
+  cost: 14400
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.6
+  rating: 3
+  effects: "+3 dice to Toxin Resistance tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A specially cultivated cluster of cells in your liver improves its filtering capabilities. Add rating as dice pool bonus to Toxin Resistance tests for ingested toxins."
+
+- name: Toxin Extractor (Rating 4)
+  cost: 19200
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.8
+  rating: 4
+  effects: "+4 dice to Toxin Resistance tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A specially cultivated cluster of cells in your liver improves its filtering capabilities. Add rating as dice pool bonus to Toxin Resistance tests for ingested toxins."
+
+- name: Toxin Extractor (Rating 5)
+  cost: 24000
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 1
+  rating: 5
+  effects: "+5 dice to Toxin Resistance tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A specially cultivated cluster of cells in your liver improves its filtering capabilities. Add rating as dice pool bonus to Toxin Resistance tests for ingested toxins."
+
+- name: Toxin Extractor (Rating 6)
+  cost: 28800
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 1.2
+  rating: 6
+  effects: "+6 dice to Toxin Resistance tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "A specially cultivated cluster of cells in your liver improves its filtering capabilities. Add rating as dice pool bonus to Toxin Resistance tests for ingested toxins."
+
+# ── Tracheal Filter (Rating 1-6) — NEW ──
+- name: Tracheal Filter (Rating 1)
+  cost: 4500
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.1
+  rating: 1
+  effects: "+1 dice to Toxin Resistance vs inhalation toxins"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Implanted at the top of the trachea, this organ absorbs airborne impurities. Add rating as dice pool bonus to Toxin Resistance tests versus inhalation-vector toxins."
+
+- name: Tracheal Filter (Rating 2)
+  cost: 9000
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 2
+  effects: "+2 dice to Toxin Resistance vs inhalation toxins"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Implanted at the top of the trachea, this organ absorbs airborne impurities. Add rating as dice pool bonus to Toxin Resistance tests versus inhalation-vector toxins."
+
+- name: Tracheal Filter (Rating 3)
+  cost: 13500
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.3
+  rating: 3
+  effects: "+3 dice to Toxin Resistance vs inhalation toxins"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Implanted at the top of the trachea, this organ absorbs airborne impurities. Add rating as dice pool bonus to Toxin Resistance tests versus inhalation-vector toxins."
+
+- name: Tracheal Filter (Rating 4)
+  cost: 18000
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.4
+  rating: 4
+  effects: "+4 dice to Toxin Resistance vs inhalation toxins"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Implanted at the top of the trachea, this organ absorbs airborne impurities. Add rating as dice pool bonus to Toxin Resistance tests versus inhalation-vector toxins."
+
+- name: Tracheal Filter (Rating 5)
+  cost: 22500
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.5
+  rating: 5
+  effects: "+5 dice to Toxin Resistance vs inhalation toxins"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Implanted at the top of the trachea, this organ absorbs airborne impurities. Add rating as dice pool bonus to Toxin Resistance tests versus inhalation-vector toxins."
+
+- name: Tracheal Filter (Rating 6)
+  cost: 27000
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.6
+  rating: 6
+  effects: "+6 dice to Toxin Resistance vs inhalation toxins"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Implanted at the top of the trachea, this organ absorbs airborne impurities. Add rating as dice pool bonus to Toxin Resistance tests versus inhalation-vector toxins."
+
+# ── Trauma Damper (Rating 1) — Not in CRB tables; kept for compatibility ──
+- name: Trauma Damper (Rating 1)
+  cost: 12000
+  availability: "4"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 1
+  effects: "Ignore 1 box of Physical damage for Stun conversion"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Neural dampening of pain response. Each rating lets you ignore 1 box of Physical damage when determining if damage converts to Stun. Helps you stay in the fight."
+
+# ═══ CULTURED BIOWARE ═══
+
+# ── Cerebral Booster (Rating 1-3) ──
+- name: Cerebral Booster (Rating 1)
+  cost: 31500
+  availability: "5"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 1
+  effects: "+1 Logic"
+  dice_modifiers: [{ attribute: "logic", value: 1, source: "Cerebral Booster" }]
+  source: "Core Rulebook"
+  description: "Additional nervous tissue augments cerebral convolutions and gyri. +1 Logic per rating. Cultured bioware."
+
+- name: Cerebral Booster (Rating 2)
+  cost: 63000
+  availability: "5"
+  aug_type: bioware
+  essence_cost: 0.4
+  rating: 2
+  effects: "+2 Logic"
+  dice_modifiers: [{ attribute: "logic", value: 2, source: "Cerebral Booster" }]
+  source: "Core Rulebook"
+  description: "Additional nervous tissue augments cerebral convolutions and gyri. +1 Logic per rating. Cultured bioware."
+
+- name: Cerebral Booster (Rating 3)
+  cost: 94500
+  availability: "5"
+  aug_type: bioware
+  essence_cost: 0.6
+  rating: 3
+  effects: "+3 Logic"
+  dice_modifiers: [{ attribute: "logic", value: 3, source: "Cerebral Booster" }]
+  source: "Core Rulebook"
+  description: "Additional nervous tissue augments cerebral convolutions and gyri. +1 Logic per rating. Cultured bioware."
+
+# ── Damage Compensator (Rating 1-12) — NEW ──
+- name: Damage Compensator (Rating 1)
+  cost: 2000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 0.1
+  rating: 1
+  effects: "Ignore 1 damage box before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 2)
+  cost: 4000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 2
+  effects: "Ignore 2 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 3)
+  cost: 6000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 0.3
+  rating: 3
+  effects: "Ignore 3 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 4)
+  cost: 8000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 0.4
+  rating: 4
+  effects: "Ignore 4 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 5)
+  cost: 10000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 0.5
+  rating: 5
+  effects: "Ignore 5 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 6)
+  cost: 12000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 0.6
+  rating: 6
+  effects: "Ignore 6 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 7)
+  cost: 14000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 0.7
+  rating: 7
+  effects: "Ignore 7 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 8)
+  cost: 16000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 0.8
+  rating: 8
+  effects: "Ignore 8 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 9)
+  cost: 18000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 0.9
+  rating: 9
+  effects: "Ignore 9 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 10)
+  cost: 20000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 1
+  rating: 10
+  effects: "Ignore 10 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 11)
+  cost: 22000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 1.1
+  rating: 11
+  effects: "Ignore 11 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+- name: Damage Compensator (Rating 12)
+  cost: 24000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 1.2
+  rating: 12
+  effects: "Ignore 12 damage boxes before determining injury modifiers"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cut-offs stored in nervous pathways block pain signals. Ignore a number of damage boxes (Physical, Stun, or combination) equal to rating before determining injury modifiers. Cultured bioware."
+
+# ── Mnemonic Enhancer (Rating 1-3) ──
+- name: Mnemonic Enhancer (Rating 1)
+  cost: 9000
+  availability: "5"
+  aug_type: bioware
+  essence_cost: 0.1
+  rating: 1
+  effects: "+1 dice to Knowledge, Language, and memory tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Concentrated grey matter growth attached to memory centers. Adds rating as dice pool bonus to Knowledge, Language, and memory-related tests. Cultured bioware."
+
+- name: Mnemonic Enhancer (Rating 2)
+  cost: 18000
+  availability: "5"
+  aug_type: bioware
+  essence_cost: 0.2
+  rating: 2
+  effects: "+2 dice to Knowledge, Language, and memory tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Concentrated grey matter growth attached to memory centers. Adds rating as dice pool bonus to Knowledge, Language, and memory-related tests. Cultured bioware."
+
+- name: Mnemonic Enhancer (Rating 3)
+  cost: 27000
+  availability: "5"
+  aug_type: bioware
+  essence_cost: 0.3
+  rating: 3
+  effects: "+3 dice to Knowledge, Language, and memory tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Concentrated grey matter growth attached to memory centers. Adds rating as dice pool bonus to Knowledge, Language, and memory-related tests. Cultured bioware."
+
+# ── Synaptic Booster (Rating 1-3) ──
+- name: Synaptic Booster (Rating 1)
+  cost: 95000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 0.5
+  rating: 1
+  effects: "+1 Reaction, +1d6 Initiative"
+  dice_modifiers:
+    - { attribute: "reaction", value: 1, source: "Synaptic Booster" }
+    - { attribute: "initiative_dice", value: 1, source: "Synaptic Booster" }
+  exclusion_group: initiative_boost
+  source: "Core Rulebook"
+  description: "Broadened and replicated spinal cord nerve cells. Each rating provides +1 Reaction (with Initiative Score bonus) and 1 additional Initiative Die (with Minor Action). Cannot be combined with any other Reaction or Initiative enhancement."
+
+- name: Synaptic Booster (Rating 2)
+  cost: 190000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 1
+  rating: 2
+  effects: "+2 Reaction, +2d6 Initiative"
+  dice_modifiers:
+    - { attribute: "reaction", value: 2, source: "Synaptic Booster" }
+    - { attribute: "initiative_dice", value: 2, source: "Synaptic Booster" }
+  exclusion_group: initiative_boost
+  source: "Core Rulebook"
+  description: "Broadened and replicated spinal cord nerve cells. Each rating provides +1 Reaction (with Initiative Score bonus) and 1 additional Initiative Die (with Minor Action). Cannot be combined with any other Reaction or Initiative enhancement."
+
+- name: Synaptic Booster (Rating 3)
+  cost: 285000
+  availability: "5(L)"
+  aug_type: bioware
+  essence_cost: 1.5
+  rating: 3
+  effects: "+3 Reaction, +3d6 Initiative"
+  dice_modifiers:
+    - { attribute: "reaction", value: 3, source: "Synaptic Booster" }
+    - { attribute: "initiative_dice", value: 3, source: "Synaptic Booster" }
+  exclusion_group: initiative_boost
+  source: "Core Rulebook"
+  description: "Broadened and replicated spinal cord nerve cells. Each rating provides +1 Reaction (with Initiative Score bonus) and 1 additional Initiative Die (with Minor Action). Cannot be combined with any other Reaction or Initiative enhancement."

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Trash2 } from "lucide-react";
 
 import { METATYPE_DATA } from "@/data/sr6-reference";
+import { QualityReferenceSelect } from "@/components/QualityReferenceSelect";
 import type { WizardState } from "@/pages/CharacterWizard";
 import type { WizardQuality } from "@/types/character";
 
@@ -143,9 +144,18 @@ export default function Step3Qualities({ state, onChange }: Props) {
             </div>
           ))}
 
-          <Button variant="outline" size="sm" onClick={addQuality} className="font-display tracking-wide">
-            <Plus className="h-4 w-4 mr-1" /> Add Quality
-          </Button>
+          <div className="flex gap-2">
+            <QualityReferenceSelect
+              mode="wizard"
+              onSelect={(item) => {
+                onChange({ wizardQualities: [...qualities, item as WizardQuality] });
+              }}
+              triggerLabel="Add from reference"
+            />
+            <Button variant="outline" size="sm" onClick={addQuality} className="font-display tracking-wide">
+              <Plus className="h-4 w-4 mr-1" /> Add Custom
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

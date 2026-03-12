@@ -1,10 +1,12 @@
-import type { SR6Attributes, SR6Skill, SR6Quality, SR6Augmentation, SR6Gear, DicePoolBreakdown } from "@/types/character";
+import type { SR6Attributes, SR6Skill, SR6Quality, SR6Augmentation, SR6Gear, SR6AdeptPower, DiceModifier, DicePoolBreakdown } from "@/types/character";
 
 /**
  * Check if a modifier should apply given the weapon's accessories.
  * If the modifier has requires_accessory set, only apply when a matching accessory exists.
  */
-function modifierApplies(mod: { requires_accessory?: string }, weaponAccessories?: { name: string }[]): boolean {
+type AccessoryInput = { name: string; dice_modifiers?: DiceModifier[] };
+
+function modifierApplies(mod: { requires_accessory?: string }, weaponAccessories?: AccessoryInput[]): boolean {
   if (!mod.requires_accessory) return true;
   if (!weaponAccessories || weaponAccessories.length === 0) return false;
   const needle = mod.requires_accessory.toLowerCase();
@@ -22,8 +24,9 @@ export function calculateDicePool(
   qualities: SR6Quality[],
   augmentations: SR6Augmentation[],
   gear: SR6Gear[],
-  weaponAccessories?: { name: string }[],
-  woundModifier?: number
+  weaponAccessories?: AccessoryInput[],
+  woundModifier?: number,
+  adeptPowers?: SR6AdeptPower[],
 ): DicePoolBreakdown {
   const attrValue = Number(attributes[skill.attribute]) || 0;
   const modifiers: { source: string; value: number }[] = [];
@@ -49,12 +52,38 @@ export function calculateDicePool(
   });
 
   gear.forEach((g) => {
+    if (g.equipped === false) return;
     g.dice_modifiers?.forEach((mod) => {
       if (!mod.attribute && (!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
         modifiers.push({ source: `Gear: ${g.name}`, value: mod.value });
       }
     });
   });
+
+  (adeptPowers || []).forEach((ap) => {
+    if (ap.enabled === false) return;
+    ap.dice_modifiers?.forEach((mod) => {
+      if (!mod.attribute && (!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
+        modifiers.push({ source: `Power: ${ap.name}`, value: mod.value });
+      }
+    });
+  });
+
+  (weaponAccessories || []).forEach((acc) => {
+    acc.dice_modifiers?.forEach((mod) => {
+      if (!mod.attribute && (!mod.skill || mod.skill === skill.name)) {
+        modifiers.push({ source: mod.source || acc.name, value: mod.value });
+      }
+    });
+  });
+
+  // Enforce +4 augmented maximum on skill-specific bonuses (SR6 p. 64)
+  const augBonusTotal = modifiers
+    .filter((m) => m.source !== "Wound penalty" && m.value > 0)
+    .reduce((sum, m) => sum + m.value, 0);
+  if (augBonusTotal > 4) {
+    modifiers.push({ source: "⚠ Capped at +4 augmented max", value: -(augBonusTotal - 4) });
+  }
 
   const total = attrValue + skill.rating + modifiers.reduce((sum, m) => sum + m.value, 0);
 
@@ -80,8 +109,9 @@ export function calculateWeaponPool(
   qualities: SR6Quality[],
   augmentations: SR6Augmentation[],
   gear: SR6Gear[],
-  weaponAccessories?: { name: string }[],
-  woundModifier?: number
+  weaponAccessories?: AccessoryInput[],
+  woundModifier?: number,
+  adeptPowers?: SR6AdeptPower[],
 ): DicePoolBreakdown {
   const skill = skills.find((s) => s.name === skillName);
   const effectiveSkill: SR6Skill = skill || {
@@ -91,7 +121,7 @@ export function calculateWeaponPool(
     rating: 0,
   };
 
-  const base = calculateDicePool(effectiveSkill, attributes, qualities, augmentations, gear, weaponAccessories, woundModifier);
+  const base = calculateDicePool(effectiveSkill, attributes, qualities, augmentations, gear, weaponAccessories, woundModifier, adeptPowers);
 
   // Check specialization / expertise match
   if (weaponSubtype && skill) {

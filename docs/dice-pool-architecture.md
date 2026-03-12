@@ -30,7 +30,11 @@ Dice Pool = Attribute + Skill Rating + Modifiers + Specialization (+2) + Experti
 - Melee weapons use **Agility + Close Combat** (or Exotic Weapons for exotic subtypes).
 - Specialization bonus (+2) applies when the skill's specialization matches the weapon subtype.
 - Expertise bonus (+3) applies when the skill's expertise matches the weapon subtype.
-- Conditional modifiers (e.g., Smartlink +2 when weapon has a Smartgun System) layer on top.
+- Conditional modifiers (e.g., Smartgun wireless +1 dice pool) layer on top.
+
+Note: firing modes (SA, BF, FA) modify **Attack Rating and DV**, not the dice pool. Wide
+burst splits the dice pool between two targets but does not add/subtract from it. See the
+firing mode table in Section 3.
 
 ### Defense tests
 
@@ -38,7 +42,8 @@ Dice Pool = Attribute + Skill Rating + Modifiers + Specialization (+2) + Experti
 Dice Pool = Reaction + Intuition + situational modifiers
 ```
 
-Combat Sense (adept power or spell), cover, and similar effects add dice to defense.
+Combat Sense (adept power or spell) adds dice per level. Cover Status adds +1 per level
+to both Defense Rating and the defense test dice pool.
 
 ### Damage resistance (Defense Rating)
 
@@ -239,6 +244,98 @@ Every data source and the modifiers it can contribute.
 The `WeaponAccessory` type has no `dice_modifiers` field. Accessories cannot contribute
 dice pool bonuses.
 
+#### Smartgun System and Smartlink — Detailed Breakdown
+
+The smartgun/smartlink ecosystem is the most complex accessory interaction in SR6. It
+involves a weapon accessory, a vision enhancement (or cyberware), a connection mode, and
+conditional bonuses. Per the Core Rulebook (p. 260, 275):
+
+**Smartgun System** (weapon accessory — internal or external):
+
+| Benefit | Condition | Type |
+|---|---|---|
+| Camera, rangefinder, DNI fire controls | Always (with any connection) | Utility |
+| Fire from cover with no attack penalties | Always (with any connection) | Situational |
+| +2 Attack Rating (all range categories) | Requires Smartlink on the user | AR modifier |
+| +1 dice pool bonus | **Wireless only** | Dice pool modifier |
+| Bonus Minor Action (Reload/Change Mode) | **Wireless only** | Action economy |
+
+**Smartlink** (vision enhancement in cybereyes, glasses, goggles, or contacts):
+
+The Smartlink is the *user-side* component. It receives targeting data from the smartgun
+and provides the range/ammo overlay. The Smartlink itself grants no dice pool or AR bonus
+on its own — it enables the smartgun's +2 AR bonus.
+
+**Connection modes:**
+
+| Mode | Requirements | Bonuses Available |
+|---|---|---|
+| **Wired** | Smartlink in imaging device + cable to gun (via datajack or UAP) | +2 AR, fire from cover, DNI features |
+| **Wireless** | Smartlink + DNI + wireless enabled on gun | All wired bonuses **plus** +1 dice pool, bonus Minor Action |
+
+**Current data issue:** The Smartlink augmentation in `augmentations.yaml` has
+`dice_modifiers: [{ value: 2, requires_accessory: "Smartgun" }]`, which models it as a
++2 *dice pool* bonus. Per the rules, Smartlink + Smartgun provides +2 *Attack Rating*,
+not +2 dice pool. The only dice pool bonus in the system is the smartgun's own +1 when
+wireless. This should be corrected: remove the dice pool modifier from Smartlink and
+ensure the +2 AR is handled through the accessory's `ar_modifier` field (which it already
+is).
+
+### Firing Modes (AR and DV modifiers, not dice pool)
+
+Firing modes modify Attack Rating and Damage Value, not the dice pool. They are relevant
+to the AR display path (Path C) but do not feed into `calculateDicePool()`.
+
+| Mode | AR Modifier | DV Modifier | Dice Pool Effect |
+|---|---|---|---|
+| SS (Single Shot) | None | None | None |
+| SA (Semi-Automatic) | -2 | +1 | None |
+| BF narrow (Burst Fire) | -4 | +2 | None |
+| BF wide (Burst Fire) | SA mode per target | SA mode per target | Pool split between 2 targets |
+| FA (Full Auto) | -6 | Area effect | Single roll vs multiple defenders |
+
+### Situational Combat Modifiers
+
+These modifiers arise during combat and are not tied to gear or character build. They are
+relevant for a future "combat tracker" feature but are outside the scope of the static
+character-sheet dice pool calculations.
+
+**Cover Status (I-IV):**
+
+| Level | Defense Rating Bonus | Defense Dice Pool Bonus | Attack Penalty (from Cover IV) |
+|---|---|---|---|
+| Cover I | +1 DR | +1 dice | — |
+| Cover II | +2 DR | +2 dice | — |
+| Cover III | +3 DR | +3 dice | — |
+| Cover IV | +4 DR | +4 dice | -2 dice to attack |
+
+Attacking from any level of Cover requires an extra Minor Action. Attacking from Cover IV
+imposes a -2 dice pool penalty. The smartgun system negates the attack penalty from Cover.
+
+**Take Aim:**
+
+Cumulative +1 dice pool bonus per use, capped at the character's Willpower. Requires a
+ready firearm, bow, or exotic ranged weapon.
+
+**Status Effects with dice pool impact:**
+
+| Status | Dice Pool Effect |
+|---|---|
+| Immobilized | -3 dice to all attacks; cannot use Reaction for defense |
+| Deafened I-II | -3 per level to hearing tests |
+| Deafened III | Auto-fail hearing tests |
+| Fatigued I-III | Progressive penalties |
+| Blinded I-III | Progressive vision penalties |
+| Confused # | -# dice to all tests except Damage Resistance |
+| Hobbled | Movement halved |
+
+**Environment and Visibility:**
+
+Environmental factors (light level, weather, etc.) are resolved through **Edge**, not dice
+pool modifiers. If one combatant has a visibility advantage (e.g., low-light vision in dim
+conditions), they gain a point of Edge. This feeds into the Edge economy, not the dice pool
+engine.
+
 ### Spells (`src/data/magic/spells.yaml`)
 
 No `dice_modifiers` field. All effects are narrative or depend on spellcasting net hits:
@@ -351,7 +448,43 @@ contribute modifiers.
 
 **Impact:** Spell-based buffs cannot be reflected in displayed pools.
 
-### Gap 9: Edge bonuses not tracked
+### Gap 9: Smartlink data incorrectly models +2 AR as +2 dice pool
+
+The Smartlink augmentation in `augmentations.yaml` has
+`dice_modifiers: [{ value: 2, requires_accessory: "Smartgun" }]`, which provides a +2
+dice pool bonus when the weapon has a Smartgun System. Per the rules, the Smartlink +
+Smartgun interaction provides **+2 Attack Rating**, not +2 dice pool. The only dice pool
+bonus is the Smartgun System's own **+1 wireless bonus** (requires wireless mode).
+
+**Impact:** Smartlink users currently receive +2 dice pool instead of the correct +2 AR.
+The dice pool bonus should be removed from Smartlink and the system should rely on the
+smartgun accessory's existing `ar_modifier: "+2/+2/+2/+2/+2"` field (which is already
+populated correctly).
+
+### Gap 10: Cover Status dice pool bonuses not modeled
+
+Cover Status (I-IV) provides both DR and defense dice pool bonuses, and Cover IV imposes
+a -2 dice penalty on attacks. This is a combat-state modifier that depends on the
+character's position, not their build.
+
+**Impact:** Cannot reflect cover bonuses in displayed defense pools without a combat
+tracker.
+
+### Gap 11: Take Aim bonus not modeled
+
+Take Aim provides a cumulative +1 dice pool bonus per use, capped by Willpower. This is
+a combat action modifier.
+
+**Impact:** Cannot reflect Take Aim accumulation without action tracking.
+
+### Gap 12: Status effects with dice pool penalties not modeled
+
+Several statuses (Immobilized -3, Confused -#, Deafened, Fatigued, Blinded) impose dice
+pool penalties. These are transient combat states.
+
+**Impact:** Status-based penalties cannot be surfaced without a status tracker.
+
+### Gap 13: Edge bonuses not tracked
 
 Many adept powers and qualities grant bonus Edge in specific situations (Danger Sense,
 Kinesics, Improved Sense, Enhanced Perception). The app has no structured way to surface
@@ -374,17 +507,20 @@ flowchart TD
         AP[Adept Powers]
         WA[Weapon Accessories]
         AS[Active Spells]
+        SM[Situational Modifiers]
     end
 
     subgraph pool [Dice Pool Engine]
         CDP["calculateDicePool()"]
         CWP["calculateWeaponPool()"]
         CDM["collectDiceModifiers()"]
+        CV["Constraint Validation"]
     end
 
     subgraph outputs [Outputs]
         SkillPool[Skill Test Pool]
         WeaponPool[Weapon Attack Pool]
+        DefPool["Defense Test Pool"]
         DerivedStats["Derived Stats (Init, DR, etc.)"]
         ARDisplay[Attack Rating Display]
     end
@@ -395,16 +531,20 @@ flowchart TD
     AP -->|"dice_modifiers (NEW)"| CDP
     WA -->|"dice_modifiers (NEW)"| CDP
     AS -->|"dice_modifiers (FUTURE)"| CDP
+    SM -->|"Cover, Take Aim, Status (FUTURE)"| CDP
 
-    CDP --> CWP
+    CDP --> CV
+    CV --> CWP
     CWP --> WeaponPool
-    CDP --> SkillPool
+    CV --> SkillPool
+    CV --> DefPool
 
     Q -->|"attribute modifiers"| CDM
     Aug -->|"attribute modifiers"| CDM
     G -->|"attribute modifiers"| CDM
     AP -->|"attribute modifiers (NEW)"| CDM
-    CDM --> DerivedStats
+    CDM --> CV
+    CV --> DerivedStats
 
     WA -->|"ar_modifier"| ARDisplay
 ```
@@ -443,17 +583,48 @@ Fill in text-only effects as structured data:
 - Mystic Armor: add `{ attribute: "defense_rating", value: X }`
 - Adrenaline Boost: add `{ attribute: "initiative", value: X }`
 
-**Priority 4 — Wireless toggle system (future)**
+**Priority 4 — Fix Smartlink/Smartgun data modeling**
+
+The Smartlink augmentation currently provides `+2 dice pool` when a weapon has a Smartgun
+System. Per SR6 rules, this should be `+2 Attack Rating`, not dice pool. The Smartgun
+System accessory's `ar_modifier: "+2/+2/+2/+2/+2"` already handles the AR bonus correctly.
+
+Changes:
+- Remove the `dice_modifiers` entry from Smartlink in `augmentations.yaml`
+- Add a `dice_modifiers` entry to the Smartgun System accessory (once `WeaponAccessory`
+  supports it) with `{ value: 1, source: "Smartgun System", requires_wireless: true }`
+- Update sample character data to remove the Smartlink dice modifier
+- Document that the Smartgun's AR bonus applies when the user has **any** Smartlink
+  (in cybereyes, glasses, goggles, or contacts) — this is a `requires_augmentation`
+  gate rather than a `requires_accessory` gate, which is a new concept
+
+**Priority 5 — Wireless toggle system**
+
+The Smartgun System is the clearest motivating case: its +1 dice pool bonus and bonus
+Minor Action only apply in wireless mode, while the +2 AR bonus applies in both wired
+and wireless modes.
 
 - Add `wireless?: boolean` to weapon accessories and certain gear items
 - Add `requires_wireless?: boolean` to `DiceModifier`
 - Only apply wireless-gated modifiers when the toggle is active
+- Armor wireless bonuses (Chameleon Suit +2 DR, etc.) also need this toggle
 
-**Priority 5 — Active spell tracking (future)**
+**Priority 6 — Active spell tracking (future)**
 
 - Add an `active_spells` array to the character model
 - Each entry specifies the spell, net hits, and resulting `dice_modifiers`
 - Feed active spells into the dice pool engine alongside other sources
+
+**Priority 7 — Situational/combat modifier tracking (future)**
+
+Combat-state modifiers that depend on the encounter, not the character build:
+- Cover Status (I-IV): DR and defense dice pool bonuses
+- Take Aim: cumulative +1 dice pool, capped by Willpower
+- Status effects: Immobilized (-3 attack), Confused (-#), Deafened, etc.
+- Called Shots: various situational modifiers
+
+These require a "combat tracker" or encounter-mode feature and are not needed for the
+static character sheet.
 
 ---
 
@@ -474,13 +645,32 @@ export interface DiceModifier {
 
 ### Routing rules
 
-The `attribute` and `skill` fields determine how a modifier is routed:
+The `attribute`, `skill`, and `pool_only` fields determine how a modifier is routed:
 
-| `attribute` | `skill` | Routing |
-|---|---|---|
-| set | — | `collectDiceModifiers(attrKey)` for derived stat display |
-| not set | set | `calculateDicePool()`: applies only when computing that skill's pool |
-| not set | not set | `calculateDicePool()`: applies to ALL skill pools (subject to `requires_accessory`) |
+| `attribute` | `skill` | `pool_only` | Routing |
+|---|---|---|---|
+| set | — | false/unset | `collectDiceModifiers(attrKey)` for derived stat display **and** affects pools using that attribute |
+| set | — | **true** | `calculateDicePool()` only: adds to dice pools that use the attribute, but does **not** affect derived stats (Initiative, DR, Condition Monitor, etc.) |
+| not set | set | — | `calculateDicePool()`: applies only when computing that skill's pool |
+| not set | not set | — | `calculateDicePool()`: applies to ALL skill pools (subject to `requires_accessory`) |
+
+#### Pool-only vs. attribute-level modifiers
+
+This distinction comes from the Attribute Boost adept power (Core Rulebook p. 160):
+
+> "This only affects dice pools, so your Initiative rank, Condition Monitor, Defense
+> Rating, and so forth is not changed."
+
+Attribute Boost temporarily increases an attribute for **dice pool purposes only**. Unlike
+Improved Physical Attribute (which raises the actual attribute and therefore affects all
+derived stats), Attribute Boost only adds dice to pools that use the boosted attribute.
+
+This requires a `pool_only?: boolean` field on `DiceModifier` to distinguish between:
+
+- **Attribute-level modifiers** (Improved Physical Attribute, Muscle Replacement, etc.):
+  raise the attribute value, affecting all calculations that reference it
+- **Pool-only modifiers** (Attribute Boost): only add dice to pools using the attribute,
+  without changing the attribute's displayed value or derived stats
 
 ### Supported `attribute` values
 
@@ -510,16 +700,23 @@ modifierApplies(mod, weaponAccessories):
   otherwise                            → applies if any accessory name includes the string
 ```
 
-Example: Smartlink's modifier `{ value: 2, requires_accessory: "Smartgun" }` only applies
-when the weapon has an accessory like "Smartgun System (Internal)".
+Example: A hypothetical modifier `{ value: 1, requires_accessory: "Smartgun" }` would only
+apply when the weapon has an accessory like "Smartgun System (Internal)".
+
+Note: The Smartlink augmentation currently uses this pattern with `{ value: 2 }`, but this
+is incorrect per the rules (see Gap 9). The corrected model would place the +1 dice pool
+modifier on the Smartgun System accessory itself, gated by `requires_wireless: true`.
 
 ### Proposed additions to `DiceModifier`
 
 | Field | Type | Purpose |
 |---|---|---|
 | `requires_wireless?: boolean` | boolean | Only apply when item's wireless toggle is on |
+| `pool_only?: boolean` | boolean | Only affects dice pools, not derived stats (e.g., Attribute Boost) |
 | `exclusion_group?: string` | string | Prevents stacking with other modifiers in the same group |
 | `max_value?: number` | number | Cap this modifier's contribution (for 1.5x rules) |
+| `defense_only?: boolean` | boolean | Only applies to defense tests (e.g., Combat Sense) |
+| `requires_augmentation?: string` | string | Gate: only when character has matching augmentation (e.g., Smartgun AR requires Smartlink) |
 
 ---
 
@@ -527,10 +724,13 @@ when the weapon has an accessory like "Smartgun System (Internal)".
 
 SR6 imposes several limits on how modifiers stack and what values they can reach.
 
-### 7.1 Augmented Maximum (+4 Cap)
+### 7.1 Augmented Maximum (+4 Cap) — Attributes
 
 Each physical and mental attribute can receive a maximum of **+4 total** from all
 augmentation sources combined (cyberware, bioware, adept powers, sustained spells).
+
+Per Core Rulebook (p. 39):
+> "...adjusted attribute can never be higher than their current attribute rank +4."
 
 ```
 Augmented Maximum = Metatype Natural Maximum + 4
@@ -550,7 +750,18 @@ Examples using metatype data from `METATYPE_DATA` in `src/data/sr6-reference.ts`
 `dice_modifiers` from augmentations + adept powers exceeds +4. The metatype maximum data
 is available but unused for this purpose.
 
-### 7.2 Initiative Dice Cap (5D6)
+### 7.2 Augmented Maximum (+4 Cap) — Skills
+
+Skills are also subject to a +4 augmented cap. Per Core Rulebook (p. 64):
+> "...augmented increase can never be more than +4."
+
+This means the total bonus to a skill from all augmentation sources (Improved Ability,
+gear, qualities, etc.) cannot exceed +4 above the character's natural skill rating.
+
+**Current status:** Not enforced. The Improved Ability adept power (when structured) would
+need to be checked against both the 1.5x cap (Section 7.5) and this +4 cap.
+
+### 7.3 Initiative Dice Cap (5D6)
 
 Maximum of 5 initiative dice total (base 1D6 + up to 4 bonus dice).
 
@@ -562,7 +773,7 @@ const totalInitDice = Math.min(1 + initDiceBonus, 5);
 
 The tooltip also indicates when capping occurs.
 
-### 7.3 Exclusive / Mutually Exclusive Augmentations
+### 7.4 Exclusive / Mutually Exclusive Augmentations
 
 Certain augmentations are explicitly incompatible:
 
@@ -578,7 +789,7 @@ A character could equip conflicting augmentations and receive stacked bonuses wi
 **Proposed:** Add an optional `exclusion_group?: string` field to augmentation entries or
 `DiceModifier` entries, allowing the engine to detect conflicts and surface warnings.
 
-### 7.4 Improved Ability Skill Cap (1.5x Natural Rating)
+### 7.5 Improved Ability Skill Cap (1.5x Natural Rating)
 
 The Improved Ability adept power boosts a skill by its power level, but the boost cannot
 exceed **1.5 times the character's natural skill rating** (rounded up) or the augmented
@@ -591,7 +802,7 @@ Ability.
 (not yet structured for dice pool contribution). When implemented, the cap will need to
 compare the boost against the character's natural skill rating.
 
-### 7.5 Improved Physical Attribute Cap (1.5x or Augmented Max)
+### 7.6 Improved Physical Attribute Cap (1.5x or Augmented Max)
 
 The Improved Physical Attribute adept power boosts an attribute, capped at **1.5 times the
 natural attribute rating** or the augmented maximum, whichever is lower.
@@ -599,14 +810,14 @@ natural attribute rating** or the augmented maximum, whichever is lower.
 **Current status:** Not enforced. The `dice_modifiers` provide flat values (e.g., `+1 AGI`)
 without any cap check.
 
-### 7.6 Dice Pool Floor (Minimum 0)
+### 7.7 Dice Pool Floor (Minimum 0)
 
 A dice pool can never go below zero, regardless of negative modifiers.
 
 **Current status:** Enforced via `Math.max(0, total)` in both `calculateDicePool()` and
 `calculateWeaponPool()`.
 
-### 7.7 Armor Stacking (One Per Subtype)
+### 7.8 Armor Stacking (One Per Subtype)
 
 Only one body armor + one helmet + one shield can contribute to Defense Rating simultaneously.
 
@@ -614,7 +825,7 @@ Only one body armor + one helmet + one shield can contribute to Defense Rating s
 selects the best-rated item from each subtype (`body`, `helmet`, `shield`) and sums their
 ratings.
 
-### 7.8 Edge Gain Limits
+### 7.9 Edge Gain Limits
 
 - Maximum of **2 Edge gained per combat round** (general rule).
 - Many abilities specify "only one Edge point per encounter" (Kinesics, Vocal Control,
@@ -625,30 +836,40 @@ ratings.
 description text. A future "Edge reminder" or "Edge tracker" feature could surface these
 during play, but this is low priority for the dice pool architecture.
 
-### 7.9 Proposed Constraint Enforcement Pipeline
+### 7.10 Proposed Constraint Enforcement Pipeline
 
 When computing a final dice pool or derived stat, modifiers should pass through a validation
 pipeline after collection:
 
 ```mermaid
 flowchart TD
-    Raw[Raw Modifier Collection] --> AugCap["Augmented Max Check (+4 cap per attribute)"]
-    AugCap --> ExcGroup[Exclusion Group Check]
-    ExcGroup --> SkillCap["Skill/Attribute Rating Cap (1.5x)"]
-    SkillCap --> InitCap["Initiative Dice Cap (5D6)"]
+    Raw[Raw Modifier Collection] --> PoolRoute{"Pool-only routing check"}
+    PoolRoute -->|"pool_only=true"| PoolOnly["Add to dice pool only (skip derived stats)"]
+    PoolRoute -->|"pool_only=false/unset"| AttrCap["Attribute Augmented Max Check (+4 cap)"]
+    AttrCap --> SkillCap["Skill Augmented Max Check (+4 cap)"]
+    SkillCap --> ExcGroup[Exclusion Group Check]
+    ExcGroup --> RatingCap["Power Rating Cap (1.5x for Improved Ability/Attribute)"]
+    RatingCap --> InitCap["Initiative Dice Cap (5D6)"]
     InitCap --> Floor["Floor Check (min 0)"]
+    PoolOnly --> Floor
     Floor --> FinalPool[Final Dice Pool / Derived Stat]
 ```
 
 Each stage:
 
-1. **Augmented Max Check** — Sum all attribute modifiers from augmentations and adept powers;
-   clamp to +4 above base. Requires metatype max from `METATYPE_DATA`.
-2. **Exclusion Group Check** — If multiple modifiers share the same `exclusion_group`, keep
+1. **Pool-only routing** — Modifiers with `pool_only: true` (e.g., Attribute Boost) bypass
+   the attribute-level constraint checks and add directly to dice pools without affecting
+   displayed attribute values or derived stats.
+2. **Attribute Augmented Max Check** — Sum all attribute modifiers from augmentations and
+   adept powers; clamp to +4 above base. Requires metatype max from `METATYPE_DATA`.
+3. **Skill Augmented Max Check** — Sum all skill modifiers from augmentation sources; clamp
+   to +4 above the character's natural skill rating.
+4. **Exclusion Group Check** — If multiple modifiers share the same `exclusion_group`, keep
    only the highest and warn the user about the conflict.
-3. **Skill/Attribute Rating Cap** — For powers like Improved Ability and Improved Physical
-   Attribute, clamp the bonus to 1.5x the natural rating.
-4. **Initiative Dice Cap** — Clamp total initiative dice to 5.
-5. **Floor Check** — Ensure the final value is at least 0.
+5. **Power Rating Cap** — For powers like Improved Ability and Improved Physical Attribute,
+   clamp the bonus to 1.5x the natural rating (this is often more restrictive than the +4
+   cap and is checked after it).
+6. **Initiative Dice Cap** — Clamp total initiative dice to 5.
+7. **Floor Check** — Ensure the final value is at least 0.
 
 Warnings should be surfaced to the user in tooltips when a cap reduces their expected bonus.

@@ -4,14 +4,14 @@
 - name: Adrenaline Boost
   pp_cost: 0.25
   effects: "+2 Initiative per level for (Magic) combat rounds. Drain at end."
-  dice_modifiers: []
+  dice_modifiers: [{ attribute: "initiative", value: 2, source: "Adrenaline Boost" }]
   source: "Core Rulebook"
   description: "You get a surge of energy so you can get the jump on others. For each level of the power, add 2 to your initiative score for (Magic) combat rounds. At the end of those combat rounds, experience drain equal to the level of the power, which you can resist as normal. Activation: Minor Action."
 
 - name: Combat Sense
   pp_cost: 0.5
   effects: "+1 dice to defense tests per level. Perception test before surprise."
-  dice_modifiers: []
+  dice_modifiers: [{ attribute: "defense_dice", value: 1, source: "Combat Sense" }]
   source: "Core Rulebook"
   description: "This power gives you the ability to anticipate and avoid harm. Gain a +1 dice pool bonus per level on any defensive tests. You always have a chance to make a Perception test to avoid surprise. Activation: Passive."
 
@@ -88,28 +88,40 @@
 - name: Improved Reflexes (1)
   pp_cost: 1.5
   effects: "+1 Reaction, +1d6 Initiative. Max level 4."
-  dice_modifiers: [{ attribute: "reaction", value: 1, source: "Improved Reflexes" }]
+  dice_modifiers:
+    - { attribute: "reaction", value: 1, source: "Improved Reflexes" }
+    - { attribute: "initiative_dice", value: 1, source: "Improved Reflexes" }
+  exclusion_group: initiative_boost
   source: "Core Rulebook"
   description: "This power gives you quick reflexes and anticipation, allowing you to act and react much faster than the normies. For each level of this power, add an Initiative Die and increase your Reaction by 1. The maximum level of this power is 4, and it cannot be combined with any other Initiative or Reaction boosts. Activation: Passive."
 
 - name: Improved Reflexes (2)
   pp_cost: 2.5
   effects: "+2 Reaction, +2d6 Initiative."
-  dice_modifiers: [{ attribute: "reaction", value: 2, source: "Improved Reflexes" }]
+  dice_modifiers:
+    - { attribute: "reaction", value: 2, source: "Improved Reflexes" }
+    - { attribute: "initiative_dice", value: 2, source: "Improved Reflexes" }
+  exclusion_group: initiative_boost
   source: "Core Rulebook"
   description: "This power gives you quick reflexes and anticipation, allowing you to act and react much faster than the normies. For each level of this power, add an Initiative Die and increase your Reaction by 1. The maximum level of this power is 4, and it cannot be combined with any other Initiative or Reaction boosts. Activation: Passive."
 
 - name: Improved Reflexes (3)
   pp_cost: 3.5
   effects: "+3 Reaction, +3d6 Initiative."
-  dice_modifiers: [{ attribute: "reaction", value: 3, source: "Improved Reflexes" }]
+  dice_modifiers:
+    - { attribute: "reaction", value: 3, source: "Improved Reflexes" }
+    - { attribute: "initiative_dice", value: 3, source: "Improved Reflexes" }
+  exclusion_group: initiative_boost
   source: "Core Rulebook"
   description: "This power gives you quick reflexes and anticipation, allowing you to act and react much faster than the normies. For each level of this power, add an Initiative Die and increase your Reaction by 1. The maximum level of this power is 4, and it cannot be combined with any other Initiative or Reaction boosts. Activation: Passive."
 
 - name: Improved Reflexes (4)
   pp_cost: 4.5
   effects: "+4 Reaction, +4d6 Initiative."
-  dice_modifiers: [{ attribute: "reaction", value: 4, source: "Improved Reflexes" }]
+  dice_modifiers:
+    - { attribute: "reaction", value: 4, source: "Improved Reflexes" }
+    - { attribute: "initiative_dice", value: 4, source: "Improved Reflexes" }
+  exclusion_group: initiative_boost
   source: "Core Rulebook"
   description: "This power gives you quick reflexes and anticipation, allowing you to act and react much faster than the normies. For each level of this power, add an Initiative Die and increase your Reaction by 1. The maximum level of this power is 4, and it cannot be combined with any other Initiative or Reaction boosts. Activation: Passive."
 
@@ -137,7 +149,7 @@
 - name: Mystic Armor
   pp_cost: 0.25
   effects: "+1 Armor per level. Cumulative with worn Armor. Active on astral plane."
-  dice_modifiers: []
+  dice_modifiers: [{ attribute: "defense_rating", value: 1, source: "Mystic Armor" }]
   source: "Core Rulebook"
   description: "Mana forms a shield around you, enhancing your protection. Gain 1 point of Armor for each level of this power, cumulative with worn Armor, which also increases your Defense Rating. Mystic Armor is also active on the astral plane. Activation: Passive."
 

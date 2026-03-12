@@ -221,7 +221,7 @@ export function EquippedGearTab({
   return (
     <Card className="border-border/50 bg-card/80">
       <CardHeader>
-        <CardTitle className="font-display tracking-wider">EQUIPPED WEAPONS &amp; ARMOR</CardTitle>
+        <CardTitle className="font-display tracking-wider text-sm sm:text-base">EQUIPPED WEAPONS &amp; ARMOR</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
         {hasNothing && (

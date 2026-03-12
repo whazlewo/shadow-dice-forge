@@ -113,6 +113,7 @@ export function referenceToWizardAugmentation(r: ReferenceAugmentation): WizardA
     rating: r.rating,
     effects: r.effects ?? "",
     dice_modifiers: r.dice_modifiers ?? [],
+    exclusion_group: r.exclusion_group,
     notes: r.notes,
     description: r.description,
   };
@@ -144,6 +145,7 @@ export function referenceToWeaponAccessory(r: ReferenceWeaponAccessory): WeaponA
     ar_modifier: r.ar_modifier ?? undefined,
     notes: notes || undefined,
     description: r.description,
+    dice_modifiers: r.dice_modifiers,
   };
 }
 
@@ -251,6 +253,7 @@ export function referenceToCharacterAugmentation(r: ReferenceAugmentation) {
     effects: r.effects,
     notes: r.notes,
     dice_modifiers: r.dice_modifiers ?? [],
+    exclusion_group: r.exclusion_group,
     description: r.description,
   };
 }

@@ -20347,9 +20347,9 @@ SHADOWRUN: SIXTH WORLD
                                                                         Astral Reality, 127                      Awakened critters
                                     assault cannon, 262                                                                                                    pain editor, 293                    Character
                                                                         Astral skill, 93                             barghest, 216
-                                    caseless vs. cased, 262                                                                                                reflex recorder, 293                    Attack Rating, 39
+                                    caseless vs. cased, 262                                                                                         g      reflex recorder, 293                    Attack Rating, 39
                                                                         Athletics skill                              basilisk, 216
-                                    Costs Table, 262                                                                                                       sleep regulator, 293                    Condition Monitors for, 38–39
+                                    Costs Table, 262                                                                                                g      sleep regulator, 293                    Condition Monitors for, 38–39
                                                                             climbing tests, 93                       Cerberus hound, 216–217
                                     explosive, 261–262                                                                                                     synaptic booster, 293                   contacts, 39
                                                                             climbing thresholds, 93                  cockatrice, 217

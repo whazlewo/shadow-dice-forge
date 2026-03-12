@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # Shadow Dice Forge
 
 A web-based character creation and management tool for Shadowrun 6th Edition (SR6).

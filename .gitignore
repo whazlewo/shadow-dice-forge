@@ -8,6 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+package-lock.json
 dist
 dist-ssr
 *.local
@@ -25,3 +26,7 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Generated audit reports
+scripts/magic-audit-checklist.md
+scripts/missing-items-report.md

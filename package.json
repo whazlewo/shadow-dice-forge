@@ -1,5 +1,5 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "shadow-dice-forge",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "audit:magic": "node scripts/audit-magic-refs.mjs"
+    "audit:magic": "node scripts/audit-magic-refs.mjs",
+    "audit:gear": "node scripts/audit-missing-items.mjs"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.6",

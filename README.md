@@ -4,7 +4,7 @@ Web-based character creation and management for Shadowrun 6th Edition (SR6). Bui
 
 ## Features
 
-- **Character creation wizard** — 5-step flow: Concept → Priorities (metatype, attributes, skills, magic, resources) → Qualities → Karma spend → Gear
+- **Character creation wizard** — 5-step flow (mundane) or 6-step flow (magic users): Concept → Priorities (metatype, attributes, skills, magic, resources) → [Magic] → Qualities → Karma spend → Gear
 - **Character sheet** — Tabbed editor: Core (attributes, skills, personal info, qualities, equipped gear), Notes, Weapons & Gear, Vehicles, Spells, Adept, Other
 - **Karma tracking** — Ledger-based system with undo/refund; karma confirmation dialogs for attribute raises
 - **Dice pool calculation** — Attribute + skill + modifiers from qualities, augmentations, gear; supports weapon accessories
@@ -17,6 +17,8 @@ Web-based character creation and management for Shadowrun 6th Edition (SR6). Bui
 - Supabase (Auth, PostgreSQL, Storage)
 - Tailwind CSS, shadcn-ui
 - React Query, React Router, Zod, react-hook-form
+
+Note: `form.tsx` (react-hook-form + zod) is available in `src/components/ui/` but currently unused; kept for future form-heavy features.
 
 ## Getting Started
 
@@ -48,6 +50,8 @@ npm run dev
 | `npm run preview` | Preview production build |
 | `npm run test` | Run tests once |
 | `npm run test:watch` | Watch mode tests |
+| `npm run audit:magic` | Audit magic references (spells, adept powers, complex forms) |
+| `npm run audit:gear` | Audit gear items vs rulebook |
 
 ## Project Structure
 

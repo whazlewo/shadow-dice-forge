@@ -337,11 +337,11 @@ function writeChecklist(result) {
   }
 
   fs.writeFileSync(
-    path.join(ROOT, "scripts/magic-audit-checklist.md"),
+    path.join(ROOT, "docs/magic-audit-checklist.md"),
     lines.join("\n"),
     "utf-8"
   );
-  console.log("\nWrote scripts/magic-audit-checklist.md");
+  console.log("\nWrote docs/magic-audit-checklist.md");
 }
 
 main();

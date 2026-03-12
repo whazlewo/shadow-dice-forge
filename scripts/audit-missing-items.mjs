@@ -521,7 +521,7 @@ function main() {
     `| **Total** | **${totalMissing}** |`,
   ];
 
-  const reportPath = path.join(ROOT, "scripts/missing-items-report.md");
+  const reportPath = path.join(ROOT, "docs/missing-items-report.md");
   fs.writeFileSync(reportPath, lines.join("\n"), "utf-8");
 
   console.log("=== MISSING ITEMS REPORT ===\n");
@@ -535,7 +535,7 @@ function main() {
   console.log("Miscellaneous:", missingMiscellaneous.length, missingMiscellaneous.length ? missingMiscellaneous : "");
   console.log("Weapon Accessories:", missingWeaponAccessories.length, missingWeaponAccessories.length ? missingWeaponAccessories : "");
   console.log("\nTotal missing:", totalMissing);
-  console.log("\nFull report written to scripts/missing-items-report.md");
+  console.log("\nFull report written to docs/missing-items-report.md");
 }
 
 main();

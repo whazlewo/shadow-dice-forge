@@ -61,7 +61,7 @@ export function NotesTab({ notes, onUpdate }: NotesTabProps) {
   };
 
   return (
-    <div className="space-y-4 max-w-2xl mx-auto px-4 py-2">
+    <div className="space-y-4 w-full px-4 py-2">
       <div className="flex items-center justify-between">
         <h2 className="font-display text-sm tracking-wider uppercase text-muted-foreground">Session Notes</h2>
         <Button variant="outline" size="sm" className="h-7 text-xs gap-1" onClick={addSession}>

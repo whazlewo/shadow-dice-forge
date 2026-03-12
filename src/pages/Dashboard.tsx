@@ -109,9 +109,20 @@ export default function Dashboard() {
       <main className="container py-8">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="font-display text-2xl font-semibold tracking-wide">Your Runners</h2>
-          <Button onClick={createCharacter} className="font-display tracking-wider">
-            <Plus className="mr-1 h-4 w-4" /> New Character
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={createCharacter} className="font-display tracking-wider">
+              <Plus className="mr-1 h-4 w-4" /> New Character
+            </Button>
+            <Button
+              variant="outline"
+              onClick={seedCharacters}
+              disabled={seeding}
+              className="font-display tracking-wider"
+            >
+              <FlaskConical className="mr-1 h-4 w-4" />
+              {seeding ? "Seeding..." : "Load Samples"}
+            </Button>
+          </div>
         </div>
 
         {loading ? (

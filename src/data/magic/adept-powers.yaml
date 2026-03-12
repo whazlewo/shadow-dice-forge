@@ -88,28 +88,28 @@
 - name: Improved Reflexes (1)
   pp_cost: 1.5
   effects: "+1 Reaction, +1d6 Initiative. Max level 4."
-  dice_modifiers: []
+  dice_modifiers: [{ attribute: "reaction", value: 1, source: "Improved Reflexes" }]
   source: "Core Rulebook"
   description: "This power gives you quick reflexes and anticipation, allowing you to act and react much faster than the normies. For each level of this power, add an Initiative Die and increase your Reaction by 1. The maximum level of this power is 4, and it cannot be combined with any other Initiative or Reaction boosts. Activation: Passive."
 
 - name: Improved Reflexes (2)
   pp_cost: 2.5
   effects: "+2 Reaction, +2d6 Initiative."
-  dice_modifiers: []
+  dice_modifiers: [{ attribute: "reaction", value: 2, source: "Improved Reflexes" }]
   source: "Core Rulebook"
   description: "This power gives you quick reflexes and anticipation, allowing you to act and react much faster than the normies. For each level of this power, add an Initiative Die and increase your Reaction by 1. The maximum level of this power is 4, and it cannot be combined with any other Initiative or Reaction boosts. Activation: Passive."
 
 - name: Improved Reflexes (3)
   pp_cost: 3.5
   effects: "+3 Reaction, +3d6 Initiative."
-  dice_modifiers: []
+  dice_modifiers: [{ attribute: "reaction", value: 3, source: "Improved Reflexes" }]
   source: "Core Rulebook"
   description: "This power gives you quick reflexes and anticipation, allowing you to act and react much faster than the normies. For each level of this power, add an Initiative Die and increase your Reaction by 1. The maximum level of this power is 4, and it cannot be combined with any other Initiative or Reaction boosts. Activation: Passive."
 
 - name: Improved Reflexes (4)
   pp_cost: 4.5
   effects: "+4 Reaction, +4d6 Initiative."
-  dice_modifiers: []
+  dice_modifiers: [{ attribute: "reaction", value: 4, source: "Improved Reflexes" }]
   source: "Core Rulebook"
   description: "This power gives you quick reflexes and anticipation, allowing you to act and react much faster than the normies. For each level of this power, add an Initiative Die and increase your Reaction by 1. The maximum level of this power is 4, and it cannot be combined with any other Initiative or Reaction boosts. Activation: Passive."
 

@@ -19,6 +19,7 @@ import {
   referenceToCharacterArmor,
   referenceToCharacterAugmentation,
   referenceToCharacterGear,
+  referenceToCharacterElectronics,
   referenceToCharacterVehicle,
   normalizeAccessories,
 } from "@/lib/gear-reference-utils";
@@ -58,7 +59,7 @@ const REFERENCE_CONVERTERS: Record<GearCategory, (ref: RefItem) => Record<string
   rangedWeapons: referenceToCharacterRanged,
   meleeWeapons: referenceToCharacterMelee,
   armor: referenceToCharacterArmor,
-  electronics: (ref) => referenceToCharacterGear(ref as import("@/types/gear-reference").ReferenceMiscGear),
+  electronics: (ref) => referenceToCharacterElectronics(ref as import("@/types/gear-reference").ReferenceElectronics),
   augmentations: referenceToCharacterAugmentation,
   vehicles: referenceToCharacterVehicle,
   miscellaneous: referenceToCharacterGear,
@@ -187,6 +188,11 @@ export function GenericListTab({ title, items, fields, fieldLabels, fieldOptions
                 {fields.length > 1 && (
                   <span className="font-mono text-[11px] text-muted-foreground">
                     {fields.slice(1).map((f) => item[f] ?? "—").join(" · ")}
+                  </span>
+                )}
+                {item.description && (
+                  <span className="text-[10px] text-muted-foreground/70 italic line-clamp-1">
+                    {item.description}
                   </span>
                 )}
               </div>

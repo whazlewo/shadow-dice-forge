@@ -81,6 +81,7 @@ export interface WeaponAccessory {
   name: string;              // e.g. "Smartgun System (Internal)"
   ar_modifier?: string;      // e.g. "+2/+2/+2/+2/+2" (optional)
   notes?: string;            // free text for other effects
+  description?: string;
 }
 
 export interface SR6Contact {
@@ -147,6 +148,7 @@ export interface SR6Augmentation {
   rating: number;
   effects: string;
   notes?: string;
+  description?: string;
   dice_modifiers?: DiceModifier[];
 }
 
@@ -155,6 +157,7 @@ export interface SR6Gear {
   name: string;
   quantity: number;
   notes: string;
+  description?: string;
   dice_modifiers?: DiceModifier[];
   equipped?: boolean;
 }

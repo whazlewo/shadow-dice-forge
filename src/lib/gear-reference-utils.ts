@@ -143,6 +143,7 @@ export function referenceToWeaponAccessory(r: ReferenceWeaponAccessory): WeaponA
     name: r.name,
     ar_modifier: r.ar_modifier ?? undefined,
     notes: notes || undefined,
+    description: r.description,
   };
 }
 
@@ -261,6 +262,23 @@ export function referenceToCharacterGear(r: ReferenceMiscGear) {
     quantity: 1,
     notes: r.notes,
     dice_modifiers: r.dice_modifiers ?? [],
+    description: r.description,
+    equipped: true,
+  };
+}
+
+export function referenceToCharacterElectronics(r: ReferenceElectronics) {
+  const noteParts: string[] = [];
+  if (r.notes) noteParts.push(r.notes);
+  if (!r.notes?.includes("DR") && !r.notes?.includes("D/F") && !r.notes?.includes("A/S") && !r.notes?.includes("DP")) {
+    noteParts.unshift(`DR ${r.device_rating}, Programs: ${r.programs}`);
+  }
+  return {
+    id: crypto.randomUUID(),
+    name: r.name,
+    quantity: 1,
+    notes: noteParts.join(" "),
+    dice_modifiers: [],
     description: r.description,
     equipped: true,
   };

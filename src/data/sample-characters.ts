@@ -81,6 +81,11 @@ export function getSampleCharacters() {
           essence_cost: 3.0,
           rating: 2,
           effects: "+2 Reaction, +2d6 Initiative",
+          description:
+            "Neural accelerator. Boosts reaction time and initiative. Each rating adds +1 Reaction and +1d6 Initiative Dice. The classic street samurai upgrade. Restricted.",
+          dice_modifiers: [
+            { attribute: "reaction", value: 2, source: "Wired Reflexes" },
+          ],
         },
         {
           id: "a2",
@@ -88,7 +93,17 @@ export function getSampleCharacters() {
           type: "cyberware",
           essence_cost: 0.2,
           rating: 0,
-          effects: "Smartgun bonuses",
+          effects:
+            "+2 dice to attacks with smartgun, eliminates visibility penalties",
+          description:
+            "Neural link to smartgun systems. Must be installed in eyes (cyber or natural). +2 dice when using smartgun-enabled weapons. Eliminates some visibility penalties. Essential for combat-focused characters.",
+          dice_modifiers: [
+            {
+              value: 2,
+              source: "Smartlink",
+              requires_accessory: "Smartgun",
+            },
+          ],
         },
         {
           id: "a3",
@@ -96,15 +111,18 @@ export function getSampleCharacters() {
           type: "cyberware",
           essence_cost: 0.1,
           rating: 2,
-          effects: "Vision enhancements",
+          effects: "Replacement eyes with capacity for modifications",
+          description:
+            "Cybernetic replacement eyes. Rating indicates quality and capacity for add-ons like low-light, thermographic vision, or image link. Higher ratings allow more modifications.",
         },
       ],
       ranged_weapons: [
         {
           id: "rw1",
           name: "Ares Alpha",
-          dv: "5P",
-          ar: "4/10/6/-/-",
+          subtype: "Automatics",
+          dv: "4P",
+          ar: "4/10/9/7/2",
           fire_modes: "SA/BF/FA",
           ammo: "42(c)",
           equipped: true,
@@ -114,13 +132,16 @@ export function getSampleCharacters() {
               ar_modifier: "+2/+2/+2/+2/+2",
             },
           ],
+          description:
+            "Made famous by Ares Firewatch teams. Integrated underbarrel grenade launcher, smartgun system, and innovative design for superior handling. Grenade launcher: As grenade, SS, 6(c).",
         },
         {
           id: "rw2",
           name: "Ares Predator VI",
+          subtype: "Pistols (Heavy)",
           dv: "3P",
-          ar: "10/10/8/-/-",
-          fire_modes: "SA",
+          ar: "10/10/8/—/—",
+          fire_modes: "SA/BF",
           ammo: "15(c)",
           equipped: true,
           accessories: [
@@ -129,16 +150,21 @@ export function getSampleCharacters() {
               ar_modifier: "+2/+2/+2/+2/+2",
             },
           ],
+          description:
+            "The Predator VI is genuine innovation built into some classic styling. Built on the framing of the original Predator, the VI comes with standard smartgun operations but adds Burst Fire capability and a new variable ammunition system.",
         },
       ],
       melee_weapons: [
         {
           id: "mw1",
           name: "Katana",
+          subtype: "Blades",
           dv: "4P",
-          ar: "10/3/-/-/-",
+          ar: "10/—/—/—/—",
           reach: 1,
           equipped: true,
+          description:
+            "The iconic two-handed sword of the samurai is standard issue for trid-series shadowrunners. Out on the street, the deadly blade teaches lessons to those who think the trope is solely about looks.",
         },
       ],
       armor: [
@@ -150,15 +176,19 @@ export function getSampleCharacters() {
           modifications: "",
           subtype: "body",
           equipped: true,
+          description:
+            "Available in all manner of styles, it offers good protection without catching too much attention. The street runner's best friend. Capacity 8 for modifications.",
         },
         {
           id: "ar2",
-          name: "Ballistic Mask",
-          rating: 2,
-          capacity: 3,
+          name: "Helmet",
+          rating: 1,
+          capacity: 4,
           modifications: "",
           subtype: "helmet",
           equipped: true,
+          description:
+            "Helmets come in a wide variety of shapes and sizes and protect your noggin from trauma. Capacity 4 for accessories such as trode nets and vision enhancements.",
         },
       ],
       gear: [
@@ -166,15 +196,19 @@ export function getSampleCharacters() {
           id: "g1",
           name: "Medkit Rating 6",
           quantity: 1,
-          notes: "6 dice for First Aid",
+          notes: "Advanced first aid, +6 dice to First Aid",
           equipped: true,
+          description:
+            "High-end portable medkit. +6 dice to First Aid tests. For serious runners who expect serious injuries. Wireless bonus: Full diagnostic suite and guided treatment.",
         },
         {
           id: "g2",
           name: "Stim Patch Rating 4",
           quantity: 3,
-          notes: "Heals 4 boxes Stun",
+          notes: "+4 dice to one Physical attribute for (Rating) hours",
           equipped: true,
+          description:
+            "Transdermal stimulant patch. Boosts physical performance. Crash when it wears off. Wireless: Can be triggered remotely or on a delay.",
         },
       ],
       contacts: [
@@ -311,11 +345,14 @@ export function getSampleCharacters() {
         {
           id: "rw1",
           name: "Fichetti Security 600",
+          subtype: "Pistols (Light)",
           dv: "2P",
-          ar: "9/8/6/-/-",
+          ar: "10/9/6/—/—",
           fire_modes: "SA",
           ammo: "30(c)",
           equipped: true,
+          description:
+            "Designed as a light sidearm for security forces. Thirty-round magazine. Comes with detachable folding stock and laser sight. Great for deckers.",
         },
       ],
       melee_weapons: [],
@@ -324,10 +361,12 @@ export function getSampleCharacters() {
           id: "ar1",
           name: "Lined Coat",
           rating: 3,
-          capacity: 6,
+          capacity: 7,
           modifications: "",
           subtype: "body",
           equipped: true,
+          description:
+            "This cowboy-style duster has been consistently popular on the mean streets of the world's sprawls for the past fifty years. Besides being protective, the armored trenchcoat provides a bonus Edge against tests to spot items hidden underneath.",
         },
       ],
       augmentations: [],
@@ -338,6 +377,8 @@ export function getSampleCharacters() {
           quantity: 1,
           notes: "DR 4",
           equipped: true,
+          description:
+            "Mid-range commlink. Reliable performance for everyday Matrix access.",
         },
         {
           id: "g2",
@@ -345,6 +386,8 @@ export function getSampleCharacters() {
           quantity: 1,
           notes: "Backup deck DR 3",
           equipped: false,
+          description:
+            "Budget cyberdeck for backup operations. Gets the job done in a pinch.",
         },
       ],
       contacts: [
@@ -479,61 +522,74 @@ export function getSampleCharacters() {
           name: "Manabolt",
           category: "spell",
           type: "Combat",
-          drain: "4",
+          drain: "F/2",
           duration: "Instant",
           range: "LOS",
-          effects: "Direct mana damage",
+          effects: "Direct mana combat spell. Resisted by Willpower.",
+          description:
+            "Essential spellcasting, shaping mana to crack skulls. Who can argue with this purity? Manabolt targets individuals, while Manaball is area effect.",
         },
         {
           id: "sp2",
           name: "Stunball",
           category: "spell",
           type: "Combat",
-          drain: "4",
+          drain: "F/2 + 1",
           duration: "Instant",
           range: "LOS (A)",
-          effects: "Area stun damage",
+          effects: "Stun damage, area effect. Direct combat spell.",
+          description:
+            "Sometimes you take a little off the heater to catch the other guy off-balance. These spells channel mana in a way that hurts, but only to stun. Stunbolt hits individuals, Stunball is area effect.",
         },
         {
           id: "sp3",
           name: "Improved Invisibility",
           category: "spell",
           type: "Illusion",
-          drain: "4",
+          drain: "F/2 + 1",
           duration: "Sustained",
-          range: "LOS",
+          range: "Touch",
           effects:
-            "Subject invisible to normal and technological senses",
+            "Improved Invisibility (#) status. Physical, works against tech.",
+          description:
+            "The Improved Invisibility spell gives the Improved Invisibility (#) status, which is essentially the same as Invisibility but works against cameras and other technology as well as against living entities.",
         },
         {
           id: "sp4",
           name: "Heal",
           category: "spell",
           type: "Health",
-          drain: "3",
+          drain: "F/2",
           duration: "Permanent",
           range: "Touch",
-          effects: "Heals physical damage",
+          effects: "Heals 1 box per net hit. Threshold (5 – Essence).",
+          description:
+            "Shadowrunning comes with bumps, bruises, and bullet wounds, and magic is perhaps the quickest and most effective way to repair it. When casting this spell, roll Sorcery + Magic with a threshold of (5 – Essence). Heal 1 box of Stun, Physical, or Overflow damage per net hit.",
         },
         {
           id: "sp5",
           name: "Detect Life",
           category: "spell",
           type: "Detection",
-          drain: "3",
+          drain: "F/2",
           duration: "Sustained",
-          range: "Touch (A)",
-          effects: "Detect living beings",
+          range: "Touch",
+          effects: "Points out sentient beings in the area.",
+          description:
+            "Are there people hiding in that pile of rubble? Or in the forest? This spell will point them out for you. Despite its broad-sounding name, it does not detect every living thing, but rather focuses on sentient beings.",
         },
         {
           id: "sp6",
           name: "Levitate",
           category: "spell",
           type: "Manipulation",
-          drain: "4",
+          drain: "F/2 + 2",
           duration: "Sustained",
           range: "LOS",
-          effects: "Move target through the air",
+          effects:
+            "Levitate 50 kg per hit. Unwilling: Body + Strength opposes.",
+          description:
+            "It may not be exactly the same as flight, but hey, it's defying gravity, and it's a blast. Roll Sorcery + Magic; for each hit, you can levitate 50 kilos worth of material or people.",
         },
       ],
       ranged_weapons: [],
@@ -541,10 +597,13 @@ export function getSampleCharacters() {
         {
           id: "mw1",
           name: "Combat Knife",
-          dv: "2P",
-          ar: "8/2/-/-/-",
+          subtype: "Blades",
+          dv: "3P",
+          ar: "8/2/—/—/—",
           reach: 0,
           equipped: true,
+          description:
+            "A simple, elegant, efficient killing device with a chisel point to make light work of armor. It's also carbon-coated black, so no reflections give away your approach.",
         },
       ],
       armor: [
@@ -556,6 +615,8 @@ export function getSampleCharacters() {
           modifications: "",
           subtype: "body",
           equipped: true,
+          description:
+            "Lightweight ballistic weave makes these garments almost impossible to detect as armor. It doesn't provide as much protection as real armor, but it comes in just about any style you desire.",
         },
       ],
       augmentations: [],
@@ -566,13 +627,17 @@ export function getSampleCharacters() {
           quantity: 1,
           notes: "Bonded, +2 to Magic for drain resistance",
           equipped: true,
+          description:
+            "A bonded power focus that adds its rating to Magic for drain resistance tests.",
         },
         {
           id: "g2",
           name: "Reagents",
           quantity: 20,
-          notes: "For ritual spellcasting",
+          notes: "For spellcasting, alchemy, rituals",
           equipped: true,
+          description:
+            "Naturally occurring items that channel mana. Used in spellcasting to reduce Drain, in rituals, and in alchemical preparations. Sold per dram.",
         },
       ],
       contacts: [
@@ -720,12 +785,15 @@ export function getSampleCharacters() {
         {
           id: "rw1",
           name: "Walther Palm Pistol",
+          subtype: "Hold-Outs",
           dv: "2P",
-          ar: "8/4/-/-/-",
-          fire_modes: "SS",
-          ammo: "2(b)",
+          ar: "12/7/—/—/—",
+          fire_modes: "SS/BF",
+          ammo: "6(b)",
           equipped: true,
           notes: "Easily concealed",
+          description:
+            "Walther keeps the double-barreled derringer with classic over-under design alive. Capable of Burst Fire by firing from both barrels at once. Limited ammo supply.",
         },
       ],
       melee_weapons: [],
@@ -734,10 +802,12 @@ export function getSampleCharacters() {
           id: "ar1",
           name: "Actioneer Business Clothes",
           rating: 2,
-          capacity: 4,
+          capacity: 6,
           modifications: "",
           subtype: "body",
           equipped: true,
+          description:
+            "This is the fancy armored suit popular among Mr. Johnsons, faces, and fixers looking for a little protection coupled with style. It features a concealable holster in the jacket.",
         },
       ],
       augmentations: [],
@@ -748,6 +818,8 @@ export function getSampleCharacters() {
           quantity: 1,
           notes: "Tools for quick costume changes",
           equipped: true,
+          description:
+            "A portable kit with makeup, prosthetics, and accessories for creating quick disguises in the field.",
         },
         {
           id: "g2",
@@ -755,6 +827,8 @@ export function getSampleCharacters() {
           quantity: 1,
           notes: "Subvocal mic, earpiece",
           equipped: true,
+          description:
+            "Short-range communicator for team comms. Doesn't connect to the Matrix. Essential for runners operating in wireless-dead zones.",
         },
         {
           id: "g3",
@@ -762,6 +836,8 @@ export function getSampleCharacters() {
           quantity: 1,
           notes: "Corporate exec identity",
           equipped: true,
+          description:
+            "A top-tier fake System Identification Number. Can pass even deep background checks. Essential for high-level social infiltration.",
         },
       ],
       contacts: [
@@ -827,15 +903,17 @@ export function getSampleCharacters() {
       vehicles: [
         {
           id: "v1",
-          name: "Shin-Hyung",
+          name: "Hyundai Shinhyung",
           handling: "4/5",
-          speed: "200",
-          body: 7,
-          armor: 6,
+          speed: "11",
+          body: 11,
+          armor: 5,
           sensor: 2,
-          pilot: 1,
+          pilot: 2,
           seats: 4,
           notes: "Luxury sedan",
+          description:
+            "Korean-manufactured sedan. Good value for money. Popular in the Pacific Rim and increasingly common on the streets of Seattle.",
         },
       ],
       notes: [],

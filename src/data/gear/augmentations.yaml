@@ -132,7 +132,7 @@
   essence_cost: 0.1
   rating: 0
   effects: "+2 dice to attacks with smartgun, eliminates visibility penalties"
-  dice_modifiers: []
+  dice_modifiers: [{ value: 2, source: "Smartlink", requires_accessory: "Smartgun" }]
   source: "Core Rulebook"
   description: "Neural link to smartgun systems. Must be installed in eyes (cyber or natural). +2 dice when using smartgun-enabled weapons. Eliminates some visibility penalties. Essential for combat-focused characters."
 

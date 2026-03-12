@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 import { computeKarmaSummary } from "@/lib/karma";
 import type { KarmaTransaction } from "@/types/karma";
+import { getSampleCharacters } from "@/data/sample-characters";
 
 type Character = Tables<"characters">;
 
@@ -20,14 +21,23 @@ export default function Dashboard() {
   const [seeding, setSeeding] = useState(false);
 
   const seedCharacters = async () => {
+    if (!user) return;
     setSeeding(true);
     try {
-      const { data, error } = await supabase.functions.invoke("seed-characters");
+      const samples = getSampleCharacters().map((char) => ({
+        ...char,
+        user_id: user.id,
+      }));
+      const { data, error } = await supabase
+        .from("characters")
+        .insert(samples)
+        .select("id, name");
       if (error) throw error;
-      toast.success(data?.message || "Sample characters loaded!");
+      toast.success(`Seeded ${data?.length ?? 0} characters`);
       fetchCharacters();
-    } catch (err: any) {
-      toast.error("Failed to seed: " + (err.message || err));
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      toast.error("Failed to seed: " + msg);
     } finally {
       setSeeding(false);
     }

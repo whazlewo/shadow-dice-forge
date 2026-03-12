@@ -83,6 +83,45 @@
   source: "Core Rulebook"
   description: "Flying minidrone. Excellent sensor platform. Favored by deckers and riggers for matrix support and overwatch."
 
+- name: Horizon Flying Eye
+  cost: 2000
+  availability: "2"
+  handling: "3/3"
+  speed: "15"
+  body: 1
+  armor: 0
+  sensor: 2
+  pilot: 2
+  seats: 0
+  source: "Core Rulebook"
+  description: "Minidrone. Compact surveillance platform. Popular with shadowrunners and security firms for overwatch."
+
+- name: Lockheed Optic-X
+  cost: 12000
+  availability: "2"
+  handling: "3/4"
+  speed: "12"
+  body: 2
+  armor: 2
+  sensor: 3
+  pilot: 3
+  seats: 0
+  source: "Core Rulebook"
+  description: "Compact winged surveillance drone. Folds for transport. Predecessor to the Optic-X2. Favored for covert overwatch."
+
+- name: Lockheed Optic-X2
+  cost: 18000
+  availability: "3"
+  handling: "4/4"
+  speed: "15"
+  body: 2
+  armor: 4
+  sensor: 4
+  pilot: 4
+  seats: 0
+  source: "Core Rulebook"
+  description: "Cyberdeck-sized when folded, deploys to large hawk size. VSTOL, can't hover. Hard to track and spot. Design and paint increase Perception threshold by 1."
+
 - name: Cyberspace Designs Dalmatian
   cost: 6000
   availability: "2"
@@ -190,3 +229,17 @@
   seats: 0
   source: "Core Rulebook"
   description: "Large rotor drone. Military transport and gunship. Heavy weapon platform. Restricted. The pinnacle of drone technology for riggers."
+
+# Rotorcraft (Cargo Helicopter)
+- name: Ares Dragon
+  cost: 360000
+  availability: "2"
+  handling: "4/4"
+  speed: "10"
+  body: 22
+  armor: 10
+  sensor: 3
+  pilot: 2
+  seats: "2/16"
+  source: "Core Rulebook"
+  description: "Most commonly identifiable cargo helicopter in the world. Double-rotor design for heavy lifting. Handles Firewatch strike teams, heavy cargo, or ordnance. Body 22 per errata Feb 2020."

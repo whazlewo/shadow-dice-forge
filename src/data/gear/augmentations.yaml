@@ -289,3 +289,115 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Enhanced memory retention. +1 to Memory attribute per rating. Helps with knowledge skills and recall. Popular with deckers and scholars."
+
+# Additional Headware
+- name: Datalock (Rating 1)
+  cost: 1000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 1
+  effects: "Walking data safe, Device Rating = rating"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Special datajack popular with couriers and spies. Turns the bearer into a walking data safe. Protects data from unauthorized access. Not wireless; universal data connector only. Bearer has no mental access to the data."
+
+- name: Control Rig (Rating 1)
+  cost: 30000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 1
+  rating: 1
+  effects: "+Rating dice and +1 Edge when jumped in"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Harnesses middle brain for direct manipulation of rigged vehicles and drones. Built-in sim module, retractable datajack cable. When jumped in: Rating as dice pool bonus on vehicle tests, +1 Edge."
+
+- name: Olfactory booster (Rating 1)
+  cost: 4000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 1
+  effects: "Bonus Edge on scent Perception; cut-off for intense odors"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Cybersnout enhances, identifies, and records smells. Sense emotions in sweat, propellant, explosives. Cut-off ignores intense odors. Wireless: +rating dice to scent-based Perception."
+
+- name: Simrig
+  cost: 4000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 0
+  effects: "Record sensory data for replay or sale"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Implanted simrig. Records sensory data for later replay or sale. For those who live interesting lives."
+
+- name: Skilljack (Rating 1)
+  cost: 20000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.1
+  rating: 1
+  effects: "Run knowsofts/linguasofts as own skills; activesofts as Knowledge only"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Interprets knowsofts and linguasofts for your brain. Activesofts only as Knowledge unless you have skillwires. Total skills ≤ rating x 2. Wireless: limit becomes rating x 4, Edge usable."
+
+- name: Taste booster (Rating 1)
+  cost: 3000
+  availability: "3"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 1
+  effects: "Bonus Edge on taste Perception; taste track in AR/VR"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Enhances taste buds like olfactory booster. Experience gustatory data in AR/VR. Wireless: +rating dice to taste-based Perception."
+
+- name: Tooth compartment
+  cost: 800
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0
+  rating: 0
+  effects: "Smuggle items ≤5mm; storage or breakable model"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Oldest cyberware. Hollow teeth for storage or breakable models. Storage: remove via wireless or catch. Breakable: triggers effect (tracking, poison) via wireless or bite."
+
+- name: Ultrasound sensor
+  cost: 36000
+  availability: "4"
+  aug_type: cyberware
+  essence_cost: 0.3
+  rating: 0
+  effects: "Replaces vision with active/passive sonar; Capacity [2]"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Like ultrasound sensor gear. When active, replaces normal vision. Switch active/passive/off with Minor Action."
+
+- name: Voice modulator (Rating 1)
+  cost: 5000
+  availability: "4(L)"
+  aug_type: cyberware
+  essence_cost: 0.2
+  rating: 1
+  effects: "Perfect pitch, volume to 100dB, vocal impressions; Bonus Edge on sound-based Con"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Perfect pitch, vocal flexibility, volume to 100dB. Play back and imitate recorded voices. Wireless: +rating dice to sound-based Con."
+
+# Cyberjacks
+- name: Cyberjack (Rating 1)
+  cost: 45000
+  availability: "3(L)"
+  aug_type: cyberware
+  essence_cost: 1
+  rating: 1
+  effects: "D/F 4/3, +1 Matrix Initiative; decker defense"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Harnesses brain for Matrix protocols. Primary defense against hacking. Functions as datajack. Enables special Matrix Edge Actions. Essential for deckers."

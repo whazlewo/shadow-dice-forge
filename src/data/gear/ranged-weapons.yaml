@@ -244,3 +244,579 @@
   accessories: []
   source: "Core Rulebook"
   description: "Made famous by Ares Firewatch teams. Integrated underbarrel grenade launcher, smartgun system, and innovative design for superior handling. Grenade launcher: As grenade, SS, 6(c)."
+
+# Additional Tasers
+- name: Yamaha Pulsar II
+  subtype: Tasers
+  cost: 350
+  availability: "1"
+  dv: "4S(e)"
+  ar: "9/9†/—/—/—"
+  fire_modes: "SS"
+  ammo: "4(m)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "The Pulsar II uses wireless capacitors for increased range. Packs less punch than wired tasers but fires faster. Has melee contacts. †Max range 50m."
+
+# Additional Hold-outs
+- name: Walther Palm Pistol
+  subtype: Hold-Outs
+  cost: 345
+  availability: "2"
+  dv: "2P"
+  ar: "12/7/—/—/—"
+  fire_modes: "SS/BF"
+  ammo: "6(b)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Walther keeps the double-barreled derringer with classic over-under design alive. Capable of Burst Fire by firing from both barrels at once. Limited ammo supply."
+
+# Additional Light Pistols
+- name: Ares Light Fire 75
+  subtype: Pistols (Light)
+  cost: 400
+  availability: "3(L)"
+  dv: "2P"
+  ar: "10/7/6/—/—"
+  fire_modes: "SA"
+  ammo: "16(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "The 75 is not commonly available through regular dealers. Barrel-mounted silencer, preloaded smartlink, and laser sight. Silencer increases audio Perception threshold by 3 when equipped."
+
+- name: Beretta 201T
+  subtype: Pistols (Light)
+  cost: 460
+  availability: "3(L)"
+  dv: "2P"
+  ar: "9/8/6/—/—"
+  fire_modes: "SA/FA"
+  ammo: "21(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "The 201T offers automatic fire capability. Same frame as 101T, easier to disguise. Comes with detachable shoulder stock. Popular where heavy and machine pistols are limited."
+
+# Additional Heavy Pistols
+- name: Ares Viper Slivergun
+  subtype: Pistols (Heavy)
+  cost: 610
+  availability: "4(L)"
+  dv: "4P(f)"
+  ar: "12/8/6/—/—"
+  fire_modes: "SA/BF"
+  ammo: "30(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Fires metal slivers (flechette ammo, bought separately). Unique ammunition not interchangeable with other flechette weapons. Integrated silencer, large ammo capacity."
+
+- name: Colt Government 2076
+  subtype: Pistols (Heavy)
+  cost: 275
+  availability: "3(L)"
+  dv: "3P"
+  ar: "10/8/6/—/—"
+  fire_modes: "SA"
+  ammo: "14(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "The 2076 takes a jump back to the style of the classic Manhunter. Integrated laser sight. Base model; smartgun version available as Colt Manhunter."
+
+- name: Colt Manhunter
+  subtype: Pistols (Heavy)
+  cost: 500
+  availability: "3(L)"
+  dv: "3P"
+  ar: "10/8/6/—/—"
+  fire_modes: "SA"
+  ammo: "14(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Colt Government 2076 with integrated smartgun system. The model with smartgun has the Manhunter designation."
+
+- name: Ruger Super Warhawk
+  subtype: Pistols (Heavy)
+  cost: 400
+  availability: "3(L)"
+  dv: "4P"
+  ar: "8/11/8/—/—"
+  fire_modes: "SA"
+  ammo: "6(cy)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Boom and glitz. Shiny, chrome revolver. Holes the size of a troll's fist. Upgrade ammo or features for precision."
+
+# Additional Machine Pistols
+- name: Ceska Black Scorpion
+  subtype: Machine Pistols
+  cost: 510
+  availability: "3(L)"
+  dv: "2P"
+  ar: "10/9/8/—/—"
+  fire_modes: "SA/BF"
+  ammo: "35(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Small and lethal. Burst Fire capable. Integral folding stock. Not designed for beauty."
+
+- name: Steyr TMP
+  subtype: Machine Pistols
+  cost: 690
+  availability: "3(L)"
+  dv: "2P"
+  ar: "8/8/6/—/—"
+  fire_modes: "SA/FA"
+  ammo: "30(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Lightweight polymer-frame with full auto. Top-mounted laser sight standard. Spray enough lead to make everyone duck."
+
+# Additional Submachine Guns
+- name: Colt Cobra TZ-100
+  subtype: Submachine Guns
+  cost: 730
+  availability: "2(L)"
+  dv: "3P"
+  ar: "9/9/6/—/—"
+  fire_modes: "SA/BF"
+  ammo: "32(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Base model with integral folding stock. Colt loves variety."
+
+- name: Colt Cobra TZ-110
+  subtype: Submachine Guns
+  cost: 785
+  availability: "2(L)"
+  dv: "3P"
+  ar: "10/10/7/—/—"
+  fire_modes: "SA/BF"
+  ammo: "32(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Adds top-mounted laser sight to the TZ-100."
+
+- name: Colt Cobra TZ-120
+  subtype: Submachine Guns
+  cost: 840
+  availability: "3(L)"
+  dv: "3P"
+  ar: "10/11/8/—/—"
+  fire_modes: "SA/BF"
+  ammo: "32(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Folding stock, laser sight, and gas-vent system. Hit with security forces and trid shows."
+
+- name: FN P93 Praetor
+  subtype: Submachine Guns
+  cost: 925
+  availability: "4(L)"
+  dv: "4P"
+  ar: "9/12/7/—/—"
+  fire_modes: "SA/BF/FA"
+  ammo: "50(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Unmistakable bullpup design. Integrated rigid stock, laser sight, flashlight with low-light, thermographic, or regular settings."
+
+- name: SCK Model 100
+  subtype: Submachine Guns
+  cost: 725
+  availability: "3(L)"
+  dv: "3P"
+  ar: "10/10/7/—/—"
+  fire_modes: "SA/BF"
+  ammo: "30(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Shin Chou Kyogo corp-suit equivalent of the Smartgun. Internal smartgun system and folding stock. Issued to Japanacorp security."
+
+- name: Uzi IV
+  subtype: Submachine Guns
+  cost: 455
+  availability: "2(L)"
+  dv: "3P"
+  ar: "8/8/7/—/—"
+  fire_modes: "SA/BF/FA"
+  ammo: "24(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Integral folding stock and built-in top-mounted laser sight. Big market entry for Spinrad Global."
+
+# Additional Shotguns
+- name: Mossberg CMDT
+  subtype: Shotguns
+  cost: 700
+  availability: "4(L)"
+  dv: "4P"
+  ar: "4/11/7/—/—"
+  fire_modes: "SA/BF"
+  ammo: "10(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Assault shotgun. Ten-round clips or twenty-four-round drum. Burst fire and top-mounted laser sight."
+
+- name: PJSS Model 55
+  subtype: Shotguns
+  cost: 325
+  availability: "5(L)"
+  dv: "4P"
+  ar: "3/12/8/—/—"
+  fire_modes: "SA/BF(short)"
+  ammo: "2(b)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Small production runs for rich European hunters. Both barrels can fire at once as short burst. Rigid stock with integrated shock pad."
+
+# Additional Rifles
+- name: Yamaha Raiden
+  subtype: Automatics
+  cost: 3200
+  availability: "5(L)"
+  dv: "4P"
+  ar: "4/11/10/7/2"
+  fire_modes: "SA/BF/FA"
+  ammo: "60(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Japanacorp security and Imperial Marines. Electronic firing, exceptional accuracy. Integral silencer, smartgun, underbarrel shotgun/grenade launcher."
+
+- name: Ares Desert Strike
+  subtype: Automatics
+  cost: 11000
+  availability: "4(I)"
+  dv: "5P"
+  ar: "3/10/10/10/10"
+  fire_modes: "SA/BF/FA"
+  ammo: "14(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Built for harsh conditions. Rigid stock with shock pad, detachable imaging scope. The Desert Strike for the Desert Wars."
+
+- name: Cavalier Arms Crockett EBR
+  subtype: Automatics
+  cost: 9050
+  availability: "5(I)"
+  dv: "5P"
+  ar: "3/8/11/8/8"
+  fire_modes: "SA/BF"
+  ammo: "20(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Sniper rifle capable of burst fire. Rigid stock with shock pad, detachable imaging scope. Stays accurate at long range."
+
+- name: Ranger Arms SM-5
+  subtype: Automatics
+  cost: 13200
+  availability: "5(I)"
+  dv: "5P"
+  ar: "3/6/9/11/12"
+  fire_modes: "SA"
+  ammo: "15(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Silently neutralizing targets. Silencer, imaging scope, smartgun system, rigid stock with shock pad. Fits in a briefcase."
+
+- name: Remington 900
+  subtype: Rifles
+  cost: 12000
+  availability: "3(L)"
+  dv: "5P"
+  ar: "2/7/10/12/11"
+  fire_modes: "SA"
+  ammo: "5(m)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "High-powered bolt-action hunting rifle. Classic wooden body. Sold with top-mounted imaging scope. Cannot mount underbarrel accessories."
+
+- name: Ruger 101
+  subtype: Rifles
+  cost: 11100
+  availability: "2(L)"
+  dv: "5P"
+  ar: "2/6/10/12/11"
+  fire_modes: "SA"
+  ammo: "8(m)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Futuretech in hunting-rifle format. Gas-operated. Built-in imaging scope and rigid stock with shock pad."
+
+- name: Barret Model 122
+  subtype: Rifles
+  cost: 15200
+  availability: "6(I)"
+  dv: "6P"
+  ar: "1/8/11/16/14"
+  fire_modes: "SA"
+  ammo: "10(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Shoot through the side of an APC. Excels at tearing through metal. Sound suppressor, smartgun system, folding bipod."
+
+# Machine Guns
+- name: Ingram Valiant
+  subtype: Machine Guns
+  cost: 4175
+  availability: "4(L)"
+  dv: "4P"
+  ar: "2/11/12/7/3"
+  fire_modes: "SA/BF/FA"
+  ammo: "50(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Light machine gun. Sits in mercenary units worldwide. Rigid stock with shock pad, laser sight, gas-vent system."
+
+- name: Stoner-Ares M202
+  subtype: Machine Guns
+  cost: 6900
+  availability: "4(L)"
+  dv: "5P"
+  ar: "1/10/11/7/6"
+  fire_modes: "SA/BF/FA"
+  ammo: "50(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Medium machine gun. Brutally simple. Often found in the hands of trolls. Accessorizing always an option."
+
+- name: RPK HMG
+  subtype: Machine Guns
+  cost: 8000
+  availability: "5(L)"
+  dv: "6P"
+  ar: "1/10/12/8/7"
+  fire_modes: "SA/BF/FA"
+  ammo: "50(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Heavy machine gun. Used by militaries across eastern Europe and Asia. Comes standard with detachable tripod. Best fired prone, sitting, or kneeling when not vehicle-mounted."
+
+- name: Panther XXL
+  subtype: Machine Guns
+  cost: 10000
+  availability: "6(I)"
+  dv: "7P"
+  ar: "1/9/12/8/6"
+  fire_modes: "SA"
+  ammo: "15(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Assault cannon. Bulky, ugly, deadly. Built-in smartgun system. The thing of nightmares on the street."
+
+# Special Weapons (Exotic)
+- name: Ares Super Squirt
+  subtype: Special
+  cost: 560
+  availability: "3(L)"
+  dv: "Special"
+  ar: "8/12/9/—/—"
+  fire_modes: "SS"
+  ammo: "20(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Glorified paintball marker firing DMSO gel packs. No damage; delivers Contact-vector toxin on hit. Accepts top and underbarrel accessories."
+
+- name: Parashield DART Pistol
+  subtype: Special
+  cost: 510
+  availability: "2"
+  dv: "1P + special"
+  ar: "9/10/8/—/—"
+  fire_modes: "SS"
+  ammo: "5(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Industry standard for dart weapons. Delivers drug or toxin payload. Top-mounted accessories only. Wireless: Dart reports whether it struck and injected."
+
+- name: Parashield DART Rifle
+  subtype: Special
+  cost: 710
+  availability: "3"
+  dv: "1P + special"
+  ar: "5/8/11/3/—"
+  fire_modes: "SS"
+  ammo: "6(m)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "DART rifle with top-mounted imaging scope. Can mount top and underbarrel accessories. Wireless: Dart reports injection status."
+
+# Launchers
+- name: Ares Antioch II
+  subtype: Launchers
+  cost: 5900
+  availability: "3(I)"
+  dv: "Grenade"
+  ar: "—/6/8/6/5"
+  fire_modes: "SS"
+  ammo: "8(m)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Fanciest tube with a trigger. Integral smartgun. Wireless trigger for launched projectiles. Wireless: Prevents detonation within 5m of weapon."
+
+- name: ArmTech MGL-6
+  subtype: Launchers
+  cost: 1800
+  availability: "4(I)"
+  dv: "Grenade"
+  ar: "—/8/8/3/—"
+  fire_modes: "SA"
+  ammo: "6(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Semi-auto grenade launcher, bullpup pistol style. Sends a whole lot of bad news downrange."
+
+- name: ArmTech MGL-12
+  subtype: Launchers
+  cost: 5000
+  availability: "4(I)"
+  dv: "Grenade"
+  ar: "—/8/9/6/2"
+  fire_modes: "SA"
+  ammo: "12(c)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Semi-auto grenade launcher, rifle style. High capacity."
+
+- name: Aztechnology Striker
+  subtype: Launchers
+  cost: 7000
+  availability: "5(I)"
+  dv: "Missile"
+  ar: "—/4/10/9/6"
+  fire_modes: "SS"
+  ammo: "1(ml)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Deadly and disposable. Launch tube reusable. Wireless: +1 dice pool bonus when connected to Matrix if no other bonus-applying systems in use."
+
+- name: Onotari Interceptor
+  subtype: Launchers
+  cost: 9000
+  availability: "5(I)"
+  dv: "Missile"
+  ar: "—/5/9/10/8"
+  fire_modes: "SS"
+  ammo: "2(ml)"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Multipurpose missile launcher. Two barrels, two missiles. Internal smartgun controls fire-safety. Firing both: split attack dice pool, resist 6P Fire. Wireless: Smartlink bonus."
+
+# Thrown / Projectile
+- name: Bow
+  subtype: Thrown
+  cost: 150
+  availability: "(Rating/3)(L)"
+  dv: "(Rating/2)P"
+  ar: "(Rating/3)/(Rating)/(Rating/4)/—/—"
+  fire_modes: "SS"
+  ammo: "—"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Traditional longbow to modern compound. Rating = min Strength, max damage 14. Nocking arrow: Minor Action. Hacker-proof without fancy add-ons."
+
+- name: Arrow
+  subtype: Thrown
+  cost: 10
+  availability: "(Rating/3)"
+  dv: "—"
+  ar: "—"
+  fire_modes: "—"
+  ammo: "—"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Ammunition for bow. Rating must equal or exceed bow's. Cost is Rating x 2¥."
+
+- name: Injection Arrow
+  subtype: Thrown
+  cost: 160
+  availability: "4"
+  dv: "—"
+  ar: "—"
+  fire_modes: "—"
+  ammo: "—"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Delivers drug or toxin payload. Base rating 8. Requires 1 net hit for injection; 1 box damage for full effect. Wireless: Injection can be delayed."
+
+- name: Crossbow, Light
+  subtype: Thrown
+  cost: 150
+  availability: "3"
+  dv: "2P"
+  ar: "6/8/2/—/—"
+  fire_modes: "SS"
+  ammo: "4"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Single-handed. Autoloading, internal magazine holds up to 4 bolts."
+
+- name: Crossbow, Standard
+  subtype: Thrown
+  cost: 290
+  availability: "3(L)"
+  dv: "3P"
+  ar: "2/10/4/2/—"
+  fire_modes: "SS"
+  ammo: "4"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Two-handed. Autoloading, internal magazine."
+
+- name: Crossbow, Heavy
+  subtype: Thrown
+  cost: 425
+  availability: "4(L)"
+  dv: "4P"
+  ar: "2/8/6/4/—"
+  fire_modes: "SS"
+  ammo: "4"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Two-handed. Autoloading, internal magazine."
+
+- name: Bolt
+  subtype: Thrown
+  cost: 5
+  availability: "2"
+  dv: "—"
+  ar: "—"
+  fire_modes: "—"
+  ammo: "—"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Ammunition for crossbows."
+
+- name: Injection Bolt
+  subtype: Thrown
+  cost: 50
+  availability: "4"
+  dv: "—"
+  ar: "—"
+  fire_modes: "—"
+  ammo: "—"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Crossbow bolt that delivers drug or toxin payload. Base rating 8."
+
+- name: Throwing Knives
+  subtype: Thrown
+  cost: 155
+  availability: "2"
+  dv: "2P"
+  ar: "10/9/3/—/—"
+  fire_modes: "SS"
+  ammo: "—"
+  accessories: []
+  source: "Core Rulebook"
+  description: "From stars to spikes. Athletics (Throwing) skill. Commonly sold in sets of five."
+
+- name: Throwing Stars
+  subtype: Thrown
+  cost: 160
+  availability: "2"
+  dv: "2P"
+  ar: "9/11/5/—/—"
+  fire_modes: "SS"
+  ammo: "—"
+  accessories: []
+  source: "Core Rulebook"
+  description: "Shuriken and similar. Athletics (Throwing) skill."

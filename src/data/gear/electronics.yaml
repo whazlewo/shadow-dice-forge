@@ -110,3 +110,94 @@
   notes: "A/S 9/8. 12 program slots. Hot-sim. Illegal."
   source: "Core Rulebook"
   description: "The pinnacle of cyberdeck technology. Twelve program slots. Best attack and sleaze available. The dream of every decker. Illegal for private ownership."
+
+# --- Rigger Command Consoles (RCCs) - Rigging p. 197-198 ---
+- name: Scratch-built junk
+  cost: 1400
+  availability: "1(L)"
+  device_rating: 1
+  programs: "—"
+  notes: "DP 3, F 2. Budget RCC for riggers on a shoestring."
+  source: "Core Rulebook"
+  description: "Homemade rigger command console. Lowest tier. Gets the job done for riggers who can't afford better. Can slave Rating x 3 drones."
+
+- name: Allegiance Control Center
+  cost: 8000
+  availability: "3(L)"
+  device_rating: 2
+  programs: "—"
+  notes: "DP 3, F 3."
+  source: "Core Rulebook"
+  description: "Entry-level commercial RCC. Reliable performance for aspiring riggers."
+
+- name: Essy Motors DroneMaster
+  cost: 16000
+  availability: "3(L)"
+  device_rating: 3
+  programs: "—"
+  notes: "DP 4, F 4."
+  source: "Core Rulebook"
+  description: "Mid-range RCC from Essy Motors. Solid data processing and firewall for serious riggers."
+
+- name: Horizon Overseer
+  cost: 32000
+  availability: "4(L)"
+  device_rating: 4
+  programs: "—"
+  notes: "DP 5, F 4."
+  source: "Core Rulebook"
+  description: "Professional RCC. Strong data processing. Popular with corporate and freelance riggers."
+
+- name: Maersk Spider
+  cost: 34000
+  availability: "5(L)"
+  device_rating: 4
+  programs: "—"
+  notes: "DP 4, F 5."
+  source: "Core Rulebook"
+  description: "RCC with emphasis on firewall. Good for riggers operating in hostile Matrix environments."
+
+- name: Vulcan Liegelord
+  cost: 66000
+  availability: "5(L)"
+  device_rating: 5
+  programs: "—"
+  notes: "DP 6, F 5."
+  source: "Core Rulebook"
+  description: "High-end RCC. Excellent data processing for riggers running large drone swarms."
+
+- name: Proteus Poseidon
+  cost: 68000
+  availability: "6(L)"
+  device_rating: 5
+  programs: "—"
+  notes: "DP 5, F 6."
+  source: "Core Rulebook"
+  description: "High-end RCC with strong firewall. Favored by security riggers and military contractors."
+
+- name: Transys Eidolon
+  cost: 75000
+  availability: "7(L)"
+  device_rating: 6
+  programs: "—"
+  notes: "DP 6, F 5."
+  source: "Core Rulebook"
+  description: "Top-tier RCC. Balanced attributes for professional riggers."
+
+- name: Ares Red Dog Series
+  cost: 95000
+  availability: "8(L)"
+  device_rating: 6
+  programs: "—"
+  notes: "DP 7, F 6."
+  source: "Core Rulebook"
+  description: "Military-grade RCC. Maximum data processing for combat riggers."
+
+- name: Aztechnology Tlaloc
+  cost: 140000
+  availability: "9(L)"
+  device_rating: 6
+  programs: "—"
+  notes: "DP 8, F 7."
+  source: "Core Rulebook"
+  description: "The pinnacle of RCC technology. Best attributes available. For riggers who spare no expense."

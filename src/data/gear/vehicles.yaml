@@ -188,3 +188,16 @@
   seats: 6
   source: "Core Rulebook"
   description: "Luxury SUV. Combines off-road capability with corporate comfort. Armored variants available. Favored by executives who need to traverse rough terrain in style."
+
+- name: Ares Roadmaster
+  cost: 68000
+  availability: "2"
+  handling: "5/7"
+  speed: "8"
+  body: 18
+  armor: 16
+  sensor: 2
+  pilot: 2
+  seats: "2/12"
+  source: "Core Rulebook"
+  description: "Long-haul commercial van built like a tank. Used across wide-open spaces full of go-gangs and nomadic hunters. Heavily armored and designed for easy installation of a pair of remote turrets. Security firms use them to transport valuables."

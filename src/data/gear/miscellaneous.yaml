@@ -148,3 +148,153 @@
   dice_modifiers: []
   source: "Core Rulebook"
   description: "Wireless detonator. Trigger remotely via commlink. More convenient but creates a Matrix signature. Can be jammed or hacked."
+
+# ID and Licenses
+- name: Fake license (Rating 1)
+  cost: 200
+  availability: "4(I)"
+  notes: "Fake permit for restricted items; rating vs verification"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Fake license for restricted items and activities. Must be assigned to a fake SIN. Rating used against verification systems. Ratings 1-6, cannot exceed attached SIN's rating."
+
+# Communications & Countermeasures
+- name: Bug scanner
+  cost: 200
+  availability: "3"
+  notes: "Detects surveillance devices"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Scans for and detects bugs, wiretaps, and other surveillance devices. Essential for secure meetings."
+
+- name: Data tap
+  cost: 300
+  availability: "2"
+  notes: "Physical access to wired data"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Device for physically tapping into wired data connections. Used to intercept or inject data on hardlines."
+
+- name: Headjammer (Rating 1)
+  cost: 150
+  availability: "5(I)"
+  notes: "Jams wireless in radius"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Illegal device that jams wireless signals within its rating in meters. Disrupts commlinks, drones, and other wireless devices."
+
+- name: Jammer, area (Rating 1)
+  cost: 200
+  availability: "4(L)"
+  notes: "Area wireless jammer"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Jams wireless communications in an area. Rating determines radius and effectiveness. Restricted."
+
+- name: Jammer, directional (Rating 1)
+  cost: 200
+  availability: "4(L)"
+  notes: "Directional wireless jammer"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Directional jammer that targets a specific area or direction. More focused than area jammer. Restricted."
+
+- name: Micro-transceiver
+  cost: 100
+  availability: "1"
+  notes: "Short-range communicator"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Short-range communicator for team comms. Doesn't connect to the Matrix. Essential for runners operating in wireless-dead zones."
+
+# Credsticks
+- name: Credstick (Standard)
+  cost: 5
+  availability: "1"
+  notes: "Max 5,000¥; untraceable funds"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Untraceable storage for nuyen. Not registered. Funds belong to holder. Slot into universal data connector to transfer. Standard holds up to 5,000¥."
+
+- name: Credstick (Silver)
+  cost: 20
+  availability: "1"
+  notes: "Max 20,000¥"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Holds up to 20,000¥. Popular with shadowrunners for larger payments."
+
+- name: Credstick (Gold)
+  cost: 100
+  availability: "2"
+  notes: "Max 100,000¥"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Holds up to 100,000¥. For serious transactions."
+
+# Tools
+- name: Kit
+  cost: 500
+  availability: "1"
+  notes: "Portable repair kit; skill-specific"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Portable kit for standard repairs. Required for active use of repair skills in the field. Bought per skill (Electronics, Biotech, Engineering, etc.)."
+
+- name: Shop
+  cost: 5000
+  availability: "4"
+  notes: "Van-transportable; +1 dice to repairs"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Advanced tools transportable in a van. +1 dice pool modifier for appropriate repair tests on site. Stocked with standard spare parts."
+
+- name: Facility
+  cost: 50000
+  availability: "7"
+  notes: "Immobile; +1 dice, bonus Edge, Edge for Extended tests"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Building with bulky machines. Immobile. Same bonus as shop plus bonus Edge. Edge can be used for Extended tests within the facility."
+
+# Optical and Imaging Devices
+- name: Contacts (Rating 1)
+  cost: 200
+  availability: "2"
+  notes: "Capacity 1 for vision enhancements; nearly undetectable"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Worn on eyes, nearly undetectable. Capacity for vision enhancements. Must be wireless. Capacity x 200¥."
+
+- name: Glasses (Rating 1)
+  cost: 100
+  availability: "1"
+  notes: "Capacity 1 for vision enhancements"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Lightweight frames. Hard to distinguish from prescription or sunglasses. Capacity for vision enhancements. Capacity x 100¥."
+
+- name: Goggles (Rating 1)
+  cost: 50
+  availability: "1"
+  notes: "Capacity 1; bulky, hard to dislodge"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Strapped to head, difficult to dislodge. Wide array of vision enhancements. Capacity x 50¥."
+
+- name: Endoscope
+  cost: 250
+  availability: "3"
+  notes: "Fiber-optic cable, look around corners"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Fiber-optic cable at least 1m long. Myomeric rope and optical lens. Look around corners, under doors, into narrow spaces."
+
+# Magical Supplies
+- name: Reagents (per dram)
+  cost: 50
+  availability: "2"
+  notes: "For spellcasting, alchemy, rituals"
+  dice_modifiers: []
+  source: "Core Rulebook"
+  description: "Naturally occurring items that channel mana. Used in spellcasting to reduce Drain, in rituals, and in alchemical preparations. Sold per dram."

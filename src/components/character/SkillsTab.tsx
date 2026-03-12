@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Trash2, ChevronDown, ChevronRight, Pencil, Check } from "lucide-react";
+import { Plus, Trash2, ChevronDown, ChevronRight, Pencil, Check, Info } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import type { SR6Skill, SR6Attributes, SR6Quality, SR6Augmentation, SR6Gear, DicePoolBreakdown } from "@/types/character";
 import { SR6_CORE_SKILLS } from "@/types/character";
+import { SKILL_DESCRIPTIONS } from "@/data/sr6-reference";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { calculateDicePool } from "@/lib/dice-pool";
 import { skillKarmaCost, SPECIALIZATION_KARMA_COST, EXPERTISE_KARMA_COST } from "@/lib/karma";
 
@@ -21,33 +23,52 @@ interface Props {
   onUpdate: (skills: SR6Skill[], karmaInfo?: { description: string; cost: number; field: string }) => void;
 }
 
+const ATTR_ABBREV: Record<string, string> = {
+  body: "BOD", agility: "AGI", reaction: "REA", strength: "STR", willpower: "WIL",
+  logic: "LOG", intuition: "INT", charisma: "CHA", edge: "EDG", essence: "ESS",
+  magic: "MAG", resonance: "RES",
+};
+
 function ReadOnlySkillRow({ skill, pool }: { skill: SR6Skill; pool: DicePoolBreakdown }) {
   const hasExtras = !!(skill.specialization || skill.expertise);
+  const attrType = ATTR_ABBREV[pool.attribute_name.toLowerCase()] ?? pool.attribute_name.slice(0, 3).toUpperCase();
+  const description = SKILL_DESCRIPTIONS[skill.name];
   return (
-    <div className="flex flex-col gap-0.5 px-2 py-1.5 rounded-md bg-muted/30">
-      <div className="flex items-center gap-3">
-        <span className="font-display tracking-wider text-xs w-40 truncate">{skill.name}</span>
-        <span className="font-mono text-[11px] text-muted-foreground">
-          {pool.skill_rating} + {pool.attribute_value}
-          <span className="uppercase ml-0.5">({pool.attribute_name.slice(0, 3)})</span>
+    <tr className="border-b border-border/30 last:border-0 hover:bg-muted/20">
+      <td className="py-1.5 pr-2">
+        <span className="inline-flex items-center gap-1">
+          <span className="font-display tracking-wider text-xs">{skill.name}</span>
+          {description && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="h-3 w-3 text-muted-foreground/60 cursor-help shrink-0" />
+              </TooltipTrigger>
+              <TooltipContent side="right" className="max-w-64 text-xs">
+                {description}
+              </TooltipContent>
+            </Tooltip>
+          )}
         </span>
-        <span className="ml-auto font-mono text-sm font-bold text-primary neon-glow-cyan">{pool.total}d6</span>
-      </div>
-      {hasExtras && (
-        <div className="flex items-center gap-1.5 ml-1">
-          {skill.specialization && (
-            <span className="inline-flex items-center rounded-full bg-primary/10 text-primary px-2 py-0.5 text-[10px] font-mono">
-              Spec: {skill.specialization} +2
-            </span>
-          )}
-          {skill.expertise && (
-            <span className="inline-flex items-center rounded-full bg-accent/50 text-accent-foreground px-2 py-0.5 text-[10px] font-mono">
-              Exp: {skill.expertise} +3
-            </span>
-          )}
-        </div>
-      )}
-    </div>
+        {hasExtras && (
+          <div className="flex flex-wrap gap-1 mt-0.5">
+            {skill.specialization && (
+              <span className="inline-flex rounded-full bg-primary/10 text-primary px-1.5 py-0.5 text-[9px] font-mono">
+                {skill.specialization} +2
+              </span>
+            )}
+            {skill.expertise && (
+              <span className="inline-flex rounded-full bg-accent/50 text-accent-foreground px-1.5 py-0.5 text-[9px] font-mono">
+                {skill.expertise} +3
+              </span>
+            )}
+          </div>
+        )}
+      </td>
+      <td className="py-1.5 px-2 font-mono text-xs text-center w-12">{pool.skill_rating}</td>
+      <td className="py-1.5 px-2 font-mono text-xs text-center w-12">{pool.attribute_value}</td>
+      <td className="py-1.5 px-2 font-mono text-[10px] text-muted-foreground uppercase w-10">{attrType}</td>
+      <td className="py-1.5 pl-2 font-mono text-sm font-bold text-primary neon-glow-cyan">{pool.total}d6</td>
+    </tr>
   );
 }
 
@@ -125,17 +146,36 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent>
         {skills.length === 0 && (
           <p className="text-muted-foreground text-sm text-center py-6">No skills added yet.</p>
         )}
 
-        {!editing
-          ? skills.map((skill) => {
-              const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier);
-              return <ReadOnlySkillRow key={skill.id} skill={skill} pool={pool} />;
-            })
-          : skills.map((skill, index) => {
+        {!editing && skills.length > 0 && (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-border/50">
+                  <th className="font-display text-[10px] uppercase tracking-widest text-muted-foreground py-2 pr-2">Skill</th>
+                  <th className="font-display text-[10px] uppercase tracking-widest text-muted-foreground py-2 px-2 text-center w-12">RNK</th>
+                  <th className="font-display text-[10px] uppercase tracking-widest text-muted-foreground py-2 px-2 text-center w-12">ATT</th>
+                  <th className="font-display text-[10px] uppercase tracking-widest text-muted-foreground py-2 px-2 w-10">Type</th>
+                  <th className="font-display text-[10px] uppercase tracking-widest text-muted-foreground py-2 pl-2">Pool</th>
+                </tr>
+              </thead>
+              <tbody>
+                {skills.map((skill) => {
+                  const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier);
+                  return <ReadOnlySkillRow key={skill.id} skill={skill} pool={pool} />;
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {editing && (
+          <div className="space-y-2">
+            {skills.map((skill, index) => {
               const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier);
               const isExpanded = expandedSkill === skill.id;
 
@@ -148,22 +188,34 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
                       </Button>
                     </CollapsibleTrigger>
 
-                    <Select
-                      value={skill.name}
-                      onValueChange={(v) => {
-                        const match = SR6_CORE_SKILLS.find((s) => s.name === v);
-                        updateSkill(index, { name: v, attribute: match?.attribute || skill.attribute });
-                      }}
-                    >
-                      <SelectTrigger className="w-40 h-8 text-xs font-display tracking-wider">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {SR6_CORE_SKILLS.map((s) => (
-                          <SelectItem key={s.name} value={s.name}>{s.name}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="flex items-center gap-1">
+                      <Select
+                        value={skill.name}
+                        onValueChange={(v) => {
+                          const match = SR6_CORE_SKILLS.find((s) => s.name === v);
+                          updateSkill(index, { name: v, attribute: match?.attribute || skill.attribute });
+                        }}
+                      >
+                        <SelectTrigger className="w-40 h-8 text-xs font-display tracking-wider">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {SR6_CORE_SKILLS.map((s) => (
+                            <SelectItem key={s.name} value={s.name}>{s.name}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {SKILL_DESCRIPTIONS[skill.name] && (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Info className="h-3 w-3 text-muted-foreground/60 cursor-help shrink-0" />
+                          </TooltipTrigger>
+                          <TooltipContent side="right" className="max-w-64 text-xs">
+                            {SKILL_DESCRIPTIONS[skill.name]}
+                          </TooltipContent>
+                        </Tooltip>
+                      )}
+                    </div>
 
                     <Input
                       type="number"
@@ -273,6 +325,8 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
                 </Collapsible>
               );
             })}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

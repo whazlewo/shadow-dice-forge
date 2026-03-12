@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
@@ -8,26 +7,39 @@ import { useMemo } from "react";
 
 type AttrField = { key: keyof SR6Attributes; label: string; type?: string };
 
-const LEFT_COLUMN: AttrField[] = [
-  { key: "body", label: "Body" },
-  { key: "agility", label: "Agility" },
-  { key: "reaction", label: "Reaction" },
-  { key: "strength", label: "Strength" },
-  { key: "willpower", label: "Willpower" },
-  { key: "logic", label: "Logic" },
-  { key: "intuition", label: "Intuition" },
-  { key: "charisma", label: "Charisma" },
-  { key: "edge", label: "Edge" },
-  { key: "edge_points", label: "Edge Points" },
-  { key: "unarmed", label: "Unarmed", type: "text" },
-];
+/** Attribute descriptions from the SR6 rulebook */
+const ATTR_TOOLTIPS: Record<string, string> = {
+  body: "General sturdiness, integrity, and health. Used for resisting damage and toxins.",
+  agility: "Nimbleness, speed, flexibility, and hand-eye coordination. Key for combat and athletics.",
+  reaction: "Quickness, the ability to respond with alacrity. Key defensive attribute; used in piloting and vehicle/drone control.",
+  strength: "Raw muscle power—ability to lift, carry, and punch. Important in Athletics and unarmed combat.",
+  willpower: "Ability to persevere through hardship, pushing through pain, deception, and obstacles. Important for magic users and resisting attacks/illusions.",
+  logic: "The coldly calculating part of the mind—rational, analytical, puzzle-solving. Used by deckers and technomancers.",
+  intuition: "Gut instinct, sudden inspiration, flash of insight. Helps react to danger, perceive threats, resist magic.",
+  charisma: "The pull you exert on others—looks, speaking ability, fashion sense, power. Important for persuading others.",
+  edge: "Combination of guts, risk, and heedless ignorance of danger. Lets shadowrunners survive where others do not.",
+  essence: "Capacity for cyberware and bioware. Magic use is limited as Essence declines; healing magic has less effect with more augmentations.",
+  magic: "Magic: strength in channeling mana for Awakened characters. Resonance: strength in manipulating the Matrix for technomancers.",
+  resonance: "Strength in manipulating the Matrix for technomancers. Exclusive to technomancers.",
+  edge_points: "Current Edge available to spend. Regained through gameplay.",
+  unarmed: "Unarmed attack rating for melee combat.",
+};
 
-const RIGHT_EDITABLE: AttrField[] = [
-  { key: "essence", label: "Essence", type: "number" },
-  { key: "magic", label: "Magic/Resonance" },
+/** Attribute + paired derived stat per official sheet layout */
+const PAIRED_ATTRS: { attr: AttrField; derivedKey: string }[] = [
+  { attr: { key: "body", label: "Body" }, derivedKey: "essence" },
+  { attr: { key: "agility", label: "Agility" }, derivedKey: "magic" },
+  { attr: { key: "reaction", label: "Reaction" }, derivedKey: "initiative" },
+  { attr: { key: "strength", label: "Strength" }, derivedKey: "matrix_initiative" },
+  { attr: { key: "willpower", label: "Willpower" }, derivedKey: "astral_initiative" },
+  { attr: { key: "logic", label: "Logic" }, derivedKey: "composure" },
+  { attr: { key: "intuition", label: "Intuition" }, derivedKey: "edge_points" },
+  { attr: { key: "charisma", label: "Charisma" }, derivedKey: "memory" },
+  { attr: { key: "edge", label: "Edge" }, derivedKey: "movement" },
 ];
 
 interface DerivedStat {
+  key: string;
   label: string;
   value: string;
   tooltip?: string;
@@ -88,15 +100,15 @@ function computeDerived(
   initLines.push(`Total: ${initScore}+${totalInitDice}D6`);
 
   return [
-    { label: "Initiative", value: `${initScore}+${totalInitDice}D6`, tooltip: initLines.join("\n") },
-    { label: "Matrix Initiative", value: `${a.resonance ? (int + (a.resonance || 0)) : int}+${a.resonance ? "4" : "2"}D6`, tooltip: "Depends on interface mode" },
-    { label: "Astral Initiative", value: a.magic ? `${int + int}+3D6` : "—", tooltip: "INT×2 + 3D6 (if magical)" },
-    { label: "Composure", value: `${wil + cha}`, tooltip: "WIL + CHA" },
-    { label: "Judge Intentions", value: `${wil + int}`, tooltip: "WIL + INT" },
-    { label: "Memory", value: `${log + wil}`, tooltip: "LOG + WIL" },
-    { label: "Lift/Carry", value: `${str + bod}(${(str + bod) * 2})`, tooltip: "STR + BOD (carry), ×2 (lift)" },
-    { label: "Movement", value: `${Math.max(1, Math.floor((rea + str) / 2))}m`, tooltip: "Walk = (REA+STR)/2" },
-    { label: "Defense Rating", value: `${totalDR}`, tooltip: drLines.join("\n") },
+    { key: "initiative", label: "Initiative", value: `${initScore}+${totalInitDice}D6`, tooltip: initLines.join("\n") },
+    { key: "matrix_initiative", label: "Matrix Initiative", value: `${a.resonance ? (int + (a.resonance || 0)) : int}+${a.resonance ? "4" : "2"}D6`, tooltip: "Depends on interface mode" },
+    { key: "astral_initiative", label: "Astral Initiative", value: a.magic ? `${int + int}+3D6` : "—", tooltip: "INT×2 + 3D6 (if magical)" },
+    { key: "composure", label: "Composure", value: `${wil + cha}`, tooltip: "WIL + CHA" },
+    { key: "judge_intentions", label: "Judge Intentions", value: `${wil + int}`, tooltip: "WIL + INT" },
+    { key: "memory", label: "Memory", value: `${log + wil}`, tooltip: "LOG + WIL" },
+    { key: "lift_carry", label: "Lift/Carry", value: `${str + bod}(${(str + bod) * 2})`, tooltip: "STR + BOD (carry), ×2 (lift)" },
+    { key: "movement", label: "Movement", value: `${Math.max(1, Math.floor((rea + str) / 2))}m`, tooltip: "Walk = (REA+STR)/2" },
+    { key: "defense_rating", label: "Defense Rating", value: `${totalDR}`, tooltip: drLines.join("\n") },
   ];
 }
 
@@ -122,29 +134,26 @@ function collectDiceModifiers(
   return mods;
 }
 
-function buildAttrTooltip(
+/** Build tooltip showing how an attribute value was calculated */
+function buildAttrValueTooltip(
   key: keyof SR6Attributes,
   value: any,
   sources?: AttributeSources,
   augmentations?: SR6Augmentation[],
   gear?: SR6Gear[],
+  qualities?: SR6Quality[],
 ): string {
-  const gearMods = collectDiceModifiers(key, [], augmentations, gear);
+  const gearMods = collectDiceModifiers(key, qualities || [], augmentations, gear);
   const src = sources?.[key as keyof typeof sources];
-
-  if (!src) {
-    const lines = [`Total: ${value}`];
-    gearMods.forEach((m) => lines.push(`${m.source}: ${m.value > 0 ? "+" : ""}${m.value}`));
-    return lines.join("\n");
-  }
 
   const lines: string[] = [];
   if (key === "essence") {
-    lines.push(`Base: ${src.base}`);
-    // Essence loss shown as difference
-    const loss = src.base - (typeof value === "number" ? value : 6);
+    const base = src?.base ?? 6;
+    lines.push(`Base: ${base}`);
+    const numVal = typeof value === "number" ? value : 6;
+    const loss = base - numVal;
     if (loss > 0) lines.push(`Augmentations: -${loss.toFixed(1)}`);
-  } else {
+  } else if (src) {
     lines.push(`Base: ${src.base}`);
     if (src.adjustment) lines.push(`Metatype Adj: +${src.adjustment}`);
     if (src.attribute_points) lines.push(`Attr Points: +${src.attribute_points}`);
@@ -162,117 +171,152 @@ interface Props {
   gear?: SR6Gear[];
   armor?: SR6Armor[];
   qualities?: SR6Quality[];
-  onUpdate: (attrs: SR6Attributes) => void;
+  onUpdate?: (attrs: SR6Attributes) => void;
 }
 
-function EditableRow({
-  field,
-  value,
-  tooltipText,
-  onChange,
+const THIRD_COLUMN_KEYS = ["unarmed", "judge_intentions", "lift_carry", "defense_rating"];
+
+function LabelWithTooltip({ label, definition, valueTooltip }: { label: string; definition?: string; valueTooltip?: string }) {
+  const hasTooltip = definition || valueTooltip;
+  return (
+    <>
+      <Label className="font-display text-xs tracking-wide text-muted-foreground text-left">
+        {label}
+      </Label>
+      {hasTooltip && (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Info className="h-3 w-3 text-muted-foreground/60 cursor-help shrink-0" />
+          </TooltipTrigger>
+          <TooltipContent side="left" className="max-w-[260px] text-xs whitespace-pre-line">
+            {definition && <span className="font-normal">{definition}</span>}
+            {definition && valueTooltip && <>{"\n\n"}</>}
+            {valueTooltip && <span className="font-mono text-muted-foreground">{valueTooltip}</span>}
+          </TooltipContent>
+        </Tooltip>
+      )}
+    </>
+  );
+}
+
+function PairedAttrRow({
+  attrField,
+  attrValue,
+  derivedLabel,
+  derivedValue,
+  derivedKey,
+  attrValueTooltip,
+  derivedValueTooltip,
+  thirdCol,
 }: {
-  field: AttrField;
-  value: any;
-  tooltipText?: string;
-  onChange: (key: keyof SR6Attributes, val: string) => void;
+  attrField: AttrField;
+  attrValue: any;
+  derivedLabel: string;
+  derivedValue: string | number;
+  derivedKey: string;
+  attrValueTooltip?: string;
+  derivedValueTooltip?: string;
+  thirdCol?: { label: string; value: string | number; valueTooltip?: string; definition?: string } | null;
 }) {
-  const isText = field.type === "text";
+  const attrDisplay = attrValue ?? (attrField.type === "text" ? "—" : 0);
+  const derivedDisplay = derivedValue ?? "—";
+  const attrDefinition = ATTR_TOOLTIPS[attrField.key];
+  const derivedDefinition = ATTR_TOOLTIPS[derivedKey] || DERIVED_TOOLTIPS[derivedKey];
+
+  const cell = "flex items-center border-b border-border/30 py-1 min-w-0";
+  const spacer = "border-b border-border/30";
+  const labelCell = `${cell} justify-start gap-1`;
+  const valueCell = `${cell} font-mono text-sm h-8 px-1 text-foreground`;
   return (
-    <div className="flex items-center gap-2 border-b border-border/30 py-1">
-      <Label className="font-display text-xs tracking-wide text-muted-foreground text-right min-w-[110px] shrink-0 flex items-center justify-end gap-1">
-        {field.label}
-        {tooltipText && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info className="h-3 w-3 text-muted-foreground/60 cursor-help shrink-0" />
-            </TooltipTrigger>
-            <TooltipContent side="left" className="font-mono text-xs whitespace-pre-line">
-              {tooltipText}
-            </TooltipContent>
-          </Tooltip>
-        )}
-      </Label>
-      <Input
-        type={isText ? "text" : "number"}
-        value={value ?? (isText ? "" : 0)}
-        onChange={(e) => onChange(field.key, e.target.value)}
-        className="font-mono text-sm h-8 bg-transparent border-none p-1 focus-visible:ring-0"
-        min={field.key === "essence" ? 0 : undefined}
-        step={field.key === "essence" ? 0.1 : undefined}
-      />
-    </div>
+    <>
+      <div className={labelCell}>
+        <LabelWithTooltip label={attrField.label} definition={attrDefinition} valueTooltip={attrValueTooltip} />
+      </div>
+      <span className={`${valueCell} justify-end`}>{attrDisplay}</span>
+      <div className={spacer} aria-hidden />
+      <div className={labelCell}>
+        <LabelWithTooltip label={derivedLabel} definition={derivedDefinition} valueTooltip={derivedValueTooltip} />
+      </div>
+      <span className={`${valueCell} justify-start`}>{derivedDisplay}</span>
+      <div className={spacer} aria-hidden />
+      {thirdCol ? (
+        <>
+          <div className={labelCell}>
+            <LabelWithTooltip label={thirdCol.label} definition={thirdCol.definition} valueTooltip={thirdCol.valueTooltip} />
+          </div>
+          <span className={`${valueCell} justify-end`}>{thirdCol.value ?? "—"}</span>
+        </>
+      ) : (
+        <>
+          <div className={spacer} aria-hidden />
+          <div className={spacer} aria-hidden />
+        </>
+      )}
+    </>
   );
 }
 
-function DerivedRow({ stat }: { stat: DerivedStat }) {
-  return (
-    <div className="flex items-center gap-2 border-b border-border/30 py-1">
-      <Label className="font-display text-xs tracking-wide text-muted-foreground text-right min-w-[110px] shrink-0 flex items-center justify-end gap-1">
-        {stat.label}
-        {stat.tooltip && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info className="h-3 w-3 text-muted-foreground/60 cursor-help shrink-0" />
-            </TooltipTrigger>
-            <TooltipContent side="left" className="font-mono text-xs">
-              {stat.tooltip}
-            </TooltipContent>
-          </Tooltip>
-        )}
-      </Label>
-      <span className="font-mono text-sm h-8 flex items-center px-1 text-foreground">
-        {stat.value}
-      </span>
-    </div>
-  );
-}
+const DERIVED_TOOLTIPS: Record<string, string> = {
+  initiative: "REA + INT + dice. Determines how many actions you get per combat round.",
+  matrix_initiative: "Matrix initiative for deckers/technomancers. Depends on interface mode.",
+  astral_initiative: "INT×2 + 3D6 for astral combat. Only for magical characters.",
+  composure: "WIL + CHA. Used for resisting social manipulation.",
+  judge_intentions: "WIL + INT. Used to read another's intentions.",
+  memory: "LOG + WIL. Used for memory-related tests.",
+  movement: "Walk speed in meters. (REA + STR) / 2.",
+  lift_carry: "STR + BOD for carry capacity; ×2 for lift.",
+  defense_rating: "BOD + armor rating. Used for Damage Resistance tests.",
+};
 
-export function AttributesTab({ attributes, attributeSources, augmentations, gear, armor, qualities, onUpdate }: Props) {
+export function AttributesTab({ attributes, attributeSources, augmentations, gear, armor, qualities = [] }: Props) {
   const derived = useMemo(() => computeDerived(attributes, armor, qualities, augmentations, gear), [attributes, armor, qualities, augmentations, gear]);
+  const derivedByKey = useMemo(() => Object.fromEntries(derived.map((d) => [d.key, d])), [derived]);
 
-  const handleChange = (key: keyof SR6Attributes, value: string) => {
-    const field = [...LEFT_COLUMN, ...RIGHT_EDITABLE].find((f) => f.key === key);
-    const isText = field?.type === "text";
-    if (isText) {
-      onUpdate({ ...attributes, [key]: value });
-    } else {
-      const num = parseFloat(value) || 0;
-      onUpdate({ ...attributes, [key]: key === "essence" ? num : Math.max(0, Math.floor(num)) });
+  const getDerivedFor = (derivedKey: string): { label: string; value: string | number; valueTooltip?: string } => {
+    if (derivedKey === "essence" || derivedKey === "magic" || derivedKey === "edge_points") {
+      const labels: Record<string, string> = { essence: "Essence", magic: "Magic/Resonance", edge_points: "Edge Points" };
+      const value = attributes[derivedKey as keyof SR6Attributes] ?? (derivedKey === "essence" ? 6 : 0);
+      return {
+        label: labels[derivedKey] ?? derivedKey,
+        value,
+        valueTooltip: buildAttrValueTooltip(derivedKey as keyof SR6Attributes, value, attributeSources, augmentations, gear, qualities),
+      };
     }
+    const d = derivedByKey[derivedKey];
+    return d ? { label: d.label, value: d.value, valueTooltip: d.tooltip } : { label: derivedKey, value: "—" };
   };
 
+  const thirdColItems: { label: string; value: string | number; valueTooltip?: string; definition?: string }[] = [
+    { label: "Unarmed", value: attributes.unarmed ?? "—", valueTooltip: buildAttrValueTooltip("unarmed", attributes.unarmed, attributeSources, augmentations, gear, qualities), definition: ATTR_TOOLTIPS.unarmed },
+    ...(derivedByKey.judge_intentions ? [{ label: derivedByKey.judge_intentions.label, value: derivedByKey.judge_intentions.value, valueTooltip: derivedByKey.judge_intentions.tooltip, definition: DERIVED_TOOLTIPS.judge_intentions }] : []),
+    ...(derivedByKey.lift_carry ? [{ label: derivedByKey.lift_carry.label, value: derivedByKey.lift_carry.value, valueTooltip: derivedByKey.lift_carry.tooltip, definition: DERIVED_TOOLTIPS.lift_carry }] : []),
+    ...(derivedByKey.defense_rating ? [{ label: derivedByKey.defense_rating.label, value: derivedByKey.defense_rating.value, valueTooltip: derivedByKey.defense_rating.tooltip, definition: DERIVED_TOOLTIPS.defense_rating }] : []),
+  ];
+
   return (
-    <Card className="border-border/50 bg-card/80">
-      <CardHeader>
+    <Card className="border-border/50 bg-card/80 h-full flex flex-col min-h-0">
+      <CardHeader className="shrink-0">
         <CardTitle className="font-display tracking-wider">ATTRIBUTES</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-2 gap-x-8">
-          <div>
-            {LEFT_COLUMN.map((field) => (
-              <EditableRow
-                key={field.key}
-                field={field}
-                value={attributes[field.key]}
-                tooltipText={buildAttrTooltip(field.key, attributes[field.key], attributeSources, augmentations, gear)}
-                onChange={handleChange}
+      <CardContent className="flex-1 min-h-0 overflow-auto">
+        <div className="grid w-full grid-cols-[auto_auto_1fr_auto_auto_1fr_auto_auto] gap-x-2 gap-y-0">
+          {PAIRED_ATTRS.map(({ attr, derivedKey }, index) => {
+            const derived = getDerivedFor(derivedKey);
+            const thirdCol = thirdColItems[index] ?? null;
+            return (
+              <PairedAttrRow
+                key={attr.key}
+                attrField={attr}
+                attrValue={attributes[attr.key]}
+                derivedLabel={derived.label}
+                derivedValue={derived.value}
+                derivedKey={derivedKey}
+                attrValueTooltip={buildAttrValueTooltip(attr.key, attributes[attr.key], attributeSources, augmentations, gear, qualities)}
+                derivedValueTooltip={derived.valueTooltip}
+                thirdCol={thirdCol}
               />
-            ))}
-          </div>
-          <div>
-            {RIGHT_EDITABLE.map((field) => (
-              <EditableRow
-                key={field.key}
-                field={field}
-                value={attributes[field.key]}
-                tooltipText={buildAttrTooltip(field.key, attributes[field.key], attributeSources, augmentations, gear)}
-                onChange={handleChange}
-              />
-            ))}
-            {derived.map((stat) => (
-              <DerivedRow key={stat.label} stat={stat} />
-            ))}
-          </div>
+            );
+          })}
         </div>
       </CardContent>
     </Card>

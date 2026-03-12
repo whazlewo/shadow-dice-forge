@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
-import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Augmentation, SR6Gear, SR6PersonalInfo, AttributeSources, ConditionMonitor } from "@/types/character";
+import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Augmentation, SR6Gear, SR6PersonalInfo, SR6IdsLifestyles, AttributeSources, ConditionMonitor } from "@/types/character";
 import type { KarmaTransaction } from "@/types/karma";
 import { computeKarmaSummary, attributeKarmaCost } from "@/lib/karma";
 import { inferMagicType } from "@/lib/character-utils";
@@ -19,10 +19,11 @@ import { SkillsTab } from "@/components/character/SkillsTab";
 import { PersonalInfoTab } from "@/components/character/PersonalInfoTab";
 import { QualitiesTab } from "@/components/character/QualitiesTab";
 import { GenericListTab } from "@/components/character/GenericListTab";
-import { EquippedGearTab } from "@/components/character/EquippedGearTab";
 import { KarmaConfirmDialog, type KarmaConfirmRequest } from "@/components/character/KarmaConfirmDialog";
 import { NotesTab } from "@/components/character/NotesTab";
 import { ConditionMonitorTab } from "@/components/character/ConditionMonitorTab";
+import { IdsLifestylesCurrencyTab } from "@/components/character/IdsLifestylesCurrencyTab";
+import { PrimaryEquipmentBlock } from "@/components/character/PrimaryEquipmentBlock";
 import { computeWoundModifier } from "@/lib/condition-monitor";
 
 type Character = Tables<"characters">;
@@ -269,6 +270,7 @@ export default function CharacterSheet() {
   const qualities = (character.qualities || []) as unknown as SR6Quality[];
   const contacts = (character.contacts || []) as unknown as SR6Contact[];
   const personalInfo = (character.personal_info || {}) as unknown as SR6PersonalInfo;
+  const idsLifestyles = (character.ids_lifestyles || null) as SR6IdsLifestyles | null;
   const augmentations = (character.augmentations || []) as unknown as SR6Augmentation[];
   const gear = (character.gear || []) as unknown as SR6Gear[];
 
@@ -333,31 +335,47 @@ export default function CharacterSheet() {
       <main className="container py-4">
 
           <TabsContent value="core" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <PersonalInfoTab
-                info={personalInfo}
-                onUpdate={(i) => updateField("personal_info", i)}
-                name={name}
-                metatype={metatype}
-                onNameChange={setName}
-                onMetatypeChange={setMetatype}
-                onNameBlur={() => save({ name })}
-                onMetatypeBlur={() => save({ metatype })}
-                karmaLedger={karmaLedger}
-                onKarmaUndo={undoKarmaTransaction}
-                onAddKarmaTransaction={addKarmaTransaction}
-                portraitUrl={(character as any).portrait_url}
-                onPortraitUpload={handlePortraitUpload}
-              />
-              <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={handleAttributeChange} />
+            {/* Row 1: Personal Data | Attributes (same height); Row 2: Contacts | Condition Monitor (same height) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+              <div className="h-full min-h-0 flex flex-col [&>*]:flex-1 [&>*]:min-h-0 [&>*]:flex [&>*]:flex-col">
+                <PersonalInfoTab
+                  info={personalInfo}
+                  onUpdate={(i) => updateField("personal_info", i)}
+                  name={name}
+                  metatype={metatype}
+                  onNameChange={setName}
+                  onMetatypeChange={setMetatype}
+                  onNameBlur={() => save({ name })}
+                  onMetatypeBlur={() => save({ metatype })}
+                  portraitUrl={(character as any).portrait_url}
+                  onPortraitUpload={handlePortraitUpload}
+                />
+              </div>
+              <div className="h-full min-h-0 flex flex-col [&>*]:flex-1 [&>*]:min-h-0 [&>*]:flex [&>*]:flex-col">
+                <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} onUpdate={handleAttributeChange} />
+              </div>
+              <div className="h-full min-h-0 flex flex-col [&>*]:flex-1 [&>*]:min-h-0 [&>*]:flex [&>*]:flex-col">
+                <GenericListTab
+                  title="Contacts"
+                  items={contacts}
+                  fields={["name", "loyalty", "connection", "notes"]}
+                  numericFields={["loyalty", "connection"]}
+                  readOnlyToggle
+                  onUpdate={(c) => updateField("contacts", c)}
+                />
+              </div>
+              <div className="h-full min-h-0 flex flex-col [&>*]:flex-1 [&>*]:min-h-0 [&>*]:flex [&>*]:flex-col">
+                <ConditionMonitorTab
+                  conditionMonitor={character.condition_monitor as ConditionMonitor | undefined}
+                  attributes={attributes}
+                  qualities={qualities}
+                  metatype={character.metatype || undefined}
+                  onUpdate={(cm) => updateField("condition_monitor", cm)}
+                />
+              </div>
             </div>
-            <ConditionMonitorTab
-              conditionMonitor={character.condition_monitor as ConditionMonitor | undefined}
-              attributes={attributes}
-              qualities={qualities}
-              metatype={character.metatype || undefined}
-              onUpdate={(cm) => updateField("condition_monitor", cm)}
-            />
+
+            {/* Row 2: Skills | Primary Equipment */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <SkillsTab
@@ -370,7 +388,6 @@ export default function CharacterSheet() {
                   onUpdate={handleSkillsChange}
                 />
                 {(() => {
-                  const idsLifestyles = (character as any).ids_lifestyles as { knowledge_skills?: string[] } | null;
                   const knowledgeSkills = idsLifestyles?.knowledge_skills ?? [];
                   if (knowledgeSkills.length === 0) return null;
                   return (
@@ -394,7 +411,7 @@ export default function CharacterSheet() {
                   );
                 })()}
               </div>
-              <EquippedGearTab
+              <PrimaryEquipmentBlock
                 rangedWeapons={(character.ranged_weapons || []) as unknown as SR6RangedWeapon[]}
                 meleeWeapons={(character.melee_weapons || []) as unknown as SR6MeleeWeapon[]}
                 armor={(character.armor || []) as unknown as SR6Armor[]}
@@ -406,14 +423,20 @@ export default function CharacterSheet() {
                 woundModifier={woundModifier}
               />
             </div>
-            <GenericListTab
-              title="Contacts"
-              items={contacts}
-              fields={["name", "loyalty", "connection", "notes"]}
-              numericFields={["loyalty", "connection"]}
-              readOnlyToggle
-              onUpdate={(c) => updateField("contacts", c)}
-            />
+
+            {/* Row 3: IDs/Lifestyles/Currency | Qualities */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <IdsLifestylesCurrencyTab
+                idsLifestyles={idsLifestyles}
+                personalInfo={personalInfo}
+                karmaLedger={karmaLedger}
+                onKarmaUndo={undoKarmaTransaction}
+                onAddKarmaTransaction={addKarmaTransaction}
+                onUpdateIdsLifestyles={(d) => updateField("ids_lifestyles", d)}
+                onUpdatePersonalInfo={(i) => updateField("personal_info", i)}
+              />
+              <QualitiesTab qualities={qualities} />
+            </div>
           </TabsContent>
 
           <TabsContent value="notes" className="pt-4">

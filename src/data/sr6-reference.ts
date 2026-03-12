@@ -152,6 +152,29 @@ export const METATYPE_DATA: Record<string, MetatypeData> = {
   },
 };
 
+/** Brief skill descriptions for tooltips */
+export const SKILL_DESCRIPTIONS: Record<string, string> = {
+  Astral: "Navigating and interacting with the astral plane, including astral combat and projection.",
+  Athletics: "Running, climbing, swimming, jumping, and other physical feats of coordination.",
+  Biotech: "First aid, medicine, cybertechnology, and biotechnology knowledge.",
+  "Close Combat": "Melee fighting with blades, clubs, unarmed strikes, and other close-range weapons.",
+  Con: "Deception, disguise, impersonation, and fast-talking.",
+  Conjuring: "Summoning, binding, and banishing spirits.",
+  Cracking: "Hacking, cybercombat, and electronic warfare in the Matrix.",
+  Electronics: "Computer use, software, hardware, and electronic devices.",
+  Enchanting: "Creating magical preparations, foci, and other enchanted items.",
+  Engineering: "Building, repairing, and modifying mechanical and structural systems.",
+  "Exotic Weapons": "Proficiency with unusual or specialized weaponry.",
+  Firearms: "Shooting pistols, rifles, shotguns, and other ranged projectile weapons.",
+  Influence: "Negotiation, leadership, etiquette, and social persuasion.",
+  Outdoors: "Survival, tracking, navigation, and wilderness knowledge.",
+  Perception: "Noticing details, searching areas, and general awareness of surroundings.",
+  Piloting: "Operating ground vehicles, drones, watercraft, and aircraft.",
+  Sorcery: "Casting spells, counterspelling, and sustaining magical effects.",
+  Stealth: "Sneaking, palming objects, and avoiding detection.",
+  Tasking: "Compiling, registering, and decompiling sprites in the Matrix.",
+};
+
 /** Errata-corrected descriptions for racial qualities (Feb 2020) */
 export const RACIAL_QUALITY_EFFECTS: Record<string, string> = {
   "Dermal Deposits": "You gain 1 level of natural Armor. Your Unarmed Melee attacks inflict Physical damage.",

@@ -5,7 +5,7 @@ import { AlertTriangle, Info, Minus, Plus } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { PRIORITY_TABLE, type PriorityLevel } from "@/data/sr6-reference";
+import { PRIORITY_TABLE, SKILL_DESCRIPTIONS, type PriorityLevel } from "@/data/sr6-reference";
 import { SR6_CORE_SKILLS } from "@/types/character";
 import type { WizardState, WizardSkill } from "@/pages/CharacterWizard";
 import { cn } from "@/lib/utils";
@@ -19,28 +19,6 @@ const SKILL_CAN_DEFAULT: Record<string, boolean> = {
   "Exotic Weapons": false,
   Sorcery: false,
   Tasking: false,
-};
-
-const SKILL_DESCRIPTIONS: Record<string, string> = {
-  Astral: "Navigating and interacting with the astral plane, including astral combat and projection.",
-  Athletics: "Running, climbing, swimming, jumping, and other physical feats of coordination.",
-  Biotech: "First aid, medicine, cybertechnology, and biotechnology knowledge.",
-  "Close Combat": "Melee fighting with blades, clubs, unarmed strikes, and other close-range weapons.",
-  Con: "Deception, disguise, impersonation, and fast-talking.",
-  Conjuring: "Summoning, binding, and banishing spirits.",
-  Cracking: "Hacking, cybercombat, and electronic warfare in the Matrix.",
-  Electronics: "Computer use, software, hardware, and electronic devices.",
-  Enchanting: "Creating magical preparations, foci, and other enchanted items.",
-  Engineering: "Building, repairing, and modifying mechanical and structural systems.",
-  "Exotic Weapons": "Proficiency with unusual or specialized weaponry.",
-  Firearms: "Shooting pistols, rifles, shotguns, and other ranged projectile weapons.",
-  Influence: "Negotiation, leadership, etiquette, and social persuasion.",
-  Outdoors: "Survival, tracking, navigation, and wilderness knowledge.",
-  Perception: "Noticing details, searching areas, and general awareness of surroundings.",
-  Piloting: "Operating ground vehicles, drones, watercraft, and aircraft.",
-  Sorcery: "Casting spells, counterspelling, and sustaining magical effects.",
-  Stealth: "Sneaking, palming objects, and avoiding detection.",
-  Tasking: "Compiling, registering, and decompiling sprites in the Matrix.",
 };
 
 interface Props {

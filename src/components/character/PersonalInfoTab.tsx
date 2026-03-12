@@ -4,11 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { Button } from "@/components/ui/button";
-import { Pencil, Check, Camera } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Pencil, Check, Camera, Info, ExternalLink } from "lucide-react";
 import type { SR6PersonalInfo } from "@/types/character";
 import type { KarmaTransaction } from "@/types/karma";
 import { KarmaTracker } from "./KarmaTracker";
 import { PortraitUploadDialog } from "./PortraitUploadDialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface Props {
   info: SR6PersonalInfo;
@@ -26,10 +28,22 @@ interface Props {
   onPortraitUpload?: (blob: Blob) => Promise<void>;
 }
 
-function Field({ label, value, type, onChange, onBlur, readOnly }: { label: string; value: any; type?: string; onChange?: (val: string) => void; onBlur?: () => void; readOnly?: boolean }) {
+function Field({ label, value, type, onChange, onBlur, readOnly, tooltip }: { label: string; value: any; type?: string; onChange?: (val: string) => void; onBlur?: () => void; readOnly?: boolean; tooltip?: string }) {
   return (
     <div className="space-y-1">
-      <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">{label}</Label>
+      <div className="flex items-center gap-1">
+        <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">{label}</Label>
+        {tooltip && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Info className="h-3 w-3 text-muted-foreground/60 cursor-help shrink-0" />
+            </TooltipTrigger>
+            <TooltipContent side="top" className="max-w-[240px] text-xs">
+              {tooltip}
+            </TooltipContent>
+          </Tooltip>
+        )}
+      </div>
       {readOnly ? (
         <span className="block font-mono text-sm py-1">{value || "—"}</span>
       ) : (
@@ -49,6 +63,7 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
   const [editing, setEditing] = useState(false);
   const [portraitOpen, setPortraitOpen] = useState(false);
   const [portraitSaving, setPortraitSaving] = useState(false);
+  const [backstoryModalOpen, setBackstoryModalOpen] = useState(false);
 
   const set = (key: keyof SR6PersonalInfo, value: string, isNum = false) => {
     onUpdate({ ...info, [key]: isNum ? (parseInt(value) || 0) : value });
@@ -75,17 +90,22 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
 
   const ro = !editing;
 
+  const stripHtml = (html: string | undefined) => {
+    if (!html) return "";
+    return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  };
+
   return (
-    <div className="space-y-4">
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader className="flex flex-row items-center justify-between">
+    <div className="flex flex-col h-full gap-4">
+      <Card className="border-border/50 bg-card/80 flex-1 min-h-0 flex flex-col">
+        <CardHeader className="flex flex-row items-center justify-between shrink-0">
           <CardTitle className="font-display tracking-wider">PERSONAL DATA</CardTitle>
           <Button variant="ghost" size="icon" className="h-7 w-7" onClick={toggleEdit}>
             {editing ? <Check className="h-4 w-4" /> : <Pencil className="h-4 w-4" />}
           </Button>
         </CardHeader>
-        <CardContent>
-          <div className="flex gap-4">
+        <CardContent className="flex-1 min-h-0 overflow-auto flex flex-col">
+          <div className="flex gap-4 shrink-0">
             {/* Portrait */}
             <button
               type="button"
@@ -109,11 +129,9 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
 
             {/* Fields */}
             <div className="flex-1 space-y-3">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <Field label="Name" value={name} readOnly={ro} onChange={onNameChange} onBlur={onNameBlur} />
                 <Field label="Metatype" value={metatype} readOnly={ro} onChange={onMetatypeChange} onBlur={onMetatypeBlur} />
-              </div>
-              <div className="grid grid-cols-1 gap-4">
                 <Field label="Ethnicity" value={info.ethnicity} readOnly={ro} onChange={(v) => set("ethnicity", v)} />
               </div>
               <div className="grid grid-cols-4 gap-4">
@@ -122,36 +140,38 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
                 <Field label="Height" value={info.height} readOnly={ro} onChange={(v) => set("height", v)} />
                 <Field label="Weight" value={info.weight} readOnly={ro} onChange={(v) => set("weight", v)} />
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <Field label="Street Cred" value={info.street_cred} type="number" readOnly={ro} onChange={(v) => set("street_cred", v, true)} />
-                <Field label="Notoriety" value={info.notoriety} type="number" readOnly={ro} onChange={(v) => set("notoriety", v, true)} />
-              </div>
-              <div className="grid grid-cols-1 gap-4">
-                <Field label="Public Awareness" value={info.public_awareness} type="number" readOnly={ro} onChange={(v) => set("public_awareness", v, true)} />
-              </div>
-              <div className="grid grid-cols-1 gap-4">
-                <div className="space-y-1">
-                  <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Description</Label>
-                  <RichTextEditor
-                    value={info.description ?? ""}
-                    onChange={(v) => set("description", v)}
-                    placeholder="Describe your runner—role, motivations, personality..."
-                    readOnly={ro}
-                    minHeight="min-h-[80px]"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Backstory</Label>
-                  <RichTextEditor
-                    value={info.backstory ?? ""}
-                    onChange={(v) => set("backstory", v)}
-                    placeholder="A few lines about your runner's history..."
-                    readOnly={ro}
-                    minHeight="min-h-[80px]"
-                  />
-                </div>
-              </div>
             </div>
+          </div>
+
+          {/* Description and Backstory - full width, backstory fills remaining space */}
+          <div className="w-full flex-1 min-h-0 flex flex-col mt-4 gap-0">
+            <div className="space-y-1 shrink-0">
+              <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide">Description</Label>
+              <RichTextEditor
+                value={info.description ?? ""}
+                onChange={(v) => set("description", v)}
+                placeholder="Describe your runner—role, motivations, personality..."
+                readOnly={ro}
+                minHeight="min-h-[80px]"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => setBackstoryModalOpen(true)}
+              className="flex-1 min-h-0 flex flex-col text-left hover:bg-muted/20 rounded-md transition-colors -mx-1 px-1"
+            >
+              <div className="flex items-center justify-between shrink-0">
+                <Label className="text-xs font-bold text-muted-foreground uppercase tracking-wide cursor-pointer">
+                  Backstory
+                </Label>
+                <ExternalLink className="h-3 w-3 text-muted-foreground/60 shrink-0" />
+              </div>
+              <div className="flex-1 min-h-0 overflow-hidden py-1">
+                <p className="text-sm text-muted-foreground line-clamp-[10] break-words">
+                  {stripHtml(info.backstory) || "No backstory yet."}
+                </p>
+              </div>
+            </button>
           </div>
         </CardContent>
       </Card>
@@ -166,6 +186,23 @@ export function PersonalInfoTab({ info, onUpdate, name, metatype, onNameChange, 
         onSave={handlePortraitSave}
         saving={portraitSaving}
       />
+
+      <Dialog open={backstoryModalOpen} onOpenChange={setBackstoryModalOpen}>
+        <DialogContent className="max-w-2xl max-h-[85vh] flex flex-col">
+          <DialogHeader>
+            <DialogTitle className="font-display tracking-wider">Backstory</DialogTitle>
+          </DialogHeader>
+          <div className="flex-1 min-h-0 overflow-auto -mx-1 px-1">
+            <RichTextEditor
+              value={info.backstory ?? ""}
+              onChange={(v) => set("backstory", v)}
+              placeholder="A few lines about your runner's history..."
+              readOnly={ro}
+              minHeight="min-h-[200px]"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

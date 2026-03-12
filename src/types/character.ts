@@ -298,6 +298,7 @@ export interface SR6Priorities {
 }
 
 export interface SR6PersonalInfo {
+  player_name?: string;
   ethnicity?: string;
   age?: number;
   sex?: string;
@@ -316,6 +317,7 @@ export interface SR6IdsLifestyles {
   lifestyles: { id: string; name: string; tier: string; months_paid: number }[];
   nuyen: number;
   knowledge_skills?: string[];
+  heat?: number;
 }
 
 // Dice pool breakdown for display

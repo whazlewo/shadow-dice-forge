@@ -101,13 +101,15 @@ The app has three distinct calculation paths.
 Total = Attribute + Skill Rating + sum(Modifiers)
 ```
 
-It iterates `dice_modifiers` from three sources, filtering to only non-attribute modifiers
+It iterates `dice_modifiers` from these sources, filtering to only non-attribute modifiers
 (`!mod.attribute`):
 
 1. **Qualities** (`SR6Quality.dice_modifiers`)
 2. **Augmentations** (`SR6Augmentation.dice_modifiers`)
 3. **Gear** (`SR6Gear.dice_modifiers`)
-4. **Wound penalty** (flat negative from condition monitor)
+4. **Adept Powers** (`SR6AdeptPower.dice_modifiers`, when `enabled !== false`)
+5. **Active Spells** (`SR6Spell.dice_modifiers`, when spell/ritual is marked Active)
+6. **Wound penalty** (flat negative from condition monitor)
 
 Each modifier is also checked by `modifierApplies()`, which gates on `requires_accessory`:
 if a modifier has `requires_accessory` set (e.g., `"Smartgun"` on the Smartlink augmentation),
@@ -131,8 +133,8 @@ substring match).
 
 **File:** `src/components/character/AttributesTab.tsx`
 
-**`collectDiceModifiers(attrKey)`** scans qualities, augmentations, and gear for
-`dice_modifiers` where `mod.attribute === attrKey`. Used for:
+**`collectDiceModifiers(attrKey)`** scans qualities, augmentations, gear, adept powers, and
+active spells for `dice_modifiers` where `mod.attribute === attrKey`. Used for:
 
 - `defense_rating` — adds to BOD + armor for total DR
 - `initiative` — flat bonus added to REA + INT
@@ -141,6 +143,7 @@ substring match).
   attribute tooltips
 
 Respects `equipped === false` for gear filtering; augmentations are always treated as equipped.
+Active spells contribute when marked "Active" (Sustained spells or rituals).
 
 ### Path C: Attack Rating display
 
@@ -336,18 +339,20 @@ pool modifiers. If one combatant has a visibility advantage (e.g., low-light vis
 conditions), they gain a point of Edge. This feeds into the Edge economy, not the dice pool
 engine.
 
-### Spells (`src/data/magic/spells.yaml`)
+### Active Spells (`character.spells` with `active === true`)
 
-No `dice_modifiers` field. All effects are narrative or depend on spellcasting net hits:
+**Implemented.** Spells and rituals can be marked "Active" when currently in effect:
 
-| Spell | Effect |
+- **Sustained spells** (`duration === "Sustained"`): Show "Active" toggle; when checked, spell appears in Readied Equipment and contributes `dice_modifiers` to pool calculations.
+- **Rituals** (all): Show "Active" toggle; rituals often last hours/days, so all support the toggle.
+
+`SR6Spell` has optional `active?: boolean` and `dice_modifiers?: DiceModifier[]`. When a spell/ritual is Active, the user can add dice modifiers via the Dice Modifier Editor (e.g. net hits to DR for Armor, +REA/initiative_dice for Increase Reflexes). These modifiers feed into `calculateDicePool()`, `calculateWeaponPool()`, and `collectDiceModifiers()`.
+
+| Spell | Effect (user enters via dice_modifiers) |
 |---|---|
-| Armor | Adds net hits to Defense Rating |
-| Combat Sense | Net hits add to Defense Rating and Surprise tests |
-| Increase Reflexes | Increases Reaction and Initiative Dice |
-| Decrease [Attribute] | Reduces target's attribute |
-
-These are situational/sustained and would require active-spell tracking to affect pools.
+| Armor | `{ attribute: "defense_rating", value: <net hits> }` |
+| Combat Sense | `{ attribute: "defense_dice", value: <net hits> }` |
+| Increase Reflexes | `{ attribute: "reaction", value: X }`, `{ attribute: "initiative_dice", value: X }` |
 
 ### Armor (`src/data/gear/armor.yaml`)
 
@@ -440,13 +445,13 @@ have empty `dice_modifiers` arrays.
 
 **Impact:** Gear situational bonuses are invisible to the pool calculator.
 
-### Gap 8: Spell effects not modeled
+### Gap 8: Spell effects not modeled — ADDRESSED
 
-Sustained spells like Armor, Combat Sense, and Increase Reflexes dynamically affect pools
-based on net hits from the casting test. These require an "active spells" tracking system to
-contribute modifiers.
-
-**Impact:** Spell-based buffs cannot be reflected in displayed pools.
+Sustained spells and rituals can now be marked "Active" via a toggle. Active spells with
+`dice_modifiers` (user-editable, e.g. for net hits) contribute to `calculateDicePool()`,
+`calculateWeaponPool()`, and `collectDiceModifiers()`. Spells appear in Readied Equipment when
+Active. The reference data (`spells.yaml`) does not pre-populate `dice_modifiers`; users add
+them when activating a spell to reflect net hits or ritual effects.
 
 ### Gap 9: Smartlink data incorrectly models +2 AR as +2 dice pool
 
@@ -530,7 +535,7 @@ flowchart TD
     G -->|"dice_modifiers"| CDP
     AP -->|"dice_modifiers (NEW)"| CDP
     WA -->|"dice_modifiers (NEW)"| CDP
-    AS -->|"dice_modifiers (FUTURE)"| CDP
+    AS -->|"dice_modifiers"| CDP
     SM -->|"Cover, Take Aim, Status (FUTURE)"| CDP
 
     CDP --> CV
@@ -543,6 +548,7 @@ flowchart TD
     Aug -->|"attribute modifiers"| CDM
     G -->|"attribute modifiers"| CDM
     AP -->|"attribute modifiers (NEW)"| CDM
+    AS -->|"attribute modifiers"| CDM
     CDM --> CV
     CV --> DerivedStats
 
@@ -609,11 +615,11 @@ and wireless modes.
 - Only apply wireless-gated modifiers when the toggle is active
 - Armor wireless bonuses (Chameleon Suit +2 DR, etc.) also need this toggle
 
-**Priority 6 — Active spell tracking (future)**
+**Priority 6 — Active spell tracking — IMPLEMENTED**
 
-- Add an `active_spells` array to the character model
-- Each entry specifies the spell, net hits, and resulting `dice_modifiers`
-- Feed active spells into the dice pool engine alongside other sources
+- Spells/rituals have `active?: boolean`; when true, they appear in Readied Equipment
+- User adds `dice_modifiers` per active spell (e.g. net hits) via Dice Modifier Editor
+- Active spells feed into `calculateDicePool()`, `calculateWeaponPool()`, and `collectDiceModifiers()`
 
 **Priority 7 — Situational/combat modifier tracking (future)**
 

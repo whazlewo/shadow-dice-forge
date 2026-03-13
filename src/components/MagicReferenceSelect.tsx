@@ -26,6 +26,7 @@ import {
   referenceToCharacterComplexForm,
 } from "@/lib/magic-reference-utils";
 import type { ReferenceSpell, ReferenceAdeptPower, ReferenceComplexForm } from "@/types/magic-reference";
+import type { SpellCategory } from "@/types/magic-reference";
 import type { SR6Spell, SR6AdeptPower } from "@/types/character";
 
 export type MagicReferenceCategory = "spells" | "adeptPowers" | "complexForms";
@@ -53,6 +54,8 @@ interface Props {
   onSelect: (item: SR6Spell | SR6AdeptPower) => void;
   placeholder?: string;
   triggerLabel?: string;
+  /** When category is "spells", filter the list to only items of this type */
+  categoryFilter?: SpellCategory;
 }
 
 export function MagicReferenceSelect({
@@ -60,15 +63,20 @@ export function MagicReferenceSelect({
   onSelect,
   placeholder = "Search…",
   triggerLabel = "Add from reference",
+  categoryFilter,
 }: Props) {
   const [open, setOpen] = useState(false);
 
-  const items =
+  let items =
     category === "spells"
       ? SPELL_REFERENCE
       : category === "adeptPowers"
         ? ADEPT_POWER_REFERENCE
         : COMPLEX_FORM_REFERENCE;
+
+  if (category === "spells" && categoryFilter) {
+    items = (items as ReferenceSpell[]).filter((item) => item.category === categoryFilter);
+  }
 
   const hasItems = items.length > 0;
 
@@ -103,7 +111,7 @@ export function MagicReferenceSelect({
             <CommandList>
               <CommandEmpty>No items found.</CommandEmpty>
               {category === "spells" && (
-                <CommandGroup heading={CATEGORY_LABELS.spells}>
+                <CommandGroup heading={categoryFilter === "ritual" ? "Rituals" : CATEGORY_LABELS.spells}>
                   {(items as ReferenceSpell[]).map((item, idx) => {
                     const label = getSpellLabel(item);
                     const desc = item.description;

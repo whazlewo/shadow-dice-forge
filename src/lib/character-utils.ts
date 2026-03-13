@@ -1,5 +1,7 @@
 // Character utilities - magic type inference, etc.
 
+import { MAGIC_TRADITIONS, type MagicTradition, type MagicTraditionId } from "@/data/magic-traditions";
+
 export type MagicType =
   | "mundane"
   | "full"
@@ -41,4 +43,14 @@ export function inferMagicType(character: {
   if (magic > 0 && hasAdeptPowers) return "adept";
   if (magic > 0 && (hasSpells || hasComplexForms)) return "full";
   return "mundane";
+}
+
+export type { MagicTraditionId };
+
+export function getMagicTradition(character: {
+  priorities?: { magic_tradition?: string | null };
+}): MagicTradition | null {
+  const id = character.priorities?.magic_tradition;
+  if (!id || typeof id !== "string") return null;
+  return MAGIC_TRADITIONS.find((t) => t.id === id) ?? null;
 }

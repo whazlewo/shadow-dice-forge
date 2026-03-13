@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -52,15 +52,13 @@ export default function Step3Qualities({ state, onChange }: Props) {
   };
 
   return (
-    <div className="space-y-6">
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader className="pb-3">
-          <CardTitle className="font-display text-lg tracking-wide">Qualities</CardTitle>
-          <p className="text-sm text-muted-foreground">
+    <Card className="border-border/50 bg-card/80">
+      <CardContent className="p-6 space-y-6">
+        <div>
+          <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Qualities</h4>
+          <p className="text-sm text-muted-foreground mb-3 mt-0">
             Positive qualities cost karma. Negative qualities grant karma (max 20 karma from negatives).
           </p>
-        </CardHeader>
-        <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-3 text-sm font-mono">
             <Badge variant="outline">
               Base: 50
@@ -156,8 +154,8 @@ export default function Step3Qualities({ state, onChange }: Props) {
               <Plus className="h-4 w-4 mr-1" /> Add Custom
             </Button>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

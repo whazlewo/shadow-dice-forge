@@ -1,7 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { PRIORITY_TABLE, type PriorityLevel, type PriorityMagicEntry } from "@/data/sr6-reference";
+import { MAGIC_TRADITIONS } from "@/data/magic-traditions";
 import type { WizardState } from "@/pages/CharacterWizard";
 import { cn } from "@/lib/utils";
 
@@ -37,10 +39,16 @@ export default function Step5Magic({ state, onChange }: Props) {
       updates.adjustmentPoints = cleared;
     }
 
+    if (entry.type === "technomancer" || entry.type === "adept" || entry.type === "mundane") {
+      updates.magicTradition = null;
+    }
+
     onChange(updates);
   };
 
   const isMundane = magicChoice === "mundane";
+  const isTraditionDisabled =
+    magicChoice === "technomancer" || magicChoice === "adept" || magicChoice === "mundane";
   const spellCount = selected && !isMundane && selected.type !== "adept" && selected.type !== "technomancer"
     ? selected.magicOrResonance * 2
     : 0;
@@ -48,15 +56,14 @@ export default function Step5Magic({ state, onChange }: Props) {
   const complexForms = selected && selected.type === "technomancer" ? selected.magicOrResonance * 2 : 0;
 
   return (
-    <div className="space-y-6">
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader className="pb-3">
-          <CardTitle className="font-display text-lg tracking-wide">Magic / Resonance</CardTitle>
-          <p className="text-sm text-muted-foreground">
+    <Card className="border-border/50 bg-card/80">
+      <CardContent className="p-6 space-y-6">
+        {/* Magic / Resonance */}
+        <div>
+          <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Magic / Resonance</h4>
+          <p className="text-sm text-muted-foreground mb-3 mt-0">
             Priority {magicPriority} — Choose your magical tradition (or stay mundane).
           </p>
-        </CardHeader>
-        <CardContent className="space-y-3">
           <div className="grid gap-2">
             {options.map((opt) => (
               <Button
@@ -82,41 +89,93 @@ export default function Step5Magic({ state, onChange }: Props) {
               </Button>
             ))}
           </div>
-        </CardContent>
-      </Card>
+        </div>
 
-      {selected && !isMundane && (
-        <Card className="border-border/50 bg-card/80">
-          <CardHeader className="pb-3">
-            <CardTitle className="font-display text-lg tracking-wide">Summary</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="outline" className="font-mono">
-                {selected.type === "technomancer" ? "Resonance" : "Magic"}: {selected.magicOrResonance}
-              </Badge>
-              {spellCount > 0 && (
-                <Badge variant="secondary" className="font-mono">
-                  {spellCount} Spells available
-                </Badge>
-              )}
-              {powerPoints > 0 && (
-                <Badge variant="secondary" className="font-mono">
-                  {powerPoints} Power Points
-                </Badge>
-              )}
-              {complexForms > 0 && (
-                <Badge variant="secondary" className="font-mono">
-                  {complexForms} Complex Forms
-                </Badge>
-              )}
-            </div>
-            <p className="text-xs text-muted-foreground mt-3">
-              You will select your spells, adept powers, or complex forms in the Magic step after Gear.
+        <div className="h-px bg-border" />
+
+        {/* Tradition */}
+        <div className={cn(isTraditionDisabled && "opacity-50 pointer-events-none")}>
+          <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Tradition</h4>
+          <p className="text-sm text-muted-foreground mb-3 mt-0">
+            Determines drain resistance, spell Attack Rating, and spirit/element associations.
+          </p>
+          {isTraditionDisabled ? (
+            <p className="text-sm text-muted-foreground">
+              {magicChoice === "technomancer"
+                ? "Tradition does not apply to Technomancers."
+                : magicChoice === "adept"
+                  ? "Tradition does not apply to Adepts."
+                  : "Select a spellcasting type (Full Magician, Aspected, or Mystic Adept) above."}
             </p>
-          </CardContent>
-        </Card>
-      )}
-    </div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="font-display">Tradition</TableHead>
+                  <TableHead className="font-display">Drain Attributes</TableHead>
+                  <TableHead className="font-display">Combat</TableHead>
+                  <TableHead className="font-display">Detection</TableHead>
+                  <TableHead className="font-display">Health</TableHead>
+                  <TableHead className="font-display">Illusion</TableHead>
+                  <TableHead className="font-display">Manipulation</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {MAGIC_TRADITIONS.map((t) => (
+                  <TableRow
+                    key={t.id}
+                    className={cn(
+                      "cursor-pointer transition-colors",
+                      state.magicTradition === t.id && "bg-primary/20 ring-1 ring-primary"
+                    )}
+                    onClick={() => onChange({ magicTradition: t.id })}
+                  >
+                    <TableCell className="font-medium">{t.name}</TableCell>
+                    <TableCell className="font-mono text-xs">{t.drainAttributes}</TableCell>
+                    <TableCell>{t.combat}</TableCell>
+                    <TableCell>{t.detection}</TableCell>
+                    <TableCell>{t.health}</TableCell>
+                    <TableCell>{t.illusion}</TableCell>
+                    <TableCell>{t.manipulation}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </div>
+
+        {selected && !isMundane && (
+          <>
+            <div className="h-px bg-border" />
+            <div>
+              <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Summary</h4>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="outline" className="font-mono">
+                  {selected.type === "technomancer" ? "Resonance" : "Magic"}: {selected.magicOrResonance}
+                </Badge>
+                {spellCount > 0 && (
+                  <Badge variant="secondary" className="font-mono">
+                    {spellCount} Spells available
+                  </Badge>
+                )}
+                {powerPoints > 0 && (
+                  <Badge variant="secondary" className="font-mono">
+                    {powerPoints} Power Points
+                  </Badge>
+                )}
+                {complexForms > 0 && (
+                  <Badge variant="secondary" className="font-mono">
+                    {complexForms} Complex Forms
+                  </Badge>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                You will select your spells, adept powers, or complex forms in the Magic step after Gear.
+              </p>
+            </div>
+          </>
+        )}
+      </CardContent>
+    </Card>
   );
 }

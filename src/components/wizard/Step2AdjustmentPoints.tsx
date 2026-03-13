@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Minus, Plus } from "lucide-react";
@@ -56,25 +56,24 @@ export default function Step2AdjustmentPoints({ state, onChange }: Props) {
 
   return (
     <Card className="border-border/50 bg-card/80">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="font-display text-lg tracking-wide">Adjustment Points</CardTitle>
-          <Badge variant={remainingAdj < 0 ? "destructive" : "outline"} className="font-mono">
-            {remainingAdj} / {totalAdj} remaining
-          </Badge>
-        </div>
-        <p className="text-sm text-muted-foreground">
-          Spend adjustment points on Edge, Magic/Resonance, or metatype special attributes.
-        </p>
-      </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="p-6 space-y-6">
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Adjustment Points</h4>
+            <Badge variant={remainingAdj < 0 ? "destructive" : "outline"} className="font-mono">
+              {remainingAdj} / {totalAdj} remaining
+            </Badge>
+          </div>
+          <p className="text-sm text-muted-foreground mb-3 mt-0">
+            Spend adjustment points on Edge, Magic/Resonance, or metatype special attributes.
+          </p>
         {remainingAdj < 0 && (
           <div className="flex items-center gap-2 text-sm text-amber-400 bg-amber-400/10 rounded-md px-3 py-2 border border-amber-400/20">
             <AlertTriangle className="h-4 w-4 shrink-0" />
             You&apos;ve overspent adjustment points.
           </div>
         )}
-        {adjustableAttrs.map((attr) => {
+          {adjustableAttrs.map((attr) => {
           const current = (adjustmentPoints ?? {})[attr] || 0;
           return (
             <div key={attr} className="flex items-center gap-3">
@@ -91,6 +90,7 @@ export default function Step2AdjustmentPoints({ state, onChange }: Props) {
             </div>
           );
         })}
+        </div>
       </CardContent>
     </Card>
   );

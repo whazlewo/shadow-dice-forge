@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PRIORITY_TABLE, METATYPE_DATA, type PriorityLevel } from "@/data/sr6-reference";
@@ -26,16 +26,14 @@ export default function Step2Metatype({ state, onChange }: Props) {
   const mtData = metatype ? METATYPE_DATA[metatype] : null;
 
   return (
-    <div className="space-y-6">
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader className="pb-3">
-          <CardTitle className="font-display text-lg tracking-wide">Choose Metatype</CardTitle>
-          <p className="text-sm text-muted-foreground">
+    <Card className="border-border/50 bg-card/80">
+      <CardContent className="p-6 space-y-6">
+        <div>
+          <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Choose Metatype</h4>
+          <p className="text-sm text-muted-foreground mb-3 mt-0">
             Priority {metatypePriority} allows: {availableMetatypes.join(", ")} with {totalAdj} adjustment points.
             Spend them in the Adjustment Points section below after choosing your magic type.
           </p>
-        </CardHeader>
-        <CardContent>
           <div className="flex flex-wrap gap-2">
             {availableMetatypes.map((mt) => (
               <Button
@@ -48,17 +46,22 @@ export default function Step2Metatype({ state, onChange }: Props) {
               </Button>
             ))}
           </div>
-        </CardContent>
-      </Card>
-
-      {mtData && mtData.racialQualities.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          <span className="text-xs text-muted-foreground font-display tracking-wide mr-1 pt-0.5">RACIAL QUALITIES:</span>
-          {mtData.racialQualities.map((q) => (
-            <Badge key={q} variant="secondary" className="font-mono text-xs">{q}</Badge>
-          ))}
         </div>
-      )}
-    </div>
+
+        {mtData && mtData.racialQualities.length > 0 && (
+          <>
+            <div className="h-px bg-border" />
+            <div>
+              <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Racial Qualities</h4>
+              <div className="flex flex-wrap gap-2">
+                {mtData.racialQualities.map((q) => (
+                  <Badge key={q} variant="secondary" className="font-mono text-xs">{q}</Badge>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+      </CardContent>
+    </Card>
   );
 }

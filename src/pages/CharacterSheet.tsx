@@ -11,7 +11,7 @@ import type { Tables } from "@/integrations/supabase/types";
 import type { SR6Attributes, SR6Skill, SR6Quality, SR6Contact, SR6RangedWeapon, SR6MeleeWeapon, SR6Armor, SR6Augmentation, SR6Gear, SR6AdeptPower, SR6PersonalInfo, SR6IdsLifestyles, AttributeSources, ConditionMonitor } from "@/types/character";
 import type { KarmaTransaction } from "@/types/karma";
 import { computeKarmaSummary, attributeKarmaCost } from "@/lib/karma";
-import { inferMagicType } from "@/lib/character-utils";
+import { inferMagicType, getMagicTradition } from "@/lib/character-utils";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AttributesTab } from "@/components/character/AttributesTab";
@@ -24,6 +24,7 @@ import { NotesTab } from "@/components/character/NotesTab";
 import { ConditionMonitorTab } from "@/components/character/ConditionMonitorTab";
 import { IdsLifestylesCurrencyTab } from "@/components/character/IdsLifestylesCurrencyTab";
 import { PrimaryEquipmentBlock } from "@/components/character/PrimaryEquipmentBlock";
+import { SpellcastingTab } from "@/components/character/SpellcastingTab";
 import { computeWoundModifier } from "@/lib/condition-monitor";
 
 type Character = Tables<"characters">;
@@ -288,9 +289,15 @@ export default function CharacterSheet() {
   if (magicType === "technomancer") magicTabs.push("complex-forms");
   const allTabs = [...baseTabs, ...magicTabs, "other"];
 
-  const spells = (character.spells || []) as Array<{ id?: string; category?: string; [k: string]: unknown }>;
+  const spells = (character.spells || []) as Array<{ id?: string; category?: string; duration?: string; active?: boolean; [k: string]: unknown }>;
   const spellcastingItems = spells.filter((s) => s.category !== "complex_form");
   const complexFormItems = spells.filter((s) => s.category === "complex_form");
+
+  const activeSpells = spellcastingItems.filter(
+    (s) =>
+      s.active !== false &&
+      ((s.category === "spell" && s.duration === "Sustained") || s.category === "ritual")
+  );
 
   const TAB_LABELS: Record<string, string> = {
     "weapons-gear": "Gear",
@@ -353,7 +360,7 @@ export default function CharacterSheet() {
                 />
               </div>
               <div className="h-full min-h-0 flex flex-col [&>*]:flex-1 [&>*]:min-h-0 [&>*]:flex [&>*]:flex-col">
-                <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} adeptPowers={adeptPowers} onUpdate={handleAttributeChange} />
+                <AttributesTab attributes={attributes} attributeSources={attributeSources} augmentations={augmentations} gear={gear} armor={(character.armor || []) as unknown as SR6Armor[]} qualities={qualities} adeptPowers={adeptPowers} activeSpells={activeSpells} onUpdate={handleAttributeChange} />
               </div>
             </div>
 
@@ -368,6 +375,7 @@ export default function CharacterSheet() {
                   augmentations={augmentations}
                   gear={gear}
                   adeptPowers={adeptPowers}
+                  activeSpells={activeSpells}
                   woundModifier={woundModifier}
                   onUpdate={handleSkillsChange}
                 />
@@ -407,6 +415,7 @@ export default function CharacterSheet() {
                 augmentations={augmentations}
                 gear={gear}
                 adeptPowers={adeptPowers}
+                activeSpells={activeSpells}
                 woundModifier={woundModifier}
               />
               </div>
@@ -541,20 +550,20 @@ export default function CharacterSheet() {
           </TabsContent>
 
           <TabsContent value="spellcasting">
-            <GenericListTab
-              title="Spells / Preparations / Rituals"
+            <SpellcastingTab
               items={spellcastingItems}
-              fields={["name", "category", "type", "drain", "duration", "range", "effects"]}
-              fieldOptions={{
-                category: ["spell", "preparation", "ritual"],
-                type: ["Combat", "Detection", "Health", "Illusion", "Manipulation"],
-              }}
-              fieldDefaults={{ category: "spell" }}
-              magicReferenceCategories={["spells"]}
-              itemEditMode
               onUpdate={(newSpells) =>
                 updateField("spells", [...newSpells, ...complexFormItems])
               }
+              attributes={attributes}
+              skills={skills}
+              qualities={qualities}
+              augmentations={augmentations}
+              gear={gear}
+              adeptPowers={adeptPowers}
+              activeSpells={activeSpells}
+              woundModifier={woundModifier}
+              magicTradition={getMagicTradition(character as any)}
             />
           </TabsContent>
 

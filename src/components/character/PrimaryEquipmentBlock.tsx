@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Shield, Crosshair, Sword } from "lucide-react";
+import { Shield, Crosshair, Sword, Sparkles } from "lucide-react";
 import type {
   SR6RangedWeapon,
   SR6MeleeWeapon,
@@ -100,6 +100,8 @@ function ARDisplay({ weapon }: { weapon: { ar: string; accessories?: string | { 
   );
 }
 
+type ActiveSpell = { id?: string; name: string; drain?: string; category?: string; [k: string]: unknown };
+
 interface Props {
   rangedWeapons: SR6RangedWeapon[];
   meleeWeapons: SR6MeleeWeapon[];
@@ -111,6 +113,7 @@ interface Props {
   gear?: SR6Gear[];
   adeptPowers?: SR6AdeptPower[];
   woundModifier?: number;
+  activeSpells?: ActiveSpell[];
 }
 
 export function PrimaryEquipmentBlock({
@@ -124,12 +127,17 @@ export function PrimaryEquipmentBlock({
   gear = [],
   adeptPowers = [],
   woundModifier,
+  activeSpells = [],
 }: Props) {
   const equippedRanged = rangedWeapons.filter((w) => w.equipped !== false);
   const equippedMelee = meleeWeapons.filter((w) => w.equipped !== false);
   const equippedArmor = armor.filter((a) => a.equipped !== false);
 
-  const hasNothing = equippedRanged.length === 0 && equippedMelee.length === 0 && equippedArmor.length === 0;
+  const hasNothing =
+    equippedRanged.length === 0 &&
+    equippedMelee.length === 0 &&
+    equippedArmor.length === 0 &&
+    activeSpells.length === 0;
 
   if (hasNothing) {
     return (
@@ -188,7 +196,8 @@ export function PrimaryEquipmentBlock({
                         gear,
                         normalizeAccessories(weapon.accessories),
                         woundModifier,
-                        adeptPowers
+                        adeptPowers,
+                        activeSpells
                       )}
                       className="text-primary cursor-help"
                     />
@@ -220,12 +229,27 @@ export function PrimaryEquipmentBlock({
                         gear,
                         normalizeAccessories(weapon.accessories),
                         woundModifier,
-                        adeptPowers
+                        adeptPowers,
+                        activeSpells
                       )}
                       className="text-primary cursor-help"
                     />
                   )}
                 </div>
+              </div>
+            ))}
+          </>
+        )}
+
+        {activeSpells.length > 0 && (
+          <>
+            <CategoryHeader icon={Sparkles} label="Active Spells" />
+            {activeSpells.map((spell) => (
+              <div key={spell.id ?? spell.name} className="space-y-1 p-2 rounded-md bg-muted/30">
+                <p className="font-mono text-sm">
+                  {spell.name}
+                  {spell.drain ? ` — Drain ${spell.drain}` : ""}
+                </p>
               </div>
             ))}
           </>

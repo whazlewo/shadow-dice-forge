@@ -9,6 +9,7 @@ export function referenceToCharacterSpell(ref: ReferenceSpell): SR6Spell {
     name: ref.name,
     category: ref.category,
     type: ref.type,
+    damage_type: ref.damage_type,
     drain: ref.drain,
     duration: ref.duration,
     range: ref.range,

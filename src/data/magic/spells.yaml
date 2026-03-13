@@ -6,7 +6,8 @@
 - name: Acid Stream
   category: spell
   type: Combat
-  drain: "F/2 + 1"
+  damage_type: Indirect
+  drain: "5"
   duration: Instant
   range: LOS
   effects: "Chemical damage, Corroded status. Indirect combat spell."
@@ -16,7 +17,8 @@
 - name: Toxic Wave
   category: spell
   type: Combat
-  drain: "F/2 + 2"
+  damage_type: Indirect
+  drain: "6"
   duration: Instant
   range: LOS (A)
   effects: "Chemical damage, Corroded status. Indirect combat, area effect."
@@ -26,7 +28,8 @@
 - name: Clout
   category: spell
   type: Combat
-  drain: "F/2"
+  damage_type: Indirect
+  drain: "3"
   duration: Instant
   range: LOS
   effects: "Stun damage. Indirect combat, shapes air to strike."
@@ -36,7 +39,8 @@
 - name: Blast
   category: spell
   type: Combat
-  drain: "F/2 + 1"
+  damage_type: Indirect
+  drain: "4"
   duration: Instant
   range: LOS (A)
   effects: "Stun damage, area effect. Indirect combat."
@@ -46,7 +50,8 @@
 - name: Flamestrike
   category: spell
   type: Combat
-  drain: "F/2 + 1"
+  damage_type: Indirect
+  drain: "5"
   duration: Instant
   range: LOS
   effects: "Fire elemental damage, Burning status. Indirect combat."
@@ -56,7 +61,8 @@
 - name: Fireball
   category: spell
   type: Combat
-  drain: "F/2 + 2"
+  damage_type: Indirect
+  drain: "6"
   duration: Instant
   range: LOS (A)
   effects: "Fire elemental damage, Burning status. Indirect combat, area effect."
@@ -66,7 +72,8 @@
 - name: Ice Spear
   category: spell
   type: Combat
-  drain: "F/2 + 1"
+  damage_type: Indirect
+  drain: "5"
   duration: Instant
   range: LOS
   effects: "Cold elemental damage, Chilled status. Indirect combat."
@@ -76,7 +83,8 @@
 - name: Ice Storm
   category: spell
   type: Combat
-  drain: "F/2 + 2"
+  damage_type: Indirect
+  drain: "6"
   duration: Instant
   range: LOS (A)
   effects: "Cold elemental damage, Chilled status. Indirect combat, area effect."
@@ -86,7 +94,8 @@
 - name: Lightning Bolt
   category: spell
   type: Combat
-  drain: "F/2 + 1"
+  damage_type: Indirect
+  drain: "5"
   duration: Instant
   range: LOS
   effects: "Electricity elemental damage, Zapped status. Indirect combat."
@@ -96,7 +105,8 @@
 - name: Lightning Ball
   category: spell
   type: Combat
-  drain: "F/2 + 2"
+  damage_type: Indirect
+  drain: "6"
   duration: Instant
   range: LOS (A)
   effects: "Electricity elemental damage, Zapped status. Indirect combat, area effect."
@@ -106,7 +116,8 @@
 - name: Manabolt
   category: spell
   type: Combat
-  drain: "F/2"
+  damage_type: Direct
+  drain: "4"
   duration: Instant
   range: LOS
   effects: "Direct mana combat spell. Resisted by Willpower."
@@ -116,7 +127,8 @@
 - name: Manaball
   category: spell
   type: Combat
-  drain: "F/2 + 1"
+  damage_type: Direct
+  drain: "5"
   duration: Instant
   range: LOS (A)
   effects: "Direct mana combat spell, area effect. Resisted by Willpower."
@@ -126,7 +138,8 @@
 - name: Powerbolt
   category: spell
   type: Combat
-  drain: "F/2"
+  damage_type: Direct
+  drain: "4"
   duration: Instant
   range: LOS
   effects: "Physical damage. Direct combat spell."
@@ -136,7 +149,8 @@
 - name: Powerball
   category: spell
   type: Combat
-  drain: "F/2 + 1"
+  damage_type: Direct
+  drain: "5"
   duration: Instant
   range: LOS (A)
   effects: "Physical damage, area effect. Direct combat spell."
@@ -146,7 +160,8 @@
 - name: Stunbolt
   category: spell
   type: Combat
-  drain: "F/2"
+  damage_type: Direct
+  drain: "3"
   duration: Instant
   range: LOS
   effects: "Stun damage. Direct combat spell."
@@ -156,7 +171,8 @@
 - name: Stunball
   category: spell
   type: Combat
-  drain: "F/2 + 1"
+  damage_type: Direct
+  drain: "4"
   duration: Instant
   range: LOS (A)
   effects: "Stun damage, area effect. Direct combat spell."
@@ -167,7 +183,7 @@
 - name: Analyze Device
   category: spell
   type: Detection
-  drain: "F/2"
+  drain: "2"
   duration: Sustained
   range: Touch
   effects: "Provides information about unknown devices. Object Resistance opposes."
@@ -177,7 +193,7 @@
 - name: Analyze Magic
   category: spell
   type: Detection
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Assensing without going astral. Opposed by 2 x original test hits."
@@ -187,7 +203,7 @@
 - name: Analyze Truth
   category: spell
   type: Detection
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Subject gains sense if target is telling the truth."
@@ -197,7 +213,7 @@
 - name: Clairaudience
   category: spell
   type: Detection
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Subject hears distant sounds. Area can be selected and moved."
@@ -207,7 +223,7 @@
 - name: Clairvoyance
   category: spell
   type: Detection
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Subject sees distant sights. Area can be selected and moved."
@@ -217,7 +233,7 @@
 - name: Combat Sense
   category: spell
   type: Detection
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Heightened awareness of danger. Net hits add to Defense Rating and Surprise tests."
@@ -227,7 +243,7 @@
 - name: Detect Enemies
   category: spell
   type: Detection
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Reveals if anyone in range has hostile intentions toward subject."
@@ -237,7 +253,7 @@
 - name: Detect Life
   category: spell
   type: Detection
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Points out sentient beings in the area."
@@ -247,7 +263,7 @@
 - name: Detect Magic
   category: spell
   type: Detection
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Sustained
   range: Touch
   effects: "Alerts caster to active magic within sense range."
@@ -257,7 +273,7 @@
 - name: Mindlink
   category: spell
   type: Detection
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Mental communication link between caster and subject."
@@ -267,7 +283,7 @@
 - name: Mind Probe
   category: spell
   type: Detection
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Sustained
   range: Touch
   effects: "Dig into target's mind. Sorcery + Magic vs Willpower + Logic."
@@ -278,7 +294,7 @@
 - name: Antidote
   category: spell
   type: Health
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Permanent
   range: Touch
   effects: "Purges toxins. Extended test vs toxin power. Each hit reduces toxin power by 1."
@@ -288,7 +304,7 @@
 - name: Cleansing Heal
   category: spell
   type: Health
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Permanent
   range: Touch
   effects: "Heals damage and eliminates Corroded status."
@@ -298,7 +314,7 @@
 - name: Cooling Heal
   category: spell
   type: Health
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Permanent
   range: Touch
   effects: "Heals damage and eliminates Burning status."
@@ -308,7 +324,7 @@
 - name: Decrease Attribute
   category: spell
   type: Health
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Temporarily lowers one attribute (min 1). +1 DV per net hit beyond first."
@@ -318,7 +334,7 @@
 - name: Heal
   category: spell
   type: Health
-  drain: "F/2"
+  drain: "3"
   duration: Permanent
   range: Touch
   effects: "Heals 1 box per net hit. Threshold (5 – Essence)."
@@ -328,7 +344,7 @@
 - name: Increase Attribute
   category: spell
   type: Health
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Temporarily raises one attribute. Max +4. +1 DV per net hit beyond first."
@@ -338,7 +354,7 @@
 - name: Increase Reflexes
   category: spell
   type: Health
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Sustained
   range: Touch
   effects: "Increases Reaction and Initiative Dice. +1 DV per net hit beyond first."
@@ -348,7 +364,7 @@
 - name: Resist Pain
   category: spell
   type: Health
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Target ignores damage modifiers. Net hits reduce dice-pool modifiers from damage."
@@ -358,7 +374,7 @@
 - name: Stabilize
   category: spell
   type: Health
-  drain: "F/2"
+  drain: "3"
   duration: Permanent
   range: Touch
   effects: "Stabilizes Overflow damage. Threshold = Overflow boxes."
@@ -368,7 +384,7 @@
 - name: Warming Heal
   category: spell
   type: Health
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Permanent
   range: Touch
   effects: "Heals damage and eliminates Chilled status."
@@ -379,7 +395,7 @@
 - name: Agony
   category: spell
   type: Illusion
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: LOS
   effects: "Pain without damage. Net hits act like damage for Condition Monitor penalties."
@@ -389,7 +405,7 @@
 - name: Chaos
   category: spell
   type: Illusion
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Sustained
   range: LOS
   effects: "Confusion affecting tech. Confused status, affects cameras and technology."
@@ -399,7 +415,7 @@
 - name: Confusion
   category: spell
   type: Illusion
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: LOS
   effects: "Confused status. Net hits = status rating and dice pool penalty."
@@ -409,7 +425,7 @@
 - name: Hush
   category: spell
   type: Illusion
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Silent (#) status. Mana-based, affects living beings."
@@ -419,7 +435,7 @@
 - name: Silence
   category: spell
   type: Illusion
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Sustained
   range: Touch
   effects: "Silent (Improved) (#) status. Physical, affects tech too."
@@ -429,7 +445,7 @@
 - name: Invisibility
   category: spell
   type: Illusion
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Invisible (#) status. Mana-based."
@@ -439,7 +455,7 @@
 - name: Improved Invisibility
   category: spell
   type: Illusion
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Sustained
   range: Touch
   effects: "Improved Invisibility (#) status. Physical, works against tech."
@@ -449,7 +465,7 @@
 - name: Mask
   category: spell
   type: Illusion
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Changes appearance. Willpower + Intuition to see through. Mana, living only."
@@ -459,7 +475,7 @@
 - name: Physical Mask
   category: spell
   type: Illusion
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Sustained
   range: Touch
   effects: "Changes appearance for tech. Physical, affects cameras and devices."
@@ -469,7 +485,7 @@
 - name: Phantasm
   category: spell
   type: Illusion
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: LOS (A)
   effects: "Projects image into area. Mana, affects living beings."
@@ -479,7 +495,7 @@
 - name: Trid Phantasm
   category: spell
   type: Illusion
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Sustained
   range: LOS (A)
   effects: "Projects image for tech. Physical, affects cameras and devices."
@@ -489,7 +505,7 @@
 - name: Sensor Sneak
   category: spell
   type: Illusion
-  drain: "F/2"
+  drain: "2"
   duration: Sustained
   range: Touch
   effects: "Invisible (Improved) vs technology only. No effect on living beings."
@@ -500,7 +516,7 @@
 - name: Animate Metal
   category: spell
   type: Manipulation
-  drain: "F/2 + 2"
+  drain: "6"
   duration: Limited
   range: LOS
   effects: "Animates metal. Sorcery + Magic vs Object Resistance."
@@ -510,7 +526,7 @@
 - name: Animate Plastic
   category: spell
   type: Manipulation
-  drain: "F/2"
+  drain: "3"
   duration: Limited
   range: LOS
   effects: "Animates plastic. Sorcery + Magic vs Object Resistance."
@@ -520,7 +536,7 @@
 - name: Animate Stone
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Limited
   range: LOS
   effects: "Animates stone. Sorcery + Magic vs Object Resistance."
@@ -530,7 +546,7 @@
 - name: Animate Wood
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Limited
   range: LOS
   effects: "Animates wood. Sorcery + Magic vs Object Resistance."
@@ -540,7 +556,7 @@
 - name: Armor
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Sustained
   range: Touch
   effects: "Adds net hits to Defense Rating."
@@ -550,7 +566,7 @@
 - name: Darkness
   category: spell
   type: Manipulation
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: LOS (A)
   effects: "Lowers light level. Net hits affect Environment/Visibility Edge."
@@ -560,7 +576,7 @@
 - name: Light
   category: spell
   type: Manipulation
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: LOS (A)
   effects: "Raises light level. Net hits affect Environment/Visibility Edge."
@@ -570,7 +586,7 @@
 - name: Elemental Armor
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Sustained
   range: Touch
   effects: "Armor plus elemental protection. Prevents certain statuses."
@@ -580,7 +596,7 @@
 - name: Control Actions
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Limited
   range: LOS
   effects: "Puppeteer control. Sorcery + Magic vs Willpower + Logic. Net hits = duration in minutes."
@@ -590,7 +606,7 @@
 - name: Control Thoughts
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Limited
   range: LOS
   effects: "Insidious mind control. Sorcery + Magic vs Willpower + Logic."
@@ -600,7 +616,7 @@
 - name: Focus Burst
   category: spell
   type: Manipulation
-  drain: "F/2 + 3"
+  drain: "7"
   duration: Limited
   range: Touch
   effects: "Increases focus rating. Critical glitch reduces Force by 2."
@@ -610,7 +626,7 @@
 - name: Fling
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Instant
   range: LOS
   effects: "Fling objects. 0.5 kg per net hit. Reaction + Intuition to avoid. AR: Close (Magic), Near (Magic+2), Medium (Magic+1), Far (Magic-2), Extreme: —"
@@ -620,7 +636,7 @@
 - name: Levitate
   category: spell
   type: Manipulation
-  drain: "F/2 + 2"
+  drain: "6"
   duration: Sustained
   range: LOS
   effects: "Levitate 50 kg per hit. Unwilling: Body + Strength opposes."
@@ -630,7 +646,7 @@
 - name: Mana Barrier
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Sustained
   range: LOS (A)
   effects: "Astral wall. Blocks spirits, foci, dual-natured, preparations, spells."
@@ -640,7 +656,7 @@
 - name: Mystic Armor
   category: spell
   type: Manipulation
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: Touch
   effects: "Astral Defense Rating. Drain type M. For astral combat and mana Combat spells."
@@ -650,7 +666,7 @@
 - name: Overclock
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Sustained
   range: LOS
   effects: "Increases device attribute. Device takes Matrix damage when dropped (resisted by Firewall)."
@@ -660,7 +676,7 @@
 - name: Physical Barrier
   category: spell
   type: Manipulation
-  drain: "F/2 + 2"
+  drain: "6"
   duration: Sustained
   range: LOS (A)
   effects: "Structure = Magic + hits. Base 2m x 2m. Increase Area adds size."
@@ -670,7 +686,7 @@
 - name: Shape Metal
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "5"
   duration: Sustained
   range: LOS
   effects: "Shape metal. 1 cubic meter per net hit. Retains form when dropped."
@@ -680,7 +696,7 @@
 - name: Shape Plastic
   category: spell
   type: Manipulation
-  drain: "F/2"
+  drain: "2"
   duration: Sustained
   range: LOS
   effects: "Shape plastic. 1 cubic meter per net hit."
@@ -690,7 +706,7 @@
 - name: Shape Stone
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Sustained
   range: LOS
   effects: "Shape stone. 1 cubic meter per net hit."
@@ -700,7 +716,7 @@
 - name: Shape Wood
   category: spell
   type: Manipulation
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: LOS
   effects: "Shape wood. 1 cubic meter per net hit."
@@ -710,7 +726,7 @@
 - name: Strengthen Wall
   category: spell
   type: Manipulation
-  drain: "F/2 + 1"
+  drain: "4"
   duration: Sustained
   range: LOS (A)
   effects: "Increases Structure by 1 per net hit. 4 square meters base."
@@ -720,7 +736,7 @@
 - name: Thunder
   category: spell
   type: Manipulation
-  drain: "F/2"
+  drain: "3"
   duration: Sustained
   range: LOS (A)
   effects: "Loud noise. Net hits = negative modifier to hear other noises."
@@ -730,7 +746,7 @@
 - name: Vehicle Armor
   category: spell
   type: Manipulation
-  drain: "F/2 + 2"
+  drain: "6"
   duration: Sustained
   range: Touch
   effects: "Increases vehicle Hardened Armor by 1 per net hit. Drain type P."

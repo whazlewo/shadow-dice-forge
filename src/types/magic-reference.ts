@@ -2,13 +2,15 @@
 
 import type { DiceModifier } from "./character";
 
-export type SpellCategory = "spell" | "preparation" | "ritual";
+export type SpellCategory = "spell" | "ritual";
 export type SpellType = "Combat" | "Detection" | "Health" | "Illusion" | "Manipulation";
+export type DamageType = "Direct" | "Indirect";
 
 export interface ReferenceSpell {
   name: string;
   category: SpellCategory;
   type: SpellType;
+  damage_type?: DamageType;
   drain: string;
   duration: string;
   range: string;

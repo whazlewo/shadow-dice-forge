@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Info, Minus, Plus } from "lucide-react";
@@ -69,18 +69,17 @@ export default function Step4Skills({ state, onChange }: Props) {
 
   return (
     <Card className="border-border/50 bg-card/80">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="font-display text-lg tracking-wide">Skills</CardTitle>
-          <Badge variant={remaining < 0 ? "destructive" : "outline"} className="font-mono">
-            {remaining} / {totalPoints} remaining
-          </Badge>
-        </div>
-        <p className="text-sm text-muted-foreground">
-          Max rank 6, only one skill at rank 6. Specializations cost 1 pt (+2 dice), expertise costs 1 pt (+1 die, requires spec).
-        </p>
-      </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="p-6 space-y-6">
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Skills</h4>
+            <Badge variant={remaining < 0 ? "destructive" : "outline"} className="font-mono">
+              {remaining} / {totalPoints} remaining
+            </Badge>
+          </div>
+          <p className="text-sm text-muted-foreground mb-3 mt-0">
+            Max rank 6, only one skill at rank 6. Specializations cost 1 pt (+2 dice), expertise costs 1 pt (+1 die, requires spec).
+          </p>
         {remaining < 0 && (
           <div className="flex items-center gap-2 text-sm text-amber-400 bg-amber-400/10 rounded-md px-3 py-2 border border-amber-400/20 mb-2">
             <AlertTriangle className="h-4 w-4 shrink-0" />
@@ -218,6 +217,7 @@ export default function Step4Skills({ state, onChange }: Props) {
           )})}
         </div>
         </TooltipProvider>
+        </div>
       </CardContent>
     </Card>
   );

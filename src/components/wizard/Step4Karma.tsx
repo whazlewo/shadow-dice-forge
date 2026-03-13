@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -137,15 +137,13 @@ export default function Step4Karma({ state, onChange }: Props) {
   };
 
   return (
-    <div className="space-y-6">
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader className="pb-3">
-          <CardTitle className="font-display text-lg tracking-wide">Customization Karma</CardTitle>
-          <p className="text-sm text-muted-foreground">
+    <Card className="border-border/50 bg-card/80">
+      <CardContent className="p-6 space-y-6">
+        <div>
+          <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Customization Karma</h4>
+          <p className="text-sm text-muted-foreground mb-3 mt-0">
             Spend karma to raise attributes (5/point), skills (5/point), specializations (5 each), nuyen (1 karma = 2,000¥), knowledge skills (3 each), and optionally purchase additional spells or power points (5 karma each).
           </p>
-        </CardHeader>
-        <CardContent className="space-y-6">
           <div className="flex gap-4 text-sm font-mono flex-wrap">
             <Badge variant="outline">Base: {BASE_KARMA}</Badge>
             <Badge variant="outline" className={qualityNet >= 0 ? "text-emerald-400 border-emerald-400/30" : "text-amber-400 border-amber-400/30"}>
@@ -409,10 +407,11 @@ export default function Step4Karma({ state, onChange }: Props) {
 
           {/* Magic Purchases */}
           {(isSpellcaster || isMysticAdept) && (
-            <div>
-              <Label className="font-display tracking-wide text-sm mb-3 block">Magic Purchases (5 karma each)</Label>
-              <Card className="border-border/50 bg-card/60">
-                <CardContent className="pt-4 space-y-4">
+            <>
+              <div className="h-px bg-border" />
+              <div>
+                <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Magic Purchases (5 karma each)</h4>
+                <div className="space-y-4 rounded-md border border-border/40 bg-muted/20 p-4">
                   {isSpellcaster && (
                     <div>
                       <div className="flex items-center justify-between mb-2">
@@ -483,12 +482,12 @@ export default function Step4Karma({ state, onChange }: Props) {
                       </p>
                     </div>
                   )}
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </div>
+            </>
           )}
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

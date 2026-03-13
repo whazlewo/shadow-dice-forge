@@ -185,11 +185,15 @@ export interface SR6Spell {
   name: string;
   category: "spell" | "preparation" | "ritual" | "complex_form";
   type: string;
+  damage_type?: "Direct" | "Indirect";
   drain: string;
   duration: string;
   range: string;
   effects: string;
   description?: string;
+  /** When true, spell/ritual is currently in effect; surfaces in Readied Equipment and contributes dice_modifiers to pool calculations */
+  active?: boolean;
+  dice_modifiers?: DiceModifier[];
 }
 
 export interface SR6AdeptPower {

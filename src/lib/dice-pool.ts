@@ -18,6 +18,8 @@ function modifierApplies(mod: { requires_accessory?: string }, weaponAccessories
  * @param woundModifier - Optional penalty from Condition Monitor damage (–1 per 3 boxes filled).
  *   Does not apply to Damage Resistance tests (GM discretion).
  */
+type ActiveSpellInput = { name: string; dice_modifiers?: DiceModifier[] };
+
 export function calculateDicePool(
   skill: SR6Skill,
   attributes: SR6Attributes,
@@ -27,6 +29,7 @@ export function calculateDicePool(
   weaponAccessories?: AccessoryInput[],
   woundModifier?: number,
   adeptPowers?: SR6AdeptPower[],
+  activeSpells?: ActiveSpellInput[],
 ): DicePoolBreakdown {
   const attrValue = Number(attributes[skill.attribute]) || 0;
   const modifiers: { source: string; value: number }[] = [];
@@ -77,6 +80,14 @@ export function calculateDicePool(
     });
   });
 
+  (activeSpells || []).forEach((spell) => {
+    spell.dice_modifiers?.forEach((mod) => {
+      if (!mod.attribute && (!mod.skill || mod.skill === skill.name) && modifierApplies(mod, weaponAccessories)) {
+        modifiers.push({ source: `Spell: ${spell.name}`, value: mod.value });
+      }
+    });
+  });
+
   // Enforce +4 augmented maximum on skill-specific bonuses (SR6 p. 64)
   const augBonusTotal = modifiers
     .filter((m) => m.source !== "Wound penalty" && m.value > 0)
@@ -112,6 +123,7 @@ export function calculateWeaponPool(
   weaponAccessories?: AccessoryInput[],
   woundModifier?: number,
   adeptPowers?: SR6AdeptPower[],
+  activeSpells?: ActiveSpellInput[],
 ): DicePoolBreakdown {
   const skill = skills.find((s) => s.name === skillName);
   const effectiveSkill: SR6Skill = skill || {
@@ -121,7 +133,7 @@ export function calculateWeaponPool(
     rating: 0,
   };
 
-  const base = calculateDicePool(effectiveSkill, attributes, qualities, augmentations, gear, weaponAccessories, woundModifier, adeptPowers);
+  const base = calculateDicePool(effectiveSkill, attributes, qualities, augmentations, gear, weaponAccessories, woundModifier, adeptPowers, activeSpells);
 
   // Check specialization / expertise match
   if (weaponSubtype && skill) {

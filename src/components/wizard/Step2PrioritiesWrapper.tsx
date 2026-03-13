@@ -18,7 +18,7 @@ interface Props {
 const SECTIONS = [
   { key: "priorities", label: "Priority Table", Component: Step1Priorities },
   { key: "metatype", label: "Metatype", Component: Step2Metatype },
-  { key: "magic", label: "Magic / Resonance", Component: Step5Magic },
+  { key: "magic", label: "Magic / Resonance / Tradition", Component: Step5Magic },
   { key: "adjustmentPoints", label: "Adjustment Points", Component: Step2AdjustmentPoints },
   { key: "attributes", label: "Attributes", Component: Step3Attributes },
   { key: "skills", label: "Skills", Component: Step4Skills },

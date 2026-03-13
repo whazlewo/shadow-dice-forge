@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 // Input removed — character name moved to Step1Concept
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -47,15 +47,13 @@ export default function Step1Priorities({ state, onChange }: Props) {
   };
 
   return (
-    <div className="space-y-6">
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader className="pb-3">
-          <CardTitle className="font-display text-lg tracking-wide">Priority Table</CardTitle>
-          <p className="text-sm text-muted-foreground">
+    <Card className="border-border/50 bg-card/80">
+      <CardContent className="p-6 space-y-6">
+        <div>
+          <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Priority Table</h4>
+          <p className="text-sm text-muted-foreground mb-3 mt-0">
             Assign each column a unique priority from A (best) to E (worst).
           </p>
-        </CardHeader>
-        <CardContent className="space-y-4">
           {hasDuplicates && (
             <div className="flex items-center gap-2 text-sm text-amber-400 bg-amber-400/10 rounded-md px-3 py-2 border border-amber-400/20">
               <AlertTriangle className="h-4 w-4 shrink-0" />
@@ -126,8 +124,8 @@ export default function Step1Priorities({ state, onChange }: Props) {
               </div>
             </div>
           )}
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

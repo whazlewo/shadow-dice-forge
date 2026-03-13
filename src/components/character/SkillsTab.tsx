@@ -14,6 +14,8 @@ import { calculateDicePool } from "@/lib/dice-pool";
 import { DicePoolDisplay } from "./DicePoolTooltip";
 import { skillKarmaCost, SPECIALIZATION_KARMA_COST, EXPERTISE_KARMA_COST } from "@/lib/karma";
 
+type ActiveSpellInput = { name: string; dice_modifiers?: import("@/types/character").DiceModifier[] };
+
 interface Props {
   skills: SR6Skill[];
   attributes: SR6Attributes;
@@ -21,6 +23,7 @@ interface Props {
   augmentations: SR6Augmentation[];
   gear: SR6Gear[];
   adeptPowers?: SR6AdeptPower[];
+  activeSpells?: ActiveSpellInput[];
   woundModifier?: number;
   onUpdate: (skills: SR6Skill[], karmaInfo?: { description: string; cost: number; field: string }) => void;
 }
@@ -74,7 +77,7 @@ function ReadOnlySkillRow({ skill, pool }: { skill: SR6Skill; pool: DicePoolBrea
   );
 }
 
-export function SkillsTab({ skills, attributes, qualities, augmentations, gear, adeptPowers, woundModifier, onUpdate }: Props) {
+export function SkillsTab({ skills, attributes, qualities, augmentations, gear, adeptPowers, activeSpells, woundModifier, onUpdate }: Props) {
   const [expandedSkill, setExpandedSkill] = useState<string | null>(null);
   const [editing, setEditing] = useState(false);
 
@@ -167,7 +170,7 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
               </thead>
               <tbody>
                 {skills.map((skill) => {
-                  const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier, adeptPowers);
+                  const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier, adeptPowers, activeSpells);
                   return <ReadOnlySkillRow key={skill.id} skill={skill} pool={pool} />;
                 })}
               </tbody>
@@ -178,7 +181,7 @@ export function SkillsTab({ skills, attributes, qualities, augmentations, gear, 
         {editing && (
           <div className="space-y-2">
             {skills.map((skill, index) => {
-              const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier, adeptPowers);
+              const pool = calculateDicePool(skill, attributes, qualities, augmentations, gear, undefined, woundModifier, adeptPowers, activeSpells);
               const isExpanded = expandedSkill === skill.id;
 
               return (

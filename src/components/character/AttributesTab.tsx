@@ -52,6 +52,7 @@ function computeDerived(
   augmentations?: SR6Augmentation[],
   gear?: SR6Gear[],
   adeptPowers?: SR6AdeptPower[],
+  activeSpells?: ActiveSpellInput[],
 ): DerivedStat[] {
   const rea = a.reaction || 0;
   const int = a.intuition || 0;
@@ -69,8 +70,8 @@ function computeDerived(
   const bestHelmet = bestOf(bySubtype("helmet"));
   const bestShield = bestOf(bySubtype("shield"));
 
-  // Collect DR modifiers from qualities, augmentations, gear, adept powers
-  const drMods = collectDiceModifiers("defense_rating", qualities, augmentations, gear, adeptPowers);
+  // Collect DR modifiers from qualities, augmentations, gear, adept powers, active spells
+  const drMods = collectDiceModifiers("defense_rating", qualities, augmentations, gear, adeptPowers, undefined, activeSpells);
 
   const drBonus = drMods.reduce((sum, m) => sum + m.value, 0);
   const armorTotal = (Number(bestBody?.rating) || 0) + (Number(bestHelmet?.rating) || 0) + (Number(bestShield?.rating) || 0);
@@ -85,7 +86,7 @@ function computeDerived(
   drLines.push(`Total: ${totalDR}`);
 
   // Defense dice modifiers (e.g. Combat Sense)
-  const defDiceMods = collectDiceModifiers("defense_dice", qualities, augmentations, gear, adeptPowers);
+  const defDiceMods = collectDiceModifiers("defense_dice", qualities, augmentations, gear, adeptPowers, undefined, activeSpells);
   const defDiceBonus = defDiceMods.reduce((sum, m) => sum + m.value, 0);
   if (defDiceBonus > 0) {
     drLines.push(`Defense dice: +${defDiceBonus}`);
@@ -93,8 +94,8 @@ function computeDerived(
   }
 
   // Initiative dice modifiers (e.g. Wired Reflexes, Synaptic Booster)
-  const initDiceMods = collectDiceModifiers("initiative_dice", qualities, augmentations, gear, adeptPowers);
-  const initFlatMods = collectDiceModifiers("initiative", qualities, augmentations, gear, adeptPowers);
+  const initDiceMods = collectDiceModifiers("initiative_dice", qualities, augmentations, gear, adeptPowers, undefined, activeSpells);
+  const initFlatMods = collectDiceModifiers("initiative", qualities, augmentations, gear, adeptPowers, undefined, activeSpells);
 
   const initDiceBonus = initDiceMods.reduce((sum, m) => sum + m.value, 0);
   const totalInitDice = Math.min(1 + initDiceBonus, 5);
@@ -123,7 +124,9 @@ function computeDerived(
 
 type ExcludableItem = { name: string; dice_modifiers?: DiceModifier[]; exclusion_group?: string };
 
-/** Collect dice modifiers for a given attribute key from qualities, augmentations, gear, and adept powers.
+type ActiveSpellInput = { name: string; dice_modifiers?: DiceModifier[] };
+
+/** Collect dice modifiers for a given attribute key from qualities, augmentations, gear, adept powers, and active spells.
  *  When maxBonus is set, positive modifiers are clamped so the total bonus does not exceed maxBonus.
  *  A "⚠ Capped" entry is appended when clamping occurs.
  *  Enforces exclusion groups: when multiple augmentations/powers share a group, only the best is kept. */
@@ -134,6 +137,7 @@ function collectDiceModifiers(
   gear?: { name: string; dice_modifiers?: DiceModifier[]; equipped?: boolean }[],
   adeptPowers?: (ExcludableItem & { enabled?: boolean })[],
   maxBonus?: number,
+  activeSpells?: ActiveSpellInput[],
 ): { source: string; value: number }[] {
   const mods: { source: string; value: number }[] = [];
 
@@ -174,6 +178,12 @@ function collectDiceModifiers(
   processExcludable(augmentations || []);
   processExcludable((adeptPowers || []) as ExcludableItem[], (item) => (item as any).enabled === false);
 
+  for (const spell of activeSpells || []) {
+    for (const dm of spell.dice_modifiers || []) {
+      if (dm.attribute === attrKey) mods.push({ source: `Spell: ${spell.name}`, value: dm.value });
+    }
+  }
+
   // For each exclusion group, keep only the best item
   for (const [, groupItems] of groupedItems) {
     groupItems.sort((a, b) => b.totalValue - a.totalValue);
@@ -207,9 +217,10 @@ function buildAttrValueTooltip(
   gear?: SR6Gear[],
   qualities?: SR6Quality[],
   adeptPowers?: SR6AdeptPower[],
+  activeSpells?: ActiveSpellInput[],
 ): string {
   const cap = CORE_ATTR_KEYS.has(key) ? 4 : undefined;
-  const gearMods = collectDiceModifiers(key, qualities || [], augmentations, gear, adeptPowers, cap);
+  const gearMods = collectDiceModifiers(key, qualities || [], augmentations, gear, adeptPowers, cap, activeSpells);
   const src = sources?.[key as keyof typeof sources];
 
   const lines: string[] = [];
@@ -238,6 +249,7 @@ interface Props {
   armor?: SR6Armor[];
   qualities?: SR6Quality[];
   adeptPowers?: SR6AdeptPower[];
+  activeSpells?: ActiveSpellInput[];
   onUpdate?: (attrs: SR6Attributes) => void;
 }
 
@@ -335,8 +347,8 @@ const DERIVED_TOOLTIPS: Record<string, string> = {
   defense_rating: "BOD + armor rating. Used for Damage Resistance tests.",
 };
 
-export function AttributesTab({ attributes, attributeSources, augmentations, gear, armor, qualities = [], adeptPowers }: Props) {
-  const derived = useMemo(() => computeDerived(attributes, armor, qualities, augmentations, gear, adeptPowers), [attributes, armor, qualities, augmentations, gear, adeptPowers]);
+export function AttributesTab({ attributes, attributeSources, augmentations, gear, armor, qualities = [], adeptPowers, activeSpells }: Props) {
+  const derived = useMemo(() => computeDerived(attributes, armor, qualities, augmentations, gear, adeptPowers, activeSpells), [attributes, armor, qualities, augmentations, gear, adeptPowers, activeSpells]);
   const derivedByKey = useMemo(() => Object.fromEntries(derived.map((d) => [d.key, d])), [derived]);
 
   const getDerivedFor = (derivedKey: string): { label: string; value: string | number; valueTooltip?: string } => {
@@ -346,7 +358,7 @@ export function AttributesTab({ attributes, attributeSources, augmentations, gea
       return {
         label: labels[derivedKey] ?? derivedKey,
         value,
-        valueTooltip: buildAttrValueTooltip(derivedKey as keyof SR6Attributes, value, attributeSources, augmentations, gear, qualities, adeptPowers),
+        valueTooltip: buildAttrValueTooltip(derivedKey as keyof SR6Attributes, value, attributeSources, augmentations, gear, qualities, adeptPowers, activeSpells),
       };
     }
     const d = derivedByKey[derivedKey];
@@ -354,7 +366,7 @@ export function AttributesTab({ attributes, attributeSources, augmentations, gea
   };
 
   const thirdColItems: { label: string; value: string | number; valueTooltip?: string; definition?: string }[] = [
-    { label: "Unarmed", value: attributes.unarmed ?? "—", valueTooltip: buildAttrValueTooltip("unarmed", attributes.unarmed, attributeSources, augmentations, gear, qualities, adeptPowers), definition: ATTR_TOOLTIPS.unarmed },
+    { label: "Unarmed", value: attributes.unarmed ?? "—", valueTooltip: buildAttrValueTooltip("unarmed", attributes.unarmed, attributeSources, augmentations, gear, qualities, adeptPowers, activeSpells), definition: ATTR_TOOLTIPS.unarmed },
     ...(derivedByKey.judge_intentions ? [{ label: derivedByKey.judge_intentions.label, value: derivedByKey.judge_intentions.value, valueTooltip: derivedByKey.judge_intentions.tooltip, definition: DERIVED_TOOLTIPS.judge_intentions }] : []),
     ...(derivedByKey.lift_carry ? [{ label: derivedByKey.lift_carry.label, value: derivedByKey.lift_carry.value, valueTooltip: derivedByKey.lift_carry.tooltip, definition: DERIVED_TOOLTIPS.lift_carry }] : []),
     ...(derivedByKey.defense_rating ? [{ label: derivedByKey.defense_rating.label, value: derivedByKey.defense_rating.value, valueTooltip: derivedByKey.defense_rating.tooltip, definition: DERIVED_TOOLTIPS.defense_rating }] : []),
@@ -378,7 +390,7 @@ export function AttributesTab({ attributes, attributeSources, augmentations, gea
                 derivedLabel={derived.label}
                 derivedValue={derived.value}
                 derivedKey={derivedKey}
-                attrValueTooltip={buildAttrValueTooltip(attr.key, attributes[attr.key], attributeSources, augmentations, gear, qualities, adeptPowers)}
+                attrValueTooltip={buildAttrValueTooltip(attr.key, attributes[attr.key], attributeSources, augmentations, gear, qualities, adeptPowers, activeSpells)}
                 derivedValueTooltip={derived.valueTooltip}
                 thirdCol={thirdCol}
               />

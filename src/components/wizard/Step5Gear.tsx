@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -275,15 +275,13 @@ export default function Step5Gear({ state, onChange }: Props) {
   };
 
   return (
-    <div className="space-y-6">
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader className="pb-3">
-          <CardTitle className="font-display text-lg tracking-wide">Gear &amp; Equipment</CardTitle>
-          <p className="text-sm text-muted-foreground">
+    <Card className="border-border/50 bg-card/80">
+      <CardContent className="p-6 space-y-6">
+        <div>
+          <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Gear &amp; Equipment</h4>
+          <p className="text-sm text-muted-foreground mb-3 mt-0">
             Spend your starting nuyen on weapons, armor, gear, augmentations, and vehicles.
           </p>
-        </CardHeader>
-        <CardContent className="space-y-4">
           {/* Budget & Essence badges */}
           <div className="flex gap-3 text-sm font-mono flex-wrap">
             <Badge variant="outline">Budget: {formatNuyen(startingNuyen)}</Badge>
@@ -365,8 +363,8 @@ export default function Step5Gear({ state, onChange }: Props) {
               <Plus className="h-4 w-4 mr-1" /> Add blank item
             </Button>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

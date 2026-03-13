@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
@@ -11,15 +11,13 @@ interface Props {
 
 export default function Step1Concept({ state, onChange }: Props) {
   return (
-    <div className="space-y-6">
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader className="pb-3">
-          <CardTitle className="font-display text-lg tracking-wide">Character Identity</CardTitle>
-          <p className="text-sm text-muted-foreground">
+    <Card className="border-border/50 bg-card/80">
+      <CardContent className="p-6 space-y-6">
+        <div>
+          <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Character Identity</h4>
+          <p className="text-sm text-muted-foreground mb-3 mt-0">
             Who is your runner? Define the basics before diving into the numbers.
           </p>
-        </CardHeader>
-        <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="char-name" className="font-display tracking-wide">Runner Name</Label>
             <Input
@@ -50,8 +48,8 @@ export default function Step1Concept({ state, onChange }: Props) {
               minHeight="min-h-[120px]"
             />
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

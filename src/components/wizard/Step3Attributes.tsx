@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Info, Minus, Plus } from "lucide-react";
@@ -77,33 +77,30 @@ export default function Step3Attributes({ state, onChange }: Props) {
   const edgeTotal = edgeAdj + 1;
 
   return (
-    <div className="space-y-4">
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="font-display text-lg tracking-wide">Attributes</CardTitle>
+    <Card className="border-border/50 bg-card/80">
+      <CardContent className="p-6 space-y-6">
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Attributes</h4>
             <Badge variant={remaining < 0 ? "destructive" : "outline"} className="font-mono">
               {remaining} / {totalPoints} remaining
             </Badge>
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground mb-3">
             Spend attribute points. All start at 1. Only one attribute may be at metatype maximum.
           </p>
-        </CardHeader>
-        <CardContent className="space-y-3">
           {remaining < 0 && (
-            <div className="flex items-center gap-2 text-sm text-amber-400 bg-amber-400/10 rounded-md px-3 py-2 border border-amber-400/20">
+            <div className="flex items-center gap-2 text-sm text-amber-400 bg-amber-400/10 rounded-md px-3 py-2 border border-amber-400/20 mb-3">
               <AlertTriangle className="h-4 w-4 shrink-0" />
               You've overspent attribute points.
             </div>
           )}
           {atMaxCount > 1 && (
-            <div className="flex items-center gap-2 text-sm text-amber-400 bg-amber-400/10 rounded-md px-3 py-2 border border-amber-400/20">
+            <div className="flex items-center gap-2 text-sm text-amber-400 bg-amber-400/10 rounded-md px-3 py-2 border border-amber-400/20 mb-3">
               <AlertTriangle className="h-4 w-4 shrink-0" />
               Only one attribute should be at metatype maximum at creation.
             </div>
           )}
-
           <div className="grid gap-2 sm:grid-cols-2">
             {([["body", "agility", "reaction", "strength"], ["willpower", "logic", "intuition", "charisma"]] as const).map((group, gi) => (
               <div key={gi} className="space-y-2">
@@ -131,17 +128,12 @@ export default function Step3Attributes({ state, onChange }: Props) {
               </div>
             ))}
           </div>
-        </CardContent>
-      </Card>
+        </div>
 
-      {/* Summary Breakdown Table */}
-      <Card className="border-border/50 bg-card/80">
-        <CardHeader className="pb-2">
-          <CardTitle className="font-display text-sm tracking-wide uppercase text-muted-foreground">
-            Attribute Breakdown
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="pt-0">
+        <div className="h-px bg-border" />
+
+        <div>
+          <h4 className="font-display text-sm tracking-wider uppercase text-muted-foreground leading-tight">Attribute Breakdown</h4>
           <TooltipProvider delayDuration={200}>
           <Table>
             <TableHeader>
@@ -201,8 +193,8 @@ export default function Step3Attributes({ state, onChange }: Props) {
             </TableBody>
           </Table>
           </TooltipProvider>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

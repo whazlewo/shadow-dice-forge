@@ -135,7 +135,7 @@ const SAMPLE_CHARACTERS = [
       { id: "sp3", name: "Improved Invisibility", category: "spell", type: "Illusion", drain: "4", duration: "Sustained", range: "LOS", effects: "Subject invisible to normal and technological senses" },
       { id: "sp4", name: "Heal", category: "spell", type: "Health", drain: "3", duration: "Permanent", range: "Touch", effects: "Heals physical damage" },
       { id: "sp5", name: "Detect Life", category: "spell", type: "Detection", drain: "3", duration: "Sustained", range: "Touch (A)", effects: "Detect living beings" },
-      { id: "sp6", name: "Levitate", category: "spell", type: "Manipulation", drain: "4", duration: "Sustained", range: "LOS", effects: "Move target through the air" },
+      { id: "sp6", name: "Levitate", category: "spell", type: "Manipulation", drain: "6", duration: "Sustained", range: "LOS", effects: "Move target through the air" },
     ],
     ranged_weapons: [],
     melee_weapons: [{ id: "mw1", name: "Combat Knife", dv: "2P", ar: "8/2/-/-/-", reach: 0, equipped: true }],

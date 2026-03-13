@@ -24,6 +24,7 @@ import Step4Karma from "@/components/wizard/Step4Karma";
 import Step5Gear from "@/components/wizard/Step5Gear";
 import Step6Magic from "@/components/wizard/Step6Magic";
 import { PRIORITY_TABLE, type PriorityLevel } from "@/data/sr6-reference";
+import type { MagicTraditionId } from "@/data/magic-traditions";
 import { getMysticAdeptSpellSlots } from "@/lib/magic-reference-utils";
 import { SR6_CORE_SKILLS, type SR6Attributes, type SR6Skill, type SR6Spell, type SR6AdeptPower, type WizardQuality, type WizardGearItem, type WizardRangedWeapon, type WizardMeleeWeapon, type WizardArmor as WizardArmorType, type WizardAugmentation, type WizardVehicle, type WizardElectronics, type WizardMiscGear, type AttributeSources, type SR6CoreAttributes } from "@/types/character";
 
@@ -46,6 +47,7 @@ export interface WizardState {
   attributes: Record<string, number>;
   skills: WizardSkill[];
   magicChoice: string | null;
+  magicTradition: MagicTraditionId | null;
   mysticAdeptPowerPoints?: number;
   selectedSpells: SR6Spell[];
   selectedAdeptPowers: SR6AdeptPower[];
@@ -90,6 +92,7 @@ function createInitialState(): WizardState {
       expertise: "",
     })),
     magicChoice: null,
+    magicTradition: null,
     mysticAdeptPowerPoints: 0,
     selectedSpells: [],
     selectedAdeptPowers: [],
@@ -137,6 +140,7 @@ export default function CharacterWizard() {
             if (!loaded.karmaSpendNuyen) loaded.karmaSpendNuyen = 0;
             if (!loaded.knowledgeSkillsFree) loaded.knowledgeSkillsFree = [];
             if (!loaded.karmaSpendKnowledgeSkills) loaded.karmaSpendKnowledgeSkills = [];
+            if (loaded.magicTradition === undefined) loaded.magicTradition = null;
           }
           const steps = getSteps(loaded.magicChoice);
           const stepName = loaded._wizardStepName;
@@ -202,7 +206,10 @@ export default function CharacterWizard() {
         const magicPriority = state.priorities.magic_resonance as PriorityLevel | undefined;
         const magicOptions = magicPriority ? PRIORITY_TABLE[magicPriority]?.magic_resonance ?? [] : [];
         const magicChoiceValid = magicOptions.some((o) => o.type === state.magicChoice);
-        return vals.length === 5 && !!state.metatype && magicChoiceValid;
+        const isSpellcaster =
+          state.magicChoice === "full" || state.magicChoice === "aspected" || state.magicChoice === "mystic_adept";
+        const traditionValid = !isSpellcaster || !!state.magicTradition;
+        return vals.length === 5 && !!state.metatype && magicChoiceValid && traditionValid;
       }
       case 2:
       case 3:
@@ -371,7 +378,7 @@ export default function CharacterWizard() {
           user_id: user.id,
           name: state.characterName || "New Runner",
           metatype: state.metatype,
-          priorities: { ...state.priorities, magic_type: state.magicChoice } as any,
+          priorities: { ...state.priorities, magic_type: state.magicChoice, magic_tradition: state.magicTradition } as any,
           attributes: { ...attrs, essence: 6 - totalEssenceLost } as any,
           attribute_sources: attributeSources as any,
           skills: skills as any,
